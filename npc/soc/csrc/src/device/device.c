@@ -1,6 +1,7 @@
 #include <common.h>
 #include <device/device.h>
 #include <utils.h>
+#include <am.h>
 #include <device/alarm.h>
 #ifndef CONFIG_TARGET_AM
 #include <SDL2/SDL.h>

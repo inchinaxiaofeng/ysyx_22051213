@@ -2,150 +2,137 @@ package units
 
 import chisel3._
 import chisel3.util._
-import chisel3.util.experimental.BoringUtils
 
 import defs._
-import isa._
+import module._
 import module.fu._
-import utils._
 
-class Decoder(implicit val p: MarCoreConfig) extends MarCoreModule with HasInstrType {
-	val io = IO(new Bundle {
-		val in = Flipped(Decoupled(new CtrlFlowIO))
-		val out = Decoupled(new DecodeIO)
-		val isWFI = Output(Bool())
-		val isBranch = Output(Bool())
-	})
+class IDU extends MarCoreModule {
+    val io = IO(new Bundle {
+        val if_id_IO = Flipped(new IF_ID_IO())
+        val id_ex_IO = new ID_EX_IO()
+        val hu_idu = Flipped(new HU_IDU())
+        val forwardDataM = Input(UInt(XLEN.W))
+        val wb = Flipped(new WriteBackIO())
+        val npc = new PC()
+		val mepc = Output(UInt(XLEN.W))
+        val pcSrc = Output(Bool())
+        // Difftest
+        val gpr = Output(new GPRIO())
+		val csrDebug = Output(new CSRDEBUG())
+        // Jump Trace
+        val instr_jump      = Output(UInt(Jump.WIDTH.W))
+        val instr_branch    = Output(UInt(1.W))
+        val instr_pcPlusSrc = Output(UInt(PCPlusSrc.WIDTH.W))
+        val bruSrcA         = Output(UInt(XLEN.W))
+        val bruSrcB         = Output(UInt(XLEN.W))
+        val bruOutC         = Output(UInt(1.W))
+        val bruCtrl         = Output(UInt(BranchCtrl.WIDTH.W))
+    })
 
-	val hasIntr = Wire(Bool()) // 中断信号
-	val instr = io.in.bits.instr // 承接instr
-	val decodeList = ListLookup(instr, Instructions.DecodeDefault, Instructions.DecodeTable)
-	val instrType :: fuType :: fuCtrl :: Nil = 
-		Instructions.DecodeDefault.zip(decodeList).map{ case (instr, dec) => Mux(
-			hasIntr || io.in.bits.exceptionVec(instrPageFault) || io.out.bits.cf.exceptionVec(instrAccessFault),
-			instr, dec
-		)}
-	val isRVC = if (HasCExtension) instr(1, 0) =/= "b11".U else false.B
+    val id = Module(new InstrDecode())
+    val rf = Module(new RegisterFile())
+    val csrf = Module(new CSRFile())
+    val bru = Module(new BRU())
 
-	io.out.bits := DontCare
+    rf.io.instrRegID.rs1 := id.io.instrIO.instrRegID.rs1
+    rf.io.instrRegID.rs2 := id.io.instrIO.instrRegID.rs2
+    rf.io.instrRegID.rd := io.wb.rd
+    rf.io.wdata := io.wb.data
+    rf.io.wen := io.wb.regWrite
 
-	io.out.bits.ctrl.fuType := fuType
-	io.out.bits.ctrl.fuCtrl := fuCtrl
+    csrf.io.csrDst	:= io.wb.csrID
+	csrf.io.csrSrc	:= id.io.instrIO.csrID
+    csrf.io.wen		:= io.wb.csrWrite
+	csrf.io.ecall	:= id.io.ctrlFlowIO.ctrl2IDU.ecall
+	csrf.io.wdata	:= io.wb.data
+	csrf.io.imstatus:= "ha0001800".U
+	io.mepc			:= csrf.io.mepc
 
-	val SrcTypeTable = List(
-		InstrI	-> (SrcType.reg, SrcType.imm),
-		InstrR	-> (SrcType.reg, SrcType.reg),
-		InstrS	-> (SrcType.reg, SrcType.reg),
-		InstrSA	-> (SrcType.reg, SrcType.reg),
-		InstrB	-> (SrcType.reg, SrcType.reg),
-		InstrU	-> (SrcType.pc,  SrcType.imm),
-		InstrJ	-> (SrcType.pc,  SrcType.imm)
-	)
-	val srcAType = LookupTree(instrType, SrcTypeTable.map(p => (p._1, p._2._1)))
-	val srcBType = LookupTree(instrType, SrcTypeTable.map(p => (p._1, p._2._2)))
+    val muxRegData = Wire(new RegData())
 
-	val (rs, rt, rd) = (instr(19, 15), instr(24, 20), instr(11, 7))
-	val rs1		= instr(11, 7)
-	val rs2		= instr(6, 2)
+    muxRegData.rd1 := MuxLookup (
+        io.hu_idu.forwardCtrl.forwardA,
+        0.U(XLEN.W),
+        Seq (
+            ForwardD.RDD    -> rf.io.regData.rd1,
+            ForwardD.ALUM   -> io.forwardDataM,
+            ForwardD.RDW    -> io.wb.data
+        )
+    )
 
-	val rfSrcA = rs // Mux(isRVC, rvc_srcA, rs)
-	val rfSrcB = rt // Mux(isRVC, rvc_srcB, rt)
-	val rfDest = rd // Mux(isRVC, rvc_dest, rd)
-	// 向后传递，用于Forwarding
-	io.out.bits.ctrl.rfSrcA	:= Mux(srcAType === SrcType.pc, 0.U, rfSrcA) 
-	io.out.bits.ctrl.rfSrcB	:= Mux(srcBType === SrcType.reg, rfSrcB, 0.U)
-	io.out.bits.ctrl.rfWen	:= isrfWen(instrType)
-	io.out.bits.ctrl.rfDest := Mux(isrfWen(instrType), rfDest, 0.U) // 如果不需要写入，那么就使用0，以避免出现意外的Forwarding
+    muxRegData.rd2 :=  MuxLookup (
+        io.hu_idu.forwardCtrl.forwardB,
+        0.U(XLEN.W),
+        Seq (
+            ForwardD.RDD    -> rf.io.regData.rd2,
+            ForwardD.ALUM   -> io.forwardDataM,
+            ForwardD.RDW    -> io.wb.data
+        )
+    )
 
-	io.out.bits.data := DontCare // 避免优化
-	val imm = LookupTree(instrType, List(
-		InstrI	-> SignExt(instr(31, 20), XLEN),
-		InstrS	-> SignExt(Cat(instr(31, 25), instr(11, 7)), XLEN),
-		InstrSA	-> SignExt(Cat(instr(31, 25), instr(11, 7)), XLEN),
-		InstrB	-> SignExt(Cat(instr(31), instr(7), instr(30, 25), instr(11, 8), 0.U(1.W)), XLEN),
-		InstrU	-> SignExt(Cat(instr(31, 12), 0.U(1.W)), XLEN),
-		InstrJ	-> SignExt(Cat(instr(31), instr(19, 12), instr(20), instr(30, 21), 0.U(1.W)), XLEN)
-	))
+    id.io.instrIO.instrIn.instr := io.if_id_IO.instr.instr
 
-	io.out.bits.data.imm := imm // Mux(isRVC, immrvc, imm)
+    bru.io.srcA := muxRegData.rd1
+    bru.io.srcB := muxRegData.rd2
+    bru.io.ctrl := id.io.ctrlFlowIO.ctrl2IDU.branchCtrl
 
-	/* 
-	当call时，RV依赖特定的寄存器依赖
-	 */
-	when (fuType === FuType.bru) {
-		def isLink(reg: UInt) = (reg === 1.U || reg === 5.U)
-		when (isLink(rfDest) && fuCtrl === ALUCtrl.jal) { io.out.bits.ctrl.fuCtrl := ALUCtrl.call }
-		when (fuCtrl === ALUCtrl.jal) {
-			when (isLink(rfSrcA)) { io.out.bits.ctrl.fuCtrl := ALUCtrl.ret } 
-			when (isLink(rfDest)) { io.out.bits.ctrl.fuCtrl := ALUCtrl.call }
-		}
-	}
-	// special for LUI
-	io.out.bits.ctrl.srcAType := Mux(instr(6, 0) === "b0110111".U, SrcType.reg, srcAType)
-	io.out.bits.ctrl.srcBType := srcBType
+    val pcPlusSrcData = MuxLookup (
+        id.io.ctrlFlowIO.ctrl2IDU.pcPlusSrc,
+        0.U(XLEN.W),
+        Seq (
+            PCPlusSrc.PC    -> io.if_id_IO.pc.pc,
+            PCPlusSrc.REG   -> muxRegData.rd1
+        )
+    )
 
-	val NoSpecList = Seq(
-		FuType.csr
-	)
+    val branch = (id.io.ctrlFlowIO.ctrl2IDU.branch === Branch.T) && (bru.io.outC.asBool)
 
-	val BlockList = Seq(
-		FuType.mou
-	)
+    when (
+        (id.io.ctrlFlowIO.ctrl2IDU.jump === Jump.JUMP)
+        ||
+        (branch === true.B)
+    ) {
+        io.pcSrc := NPCSrc.JUMP        
+    }.elsewhen (
+        id.io.ctrlFlowIO.ctrl2IDU.jump === Jump.MEPC
+    ) {
+        io.pcSrc := NPCSrc.MEPC
+    }.otherwise {
+        io.pcSrc := NPCSrc.PCP4
+    }
 
-//	io.out.bits.ctrl.isMarCoreTrap := (instr(31, 0) === MarCoreTrap.TRAP) && io.in.valid // 自陷判定，后面有了
-	io.out.bits.ctrl.noSpecExec := NoSpecList.map(j => io.out.bits.ctrl.fuType === j).reduce(_ || _) // 将列表中的每一个元素做比较，如果其中有任一个在列表中被找到，那么设置为true（reduce(_ || _)）
-	io.out.bits.ctrl.isBlocked := (
-		io.out.bits.ctrl.fuType === FuType.lsu && LSUCtrl.isAtom(io.out.bits.ctrl.fuCtrl) ||
-		BlockList.map(j => io.out.bits.ctrl.fuType === j).reduce(_ || _)
-	)
+    io.npc.pc := pcPlusSrcData + id.io.instrIO.instrRegImm.imm
 
-	// output signals
-	io.out.valid := io.in.valid
-	io.in.ready := !io.in.valid || io.out.fire && !hasIntr
-	io.out.bits.cf <> io.in.bits
+    io.id_ex_IO.ctrl2EXU    <> id.io.ctrlFlowIO.ctrl2EXU
+    io.id_ex_IO.ctrl2LSU    <> id.io.ctrlFlowIO.ctrl2LSU
+    io.id_ex_IO.ctrl2WBU    <> id.io.ctrlFlowIO.ctrl2WBU
+    io.id_ex_IO.instrRegID  <> id.io.instrIO.instrRegID
+    io.id_ex_IO.instrRegImm <> id.io.instrIO.instrRegImm
+    io.id_ex_IO.regData     <> muxRegData
+    io.id_ex_IO.pc          <> io.if_id_IO.pc
 
-	val intrVec = WireInit(0.U(12.W)) // 中断的向量
-	BoringUtils.addSink(intrVec, "intrVecIDU") // 向外打包一个信号
-	io.out.bits.cf.intrVec.zip(intrVec.asBools).map{ case(x, y) => x := y } // asBools转化成bool序列
-	hasIntr := intrVec.orR // 每一位或，即有一个为true，则为true
+	io.id_ex_IO.csrData		:= csrf.io.csrData
+	io.id_ex_IO.csrID		:= id.io.instrIO.csrID
 
-	// 我们不需要
-	val vmEnable = WireInit(false.B)
-	BoringUtils.addSink(vmEnable, "DTLBENABLE")
+    io.hu_idu.jump      := id.io.ctrlFlowIO.ctrl2IDU.jump
+    io.hu_idu.branch    := id.io.ctrlFlowIO.ctrl2IDU.branch
+    io.hu_idu.rs1       := id.io.instrIO.instrRegID.rs1
+    io.hu_idu.rs2       := id.io.instrIO.instrRegID.rs2
+	io.hu_idu.csrID		:= id.io.instrIO.csrID
+    io.hu_idu.pcPlusSrc := id.io.ctrlFlowIO.ctrl2IDU.pcPlusSrc
 
-	io.out.bits.cf.exceptionVec.map(_ := false.B)
-	io.out.bits.cf.exceptionVec(illegalInstr) := (instrType === InstrN && !hasIntr) && io.in.valid
-
-	io.out.bits.ctrl.isMarCoreTrap := (instr === MarCoreTrap.TRAP) && io.in.valid
-	io.isWFI := (instr === Priviledged.WFI) && io.in.valid // 冻结芯片
-	io.isBranch := VecInit(RV32I_BRUInstr.table.map(i => i._2.tail(1) === fuCtrl).toIndexedSeq).asUInt.orR &&
-		fuType === FuType.bru
-}
-
-class IDU(implicit val p: MarCoreConfig) extends MarCoreModule with HasInstrType {
-	val io = IO(new Bundle {
-		val in = Vec(2, Flipped(Decoupled(new CtrlFlowIO)))
-		val out = Vec(2, Decoupled(new DecodeIO))
-	})
-
-	val decoder1 = Module(new Decoder)
-	val decoder2 = Module(new Decoder)
-	io.in(0) <> decoder1.io.in
-	io.in(1) <> decoder2.io.in
-	io.out(0) <> decoder1.io.out
-	io.out(1) <> decoder2.io.out
-	if (!EnableMultiIssue) {
-		io.in(1).ready := false.B
-		decoder2.io.in.valid := false.B
-	}
-
-	val checkpoint_id = RegInit(0.U(64.W))
-
-	// debug runahead
-	io.out(0).bits.cf.isBranch := decoder1.io.isBranch
-	io.out(0).bits.cf.runahead_checkpoint_id := checkpoint_id
-	
-	if (!p.FPGAPlatform) {
-		BoringUtils.addSource(WireInit(decoder1.io.isWFI | decoder2.io.isWFI), "isWFI")
-	}
+    // Difftest
+    io.gpr <> rf.gpr
+	io.csrDebug <> csrf.csrDebug
+    // Pipeline Trace
+    io.id_ex_IO.instr <> io.if_id_IO.instr
+    // Jump Trace
+    io.instr_jump       := id.io.ctrlFlowIO.ctrl2IDU.jump
+    io.instr_branch     := id.io.ctrlFlowIO.ctrl2IDU.branch
+    io.instr_pcPlusSrc  := id.io.ctrlFlowIO.ctrl2IDU.pcPlusSrc
+    io.bruSrcA          := muxRegData.rd1
+    io.bruSrcB          := muxRegData.rd2
+    io.bruOutC          := bru.io.outC
+    io.bruCtrl          := id.io.ctrlFlowIO.ctrl2IDU.branchCtrl
 }

@@ -6,28 +6,26 @@ import chisel3.util._
 import axi.axi4_lite._
 import defs._
 
-import module._
-
 // ArbiterIO: Same name with chisel3.util.ArbiterIO
-//class Arbiter_IO extends MarCoreBundle {
-//    val AR  = new AXI4_LiteAR(32)
-//	val R   = new AXI4_LiteR(64)
-//}
-//
-//class SRAMIO extends MarCoreBundle {
-//    val AR  = Flipped(new AXI4_LiteAR(32))
-//	val R   = Flipped(new AXI4_LiteR(64))
-//	val AW  = Flipped(new AXI4_LiteAW(32))
-//	val W	= Flipped(new AXI4_LiteW(64))
-//	val B	= Flipped(new AXI4_LiteB())
-//}
+class Arbiter_IO extends MarCoreBundle {
+    val AR  = new AXI4_LiteAR(32)
+	val R   = new AXI4_LiteR(64)
+}
 
-// class CtrlFlowIO extends MarCoreBundle {
-//     val ctrl2EXU = new Ctrl2EXU()
-//     val ctrl2WBU = new Ctrl2WBU()
-//     val ctrl2LSU = new Ctrl2LSU()
-//     val ctrl2IDU = new Ctrl2IDU()
-// }
+class SRAMIO extends MarCoreBundle {
+    val AR  = Flipped(new AXI4_LiteAR(32))
+	val R   = Flipped(new AXI4_LiteR(64))
+	val AW  = Flipped(new AXI4_LiteAW(32))
+	val W	= Flipped(new AXI4_LiteW(64))
+	val B	= Flipped(new AXI4_LiteB())
+}
+
+class CtrlFlowIO extends MarCoreBundle {
+    val ctrl2EXU = new Ctrl2EXU()
+    val ctrl2WBU = new Ctrl2WBU()
+    val ctrl2LSU = new Ctrl2LSU()
+    val ctrl2IDU = new Ctrl2IDU()
+}
 
 class InstrIO extends MarCoreBundle {
     val instrIn		= Flipped(new Instr())
@@ -36,111 +34,15 @@ class InstrIO extends MarCoreBundle {
 	val csrID		= Output(UInt(CSRIDWidth.W))
 }
 
-//-------------------- new ---------------------------
-
-class ForwardIO extends MarCoreBundle {
-	val valid = Output(Bool())
-	val wb = new WriteBackIO
-	val fuType = Output(FuType())
+// EX
+class EXIO(outputWidth: Int) extends MarCoreBundle {
+    val srcA = Input(UInt(XLEN.W))
+    val srcB = Input(UInt(XLEN.W))
+    val ctrl = Input(UInt(ALUCtrl.WIDTH.W))
+    val outC = Output(UInt(outputWidth.W))
 }
-
-class MMUIO extends MarCoreBundle {
-	val priviledgeMode = Input(UInt(2.W))
-	val status_sum = Input(Bool())
-	val status_mxr = Input(Bool())
-
-	val loadPF = Output(Bool())
-	val storePF = Output(Bool())
-	val addr = Output(UInt(VAddrBits.W))
-
-	def isPF() = loadPF || storePF
-}
-
-class MemMMUIO extends MarCoreBundle {
-	val imem = new MMUIO
-	val dmem = new MMUIO
-}
-
-class FuCtrlIO extends MarCoreBundle {
-	val in = Flipped(Decoupled(new Bundle {
-		val srcA = Output(UInt(XLEN.W))
-		val srcB = Output(UInt(XLEN.W))
-		val ctrl = Output(FuCtrl())
-	}))
-	val out = Decoupled(Output(UInt(XLEN.W)))
-}
-
-class RedirectIO extends MarCoreBundle {
-	val target = Output(UInt(VAddrBits.W))
-	val rtype = Output(UInt(1.W)) // 1: branch mispredict: only need to flush frontend. 0: others: flush the whole pipeline
-	val valid = Output(Bool())
-}
-
-class MispredictRecIO extends MarCoreBundle {
-    val redirect = new RedirectIO
-    val valid = Output(Bool())
-    val checkpoint = Output(UInt(brTagWidth.W))
-    val prfidx = Output(UInt(prfAddrWidth.W))
-}
-
-class CtrlFlowIO extends MarCoreBundle {
-	val instr = Output(UInt(64.W))
-	val pc = Output(UInt(VAddrBits.W))
-	val pnpc = Output(UInt(VAddrBits.W)) // Predicted Next Program Counter
-	val redirect = new RedirectIO
-	val exceptionVec = Output(Vec(16, Bool()))
-	val intrVec = Output(Vec(12, Bool()))
-	val brIdx = Output(UInt(4.W))
-	val isRVC = Output(Bool())
-	val crossPageIPFFix = Output(Bool())
-	val runahead_checkpoint_id = Output(UInt(64.W))
-	val isBranch = Output(Bool())
-}
-
-class CtrlSignalIO extends MarCoreBundle {
-	val srcAType = Output(SrcType())
-	val srcBType = Output(SrcType())
-	val fuType = Output(FuType())
-	val fuCtrl = Output(FuCtrl())
-	val rfSrcA = Output(UInt(5.W))
-	val rfSrcB = Output(UInt(5.W))
-	val rfWen = Output(Bool())
-	val rfDest = Output(UInt(5.W))
-	val isMarCoreTrap = Output(Bool())
-	val isSrcAForward = Output(Bool())
-	val isSrcBForward = Output(Bool())
-	val noSpecExec = Output(Bool())
-	val isBlocked = Output(Bool())
-}
-
-class DataSrcIO extends MarCoreBundle {
-	val srcA = Output(UInt(XLEN.W))
-	val srcB = Output(UInt(XLEN.W))
-	val imm  = Output(UInt(XLEN.W))
-}
-
-class DecodeIO extends MarCoreBundle {
-	val cf = new CtrlFlowIO
-	val ctrl = new CtrlSignalIO
-	val data = new DataSrcIO
-}
-
-class WriteBackIO extends MarCoreBundle {
-	val rfWen = Output(Bool())
-	val rfDest = Output(UInt(5.W))
-	val rfData = Output(UInt(XLEN.W))
-}
-
-class CommitIO extends MarCoreBundle {
-	val decode = new DecodeIO
-	val isMMIO = Output(Bool())
-	val intrNO = Output(UInt(XLEN.W))
-	val commits = Output(Vec(FuType.num, UInt(XLEN.W)))
-}
-
-//------------------------ end -----------------------
-
 // Register
+
 class RFIO extends MarCoreBundle {
     val instrRegID	= Flipped(new InstrRegID())
     val wdata		= Input(UInt(XLEN.W))
@@ -161,23 +63,23 @@ class CSRIO extends MarCoreBundle {
 }
 
 // Ctrl 
-// class Ctrl2EXU extends MarCoreBundle {
-//     val aluSrcA = Output(UInt(ALUSrcA.WIDTH.W))
-//     val aluSrcB = Output(UInt(ALUSrcB.WIDTH.W))
-//     val aluCtrl = Output(UInt(ALUCtrl.WIDTH.W))}
-// class Ctrl2WBU extends MarCoreBundle {
-//     val regWrite = Output(Bool())
-//     val csrWrite = Output(Bool())
-//     val memtoReg = Output(Bool())}
-// class Ctrl2LSU extends MarCoreBundle {
-//     val memRW = Output(UInt(MemRW.WIDTH.W))
-//     val memWidth = Output(UInt(MemWidth.WIDTH.W))}
-// class Ctrl2IDU extends MarCoreBundle {
-//     val branchCtrl = Output(UInt(BranchCtrl.WIDTH.W))
-//     val branch = Output(Bool())
-//     val jump = Output(UInt(Jump.WIDTH.W))
-//     val ecall = Output(Bool())
-//     val pcPlusSrc = Output(Bool())}
+class Ctrl2EXU extends MarCoreBundle {
+    val aluSrcA = Output(UInt(ALUSrcA.WIDTH.W))
+    val aluSrcB = Output(UInt(ALUSrcB.WIDTH.W))
+    val aluCtrl = Output(UInt(ALUCtrl.WIDTH.W))}
+class Ctrl2WBU extends MarCoreBundle {
+    val regWrite = Output(Bool())
+    val csrWrite = Output(Bool())
+    val memtoReg = Output(Bool())}
+class Ctrl2LSU extends MarCoreBundle {
+    val memRW = Output(UInt(MemRW.WIDTH.W))
+    val memWidth = Output(UInt(MemWidth.WIDTH.W))}
+class Ctrl2IDU extends MarCoreBundle {
+    val branchCtrl = Output(UInt(BranchCtrl.WIDTH.W))
+    val branch = Output(Bool())
+    val jump = Output(UInt(Jump.WIDTH.W))
+    val ecall = Output(Bool())
+    val pcPlusSrc = Output(Bool())}
 
 // Instr
 class Instr extends MarCoreBundle {
@@ -199,16 +101,16 @@ class RegData extends MarCoreBundle {
     val rd2 = Output(UInt(XLEN.W))}
 
 // Data Forwarding
-//class ForwardIO(width: Int) extends MarCoreBundle {
-//    val forwardA = Output(UInt(width.W))
-//    val forwardB = Output(UInt(width.W))}
+class ForwardIO(width: Int) extends MarCoreBundle {
+    val forwardA = Output(UInt(width.W))
+    val forwardB = Output(UInt(width.W))}
 
-//class WriteBackIO extends MarCoreBundle {
-//    val data		= Output(UInt(XLEN.W))
-//    val rd			= Output(UInt(RegIDWidth.W))
-//	val csrID		= Output(UInt(CSRIDWidth.W))
-//    val regWrite 	= Output(Bool())
-//	val csrWrite	= Output(Bool())}
+class WriteBackIO extends MarCoreBundle {
+    val data		= Output(UInt(XLEN.W))
+    val rd			= Output(UInt(RegIDWidth.W))
+	val csrID		= Output(UInt(CSRIDWidth.W))
+    val regWrite 	= Output(Bool())
+	val csrWrite	= Output(Bool())}
 
 class GPRIO extends MarCoreBundle {
     val zero = Output(UInt(XLEN.W))
@@ -252,35 +154,35 @@ class CSRDEBUG extends MarCoreBundle {
 	val mcause	= Output(UInt(XLEN.W))
 }
 
-//class HazardDebugIO extends MarCoreBundle {
-//    val stallF = Output(Bool())
-//    val stallD = Output(Bool())
-//    val flushE = Output(Bool())
-//    val hu_exu_ctrl = new ForwardIO(ForwardE.WIDTH)
-//    val hu_idu_ctrl = new ForwardIO(ForwardD.WIDTH)
-//}
+class HazardDebugIO extends MarCoreBundle {
+    val stallF = Output(Bool())
+    val stallD = Output(Bool())
+    val flushE = Output(Bool())
+    val hu_exu_ctrl = new ForwardIO(ForwardE.WIDTH)
+    val hu_idu_ctrl = new ForwardIO(ForwardD.WIDTH)
+}
 
-//class DebugIO extends MarCoreBundle {
-//    val instr = new Instr()
-//    val commit = new PC()
-//    val dynamic = new PC()
-//    
-//    val hazard = new HazardDebugIO()
-//
-//    val probe = new ProbeIO(XLEN)
-//    val alu_data_E = new ProbeIO(XLEN)
-//    val alu_data_W = new ProbeIO(XLEN)
-//    val forwardA = new ProbeIO(ForwardE.WIDTH)
-//    val forwardB = new ProbeIO(ForwardE.WIDTH)
-//    val forward_idu_A = new ProbeIO(ForwardD.WIDTH)
-//    val forward_idu_B = new ProbeIO(ForwardD.WIDTH)
-//    val alu_srcA = new ProbeIO(XLEN)
-//    val alu_srcB = new ProbeIO(XLEN)
-//    val rdD = new ProbeIO(RegIDWidth)
-//    val rdE = new ProbeIO(RegIDWidth)
-//    val rdM = new ProbeIO(RegIDWidth)
-//    val rdW = new ProbeIO(RegIDWidth)
-//}
+class DebugIO extends MarCoreBundle {
+    val instr = new Instr()
+    val commit = new PC()
+    val dynamic = new PC()
+    
+    val hazard = new HazardDebugIO()
+
+    val probe = new ProbeIO(XLEN)
+    val alu_data_E = new ProbeIO(XLEN)
+    val alu_data_W = new ProbeIO(XLEN)
+    val forwardA = new ProbeIO(ForwardE.WIDTH)
+    val forwardB = new ProbeIO(ForwardE.WIDTH)
+    val forward_idu_A = new ProbeIO(ForwardD.WIDTH)
+    val forward_idu_B = new ProbeIO(ForwardD.WIDTH)
+    val alu_srcA = new ProbeIO(XLEN)
+    val alu_srcB = new ProbeIO(XLEN)
+    val rdD = new ProbeIO(RegIDWidth)
+    val rdE = new ProbeIO(RegIDWidth)
+    val rdM = new ProbeIO(RegIDWidth)
+    val rdW = new ProbeIO(RegIDWidth)
+}
 
 class JumpTrace extends MarCoreBundle {
     val dynamic         = new PC()

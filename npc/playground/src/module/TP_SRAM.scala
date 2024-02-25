@@ -3,7 +3,7 @@ package module
 import chisel3._
 import chisel3.util._
 
-import bus.axi4._
+import axi.axi4_lite
 import defs._
 
 // Can't Change In YSYX
@@ -20,7 +20,7 @@ class MEM extends BlackBox {
 }
 
 class TP_SRAM extends MarCoreModule {
-	val io	= IO(Flipped(new AXI4Lite))
+	val io	= IO(new SRAMIO())
 
 	val mem	= Module(new MEM())
 	// Used to simulate SRAM delay, OK == run
@@ -29,34 +29,40 @@ class TP_SRAM extends MarCoreModule {
 	val rWriteStatuOK = RegInit(false.B)
 	val rReadStatuOK  = RegInit(false.B)
 	/* Just push the data to SRAM and use enable signal control */
-	mem.io.iReadAddr := io.ar.bits.addr
-	mem.io.iWriteAddr := io.aw.bits.addr
-	mem.io.iWriteData := io.w.bits.data
-	mem.io.iByteMask := io.w.bits.strb
+	mem.io.iReadAddr := io.AR.m2sARaddr
+	mem.io.iWriteAddr := io.AW.m2sAWaddr
+	mem.io.iWriteData := io.W.m2sWdata
+	mem.io.iByteMask := io.W.m2sWstrb
+	io.R.s2mRdata := mem.io.oReadData
 
 //	rReadBuilded	:= Mux(rReadBuilding,  false.B, Mux())
 //	rWriteBuilded	:= Mux(rWriteBuilding, false.B, Mux())
 
 	/* Write */
 	// Immediately ready
-	io.w.ready	:= io.w.valid
-	io.aw.ready	:= io.aw.valid
+	io.W.s2mWready		:= io.W.m2sWvalid
+	io.AW.s2mAWready	:= io.AW.m2sAWvalid
 	rWriteStatuOK := Mux(
-		io.aw.valid && io.w.valid && !rWriteStatuOK,
+		io.AW.m2sAWvalid &&
+		io.W.m2sWvalid &&
+		!rWriteStatuOK,
 		true.B, false.B
 	) // All valid and not reading/writting, start transformate
 	mem.io.iWen := rWriteStatuOK
-	io.b.valid := rWriteStatuOK
+	io.B.s2mBvalid := rWriteStatuOK
 	// if not ready, anything can be resp
-	io.b.bits.apply(resp = Mux(io.b.ready, AXI4Parameters.RESP_OKAY, AXI4Parameters.RESP_SLVERR))
+	io.B.s2mBresp := Mux(io.B.m2sBready, 0.U, 2.U)
 
 	/* Read */
 	// Immediately ready
-	io.ar.ready := io.ar.valid
-	rReadStatuOK := Mux(io.ar.valid && !rReadStatuOK, true.B, false.B)
+	io.AR.s2mARready := io.AR.m2sARvalid
+	rReadStatuOK := Mux(
+		io.AR.m2sARvalid &&
+		!rReadStatuOK,
+		true.B, false.B
+	)
 	mem.io.iRen := rReadStatuOK
-	io.r.valid := rReadStatuOK
+	io.R.s2mRvalid := rReadStatuOK
 	// if not ready, anything can be resp
-	io.r.bits.apply(data = mem.io.oReadData, resp =
-		Mux(io.r.ready, AXI4Parameters.RESP_OKAY, AXI4Parameters.RESP_SLVERR))
+	io.R.s2mRresp := Mux(io.R.m2sRready, 0.U, 2.U)
 }
