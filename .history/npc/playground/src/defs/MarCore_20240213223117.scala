@@ -11,30 +11,30 @@ import module.fu._
 import module.ooo.HasBackendConst
 
 trait HasColorfulLog {
-	val blackFG		= "" //"\u001b[30m"
-	val redFG		= "" //"\u001b[31m"
-	val greenFG		= "" //"\u001b[32m"
-	val yellowFG	= "" //"\u001b[33m"
-	val blueFG		= "" //"\u001b[34m"
-	val magentaFG	= "" //"\u001b[35m"
-	val cyanFG		= "" //"\u001b[36m"
-	val whiteFG		= "" //"\u001b[37m"
+	val blackFG		= "\u001b[30m"
+	val redFG		= "\u001b[31m"
+	val greenFG		= "\u001b[32m"
+	val yellowFG	= "\u001b[33m"
+	val blueFG		= "\u001b[34m"
+	val magentaFG	= "\u001b[35m"
+	val cyanFG		= "\u001b[36m"
+	val whiteFG		= "\u001b[37m"
 
-	val blackBG		= "" //"\u001b[40m"
-	val redBG		= "" //"\u001b[41m"
-	val greenBG		= "" //"\u001b[42m"
-	val yellowBG	= "" //"\u001b[43m"
-	val blueBG		= "" //"\u001b[44m"
-	val magentaBG	= "" //"\u001b[45m"
-	val cyanBG		= "" //"\u001b[46m"
-	val whiteBG		= "" //"\u001b[47m"
+	val blackBG		= "\u001b[40m"
+	val redBG		= "\u001b[41m"
+	val greenBG		= "\u001b[42m"
+	val yellowBG	= "\u001b[43m"
+	val blueBG		= "\u001b[44m"
+	val magentaBG	= "\u001b[45m"
+	val cyanBG		= "\u001b[46m"
+	val whiteBG		= "\u001b[47m"
 
-	val resetColor	= "" //"\u001b[0m" // reset all set
-	val bold		= "" //"\u001b[1m"
-	val italic		= "" //"\u001b[3m"
-	val underline	= "" //"\u001b[4m"
-	val blink		= "" //"\u001b[5m"
-	val reverse		= "" //"\u001b[7m"
+	val resetColor	= "\u001b[0m" // reset all set
+	val bold		= "\u001b[1m"
+	val italic		= "\u001b[3m"
+	val underline	= "\u001b[4m"
+	val blink		= "\u001b[5m"
+	val reverse		= "\u001b[7m"
 }
 
 trait HasMarCoreParameter {
