@@ -23,7 +23,7 @@ object LogUtil {
 //		val enableDisplay = WireInit(false.B)
 //		BoringUtils.addSink(enableDisplay, "DISPLAY_ENABLE")
 //		enableDisplay
-		false.B
+		true.B
 	}
 
 	def apply(debugLevel: LogLevel)
