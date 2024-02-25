@@ -5,7 +5,7 @@ import top._
 
 object Elaborate extends App {
   def top = new SimTop()
-  val useMFC = true // use MLIR-based firrtl compiler
+  val useMFC = false // use MLIR-based firrtl compiler
   val generator = Seq(chisel3.stage.ChiselGeneratorAnnotation(() => top))
   // println(generator)
   if (useMFC) {

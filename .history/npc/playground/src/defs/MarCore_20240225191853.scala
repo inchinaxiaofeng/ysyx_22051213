@@ -10,8 +10,36 @@ import top.Settings
 import module.fu._
 import module.ooo.HasBackendConst
 
+trait HasMonotonousLog {
+	val blackFG		= ""
+	val redFG		= ""
+	val greenFG		= ""
+	val yellowFG	= ""
+	val blueFG		= ""
+	val magentaFG	= ""
+	val cyanFG		= ""
+	val whiteFG		= ""
+
+	val blackBG		= ""
+	val redBG		= ""
+	val greenBG		= ""
+	val yellowBG	= ""
+	val blueBG		= ""
+	val magentaBG	= ""
+	val cyanBG		= ""
+	val whiteBG		= ""
+
+	val resetColor	= "" // reset all set
+	val bold		= ""
+	val italic		= ""
+	val underline	= ""
+	val blink		= ""
+	val reverse		= ""
+
+}
+
 trait HasColorfulLog {
-	val enable = !Settings.get("IsElaborating")
+	val Enable = !Settings.get("IsElaborating")
 	val blackFG		= if (enable) "\u001b[30m" else ""
 	val redFG		= if (enable) "\u001b[31m" else ""
 	val greenFG		= if (enable) "\u001b[32m" else ""

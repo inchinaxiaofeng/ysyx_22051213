@@ -14,7 +14,7 @@ object DefaultSettings {
 		"EnableTrace"				-> true,
 		"EnableRVC"					-> false,
 
-		"IsElaborating"				-> true // If not set true when Elaborating, firtool will fail and exit with code 134.
+		"IsElaborating"
 	)
 }
 

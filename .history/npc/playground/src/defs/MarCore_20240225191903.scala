@@ -10,8 +10,10 @@ import top.Settings
 import module.fu._
 import module.ooo.HasBackendConst
 
+
+
 trait HasColorfulLog {
-	val enable = !Settings.get("IsElaborating")
+	val Enable = !Settings.get("IsElaborating")
 	val blackFG		= if (enable) "\u001b[30m" else ""
 	val redFG		= if (enable) "\u001b[31m" else ""
 	val greenFG		= if (enable) "\u001b[32m" else ""

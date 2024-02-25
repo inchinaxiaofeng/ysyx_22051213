@@ -10,6 +10,34 @@ import top.Settings
 import module.fu._
 import module.ooo.HasBackendConst
 
+trait HasMonotonousLog {
+	val blackFG		= ""
+	val redFG		= ""
+	val greenFG		= ""
+	val yellowFG	= ""
+	val blueFG		= ""
+	val magentaFG	= ""
+	val cyanFG		= ""
+	val whiteFG		= ""
+
+	val blackBG		= ""
+	val redBG		= ""
+	val greenBG		= ""
+	val yellowBG	= ""
+	val blueBG		= ""
+	val magentaBG	= ""
+	val cyanBG		= ""
+	val whiteBG		= ""
+
+	val resetColor	= "" // reset all set
+	val bold		= ""
+	val italic		= ""
+	val underline	= ""
+	val blink		= ""
+	val reverse		= ""
+
+}
+
 trait HasColorfulLog {
 	val enable = !Settings.get("IsElaborating")
 	val blackFG		= if (enable) "\u001b[30m" else ""
@@ -17,25 +45,25 @@ trait HasColorfulLog {
 	val greenFG		= if (enable) "\u001b[32m" else ""
 	val yellowFG	= if (enable) "\u001b[33m" else ""
 	val blueFG		= if (enable) "\u001b[34m" else ""
-	val magentaFG	= if (enable) "\u001b[35m" else ""
-	val cyanFG		= if (enable) "\u001b[36m" else ""
-	val whiteFG		= if (enable) "\u001b[37m" else ""
+	val magentaFG	= if (enable) "\u001b[35m"
+	val cyanFG		= if (enable) "\u001b[36m"
+	val whiteFG		= if (enable) "\u001b[37m"
 
-	val blackBG		= if (enable) "\u001b[40m" else ""
-	val redBG		= if (enable) "\u001b[41m" else ""
-	val greenBG		= if (enable) "\u001b[42m" else ""
-	val yellowBG	= if (enable) "\u001b[43m" else ""
-	val blueBG		= if (enable) "\u001b[44m" else ""
-	val magentaBG	= if (enable) "\u001b[45m" else ""
-	val cyanBG		= if (enable) "\u001b[46m" else ""
-	val whiteBG		= if (enable) "\u001b[47m" else ""
+	val blackBG		= if (enable) "\u001b[40m"
+	val redBG		= if (enable) "\u001b[41m"
+	val greenBG		= if (enable) "\u001b[42m"
+	val yellowBG	= if (enable) "\u001b[43m"
+	val blueBG		= if (enable) "\u001b[44m"
+	val magentaBG	= if (enable) "\u001b[45m"
+	val cyanBG		= if (enable) "\u001b[46m"
+	val whiteBG		= if (enable) "\u001b[47m"
 
-	val resetColor	= if (enable) "\u001b[0m" else "" // reset all set
-	val bold		= if (enable) "\u001b[1m" else ""
-	val italic		= if (enable) "\u001b[3m" else ""
-	val underline	= if (enable) "\u001b[4m" else ""
-	val blink		= if (enable) "\u001b[5m" else ""
-	val reverse		= if (enable) "\u001b[7m" else ""
+	val resetColor	= if (enable) "\u001b[0m" // reset all set
+	val bold		= if (enable) "\u001b[1m"
+	val italic		= if (enable) "\u001b[3m"
+	val underline	= if (enable) "\u001b[4m"
+	val blink		= if (enable) "\u001b[5m"
+	val reverse		= if (enable) "\u001b[7m"
 }
 
 trait HasMarCoreParameter {
@@ -71,7 +99,7 @@ abstract class MarCoreBundle extends Bundle with HasMarCoreParameter with HasMar
 case class MarCoreConfig (
 	FPGAPlatform: Boolean = true,
 	EnableDebug: Boolean = Settings.get("EnableDebug"),
-	EnhancedLog: Boolean = true,
+	EnhancedLog: Boolean = true
 )
 
 trait __HasFU {
