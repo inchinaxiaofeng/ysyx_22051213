@@ -5,8 +5,8 @@ import chisel3.util._
 
 object MaskData { // 用于选择性的更新oldData和newData的位，并返回新的结果。这种操作通常用于处理和更新寄存器的数据
     def apply(oldData: UInt, newData: UInt, fullmask: UInt) = {
-//        require(oldData.getWidth == newData.getWidth) // 类似于assert检查
-//        require(oldData.getWidth == fullmask.getWidth)
+        require(oldData.getWidth == newData.getWidth) // 类似于assert检查
+        require(oldData.getWidth == fullmask.getWidth)
         (newData & fullmask) | (oldData & ~fullmask)
     }
 }
