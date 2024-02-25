@@ -4,6 +4,7 @@ import chisel3._
 import chisel3.util._
 
 import defs._
+import module.fu.CSRCtrl
 
 object RVZicsrInstr extends HasInstrType {
 	def CSRRW	= BitPat("b????????????_?????_001_?????_1110011")
@@ -14,11 +15,11 @@ object RVZicsrInstr extends HasInstrType {
 	def CSRRCI	= BitPat("b????????????_?????_111_?????_1110011")
 
 	val table = Array (
-		CSRRW	-> List(InstrZicsr, ALUCtrl.ADD,  ALUSrcA.REG, ALUSrcB.P0,  RegWrite.T, CSRWrite.T, MemtoReg.F, MemRW.NONE, MemWidth.NOCARE, BranchCtrl.NOCARE, PCPlusSrc.NOCARE, Branch.F, Jump.NONE),
-		CSRRS	-> List(InstrZicsr, ALUCtrl.OR,   ALUSrcA.REG, ALUSrcB.CSR, RegWrite.T, CSRWrite.T, MemtoReg.F, MemRW.NONE, MemWidth.NOCARE, BranchCtrl.NOCARE, PCPlusSrc.NOCARE, Branch.F, Jump.NONE),
-		CSRRC	-> List(InstrZicsr, ALUCtrl.NAND, ALUSrcA.REG, ALUSrcB.CSR, RegWrite.T, CSRWrite.T, MemtoReg.F, MemRW.NONE, MemWidth.NOCARE, BranchCtrl.NOCARE, PCPlusSrc.NOCARE, Branch.F, Jump.NONE),
-		CSRRWI	-> List(InstrZicsr, ALUCtrl.ADD,  ALUSrcA.P0,  ALUSrcB.IMM, RegWrite.T, CSRWrite.T, MemtoReg.F, MemRW.NONE, MemWidth.NOCARE, BranchCtrl.NOCARE, PCPlusSrc.NOCARE, Branch.F, Jump.NONE),
-		CSRRSI	-> List(InstrZicsr, ALUCtrl.OR,   ALUSrcA.CSR, ALUSrcB.IMM, RegWrite.T, CSRWrite.T, MemtoReg.F, MemRW.NONE, MemWidth.NOCARE, BranchCtrl.NOCARE, PCPlusSrc.NOCARE, Branch.F, Jump.NONE),
-		CSRRCI	-> List(InstrZicsr, ALUCtrl.NAND, ALUSrcA.CSR, ALUSrcB.IMM, RegWrite.T, CSRWrite.T, MemtoReg.F, MemRW.NONE, MemWidth.NOCARE, BranchCtrl.NOCARE, PCPlusSrc.NOCARE, Branch.F, Jump.NONE)
+		CSRRW	-> List(InstrI, FuType.csr, CSRCtrl.wrt),
+		CSRRS	-> List(InstrI, FuType.csr, CSRCtrl.set),
+		CSRRC	-> List(InstrI, FuType.csr, CSRCtrl.clr),
+		CSRRWI	-> List(InstrI, FuType.csr, CSRCtrl.wrti),
+		CSRRSI	-> List(InstrI, FuType.csr, CSRCtrl.seti),
+		CSRRCI	-> List(InstrI, FuType.csr, CSRCtrl.clri)
 	)
 }

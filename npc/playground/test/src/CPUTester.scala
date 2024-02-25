@@ -1,4 +1,5 @@
 import chisel3._
+import chisel3.util._
 import chiseltest._
 import chisel3.experimental.BundleLiterals._
 
@@ -9,6 +10,7 @@ import module.fu._
 import defs._
 import units._
 import top._
+import bus.axi4._
 
 /**
   * This is a trivial example of how to run this Specification
@@ -22,108 +24,183 @@ import top._
   * }}}
   */
 object InstrDecodeSpec extends ChiselUtestTester {
-  val tests = Tests {
-//    test("InstrDecode") {
-//      testCircuit(new InstrDecode()) {
-//        dut =>
-//            dut.io.instrIO.instrIn.instr.poke("xffc1_0113".U)
-            // dut.clock.step(1)
-//            dut.io.instrIO.instrRegID.rd.expect("b00001".U)
-//            dut.io.instrIO.instrRegImm.imm.expect("xFFFF_FFFF_FFFF_FFFC".U)
-            // dut.io.instrIO.instrRegID.rs1.expect("")
-            // dut.io.instrIO.instrRegID.rs2.expect("")
-            // dut.io.instrIO.instrRegImm.imm.expect("")
-            // dut.io.ctrlFlowIO.ctrl2EXU.aluSrcA.expect("")
-
-//      }
-//    }
-//    test("ALU") {
-//      testCircuit(new ALU()) {
-//        dut =>
-//          dut.io.ctrl.poke(ALUCtrl.ADD)
-//          dut.io.srcA.poke("x0000_0000_8000_9000".U)
-//          dut.io.srcB.poke("xFFFF_FFFF_FFFF_FFF0".U)
-//          dut.io.outC.expect("x80008ff0".U)
-//      }
-//    }
-//    test("EXU") {
-//      testCircuit(new EXU()) {
-//        dut => 
-//          dut.io.id_ex_IO.instrRegImm.imm.poke("xFFFF_FFFF_FFFF_FFF0".U)
-//          dut.io.id_ex_IO.regData.rd1.poke("x0000_0000_8000_9000".U)
-//          dut.io.id_ex_IO.regData.rd2.poke("x2".U)
-//          dut.io.id_ex_IO.instrRegID.rs1.poke("x2".U)
-//          dut.io.id_ex_IO.instrRegID.rd.poke("x2".U)
-//          dut.io.id_ex_IO.ctrl2EXU.aluCtrl.poke(ALUCtrl.ADD)
-//          dut.io.id_ex_IO.ctrl2EXU.aluSrcB.poke(ALUSrcB.IMM)
-//          dut.io.id_ex_IO.ctrl2EXU.aluSrcA.poke(ALUSrcA.REG)
-//          dut.io.hu_exu.forwardCtrl.forwardA.poke(ForwardE.RDE)
-//          dut.io.hu_exu.forwardCtrl.forwardB.poke(ForwardE.RDE)
-//          // println(dut.io.ex_ls_IO.aluOut.asUInt)
-//          dut.io.ex_ls_IO.aluOut.expect("x0000_0000_8000_8ff0".U)
-//          dut.io.id_ex_IO.ctrl2EXU.aluCtrl.poke(ALUCtrl.ADD)
-//          dut.io.id_ex_IO.ctrl2EXU.aluSrcB.poke(ALUSrcB.REG)
-//          dut.io.id_ex_IO.ctrl2EXU.aluSrcA.poke(ALUSrcA.REG)
-//          dut.io.ex_ls_IO.aluOut.expect("x3".U)
-//          dut.io.id_ex_IO.ctrl2EXU.aluSrcB.poke(ALUSrcB.P4)
-//          dut.io.id_ex_IO.ctrl2EXU.aluSrcA.poke(ALUSrcA.P0)
-//          dut.io.ex_ls_IO.aluOut.expect("x4".U)
-//      }
-//    }
-    test("ALU") {
-      testCircuit(new ALU()) {
-        dut => 
-          dut.io.srcA.poke("x0000000000000000".U)
-          dut.io.srcB.poke("x0000000000000001".U)
-          dut.io.ctrl.poke(ALUCtrl.SLTU)
-          println(dut.io.outC.peek())
-      }
-    }
-
-    test("IDU") {
-      testCircuit(new IDU()) {
-        dut =>
-          dut.io.if_id_IO.instr.instr.poke("xfccf6ee3".U)
-          println("ALUCtrl: " + dut.io.id_ex_IO.ctrl2EXU.aluCtrl.peek())          
-          println("PCSrc:" + dut.io.pcSrc.peek())
-          println("NPC:" + dut.io.npc.peek())
-          println("BruSrcA: " + dut.io.bruSrcA.peek())
-          println("BruSrcB: " + dut.io.bruSrcB.peek())
-          println("BruOutC: " + dut.io.bruOutC.peek())
-          println("Instr_Branch " + dut.io.instr_branch.peek())
-          println("Instr_PCPlusSrc " + dut.io.instr_pcPlusSrc.peek())
-      }
-    }
-
-    test("BRU") {
-      testCircuit(new BRU()) {
-        dut =>
-          dut.io.srcA.poke("xf".U)
-          dut.io.srcB.poke("xffffffff8046a000".U)
-          dut.io.ctrl.poke(BranchCtrl.BLTU)
-          println("OutC: " + dut.io.outC.peek())
-      }
-    }
-
-    test("Tester") {
-      testCircuit(new Tester()) {
-        dut =>
-          dut.io.srcA.poke("xf".U)
-          dut.io.srcB.poke("xffffffff8046a000".U)
-          dut.io.ctrl.poke(BranchCtrl.BLTU)
-//          println("srcA: " + dut.io.srcA.asSInt.peek())
-          println("OutC: " + dut.io.outC.peek())
-      }
-    }
+	lazy val config = MarCoreConfig(FPGAPlatform = true)
+	val tests = Tests {
+//		test("FU TEST: ALU") {
+//			testCircuit(new ALU()) {
+//				dut =>
+////					dut.io.cfIn.instr.poke("x00e6d663".U)
+////					dut.io.offset.poke("x10000000".U)
+////					dut.io.cfIn.pc.poke("x80000058".U)
+////					dut.io.in.valid.poke(true.B)
+////					dut.io.in.bits.srcA.poke("x0000000000000024".U)
+////					dut.io.in.bits.srcB.poke("x0000000000000015".U)
+////					dut.io.in.bits.ctrl.poke(ALUCtrl.bge) 
+////					println(dut.io.out.peek())
+////					println(dut.io.redirect.peek())
+//					dut.io.in.valid.poke(true.B)
+//					dut.io.in.bits.srcA.poke("x1".U)
+//					dut.io.in.bits.srcB.poke("x2".U)
+//					dut.io.in.bits.ctrl.poke(ALUCtrl.add)
+//					println(dut.io.out.peek())
+//			}
+//		}
 //
-//    test("TopMain") {
-//      testCircuit(new TopMain()) {
-//        dut =>
-//          dut.io.iFetch_iInstr.instr.poke("b00000000000100000000000010010011".U) // addi x[1] = 0 + 1 
-//          dut.io.iFetch_iInstr.instr.poke("b00000000000100000000000100100011".U) // sb 
-//          dut.io.iLoadStore_oWriteData.expect("x1".U)
-//          
-//      }
-//    }
-  }
+//		test("FU TEST: MDU") {
+//			testCircuit(new MDU()) {
+//				dut =>
+//					dut.io.in.valid.poke(true.B)
+//					dut.io.in.bits.srcA.poke("x9999999999999999".U)
+//					dut.io.in.bits.srcB.poke("x0000000000000002".U)
+//					dut.io.in.bits.ctrl.poke(MDUCtrl.rem)
+//					println(dut.io.out.peek())
+//			}
+//		}
+//
+//		test("FU TEST: CSR") {
+//			testCircuit(new CSR()(config)) {
+//				dut =>
+//					dut.io.cfIn.pc.poke("x8000000a".U)
+//					dut.io.cfIn.pnpc.poke("x80000010".U)
+//					dut.io.cfIn.isBranch.poke(false.B)
+//					dut.io.cfIn.isRVC.poke(false.B)
+//					dut.io.in.valid.poke(true.B)
+//					dut.io.instrValid.poke(true.B)
+//
+//					dut.io.cfIn.instr.poke("x30031073".U) // csrw mstatus, t1
+//					dut.io.in.bits.srcA.poke("x0000000A".U)
+//					dut.io.in.bits.srcB.poke("x300".U)
+//					dut.io.in.bits.ctrl.poke(CSRCtrl.wrt)
+//					dut.clock.step(1) println("csrw mstatus, t1: ")
+//					println("FuCtrl out:\t" + dut.io.out.peek())
+//					println("intrNO:\t\t" + dut.io.intrNO.peek())
+//					println("wenFix:\t\t" + dut.io.wenFix.peek())
+//					println("redirect:\t" + dut.io.redirect.peek())
+//
+//					dut.io.cfIn.instr.poke("x30002373".U) // csrr t1,mstatus
+//					dut.io.in.bits.srcA.poke("x0".U) dut.io.in.bits.srcB.poke("x300".U) dut.io.in.bits.ctrl.poke(CSRCtrl.wrt) dut.clock.step(1)
+//					println("csrr t1, mstatus: ")
+//					println("FuCtrl out:\t" + dut.io.out.peek())
+//					println("intrNO:\t\t" + dut.io.intrNO.peek())
+//					println("wenFix:\t\t" + dut.io.wenFix.peek())
+//					println("redirect:\t" + dut.io.redirect.peek())
+//			}
+//		}
+//
+//		test("FU TEST: UnpipelinedLSU") {
+//			testCircuit(new UnpipelinedLSU()) {
+//				dut =>
+//					dut.io.wdata.poke("x000000ff".U)
+//					dut.io.instr.poke("x00113423".U)
+//					dut.io.in.valid.poke(true.B)
+//					dut.io.in.bits.srcA.poke("x5".U)
+//					dut.io.in.bits.srcB.poke("x6".U)
+//					dut.io.in.bits.ctrl.poke(LSUCtrl.sd)
+//					println(dut.io.dmem.req.bits.peek())
+//			}
+//		}
+//
+//		test("UNITS TEST: IDU") {
+//			testCircuit(new IDU()(config)) {
+//				dut =>
+//					dut.io.in(0).valid.poke(true.B)
+//					dut.io.in(0).bits.instr.poke("x00000413".U) // li s0,0
+//					dut.io.in(0).bits.pc.poke("x80000000".U)
+//					dut.io.out(0).valid.expect(true.B)
+//					dut.io.out(0).bits.ctrl.fuCtrl.expect(ALUCtrl.add)
+//					println(dut.io.out(0).bits.ctrl.peek())
+//			}
+//		}
+//
+//		test("UNITS TEST: WBU") {
+//			testCircuit(new WBU()(config)) {
+//				dut =>
+//			}
+//		}
+//
+//		test("UNITS TEST: EXU") {
+//			testCircuit(new EXU()(config)) {
+//				dut =>
+//					dut.io.in.valid.poke(true.B)
+//					dut.io.in.bits.cf.instr.poke("x5cc58593".U)
+//					dut.io.in.bits.data.srcA.poke("x9".U)
+//					dut.io.in.bits.data.srcB.poke("x5".U)
+//					dut.io.in.bits.data.imm.poke("x0".U)
+//					dut.io.in.bits.ctrl.fuType.poke(FuType.alu)
+//					dut.io.in.bits.ctrl.fuCtrl.poke(ALUCtrl.add)
+//					dut.io.in.bits.ctrl.rfWen.poke(true.B)
+//					dut.io.in.bits.ctrl.rfDest.poke("x1".U)
+//					println(dut.io.out.bits.commits.peek())
+//			}
+//		}
+//
+//		test("Frontend_embedded") {
+//			testCircuit(new Frontend_embedded()(config)) {
+//				dut =>
+//					dut.io.imem.resp.valid.poke(true.B)
+//					dut.io.imem.resp.bits.cmd.poke(SimpleBusCmd.readBurst)
+//					dut.io.redirect.valid.poke(false.B)
+//					dut.io.imem.resp.bits.rdata.poke("x00000413".U) // li s0, 0
+//					dut.clock.step(1)
+//					dut.io.out(0).valid.expect(true.B)
+//					dut.io.out(0).bits.ctrl.fuCtrl.expect(ALUCtrl.add)
+//					println(dut.io.out(0).bits.ctrl.peek())
+//			}
+//		}
+//
+//		test("Backend_inorder") {
+//			testCircuit(new Backend_inorder()(config)) {
+//				dut =>
+//					dut.io.in(0).valid.poke(true.B)
+//					dut.io.in(0).bits.data.imm.poke("x4".U)
+//					dut.io.in(0).bits.ctrl.srcAType.poke(SrcType.reg)
+//					dut.io.in(0).bits.ctrl.srcBType.poke(SrcType.imm)
+//					dut.io.in(0).bits.ctrl.fuType.poke(FuType.alu)
+//					dut.io.in(0).bits.ctrl.fuCtrl.poke(ALUCtrl.add)
+//					dut.io.in(0).bits.ctrl.rfSrcA.poke("x0".U)
+//					dut.io.in(0).bits.ctrl.rfDest.poke("x1".U)
+//					dut.io.in(0).bits.ctrl.rfWen.poke(true.B)
+//					dut.io.in(0).bits.cf.pc.poke("x80000000".U)
+//					dut.clock.step(3)
+//			}
+//		}
+
+		test("Core") { testCircuit(new Core()(config)) { dut =>
+//			dut.clock.step()
+//			dut.io.imem.r.valid.poke(true.B)
+//			dut.io.imem.ar.ready.poke(true.B)
+//			dut.io.imem.r.bits.resp.poke(AXI4Parameters.RESP_OKAY)
+//
+//			val pc = dut.io.imem.ar.bits.addr
+//			val pcValid = dut.io.imem.ar.valid
+//			println("PC:"+pc.peek())
+//			val instr = pc match {
+//				case UInt(x80000000L) => "x00000413".U
+//				case UInt(x80000004L) => "x0046a117".U
+//				case UInt(x80000008L) => "xffc10113".U
+//				case UInt(x8000000cL) => "x24c010ef".U
+//				case _ => "x00000000"
+//			}
+//			val instr = MuxLookup(pc, 0.U, Seq(
+//				"x80000000".U -> "x00000413".U,
+//				"x80000004".U -> "x0046a117".U,
+//				"x80000008".U -> "xffc10113".U,
+//				"x8000000c".U -> "x24c010ef".U
+//			))
+//			dut.io.imem.r.bits.data.poke(instr)
+//			dut.clock.step()
+//
+//			when(instr === 0.U && pcValid === true.B) {
+//				dut.clock.step(5)
+//				dut.io.imem.r.valid.poke(false.B)
+//				dut.io.imem.ar.ready.poke(false.B)
+//			}
+		}}
+
+//		test("SimTop") { 
+//			testCircuit(new SimTop) { 
+//				dut =>
+//			}
+//		}
+	}
 }

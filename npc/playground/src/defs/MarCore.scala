@@ -1,37 +1,84 @@
 package defs
 
 import chisel3._
+import chisel3.experimental.IO
 import chisel3.util._
 import chisel3.util.experimental.BoringUtils
 
+import defs._
 import top.Settings
+import module.fu._
+import module.ooo.HasBackendConst
 
-abstract class MarCoreModule extends Module with HasMarCoreParameter with HasMarCoreConst with HasRISCInstrParameter
-abstract class MarCoreBundle extends Bundle with HasMarCoreParameter with HasMarCoreConst with HasRISCInstrParameter with __HasFU
+trait HasColorfulLog {
+	val blackFG		= "\u001b[30m"
+	val redFG		= "\u001b[31m"
+	val greenFG		= "\u001b[32m"
+	val yellowFG	= "\u001b[33m"
+	val blueFG		= "\u001b[34m"
+	val magentaFG	= "\u001b[35m"
+	val cyanFG		= "\u001b[36m"
+	val whiteFG		= "\u001b[37m"
+
+	val blackBG		= "\u001b[40m"
+	val redBG		= "\u001b[41m"
+	val greenBG		= "\u001b[42m"
+	val yellowBG	= "\u001b[43m"
+	val blueBG		= "\u001b[44m"
+	val magentaBG	= "\u001b[45m"
+	val cyanBG		= "\u001b[46m"
+	val whiteBG		= "\u001b[47m"
+
+	val resetColor	= "\u001b[0m" // reset all set
+	val bold		= "\u001b[1m"
+	val italic		= "\u001b[3m"
+	val underline	= "\u001b[4m"
+	val blink		= "\u001b[5m"
+	val reverse		= "\u001b[7m"
+}
 
 trait HasMarCoreParameter {
 	// General parameter for MarCore
 	val ZEROREG		= 0
-	val XLEN = if (Settings.get("IsRV32")) 32 else 64
 	val NR_GPR		= 32
 	val NR_CSR		= 4096
 	val RegIDWidth	= 5
 	val CSRIDWidth	= 12
-	val HasDiv		= true
 	val BYTELEN		= 8
+//**********************************************
+	val XLEN = if (Settings.get("IsRV32")) 32 else 64
+	val HasMExtension = true
+	val HasCExtension = Settings.get("EnableRVC")
+	val HasDiv = true
+	val VAddrBits	= 64 // if (Settings.get("IsRV32")) 32 else 39 // VAddrBits is Virtual Memory addr bits
+	val PAddrBits	= 32 // PAddrBits is Physical Memory address bits
+	val AddrBits	= 64
+	val DataBits	= XLEN
+	val EnableMultiIssue = Settings.get("EnableMultiIssue")
+	val EnableOutOfOrderExec = Settings.get("EnableOutOfOrderExec")
 }
+
+// NEW
+trait HasMarCoreConst extends HasMarCoreParameter {
+	val ICacheUserBundleWidth = VAddrBits*2 + 9
+	val IndependentBru = if (Settings.get("EnableOutOfOrderExec")) true else false
+}
+
+abstract class MarCoreModule extends Module with HasMarCoreParameter with HasMarCoreConst with HasExceptionNO with HasRISCInstrParameter with HasBackendConst with HasColorfulLog // with HasMarCoreLog
+abstract class MarCoreBundle extends Bundle with HasMarCoreParameter with HasMarCoreConst with HasExceptionNO with HasRISCInstrParameter with HasBackendConst with HasColorfulLog with __HasFU
+
+case class MarCoreConfig (
+	FPGAPlatform: Boolean = true,
+	EnableDebug: Boolean = Settings.get("EnableDebug"),
+	EnhancedLog: Boolean = true
+)
 
 trait __HasFU {
 	def FUOpTypeBits = 5
 	def FUTypeBits = 2
 }
 
-trait HasMarCoreConst extends HasMarCoreParameter with __HasFU{
-
-}
-
 trait HasCtrlParameter {
-
 }
 
 trait HasRISCInstrParameter {
@@ -55,17 +102,6 @@ trait HasRISCInstrParameter {
 	val RDLo = 7
 }
 
-trait HasInstrType extends HasMarCoreParameter {
-	def InstrR		= "b000".U(32.W)
-	def InstrI		= "b001".U(32.W)
-	def InstrS		= "b010".U(32.W)
-	def InstrB		= "b011".U(32.W)
-	def InstrU		= "b100".U(32.W)
-	def InstrJ		= "b101".U(32.W)
-	def InstrN		= "b110".U(32.W)
-	def InstrZicsr	= "b111".U(32.W)
-}
-
 object ForwardE {
 	def WIDTH = 2
 
@@ -80,48 +116,48 @@ object ForwardD {
 	def ALUM = "b01".U
 	def RDW = "b10".U}
 
-object ALUCtrl {
-	def WIDTH = 6
-
-	def ADD     = "x000000".U
-	def SUB     = "b000001".U
-	def SLL     = "b000010".U
-	def SLT     = "b000011".U
-	def SLTU    = "b000100".U
-	def XOR     = "b000101".U
-	def SRL     = "b000110".U
-	def SRA     = "b000111".U
-	def OR      = "b001000".U
-	def AND     = "b001001".U
-	def NAND	= "b100001".U
-
-	def ADDW    = "b001010".U
-	def SUBW    = "b001011".U
-	def SLLW    = "b001100".U
-	def SLTW    = "b001101".U
-	def SLTUW   = "b001110".U
-	def XORW    = "b001111".U
-	def SRLW    = "b010000".U
-	def SRAW    = "b010001".U
-	def ORW     = "b010010".U
-	def ANDW    = "b010011".U
-
-	def MUL     = "b010100".U
-	def MULH    = "b010101".U
-	def MULHSU  = "b010110".U
-	def MULHU   = "b010111".U
-	def DIV     = "b011000".U
-	def DIVU    = "b011001".U
-	def REM     = "b011010".U
-	def REMU    = "b011011".U
-
-	def MULW    = "b011100".U
-	def DIVW    = "b011101".U
-	def DIVUW   = "b011110".U
-	def REMW    = "b011111".U
-	def REMUW   = "b100000".U
-
-	def NOCARE = "b000000".U}
+// object ALUCtrl {
+// 	def WIDTH = 6
+// 
+// 	def ADD     = "b000000".U
+// 	def SUB     = "b000001".U
+// 	def SLL     = "b000010".U
+// 	def SLT     = "b000011".U
+// 	def SLTU    = "b000100".U
+// 	def XOR     = "b000101".U
+// 	def SRL     = "b000110".U
+// 	def SRA     = "b000111".U
+// 	def OR      = "b001000".U
+// 	def AND     = "b001001".U
+// 	def NAND	= "b100001".U
+// 
+// 	def ADDW    = "b001010".U
+// 	def SUBW    = "b001011".U
+// 	def SLLW    = "b001100".U
+// 	def SLTW    = "b001101".U
+// 	def SLTUW   = "b001110".U
+// 	def XORW    = "b001111".U
+// 	def SRLW    = "b010000".U
+// 	def SRAW    = "b010001".U
+// 	def ORW     = "b010010".U
+// 	def ANDW    = "b010011".U
+// 
+// 	def MUL     = "b010100".U
+// 	def MULH    = "b010101".U
+// 	def MULHSU  = "b010110".U
+// 	def MULHU   = "b010111".U
+// 	def DIV     = "b011000".U
+// 	def DIVU    = "b011001".U
+// 	def REM     = "b011010".U
+// 	def REMU    = "b011011".U
+// 
+// 	def MULW    = "b011100".U
+// 	def DIVW    = "b011101".U
+// 	def DIVUW   = "b011110".U
+// 	def REMW    = "b011111".U
+// 	def REMUW   = "b100000".U
+// 
+// 	def NOCARE = "b000000".U}
 
 object MemRW {
 	def WIDTH = 2
