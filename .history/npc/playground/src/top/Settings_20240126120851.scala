@@ -12,9 +12,7 @@ object DefaultSettings {
 		"FPGAPlatform"				-> false,
 		"EnableDebug"				-> true,
 		"EnableTrace"				-> true,
-		"EnableRVC"					-> false,
-
-		"IsElaborating"				-> true
+		"EnableRVC"					-> false
 	)
 }
 

@@ -14,7 +14,7 @@ object DefaultSettings {
 		"EnableTrace"				-> true,
 		"EnableRVC"					-> false,
 
-		"IsElaborating"				-> true
+		"IsElaborating"
 	)
 }
 

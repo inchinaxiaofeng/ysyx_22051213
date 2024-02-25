@@ -39,31 +39,30 @@ trait HasMonotonousLog {
 }
 
 trait HasColorfulLog {
-	val enable = !Settings.get("IsElaborating")
-	val blackFG		= if (enable) "\u001b[30m" else ""
-	val redFG		= if (enable) "\u001b[31m" else ""
-	val greenFG		= if (enable) "\u001b[32m" else ""
-	val yellowFG	= if (enable) "\u001b[33m" else ""
-	val blueFG		= if (enable) "\u001b[34m" else ""
-	val magentaFG	= if (enable) "\u001b[35m" else ""
-	val cyanFG		= if (enable) "\u001b[36m" else ""
-	val whiteFG		= if (enable) "\u001b[37m" else ""
+	val blackFG		= "\u001b[30m"
+	val redFG		= "\u001b[31m"
+	val greenFG		= "\u001b[32m"
+	val yellowFG	= "\u001b[33m"
+	val blueFG		= "\u001b[34m"
+	val magentaFG	= "\u001b[35m"
+	val cyanFG		= "\u001b[36m"
+	val whiteFG		= "\u001b[37m"
 
-	val blackBG		= if (enable) "\u001b[40m" else ""
-	val redBG		= if (enable) "\u001b[41m" else ""
-	val greenBG		= if (enable) "\u001b[42m" else ""
-	val yellowBG	= if (enable) "\u001b[43m" else ""
-	val blueBG		= if (enable) "\u001b[44m" else ""
-	val magentaBG	= if (enable) "\u001b[45m" else ""
-	val cyanBG		= if (enable) "\u001b[46m" else ""
-	val whiteBG		= if (enable) "\u001b[47m" else ""
+	val blackBG		= "\u001b[40m"
+	val redBG		= "\u001b[41m"
+	val greenBG		= "\u001b[42m"
+	val yellowBG	= "\u001b[43m"
+	val blueBG		= "\u001b[44m"
+	val magentaBG	= "\u001b[45m"
+	val cyanBG		= "\u001b[46m"
+	val whiteBG		= "\u001b[47m"
 
-	val resetColor	= if (enable) "\u001b[0m" else "" // reset all set
-	val bold		= if (enable) "\u001b[1m" else ""
-	val italic		= if (enable) "\u001b[3m" else ""
-	val underline	= if (enable) "\u001b[4m" else ""
-	val blink		= if (enable) "\u001b[5m" else ""
-	val reverse		= if (enable) "\u001b[7m" else ""
+	val resetColor	= "\u001b[0m" // reset all set
+	val bold		= "\u001b[1m"
+	val italic		= "\u001b[3m"
+	val underline	= "\u001b[4m"
+	val blink		= "\u001b[5m"
+	val reverse		= "\u001b[7m"
 }
 
 trait HasMarCoreParameter {
