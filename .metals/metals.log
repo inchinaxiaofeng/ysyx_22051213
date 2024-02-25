@@ -237,3 +237,6 @@ create table fingerprints(
 2024.02.25 17:26:20 INFO  time: code lens generation in 8.49s
 2月 25, 2024 5:26:23 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 警告: Unmatched cancel notification for request id 14
+2024.02.25 17:28:00 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/Elaborate.scala
+2024.02.25 17:28:52 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/test/src/CPUTester.scala
+2024.02.25 17:29:57 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/test/src/CPUTester.scala
