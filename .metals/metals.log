@@ -599,3 +599,4 @@ scala.meta.tokenizers.TokenizeException: <input>:42: error: unclosed multi-line 
 2024.02.25 19:15:40 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/MarCore.scala
 2024.02.25 19:15:55 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/MarCore.scala
 2024.02.25 19:16:27 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/MarCore.scala
+2024.02.25 19:16:43 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/Settings.scala
