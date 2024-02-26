@@ -1248,3 +1248,6 @@ import top.SEttings`
 2024.02.26 23:16:21 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.02.26 23:16:24 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
 2024.02.26 23:22:44 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2月 26, 2024 11:26:58 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 668
+2024.02.26 23:27:01 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
