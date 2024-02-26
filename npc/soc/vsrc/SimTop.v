@@ -869,6 +869,38 @@ module ISU(	// <stdin>:1729:10
                 io_out_bits_data_srcB,
                 io_out_bits_data_imm);
 
+  wire [63:0] _rf_ext_R0_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R1_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R2_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R3_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R4_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R5_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R6_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R7_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R8_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R9_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R10_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R11_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R12_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R13_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R14_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R15_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R16_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R17_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R18_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R19_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R20_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R21_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R22_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R23_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R24_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R25_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R26_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R27_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R28_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R29_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R30_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R31_data;	// RegisterFile.scala:15:21
   wire [63:0] _rf_ext_R32_data;	// RegisterFile.scala:15:21
   wire [63:0] _rf_ext_R33_data;	// RegisterFile.scala:15:21
   wire        forwardRfWen = io_forward_wb_rfWen & io_forward_valid;	// ISU.scala:28:48
@@ -888,38 +920,6 @@ module ISU(	// <stdin>:1729:10
   wire [31:0] _srcBReady_T = busy >> io_in_0_bits_ctrl_rfSrcB;	// RegisterFile.scala:27:27, :28:43
   wire        _io_out_valid_T_1 = io_in_0_valid & (~(_srcAReady_T[0]) | srcAForwardNextCycle | srcAForward) &
                 (~(_srcBReady_T[0]) | srcBForwardNextCycle | srcBForward);	// ISU.scala:35:49, :36:49, :37:40, :38:40, :41:{25,68}, :42:{25,68}, :43:53, RegisterFile.scala:28:43
-  wire [63:0] gpr_0;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_1;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_2;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_3;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_4;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_5;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_6;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_7;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_8;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_9;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_10;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_11;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_12;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_13;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_14;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_15;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_16;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_17;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_18;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_19;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_20;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_21;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_22;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_23;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_24;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_25;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_26;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_27;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_28;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_29;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_30;	// RegisterFile.scala:20:31
-  wire [63:0] gpr_31;	// RegisterFile.scala:20:31
   wire        _io_in_0_ready_T_1 = io_out_ready & _io_out_valid_T_1;	// Decoupled.scala:52:35, ISU.scala:43:53
   always @(posedge clock) begin
     if (reset)
@@ -1059,38 +1059,38 @@ module ISU(	// <stdin>:1729:10
     .W0_en    (io_wb_rfWen),
     .W0_clk   (clock),
     .W0_data  (io_wb_rfData),
-    .R0_data  (gpr_0),
-    .R1_data  (gpr_10),
-    .R2_data  (gpr_11),
-    .R3_data  (gpr_12),
-    .R4_data  (gpr_13),
-    .R5_data  (gpr_14),
-    .R6_data  (gpr_15),
-    .R7_data  (gpr_16),
-    .R8_data  (gpr_17),
-    .R9_data  (gpr_18),
-    .R10_data (gpr_19),
-    .R11_data (gpr_1),
-    .R12_data (gpr_20),
-    .R13_data (gpr_21),
-    .R14_data (gpr_22),
-    .R15_data (gpr_23),
-    .R16_data (gpr_24),
-    .R17_data (gpr_25),
-    .R18_data (gpr_26),
-    .R19_data (gpr_27),
-    .R20_data (gpr_28),
-    .R21_data (gpr_29),
-    .R22_data (gpr_2),
-    .R23_data (gpr_30),
-    .R24_data (gpr_31),
-    .R25_data (gpr_3),
-    .R26_data (gpr_4),
-    .R27_data (gpr_5),
-    .R28_data (gpr_6),
-    .R29_data (gpr_7),
-    .R30_data (gpr_8),
-    .R31_data (gpr_9),
+    .R0_data  (_rf_ext_R0_data),
+    .R1_data  (_rf_ext_R1_data),
+    .R2_data  (_rf_ext_R2_data),
+    .R3_data  (_rf_ext_R3_data),
+    .R4_data  (_rf_ext_R4_data),
+    .R5_data  (_rf_ext_R5_data),
+    .R6_data  (_rf_ext_R6_data),
+    .R7_data  (_rf_ext_R7_data),
+    .R8_data  (_rf_ext_R8_data),
+    .R9_data  (_rf_ext_R9_data),
+    .R10_data (_rf_ext_R10_data),
+    .R11_data (_rf_ext_R11_data),
+    .R12_data (_rf_ext_R12_data),
+    .R13_data (_rf_ext_R13_data),
+    .R14_data (_rf_ext_R14_data),
+    .R15_data (_rf_ext_R15_data),
+    .R16_data (_rf_ext_R16_data),
+    .R17_data (_rf_ext_R17_data),
+    .R18_data (_rf_ext_R18_data),
+    .R19_data (_rf_ext_R19_data),
+    .R20_data (_rf_ext_R20_data),
+    .R21_data (_rf_ext_R21_data),
+    .R22_data (_rf_ext_R22_data),
+    .R23_data (_rf_ext_R23_data),
+    .R24_data (_rf_ext_R24_data),
+    .R25_data (_rf_ext_R25_data),
+    .R26_data (_rf_ext_R26_data),
+    .R27_data (_rf_ext_R27_data),
+    .R28_data (_rf_ext_R28_data),
+    .R29_data (_rf_ext_R29_data),
+    .R30_data (_rf_ext_R30_data),
+    .R31_data (_rf_ext_R31_data),
     .R32_data (_rf_ext_R32_data),
     .R33_data (_rf_ext_R33_data)
   );
@@ -2744,6 +2744,38 @@ module SimTop(	// <stdin>:4342:10
   wire [7:0]  _core_io_dmem_w_bits_strb;	// SimTop.scala:24:26
   wire        _core_io_dmem_ar_valid;	// SimTop.scala:24:26
   wire [31:0] _core_io_dmem_ar_bits_addr;	// SimTop.scala:24:26
+  wire [63:0] gpr_0 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_1 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_2 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_3 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_4 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_5 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_6 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_7 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_8 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_9 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_10 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_11 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_12 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_13 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_14 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_15 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_16 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_17 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_18 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_19 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_20 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_21 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_22 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_23 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_24 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_25 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_26 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_27 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_28 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_29 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_30 = 64'h0;	// SimTop.scala:25:29, :34:31
+  wire [63:0] gpr_31 = 64'h0;	// SimTop.scala:25:29, :34:31
   Core core (	// SimTop.scala:24:26
     .clock                (clock),
     .reset                (reset),
@@ -2816,41 +2848,41 @@ module SimTop(	// <stdin>:4342:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
-  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_1 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_2 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_3 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_4 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_5 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_6 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_7 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_8 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_9 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_10 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_11 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_12 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_13 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_14 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_15 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_16 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_17 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_18 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_19 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_20 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_21 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_22 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_23 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_24 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_25 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_26 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_27 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_28 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_29 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_30 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_gpr_regs_31 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_csr_mstatus = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_csr_mtvec = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_csr_mepc = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
-  assign io_csr_mcause = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_0 = gpr_0;	// <stdin>:4342:10
+  assign io_gpr_regs_1 = gpr_1;	// <stdin>:4342:10
+  assign io_gpr_regs_2 = gpr_2;	// <stdin>:4342:10
+  assign io_gpr_regs_3 = gpr_3;	// <stdin>:4342:10
+  assign io_gpr_regs_4 = gpr_4;	// <stdin>:4342:10
+  assign io_gpr_regs_5 = gpr_5;	// <stdin>:4342:10
+  assign io_gpr_regs_6 = gpr_6;	// <stdin>:4342:10
+  assign io_gpr_regs_7 = gpr_7;	// <stdin>:4342:10
+  assign io_gpr_regs_8 = gpr_8;	// <stdin>:4342:10
+  assign io_gpr_regs_9 = gpr_9;	// <stdin>:4342:10
+  assign io_gpr_regs_10 = gpr_10;	// <stdin>:4342:10
+  assign io_gpr_regs_11 = gpr_11;	// <stdin>:4342:10
+  assign io_gpr_regs_12 = gpr_12;	// <stdin>:4342:10
+  assign io_gpr_regs_13 = gpr_13;	// <stdin>:4342:10
+  assign io_gpr_regs_14 = gpr_14;	// <stdin>:4342:10
+  assign io_gpr_regs_15 = gpr_15;	// <stdin>:4342:10
+  assign io_gpr_regs_16 = gpr_16;	// <stdin>:4342:10
+  assign io_gpr_regs_17 = gpr_17;	// <stdin>:4342:10
+  assign io_gpr_regs_18 = gpr_18;	// <stdin>:4342:10
+  assign io_gpr_regs_19 = gpr_19;	// <stdin>:4342:10
+  assign io_gpr_regs_20 = gpr_20;	// <stdin>:4342:10
+  assign io_gpr_regs_21 = gpr_21;	// <stdin>:4342:10
+  assign io_gpr_regs_22 = gpr_22;	// <stdin>:4342:10
+  assign io_gpr_regs_23 = gpr_23;	// <stdin>:4342:10
+  assign io_gpr_regs_24 = gpr_24;	// <stdin>:4342:10
+  assign io_gpr_regs_25 = gpr_25;	// <stdin>:4342:10
+  assign io_gpr_regs_26 = gpr_26;	// <stdin>:4342:10
+  assign io_gpr_regs_27 = gpr_27;	// <stdin>:4342:10
+  assign io_gpr_regs_28 = gpr_28;	// <stdin>:4342:10
+  assign io_gpr_regs_29 = gpr_29;	// <stdin>:4342:10
+  assign io_gpr_regs_30 = gpr_30;	// <stdin>:4342:10
+  assign io_gpr_regs_31 = gpr_31;	// <stdin>:4342:10
+  assign io_csr_mstatus = 64'h0;	// <stdin>:4342:10, SimTop.scala:25:29
+  assign io_csr_mtvec = 64'h0;	// <stdin>:4342:10, SimTop.scala:25:29
+  assign io_csr_mepc = 64'h0;	// <stdin>:4342:10, SimTop.scala:25:29
+  assign io_csr_mcause = 64'h0;	// <stdin>:4342:10, SimTop.scala:25:29
 endmodule
 
