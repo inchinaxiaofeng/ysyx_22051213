@@ -7,7 +7,6 @@ import chisel3.util.experimental.BoringUtils
 import defs._
 import top.Settings
 import utils._
-import java.rmi.server.UID
 
 object CSRCtrl {
 	def jmp  = "b000".U
@@ -316,11 +315,4 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 	}
 	io.in.ready := true.B
 	io.out.valid := valid
-
-	val csr = Wire(Vec(4, UInt(XLEN.W)))
-	csr(0) := mstatus
-	csr(1) := mtvec
-	csr(2) := mepc
-	csr(3) := mcause
-	BoringUtils.addSource(csr, "CSR")
 }

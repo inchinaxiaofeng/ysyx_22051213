@@ -318,9 +318,4 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 	io.out.valid := valid
 
 	val csr = Wire(Vec(4, UInt(XLEN.W)))
-	csr(0) := mstatus
-	csr(1) := mtvec
-	csr(2) := mepc
-	csr(3) := mcause
-	BoringUtils.addSource(csr, "CSR")
 }
