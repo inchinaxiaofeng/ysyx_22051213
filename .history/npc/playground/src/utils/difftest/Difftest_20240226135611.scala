@@ -14,7 +14,7 @@ sealed trait DifftestBaseBundle extends MarCoreBundle {
 }
 
 class GPRState extends DifftestBaseBundle {
-	val regs = Output(Vec(32, UInt(XLEN.W)))
+	val gpr = Wire(Vec(32, UInt(XLEN.W)))
 	BoringUtils.addSink(gpr, "GPR")
 //	x0	ra	sp	gp	tp	t0	t1	t2
 //	s0	s1	a0	a1	a2	a3	a4	a5

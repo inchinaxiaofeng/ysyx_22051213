@@ -1055,3 +1055,16 @@ scala.meta.tokenizers.TokenizeException: <input>:58: error: illegal character '\
 2024.02.26 13:55:13 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.02.26 13:55:19 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.02.26 13:55:39 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.26 13:56:11 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2024.02.26 13:56:22 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2月 26, 2024 1:57:10 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 6102
+2024.02.26 13:57:17 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2024.02.26 13:57:50 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.26 13:58:33 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.26 13:58:43 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2月 26, 2024 1:58:54 下午 scala.meta.internal.pc.CompilerAccess handleError
+严重: A severe compiler error occurred, full details of the error can be found in the error report /home/marinatoo/ysyx-workbench/.metals/.reports/metals-full/2024-02-26/r_compiler-error_13-58-54-920.md
+2月 26, 2024 1:59:06 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 6584
+2024.02.26 13:59:11 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala

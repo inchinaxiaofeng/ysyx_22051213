@@ -31,12 +31,7 @@ class SimTop extends Module {
 	arbiter.Arbiter <> TP_SRAM.io
 
 	val gpr = Wire(Vec(32, UInt(64.W)))	
-	if (Settings.get("DiffTestGPR")) {
-		BoringUtils.addSink(gpr, "GPR")
-		for (i <- 0 until 32) {
-			io.gpr(i) := gpr(i)
-		}
-	}
+	BoringUtils.addSink(gpr, "GPR")
 
 	val csr = Wire(Vec(4, UInt(64.W)))
 	if(Settings.get("DiffTestCSR")){
