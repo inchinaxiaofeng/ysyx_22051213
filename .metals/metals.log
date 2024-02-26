@@ -1007,3 +1007,6 @@ scala.meta.tokenizers.TokenizeException: <input>:58: error: illegal character '\
 	at java.lang.Thread.run(Thread.java:833)
 
 2024.02.26 12:50:39 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/CSRFile.scala
+2024.02.26 12:53:40 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/CSRFile.scala
+2024.02.26 12:53:40 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/CSRFile.scala
+2024.02.26 12:53:40 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/CSRFile.scala
