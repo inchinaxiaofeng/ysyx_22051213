@@ -1096,3 +1096,4 @@ scala.meta.tokenizers.TokenizeException: <input>:58: error: illegal character '\
 警告: Unmatched cancel notification for request id 7770
 2024.02.26 14:05:55 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.02.26 14:08:14 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:12:19 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
