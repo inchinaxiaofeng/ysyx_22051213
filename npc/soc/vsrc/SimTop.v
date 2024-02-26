@@ -43,7 +43,7 @@
 `endif // RANDOMIZE
 
 // VCS coverage exclude_file
-module rf_combMem(	// RegisterFile.scala:14:21
+module rf_combMem(	// RegisterFile.scala:15:21
   input  [4:0]  R0_addr,
   input         R0_en,
                 R0_clk,
@@ -185,60 +185,60 @@ module rf_combMem(	// RegisterFile.scala:14:21
                 R32_data,
                 R33_data);
 
-  reg [63:0] Memory[0:31];	// RegisterFile.scala:14:21
-  always @(posedge W0_clk) begin	// RegisterFile.scala:14:21
-    if (W0_en)	// RegisterFile.scala:14:21
-      Memory[W0_addr] <= W0_data;	// RegisterFile.scala:14:21
+  reg [63:0] Memory[0:31];	// RegisterFile.scala:15:21
+  always @(posedge W0_clk) begin	// RegisterFile.scala:15:21
+    if (W0_en)	// RegisterFile.scala:15:21
+      Memory[W0_addr] <= W0_data;	// RegisterFile.scala:15:21
   end // always @(posedge)
-  `ifndef SYNTHESIS	// RegisterFile.scala:14:21
-    `ifdef RANDOMIZE_MEM_INIT	// RegisterFile.scala:14:21
-      integer initvar;	// RegisterFile.scala:14:21
-      reg [63:0] _RANDOM_MEM;	// RegisterFile.scala:14:21
+  `ifndef SYNTHESIS	// RegisterFile.scala:15:21
+    `ifdef RANDOMIZE_MEM_INIT	// RegisterFile.scala:15:21
+      integer initvar;	// RegisterFile.scala:15:21
+      reg [63:0] _RANDOM_MEM;	// RegisterFile.scala:15:21
     `endif // RANDOMIZE_MEM_INIT
-    initial begin	// RegisterFile.scala:14:21
-      `INIT_RANDOM_PROLOG_	// RegisterFile.scala:14:21
-      `ifdef RANDOMIZE_MEM_INIT	// RegisterFile.scala:14:21
+    initial begin	// RegisterFile.scala:15:21
+      `INIT_RANDOM_PROLOG_	// RegisterFile.scala:15:21
+      `ifdef RANDOMIZE_MEM_INIT	// RegisterFile.scala:15:21
         for (initvar = 0; initvar < 32; initvar = initvar + 1) begin
           _RANDOM_MEM = {{`RANDOM}, {`RANDOM}};
           Memory[initvar] = _RANDOM_MEM[63:0];
-        end	// RegisterFile.scala:14:21
+        end	// RegisterFile.scala:15:21
       `endif // RANDOMIZE_MEM_INIT
     end // initial
   `endif // not def SYNTHESIS
-  assign R0_data = R0_en ? Memory[R0_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R1_data = R1_en ? Memory[R1_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R2_data = R2_en ? Memory[R2_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R3_data = R3_en ? Memory[R3_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R4_data = R4_en ? Memory[R4_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R5_data = R5_en ? Memory[R5_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R6_data = R6_en ? Memory[R6_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R7_data = R7_en ? Memory[R7_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R8_data = R8_en ? Memory[R8_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R9_data = R9_en ? Memory[R9_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R10_data = R10_en ? Memory[R10_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R11_data = R11_en ? Memory[R11_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R12_data = R12_en ? Memory[R12_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R13_data = R13_en ? Memory[R13_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R14_data = R14_en ? Memory[R14_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R15_data = R15_en ? Memory[R15_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R16_data = R16_en ? Memory[R16_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R17_data = R17_en ? Memory[R17_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R18_data = R18_en ? Memory[R18_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R19_data = R19_en ? Memory[R19_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R20_data = R20_en ? Memory[R20_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R21_data = R21_en ? Memory[R21_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R22_data = R22_en ? Memory[R22_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R23_data = R23_en ? Memory[R23_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R24_data = R24_en ? Memory[R24_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R25_data = R25_en ? Memory[R25_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R26_data = R26_en ? Memory[R26_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R27_data = R27_en ? Memory[R27_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R28_data = R28_en ? Memory[R28_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R29_data = R29_en ? Memory[R29_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R30_data = R30_en ? Memory[R30_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R31_data = R31_en ? Memory[R31_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R32_data = R32_en ? Memory[R32_addr] : 64'bx;	// RegisterFile.scala:14:21
-  assign R33_data = R33_en ? Memory[R33_addr] : 64'bx;	// RegisterFile.scala:14:21
+  assign R0_data = R0_en ? Memory[R0_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R1_data = R1_en ? Memory[R1_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R2_data = R2_en ? Memory[R2_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R3_data = R3_en ? Memory[R3_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R4_data = R4_en ? Memory[R4_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R5_data = R5_en ? Memory[R5_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R6_data = R6_en ? Memory[R6_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R7_data = R7_en ? Memory[R7_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R8_data = R8_en ? Memory[R8_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R9_data = R9_en ? Memory[R9_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R10_data = R10_en ? Memory[R10_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R11_data = R11_en ? Memory[R11_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R12_data = R12_en ? Memory[R12_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R13_data = R13_en ? Memory[R13_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R14_data = R14_en ? Memory[R14_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R15_data = R15_en ? Memory[R15_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R16_data = R16_en ? Memory[R16_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R17_data = R17_en ? Memory[R17_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R18_data = R18_en ? Memory[R18_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R19_data = R19_en ? Memory[R19_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R20_data = R20_en ? Memory[R20_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R21_data = R21_en ? Memory[R21_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R22_data = R22_en ? Memory[R22_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R23_data = R23_en ? Memory[R23_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R24_data = R24_en ? Memory[R24_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R25_data = R25_en ? Memory[R25_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R26_data = R26_en ? Memory[R26_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R27_data = R27_en ? Memory[R27_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R28_data = R28_en ? Memory[R28_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R29_data = R29_en ? Memory[R29_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R30_data = R30_en ? Memory[R30_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R31_data = R31_en ? Memory[R31_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R32_data = R32_en ? Memory[R32_addr] : 64'bx;	// RegisterFile.scala:15:21
+  assign R33_data = R33_en ? Memory[R33_addr] : 64'bx;	// RegisterFile.scala:15:21
 endmodule
 
 module IFU_embedded(	// <stdin>:2:10
@@ -869,8 +869,8 @@ module ISU(	// <stdin>:1729:10
                 io_out_bits_data_srcB,
                 io_out_bits_data_imm);
 
-  wire [63:0] _rf_ext_R32_data;	// RegisterFile.scala:14:21
-  wire [63:0] _rf_ext_R33_data;	// RegisterFile.scala:14:21
+  wire [63:0] _rf_ext_R32_data;	// RegisterFile.scala:15:21
+  wire [63:0] _rf_ext_R33_data;	// RegisterFile.scala:15:21
   wire        forwardRfWen = io_forward_wb_rfWen & io_forward_valid;	// ISU.scala:28:48
   wire        dontForward = (|io_forward_fuType) & io_forward_fuType != 3'h1;	// ISU.scala:29:{46,62,84}
   wire        srcADependEX = (|io_in_0_bits_ctrl_rfSrcA) & io_in_0_bits_ctrl_rfSrcA == io_forward_wb_rfDest &
@@ -883,55 +883,55 @@ module ISU(	// <stdin>:1729:10
                 (~dontForward | ~srcADependEX);	// ISU.scala:26:{75,94,106}, :29:62, :37:{40,46,60}
   wire        srcBForward = (|io_in_0_bits_ctrl_rfSrcB) & io_in_0_bits_ctrl_rfSrcB == io_wb_rfDest & io_wb_rfWen &
                 (~dontForward | ~srcBDependEX);	// ISU.scala:26:{75,94,106}, :29:62, :37:46, :38:{40,46,60}
-  reg  [31:0] busy;	// RegisterFile.scala:26:27
-  wire [31:0] _srcAReady_T = busy >> io_in_0_bits_ctrl_rfSrcA;	// RegisterFile.scala:26:27, :27:43
-  wire [31:0] _srcBReady_T = busy >> io_in_0_bits_ctrl_rfSrcB;	// RegisterFile.scala:26:27, :27:43
+  reg  [31:0] busy;	// RegisterFile.scala:27:27
+  wire [31:0] _srcAReady_T = busy >> io_in_0_bits_ctrl_rfSrcA;	// RegisterFile.scala:27:27, :28:43
+  wire [31:0] _srcBReady_T = busy >> io_in_0_bits_ctrl_rfSrcB;	// RegisterFile.scala:27:27, :28:43
   wire        _io_out_valid_T_1 = io_in_0_valid & (~(_srcAReady_T[0]) | srcAForwardNextCycle | srcAForward) &
-                (~(_srcBReady_T[0]) | srcBForwardNextCycle | srcBForward);	// ISU.scala:35:49, :36:49, :37:40, :38:40, :41:{25,68}, :42:{25,68}, :43:53, RegisterFile.scala:27:43
-  wire [63:0] gpr_0;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_1;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_2;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_3;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_4;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_5;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_6;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_7;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_8;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_9;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_10;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_11;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_12;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_13;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_14;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_15;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_16;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_17;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_18;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_19;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_20;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_21;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_22;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_23;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_24;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_25;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_26;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_27;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_28;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_29;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_30;	// RegisterFile.scala:18:23
-  wire [63:0] gpr_31;	// RegisterFile.scala:18:23
+                (~(_srcBReady_T[0]) | srcBForwardNextCycle | srcBForward);	// ISU.scala:35:49, :36:49, :37:40, :38:40, :41:{25,68}, :42:{25,68}, :43:53, RegisterFile.scala:28:43
+  wire [63:0] gpr_0;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_1;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_2;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_3;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_4;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_5;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_6;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_7;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_8;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_9;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_10;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_11;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_12;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_13;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_14;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_15;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_16;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_17;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_18;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_19;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_20;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_21;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_22;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_23;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_24;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_25;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_26;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_27;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_28;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_29;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_30;	// RegisterFile.scala:20:31
+  wire [63:0] gpr_31;	// RegisterFile.scala:20:31
   wire        _io_in_0_ready_T_1 = io_out_ready & _io_out_valid_T_1;	// Decoupled.scala:52:35, ISU.scala:43:53
   always @(posedge clock) begin
     if (reset)
-      busy <= 32'h0;	// RegisterFile.scala:26:27
+      busy <= 32'h0;	// RegisterFile.scala:27:27
     else if (io_flush)
-      busy <= 32'h0;	// RegisterFile.scala:26:27
+      busy <= 32'h0;	// RegisterFile.scala:27:27
     else begin
-      automatic logic [62:0] _wbClearMask_T_6 = 63'h1 << io_wb_rfDest;	// RegisterFile.scala:28:45
-      automatic logic [62:0] _isuFireSetMask_T_1 = 63'h1 << io_in_0_bits_ctrl_rfDest;	// RegisterFile.scala:28:45
+      automatic logic [62:0] _wbClearMask_T_6 = 63'h1 << io_wb_rfDest;	// RegisterFile.scala:29:45
+      automatic logic [62:0] _isuFireSetMask_T_1 = 63'h1 << io_in_0_bits_ctrl_rfDest;	// RegisterFile.scala:29:45
       busy <= {busy[31:1] & ~(io_wb_rfWen & ~((|io_wb_rfDest) & io_wb_rfDest == io_forward_wb_rfDest &
                                                 forwardRfWen) ? _wbClearMask_T_6[31:1] : 31'h0) | (_io_in_0_ready_T_1 ?
-                                                _isuFireSetMask_T_1[31:1] : 31'h0), 1'h0};	// <stdin>:1729:10, Cat.scala:33:92, Decoupled.scala:52:35, ISU.scala:26:{75,94,106}, :28:48, :70:{30,43,46}, :71:33, RegisterFile.scala:26:27, :28:{45,52}, :34:{36,38,50}
+                                                _isuFireSetMask_T_1[31:1] : 31'h0), 1'h0};	// <stdin>:1729:10, Cat.scala:33:92, Decoupled.scala:52:35, ISU.scala:26:{75,94,106}, :28:48, :70:{30,43,46}, :71:33, RegisterFile.scala:27:27, :29:{45,52}, :35:{36,38,50}
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:1729:10
@@ -945,108 +945,108 @@ module ISU(	// <stdin>:1729:10
       `endif // INIT_RANDOM_PROLOG_
       `ifdef RANDOMIZE_REG_INIT	// <stdin>:1729:10
         _RANDOM_0 = `RANDOM;	// <stdin>:1729:10
-        busy = _RANDOM_0;	// RegisterFile.scala:26:27
+        busy = _RANDOM_0;	// RegisterFile.scala:27:27
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1729:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:1729:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  rf_combMem rf_ext (	// RegisterFile.scala:14:21
-    .R0_addr  (5'h0),	// RegisterFile.scala:20:29
+  rf_combMem rf_ext (	// RegisterFile.scala:15:21
+    .R0_addr  (5'h0),	// RegisterFile.scala:21:54
     .R0_en    (1'h1),	// <stdin>:1729:10
     .R0_clk   (clock),
-    .R1_addr  (5'hA),	// RegisterFile.scala:20:29
+    .R1_addr  (5'hA),	// RegisterFile.scala:21:54
     .R1_en    (1'h1),	// <stdin>:1729:10
     .R1_clk   (clock),
-    .R2_addr  (5'hB),	// RegisterFile.scala:20:29
+    .R2_addr  (5'hB),	// RegisterFile.scala:21:54
     .R2_en    (1'h1),	// <stdin>:1729:10
     .R2_clk   (clock),
-    .R3_addr  (5'hC),	// RegisterFile.scala:20:29
+    .R3_addr  (5'hC),	// RegisterFile.scala:21:54
     .R3_en    (1'h1),	// <stdin>:1729:10
     .R3_clk   (clock),
-    .R4_addr  (5'hD),	// RegisterFile.scala:20:29
+    .R4_addr  (5'hD),	// RegisterFile.scala:21:54
     .R4_en    (1'h1),	// <stdin>:1729:10
     .R4_clk   (clock),
-    .R5_addr  (5'hE),	// RegisterFile.scala:20:29
+    .R5_addr  (5'hE),	// RegisterFile.scala:21:54
     .R5_en    (1'h1),	// <stdin>:1729:10
     .R5_clk   (clock),
-    .R6_addr  (5'hF),	// RegisterFile.scala:20:29
+    .R6_addr  (5'hF),	// RegisterFile.scala:21:54
     .R6_en    (1'h1),	// <stdin>:1729:10
     .R6_clk   (clock),
-    .R7_addr  (5'h10),	// RegisterFile.scala:20:29
+    .R7_addr  (5'h10),	// RegisterFile.scala:21:54
     .R7_en    (1'h1),	// <stdin>:1729:10
     .R7_clk   (clock),
-    .R8_addr  (5'h11),	// RegisterFile.scala:20:29
+    .R8_addr  (5'h11),	// RegisterFile.scala:21:54
     .R8_en    (1'h1),	// <stdin>:1729:10
     .R8_clk   (clock),
-    .R9_addr  (5'h12),	// RegisterFile.scala:20:29
+    .R9_addr  (5'h12),	// RegisterFile.scala:21:54
     .R9_en    (1'h1),	// <stdin>:1729:10
     .R9_clk   (clock),
-    .R10_addr (5'h13),	// RegisterFile.scala:20:29
+    .R10_addr (5'h13),	// RegisterFile.scala:21:54
     .R10_en   (1'h1),	// <stdin>:1729:10
     .R10_clk  (clock),
-    .R11_addr (5'h1),	// RegisterFile.scala:20:29
+    .R11_addr (5'h1),	// RegisterFile.scala:21:54
     .R11_en   (1'h1),	// <stdin>:1729:10
     .R11_clk  (clock),
-    .R12_addr (5'h14),	// RegisterFile.scala:20:29
+    .R12_addr (5'h14),	// RegisterFile.scala:21:54
     .R12_en   (1'h1),	// <stdin>:1729:10
     .R12_clk  (clock),
-    .R13_addr (5'h15),	// RegisterFile.scala:20:29
+    .R13_addr (5'h15),	// RegisterFile.scala:21:54
     .R13_en   (1'h1),	// <stdin>:1729:10
     .R13_clk  (clock),
-    .R14_addr (5'h16),	// RegisterFile.scala:20:29
+    .R14_addr (5'h16),	// RegisterFile.scala:21:54
     .R14_en   (1'h1),	// <stdin>:1729:10
     .R14_clk  (clock),
-    .R15_addr (5'h17),	// RegisterFile.scala:20:29
+    .R15_addr (5'h17),	// RegisterFile.scala:21:54
     .R15_en   (1'h1),	// <stdin>:1729:10
     .R15_clk  (clock),
-    .R16_addr (5'h18),	// RegisterFile.scala:20:29
+    .R16_addr (5'h18),	// RegisterFile.scala:21:54
     .R16_en   (1'h1),	// <stdin>:1729:10
     .R16_clk  (clock),
-    .R17_addr (5'h19),	// RegisterFile.scala:20:29
+    .R17_addr (5'h19),	// RegisterFile.scala:21:54
     .R17_en   (1'h1),	// <stdin>:1729:10
     .R17_clk  (clock),
-    .R18_addr (5'h1A),	// RegisterFile.scala:20:29
+    .R18_addr (5'h1A),	// RegisterFile.scala:21:54
     .R18_en   (1'h1),	// <stdin>:1729:10
     .R18_clk  (clock),
-    .R19_addr (5'h1B),	// RegisterFile.scala:20:29
+    .R19_addr (5'h1B),	// RegisterFile.scala:21:54
     .R19_en   (1'h1),	// <stdin>:1729:10
     .R19_clk  (clock),
-    .R20_addr (5'h1C),	// RegisterFile.scala:20:29
+    .R20_addr (5'h1C),	// RegisterFile.scala:21:54
     .R20_en   (1'h1),	// <stdin>:1729:10
     .R20_clk  (clock),
-    .R21_addr (5'h1D),	// RegisterFile.scala:20:29
+    .R21_addr (5'h1D),	// RegisterFile.scala:21:54
     .R21_en   (1'h1),	// <stdin>:1729:10
     .R21_clk  (clock),
-    .R22_addr (5'h2),	// RegisterFile.scala:20:29
+    .R22_addr (5'h2),	// RegisterFile.scala:21:54
     .R22_en   (1'h1),	// <stdin>:1729:10
     .R22_clk  (clock),
-    .R23_addr (5'h1E),	// RegisterFile.scala:20:29
+    .R23_addr (5'h1E),	// RegisterFile.scala:21:54
     .R23_en   (1'h1),	// <stdin>:1729:10
     .R23_clk  (clock),
-    .R24_addr (5'h1F),	// RegisterFile.scala:20:29
+    .R24_addr (5'h1F),	// RegisterFile.scala:21:54
     .R24_en   (1'h1),	// <stdin>:1729:10
     .R24_clk  (clock),
-    .R25_addr (5'h3),	// RegisterFile.scala:20:29
+    .R25_addr (5'h3),	// RegisterFile.scala:21:54
     .R25_en   (1'h1),	// <stdin>:1729:10
     .R25_clk  (clock),
-    .R26_addr (5'h4),	// RegisterFile.scala:20:29
+    .R26_addr (5'h4),	// RegisterFile.scala:21:54
     .R26_en   (1'h1),	// <stdin>:1729:10
     .R26_clk  (clock),
-    .R27_addr (5'h5),	// RegisterFile.scala:20:29
+    .R27_addr (5'h5),	// RegisterFile.scala:21:54
     .R27_en   (1'h1),	// <stdin>:1729:10
     .R27_clk  (clock),
-    .R28_addr (5'h6),	// RegisterFile.scala:20:29
+    .R28_addr (5'h6),	// RegisterFile.scala:21:54
     .R28_en   (1'h1),	// <stdin>:1729:10
     .R28_clk  (clock),
-    .R29_addr (5'h7),	// RegisterFile.scala:20:29
+    .R29_addr (5'h7),	// RegisterFile.scala:21:54
     .R29_en   (1'h1),	// <stdin>:1729:10
     .R29_clk  (clock),
-    .R30_addr (5'h8),	// RegisterFile.scala:20:29
+    .R30_addr (5'h8),	// RegisterFile.scala:21:54
     .R30_en   (1'h1),	// <stdin>:1729:10
     .R30_clk  (clock),
-    .R31_addr (5'h9),	// RegisterFile.scala:20:29
+    .R31_addr (5'h9),	// RegisterFile.scala:21:54
     .R31_en   (1'h1),	// <stdin>:1729:10
     .R31_clk  (clock),
     .R32_addr (io_in_0_bits_ctrl_rfSrcA),
@@ -1106,11 +1106,11 @@ module ISU(	// <stdin>:1729:10
   assign io_out_bits_data_srcA = (io_in_0_bits_ctrl_srcAType ? io_in_0_bits_cf_pc : 64'h0) | (srcAForwardNextCycle ?
                 io_forward_wb_rfData : 64'h0) | (srcAForward & ~srcAForwardNextCycle ? io_wb_rfData :
                 64'h0) | (io_in_0_bits_ctrl_srcAType | srcAForwardNextCycle | srcAForward |
-                io_in_0_bits_ctrl_rfSrcA == 5'h0 ? 64'h0 : _rf_ext_R32_data);	// <stdin>:1729:10, ISU.scala:35:49, :37:40, :51:{30,33}, Mux.scala:27:73, RegisterFile.scala:14:21, :15:47, :20:29
+                io_in_0_bits_ctrl_rfSrcA == 5'h0 ? 64'h0 : _rf_ext_R32_data);	// <stdin>:1729:10, ISU.scala:35:49, :37:40, :51:{30,33}, Mux.scala:27:73, RegisterFile.scala:15:21, :16:47, :21:54
   assign io_out_bits_data_srcB = (io_in_0_bits_ctrl_srcBType ? 64'h0 : io_in_0_bits_data_imm) | (srcBForwardNextCycle ?
                 io_forward_wb_rfData : 64'h0) | (srcBForward & ~srcBForwardNextCycle ? io_wb_rfData :
                 64'h0) | (io_in_0_bits_ctrl_srcBType | srcBForwardNextCycle | srcBForward |
-                io_in_0_bits_ctrl_rfSrcB == 5'h0 ? 64'h0 : _rf_ext_R33_data);	// <stdin>:1729:10, ISU.scala:36:49, :38:40, :57:{30,33}, Mux.scala:27:73, RegisterFile.scala:14:21, :15:47, :20:29
+                io_in_0_bits_ctrl_rfSrcB == 5'h0 ? 64'h0 : _rf_ext_R33_data);	// <stdin>:1729:10, ISU.scala:36:49, :38:40, :57:{30,33}, Mux.scala:27:73, RegisterFile.scala:15:21, :16:47, :21:54
   assign io_out_bits_data_imm = io_in_0_bits_data_imm;	// <stdin>:1729:10
 endmodule
 
@@ -1472,80 +1472,80 @@ module CSR(	// <stdin>:2683:10
                 io_wenFix);
 
   wire [63:0] _rdata_T_18;	// Mux.scala:27:73
-  reg  [63:0] mtvec;	// CSR.scala:171:34
-  reg  [63:0] mcause;	// CSR.scala:172:34
-  reg  [63:0] mepc;	// CSR.scala:174:34
-  reg  [63:0] mstatus;	// CSR.scala:175:34
-  reg  [63:0] satp;	// CSR.scala:205:27
-  reg  [1:0]  priviledgeMode;	// CSR.scala:212:37
-  wire [63:0] csri = {59'h0, io_cfIn_instr[19:15]};	// CSR.scala:231:41, Cat.scala:33:92
+  reg  [63:0] mtvec;	// CSR.scala:170:34
+  reg  [63:0] mcause;	// CSR.scala:171:34
+  reg  [63:0] mepc;	// CSR.scala:173:34
+  reg  [63:0] mstatus;	// CSR.scala:174:34
+  reg  [63:0] satp;	// CSR.scala:204:27
+  reg  [1:0]  priviledgeMode;	// CSR.scala:211:37
+  wire [63:0] csri = {59'h0, io_cfIn_instr[19:15]};	// CSR.scala:230:41, Cat.scala:33:92
   wire        _justRead_T = io_in_bits_ctrl == 7'h2;	// LookupTree.scala:8:38
   wire        _justRead_T_1 = io_in_bits_ctrl == 7'h6;	// LookupTree.scala:8:38
   wire [63:0] _wdata_T_22 = (io_in_bits_ctrl == 7'h1 ? io_in_bits_srcA : 64'h0) | (_justRead_T ? _rdata_T_18 |
                 io_in_bits_srcA : 64'h0) | (io_in_bits_ctrl == 7'h3 ? _rdata_T_18 & ~io_in_bits_srcA :
                 64'h0) | (io_in_bits_ctrl == 7'h5 ? csri : 64'h0) | (_justRead_T_1 ? _rdata_T_18 | csri :
                 64'h0) | (io_in_bits_ctrl == 7'h7 ? _rdata_T_18 & {59'h7FFFFFFFFFFFFFF,
-                ~(io_cfIn_instr[19:15])} : 64'h0);	// <stdin>:2683:10, CSR.scala:231:41, :234:43, :235:{43,45}, :237:43, :238:{43,45}, Cat.scala:33:92, LookupTree.scala:8:38, Mux.scala:27:73
+                ~(io_cfIn_instr[19:15])} : 64'h0);	// <stdin>:2683:10, CSR.scala:230:41, :233:43, :234:{43,45}, :236:43, :237:{43,45}, Cat.scala:33:92, LookupTree.scala:8:38, Mux.scala:27:73
   wire        _wen_T_4 = io_in_valid & (|io_in_bits_ctrl) & (io_in_bits_srcB[11:0] != 12'h180 | _wdata_T_22[63:60]
-                == 4'h0 | _wdata_T_22[63:60] == 4'h8);	// CSR.scala:229:24, :242:{44,66,93,115}, :245:{34,51,60,71}, :266:75, Mux.scala:27:73
+                == 4'h0 | _wdata_T_22[63:60] == 4'h8);	// CSR.scala:228:24, :241:{44,66,93,115}, :244:{34,51,60,71}, :265:75, Mux.scala:27:73
   wire        isIllegalAccess = priviledgeMode < io_in_bits_srcB[9:8] | _wen_T_4 & (&(io_in_bits_srcB[11:10])) &
-                ~((_justRead_T | _justRead_T_1) & io_in_bits_srcA == 64'h0);	// <stdin>:2683:10, CSR.scala:212:37, :245:51, :246:{44,50}, :247:{46,72,80}, :248:{42,51,64,67}, :249:45, LookupTree.scala:8:38
-  wire        _resetSatp_T = io_in_bits_srcB[11:0] == 12'h180;	// CSR.scala:229:24, :245:60, LookupTree.scala:8:38
-  wire        _isIllegalAddr_illegalAddr_T_2 = io_in_bits_srcB[11:0] == 12'h342;	// CSR.scala:229:24, LookupTree.scala:8:38
-  wire        _isIllegalAddr_illegalAddr_T_4 = io_in_bits_srcB[11:0] == 12'h305;	// CSR.scala:229:24, LookupTree.scala:8:38
-  wire        _isIllegalAddr_illegalAddr_T_6 = io_in_bits_srcB[11:0] == 12'h300;	// CSR.scala:229:24, LookupTree.scala:8:38
-  wire        _isIllegalAddr_illegalAddr_T_8 = io_in_bits_srcB[11:0] == 12'h341;	// CSR.scala:229:24, LookupTree.scala:8:38
+                ~((_justRead_T | _justRead_T_1) & io_in_bits_srcA == 64'h0);	// <stdin>:2683:10, CSR.scala:211:37, :244:51, :245:{44,50}, :246:{46,72,80}, :247:{42,51,64,67}, :248:45, LookupTree.scala:8:38
+  wire        _resetSatp_T = io_in_bits_srcB[11:0] == 12'h180;	// CSR.scala:228:24, :244:60, LookupTree.scala:8:38
+  wire        _isIllegalAddr_illegalAddr_T_2 = io_in_bits_srcB[11:0] == 12'h342;	// CSR.scala:228:24, LookupTree.scala:8:38
+  wire        _isIllegalAddr_illegalAddr_T_4 = io_in_bits_srcB[11:0] == 12'h305;	// CSR.scala:228:24, LookupTree.scala:8:38
+  wire        _isIllegalAddr_illegalAddr_T_6 = io_in_bits_srcB[11:0] == 12'h300;	// CSR.scala:228:24, LookupTree.scala:8:38
+  wire        _isIllegalAddr_illegalAddr_T_8 = io_in_bits_srcB[11:0] == 12'h341;	// CSR.scala:228:24, LookupTree.scala:8:38
   assign _rdata_T_18 = (_resetSatp_T ? satp : 64'h0) | (_isIllegalAddr_illegalAddr_T_2 ? mcause : 64'h0) |
                 (_isIllegalAddr_illegalAddr_T_4 ? mtvec : 64'h0) | (_isIllegalAddr_illegalAddr_T_6 ?
-                mstatus : 64'h0) | (_isIllegalAddr_illegalAddr_T_8 ? mepc : 64'h0);	// <stdin>:2683:10, CSR.scala:171:34, :172:34, :174:34, :175:34, :205:27, LookupTree.scala:8:38, Mux.scala:27:73
-  wire        resetSatp = _resetSatp_T & _wen_T_4;	// CSR.scala:245:51, :253:41, LookupTree.scala:8:38
-  wire        _io_redirect_valid_T = io_in_bits_ctrl == 7'h0;	// CSR.scala:245:34, :258:52
-  wire        _isEcall_T_2 = io_in_bits_srcB[11:0] == 12'h0 & _io_redirect_valid_T;	// CSR.scala:229:24, :258:52, :259:{28,42}
+                mstatus : 64'h0) | (_isIllegalAddr_illegalAddr_T_8 ? mepc : 64'h0);	// <stdin>:2683:10, CSR.scala:170:34, :171:34, :173:34, :174:34, :204:27, LookupTree.scala:8:38, Mux.scala:27:73
+  wire        resetSatp = _resetSatp_T & _wen_T_4;	// CSR.scala:244:51, :252:41, LookupTree.scala:8:38
+  wire        _io_redirect_valid_T = io_in_bits_ctrl == 7'h0;	// CSR.scala:244:34, :257:52
+  wire        _isEcall_T_2 = io_in_bits_srcB[11:0] == 12'h0 & _io_redirect_valid_T;	// CSR.scala:228:24, :257:52, :258:{28,42}
   wire [6:0]  _GEN = {(&priviledgeMode) & io_in_valid & _isEcall_T_2, priviledgeMode == 2'h1 & io_in_valid &
                 _isEcall_T_2, priviledgeMode == 2'h0 & io_in_valid & _isEcall_T_2, io_cfIn_exceptionVec_6,
                 io_cfIn_exceptionVec_4, io_in_valid & io_in_bits_srcB[11:0] == 12'h1 &
                 _io_redirect_valid_T, (~_isIllegalAddr_illegalAddr_T_8 & ~_isIllegalAddr_illegalAddr_T_6 &
                 ~_isIllegalAddr_illegalAddr_T_4 & ~_isIllegalAddr_illegalAddr_T_2 & ~_resetSatp_T |
-                isIllegalAccess) & _wen_T_4 | io_cfIn_exceptionVec_2};	// CSR.scala:212:37, :229:24, :245:51, :249:45, :258:{29,52}, :259:42, :271:52, :272:{47,72}, :273:{51,76}, :274:{51,76}, :275:{57,77}, :278:{56,74}, LookupTree.scala:8:38, Mux.scala:81:58
-  wire        raiseExceptionIntr = (|_GEN) & io_instrValid;	// CSR.scala:278:56, :279:48, :286:64
-  wire [63:0] csr_0;	// CSR.scala:320:23
-  wire [63:0] csr_1;	// CSR.scala:320:23
-  wire [63:0] csr_2;	// CSR.scala:320:23
-  wire [63:0] csr_3;	// CSR.scala:320:23
-  assign csr_0 = mstatus;	// CSR.scala:175:34, :321:16
-  assign csr_1 = mtvec;	// CSR.scala:171:34, :322:16
-  assign csr_2 = mepc;	// CSR.scala:174:34, :323:16
-  assign csr_3 = mcause;	// CSR.scala:172:34, :324:16
+                isIllegalAccess) & _wen_T_4 | io_cfIn_exceptionVec_2};	// CSR.scala:211:37, :228:24, :244:51, :248:45, :257:{29,52}, :258:42, :270:52, :271:{47,72}, :272:{51,76}, :273:{51,76}, :274:{57,77}, :277:{56,74}, LookupTree.scala:8:38, Mux.scala:81:58
+  wire        raiseExceptionIntr = (|_GEN) & io_instrValid;	// CSR.scala:277:56, :278:48, :285:64
+  wire [63:0] csr_0;	// CSR.scala:320:31
+  wire [63:0] csr_1;	// CSR.scala:320:31
+  wire [63:0] csr_2;	// CSR.scala:320:31
+  wire [63:0] csr_3;	// CSR.scala:320:31
+  assign csr_0 = mstatus;	// CSR.scala:174:34, :321:24
+  assign csr_1 = mtvec;	// CSR.scala:170:34, :322:24
+  assign csr_2 = mepc;	// CSR.scala:173:34, :323:24
+  assign csr_3 = mcause;	// CSR.scala:171:34, :324:24
   always @(posedge clock) begin
     if (reset) begin
-      mtvec <= 64'h0;	// <stdin>:2683:10, CSR.scala:171:34
-      mcause <= 64'h0;	// <stdin>:2683:10, CSR.scala:172:34
-      mepc <= 64'h0;	// <stdin>:2683:10, CSR.scala:174:34
-      mstatus <= 64'hA00001800;	// CSR.scala:175:34
-      satp <= 64'h0;	// <stdin>:2683:10, CSR.scala:205:27
-      priviledgeMode <= 2'h3;	// CSR.scala:212:37
+      mtvec <= 64'h0;	// <stdin>:2683:10, CSR.scala:170:34
+      mcause <= 64'h0;	// <stdin>:2683:10, CSR.scala:171:34
+      mepc <= 64'h0;	// <stdin>:2683:10, CSR.scala:173:34
+      mstatus <= 64'hA00001800;	// CSR.scala:174:34
+      satp <= 64'h0;	// <stdin>:2683:10, CSR.scala:204:27
+      priviledgeMode <= 2'h3;	// CSR.scala:211:37
     end
     else begin
-      automatic logic _T_10;	// CSR.scala:251:57
-      automatic logic _T_21;	// CSR.scala:299:21
-      _T_10 = _wen_T_4 & ~isIllegalAccess;	// CSR.scala:245:51, :249:45, :251:{57,60}
-      _T_21 = io_in_valid & io_in_bits_srcB[11:0] == 12'h302 & _io_redirect_valid_T;	// CSR.scala:229:24, :258:52, :260:27, :299:21
-      if (_T_10 & _isIllegalAddr_illegalAddr_T_4)	// CSR.scala:251:57, LookupTree.scala:8:38, RegMap.scala:34:74
-        mtvec <= _wdata_T_22;	// CSR.scala:171:34, Mux.scala:27:73
-      if (_T_10 & _isIllegalAddr_illegalAddr_T_2)	// CSR.scala:251:57, LookupTree.scala:8:38, RegMap.scala:34:74
-        mcause <= _wdata_T_22;	// CSR.scala:172:34, Mux.scala:27:73
-      if (_T_10 & _isIllegalAddr_illegalAddr_T_8)	// CSR.scala:251:57, LookupTree.scala:8:38, RegMap.scala:34:74
-        mepc <= _wdata_T_22;	// CSR.scala:174:34, Mux.scala:27:73
-      if (~raiseExceptionIntr) begin	// CSR.scala:286:64
-        if (_T_21)	// CSR.scala:299:21
-          mstatus <= {mstatus[63:13], 2'h0, mstatus[10:8], 1'h1, mstatus[6:4], mstatus[7], mstatus[2:0]};	// <stdin>:2683:10, CSR.scala:175:34, :278:74, :300:59, :306:39
-        else if (_T_10 & _isIllegalAddr_illegalAddr_T_6)	// CSR.scala:251:57, :299:21, LookupTree.scala:8:38, RegMap.scala:34:74
-          mstatus <= {&(_wdata_T_22[14:13]), _wdata_T_22[62:0]};	// CSR.scala:175:34, :199:59, :200:{52,72}, Cat.scala:33:92, Mux.scala:27:73
+      automatic logic _T_10;	// CSR.scala:250:57
+      automatic logic _T_21;	// CSR.scala:298:21
+      _T_10 = _wen_T_4 & ~isIllegalAccess;	// CSR.scala:244:51, :248:45, :250:{57,60}
+      _T_21 = io_in_valid & io_in_bits_srcB[11:0] == 12'h302 & _io_redirect_valid_T;	// CSR.scala:228:24, :257:52, :259:27, :298:21
+      if (_T_10 & _isIllegalAddr_illegalAddr_T_4)	// CSR.scala:250:57, LookupTree.scala:8:38, RegMap.scala:34:74
+        mtvec <= _wdata_T_22;	// CSR.scala:170:34, Mux.scala:27:73
+      if (_T_10 & _isIllegalAddr_illegalAddr_T_2)	// CSR.scala:250:57, LookupTree.scala:8:38, RegMap.scala:34:74
+        mcause <= _wdata_T_22;	// CSR.scala:171:34, Mux.scala:27:73
+      if (_T_10 & _isIllegalAddr_illegalAddr_T_8)	// CSR.scala:250:57, LookupTree.scala:8:38, RegMap.scala:34:74
+        mepc <= _wdata_T_22;	// CSR.scala:173:34, Mux.scala:27:73
+      if (~raiseExceptionIntr) begin	// CSR.scala:285:64
+        if (_T_21)	// CSR.scala:298:21
+          mstatus <= {mstatus[63:13], 2'h0, mstatus[10:8], 1'h1, mstatus[6:4], mstatus[7], mstatus[2:0]};	// <stdin>:2683:10, CSR.scala:174:34, :277:74, :299:59, :305:39
+        else if (_T_10 & _isIllegalAddr_illegalAddr_T_6)	// CSR.scala:250:57, :298:21, LookupTree.scala:8:38, RegMap.scala:34:74
+          mstatus <= {&(_wdata_T_22[14:13]), _wdata_T_22[62:0]};	// CSR.scala:174:34, :198:59, :199:{52,72}, Cat.scala:33:92, Mux.scala:27:73
       end
-      if (_T_10 & _resetSatp_T)	// CSR.scala:251:57, LookupTree.scala:8:38, RegMap.scala:34:74
-        satp <= _wdata_T_22;	// CSR.scala:205:27, Mux.scala:27:73
-      if (_T_21)	// CSR.scala:299:21
-        priviledgeMode <= mstatus[12:11];	// CSR.scala:175:34, :212:37, :300:59
+      if (_T_10 & _resetSatp_T)	// CSR.scala:250:57, LookupTree.scala:8:38, RegMap.scala:34:74
+        satp <= _wdata_T_22;	// CSR.scala:204:27, Mux.scala:27:73
+      if (_T_21)	// CSR.scala:298:21
+        priviledgeMode <= mstatus[12:11];	// CSR.scala:174:34, :211:37, :299:59
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2683:10
@@ -1583,12 +1583,12 @@ module CSR(	// <stdin>:2683:10
         _RANDOM_10 = `RANDOM;	// <stdin>:2683:10
         _RANDOM_11 = `RANDOM;	// <stdin>:2683:10
         _RANDOM_12 = `RANDOM;	// <stdin>:2683:10
-        mtvec = {_RANDOM_2, _RANDOM_3};	// CSR.scala:171:34
-        mcause = {_RANDOM_4, _RANDOM_5};	// CSR.scala:172:34
-        mepc = {_RANDOM_6, _RANDOM_7};	// CSR.scala:174:34
-        mstatus = {_RANDOM_8, _RANDOM_9};	// CSR.scala:175:34
-        satp = {_RANDOM_10, _RANDOM_11};	// CSR.scala:205:27
-        priviledgeMode = _RANDOM_12[1:0];	// CSR.scala:212:37
+        mtvec = {_RANDOM_2, _RANDOM_3};	// CSR.scala:170:34
+        mcause = {_RANDOM_4, _RANDOM_5};	// CSR.scala:171:34
+        mepc = {_RANDOM_6, _RANDOM_7};	// CSR.scala:173:34
+        mstatus = {_RANDOM_8, _RANDOM_9};	// CSR.scala:174:34
+        satp = {_RANDOM_10, _RANDOM_11};	// CSR.scala:204:27
+        priviledgeMode = _RANDOM_12[1:0];	// CSR.scala:211:37
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2683:10
@@ -1596,9 +1596,9 @@ module CSR(	// <stdin>:2683:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_out_bits = _rdata_T_18;	// <stdin>:2683:10, Mux.scala:27:73
-  assign io_redirect_target = resetSatp ? io_cfIn_pc + 64'h4 : raiseExceptionIntr ? mtvec : mepc;	// <stdin>:2683:10, CSR.scala:171:34, :174:34, :253:41, :286:64, :291:{34,57,67}
-  assign io_redirect_valid = io_in_valid & _io_redirect_valid_T | raiseExceptionIntr | resetSatp;	// <stdin>:2683:10, CSR.scala:253:41, :258:52, :286:64, :289:{37,84}
-  assign io_wenFix = |_GEN;	// <stdin>:2683:10, CSR.scala:278:56, :279:48
+  assign io_redirect_target = resetSatp ? io_cfIn_pc + 64'h4 : raiseExceptionIntr ? mtvec : mepc;	// <stdin>:2683:10, CSR.scala:170:34, :173:34, :252:41, :285:64, :290:{34,57,67}
+  assign io_redirect_valid = io_in_valid & _io_redirect_valid_T | raiseExceptionIntr | resetSatp;	// <stdin>:2683:10, CSR.scala:252:41, :257:52, :285:64, :288:{37,84}
+  assign io_wenFix = |_GEN;	// <stdin>:2683:10, CSR.scala:277:56, :278:48
 endmodule
 
 module EXU(	// <stdin>:3414:10
@@ -2674,8 +2674,44 @@ module TP_SRAM(	// <stdin>:4299:10
 endmodule
 
 module SimTop(	// <stdin>:4342:10
-  input clock,
-        reset);
+  input         clock,
+                reset,
+  output [63:0] io_gpr_regs_0,
+                io_gpr_regs_1,
+                io_gpr_regs_2,
+                io_gpr_regs_3,
+                io_gpr_regs_4,
+                io_gpr_regs_5,
+                io_gpr_regs_6,
+                io_gpr_regs_7,
+                io_gpr_regs_8,
+                io_gpr_regs_9,
+                io_gpr_regs_10,
+                io_gpr_regs_11,
+                io_gpr_regs_12,
+                io_gpr_regs_13,
+                io_gpr_regs_14,
+                io_gpr_regs_15,
+                io_gpr_regs_16,
+                io_gpr_regs_17,
+                io_gpr_regs_18,
+                io_gpr_regs_19,
+                io_gpr_regs_20,
+                io_gpr_regs_21,
+                io_gpr_regs_22,
+                io_gpr_regs_23,
+                io_gpr_regs_24,
+                io_gpr_regs_25,
+                io_gpr_regs_26,
+                io_gpr_regs_27,
+                io_gpr_regs_28,
+                io_gpr_regs_29,
+                io_gpr_regs_30,
+                io_gpr_regs_31,
+                io_csr_mstatus,
+                io_csr_mtvec,
+                io_csr_mepc,
+                io_csr_mcause);
 
   wire        _TP_SRAM_io_aw_ready;	// SimTop.scala:26:29
   wire        _TP_SRAM_io_w_ready;	// SimTop.scala:26:29
@@ -2780,5 +2816,41 @@ module SimTop(	// <stdin>:4342:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
+  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_1 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_2 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_3 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_4 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_5 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_6 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_7 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_8 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_9 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_10 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_11 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_12 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_13 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_14 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_15 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_16 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_17 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_18 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_19 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_20 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_21 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_22 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_23 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_24 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_25 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_26 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_27 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_28 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_29 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_30 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_gpr_regs_31 = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_csr_mstatus = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_csr_mtvec = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_csr_mepc = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
+  assign io_csr_mcause = 64'h0;	// <stdin>:4342:10, SimTop.scala:34:31
 endmodule
 
