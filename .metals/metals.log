@@ -1022,3 +1022,4 @@ scala.meta.tokenizers.TokenizeException: <input>:58: error: illegal character '\
 2024.02.26 13:01:53 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/Settings.scala
 2024.02.26 13:05:11 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/Settings.scala
 2024.02.26 13:05:23 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/Settings.scala
+2024.02.26 13:05:41 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
