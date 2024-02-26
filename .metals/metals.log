@@ -1175,3 +1175,5 @@ import top.SEttings`
 警告: Unmatched cancel notification for request id 9932
 2月 26, 2024 2:50:35 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 警告: Unmatched cancel notification for request id 9933
+2024.02.26 15:23:47 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 15:23:53 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
