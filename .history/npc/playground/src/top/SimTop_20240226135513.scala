@@ -11,8 +11,8 @@ import top.Settings
 import utils.difftest._
 
 class SimTopIO extends Bundle {
-	val gpr = Output(new GPRState)
 	val csr = Output(new CSRState)
+	val gpr = Output(new GPRState)
 	val load = Output(new LoadEvent)
 	val store = Output(new StoreEvent)
 	val instr = Output(new InstrCommit(numPhyRegs = 32))
@@ -37,7 +37,5 @@ class SimTop extends Module {
 		io.csr.mtvec	:= csr(1)
 		io.csr.mepc		:= csr(2)
 		io.csr.mcause	:= csr(3)
-	} else {
-		io.csr := 0.U
 	}
 }

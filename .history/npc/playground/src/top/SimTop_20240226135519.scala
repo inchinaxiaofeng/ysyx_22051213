@@ -37,7 +37,5 @@ class SimTop extends Module {
 		io.csr.mtvec	:= csr(1)
 		io.csr.mepc		:= csr(2)
 		io.csr.mcause	:= csr(3)
-	} else {
-		io.csr := 0.U
 	}
 }
