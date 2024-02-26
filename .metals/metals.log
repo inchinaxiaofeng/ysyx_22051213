@@ -1081,3 +1081,10 @@ scala.meta.tokenizers.TokenizeException: <input>:58: error: illegal character '\
 2024.02.26 14:01:52 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.02.26 14:02:24 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.02.26 14:02:33 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2月 26, 2024 2:02:58 下午 scala.meta.internal.pc.CompilerAccess handleError
+严重: A severe compiler error occurred, full details of the error can be found in the error report /home/marinatoo/ysyx-workbench/.metals/.reports/metals-full/2024-02-26/r_compiler-error_14-02-58-783.md
+2月 26, 2024 2:02:59 下午 scala.meta.internal.pc.CompilerAccess handleError
+严重: A severe compiler error occurred, full details of the error can be found in the error report /home/marinatoo/ysyx-workbench/.metals/.reports/metals-full/2024-02-26/r_compiler-error_14-02-59-845.md
+2月 26, 2024 2:03:01 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 7225
+2024.02.26 14:03:22 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
