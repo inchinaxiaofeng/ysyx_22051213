@@ -1099,3 +1099,70 @@ scala.meta.tokenizers.TokenizeException: <input>:58: error: illegal character '\
 2024.02.26 14:12:19 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.02.26 14:12:48 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.02.26 14:12:50 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:13:21 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:14:58 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.26 14:15:24 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/HazardUnit.scala
+2024.02.26 14:15:25 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/NPC.scala
+2024.02.26 14:15:27 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/EXCtrl.scala
+2024.02.26 14:15:27 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/CSRFile.scala
+2024.02.26 14:15:29 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/pipeline/EX_LS.scala
+2024.02.26 14:15:30 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/pipeline/ID_EX.scala
+2024.02.26 14:15:30 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/pipeline/LS_WB.scala
+2024.02.26 14:15:31 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/pipeline/IF_ID.scala
+2024.02.26 14:15:38 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/WriteBackUnit.scala
+2024.02.26 14:15:43 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/NPC.scala
+2月 26, 2024 2:15:47 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 8084
+2024.02.26 14:15:48 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/HazardUnit.scala
+2024.02.26 14:15:53 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/EXCtrl.scala
+2024.02.26 14:15:57 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/module/CSRFile.scala
+2024.02.26 14:16:16 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/units/LSU.scala
+2024.02.26 14:16:30 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/defs/Pipeline.scala
+2024.02.26 14:16:35 WARN  Could not find semantic tokens for: file:///home/marinatoo/ysyx-workbench/npc/playground/src/defs/UnitIO.scala
+2024.02.26 14:18:05 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.26 14:18:53 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:19:59 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.26 14:21:04 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.02.26 14:21:17 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.02.26 14:24:41 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/Settings.scala
+2024.02.26 14:24:49 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/MarCore.scala
+2024.02.26 14:25:42 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:25:46 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:25:49 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:25:49 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:26:23 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.02.26 14:27:50 ERROR Failed to tokenize input for semantic tokens for /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+scala.meta.tokenizers.TokenizeException: <input>:8: error: unclosed quoted identifier
+import top.SEttings`
+                   ^
+	at scala.meta.internal.tokenizers.Reporter.syntaxError(Reporter.scala:23)
+	at scala.meta.internal.tokenizers.Reporter.syntaxError$(Reporter.scala:23)
+	at scala.meta.internal.tokenizers.Reporter$$anon$1.syntaxError(Reporter.scala:33)
+	at scala.meta.internal.tokenizers.Reporter.syntaxError(Reporter.scala:25)
+	at scala.meta.internal.tokenizers.Reporter.syntaxError$(Reporter.scala:25)
+	at scala.meta.internal.tokenizers.Reporter$$anon$1.syntaxError(Reporter.scala:33)
+	at scala.meta.internal.tokenizers.LegacyScanner.getBackquotedIdent(LegacyScanner.scala:489)
+	at scala.meta.internal.tokenizers.LegacyScanner.fetchToken(LegacyScanner.scala:337)
+	at scala.meta.internal.tokenizers.LegacyScanner.nextToken(LegacyScanner.scala:211)
+	at scala.meta.internal.tokenizers.LegacyScanner.foreach(LegacyScanner.scala:1011)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer.uncachedTokenize(ScalametaTokenizer.scala:24)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer.$anonfun$tokenize$1(ScalametaTokenizer.scala:17)
+	at scala.collection.concurrent.TrieMap.getOrElseUpdate(TrieMap.scala:962)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer.tokenize(ScalametaTokenizer.scala:17)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer$$anon$2.apply(ScalametaTokenizer.scala:332)
+	at scala.meta.tokenizers.Api$XtensionTokenizeDialectInput.tokenize(Api.scala:25)
+	at scala.meta.tokenizers.Api$XtensionTokenizeInputLike.tokenize(Api.scala:14)
+	at scala.meta.internal.metals.SemanticTokensProvider$.getTokens(SemanticTokensProvider.scala:28)
+	at scala.meta.internal.metals.SemanticTokensProvider$.provide(SemanticTokensProvider.scala:89)
+	at scala.meta.internal.metals.Compilers.$anonfun$semanticTokens$3(Compilers.scala:541)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:467)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:833)
+
+2024.02.26 14:27:51 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:27:54 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:28:17 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/MarCore.scala
+2024.02.26 14:28:53 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.02.26 14:28:59 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/RegisterFile.scala
+2024.02.26 14:29:19 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/Settings.scala

@@ -16,7 +16,7 @@ class RegFile extends HasRegFileParameter with HasMarCoreParameter {
 	def read(addr: UInt): UInt = Mux(addr === 0.U, 0.U, rf(addr))
 	def write(addr: UInt, data: UInt) = { rf(addr) := data(XLEN-1, 0)}
 
-	if (!Settings.get("IsChiselTest")) {
+	if (Settings.get("IsChiselTest")) {
 		val gpr = Wire(Vec(NRReg, UInt(XLEN.W)))
 		for (i <- 0 until NRReg) gpr(i) := rf(i)
 		BoringUtils.addSource(gpr, "GPR")

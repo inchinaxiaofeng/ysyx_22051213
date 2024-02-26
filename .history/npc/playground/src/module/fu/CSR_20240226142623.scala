@@ -316,7 +316,7 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 	io.in.ready := true.B
 	io.out.valid := valid
 
-	if (!Settings.get("IsChiselTest")) {
+	if (Settings.get("IsChiselTest")) {
 		val csr = Wire(Vec(4, UInt(XLEN.W)))
 		csr(0) := mstatus
 		csr(1) := mtvec

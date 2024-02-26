@@ -15,7 +15,7 @@ object DefaultSettings {
 		"EnableRVC"					-> false,
 
 		// Simualtion Settings
-		"IsChiselTest"				-> false, // If not set true when Elaborating, firtool will fail and exit with code 134.
+		"IsChiselTest"				-> true, // If not set true when Elaborating, firtool will fail and exit with code 134.
 		"DiffTestGPR"				-> true,
 		"DiffTestCSR"				-> false,
 		"TraceLoadStore"			-> false,
