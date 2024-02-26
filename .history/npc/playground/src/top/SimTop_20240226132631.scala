@@ -12,7 +12,7 @@ import utils.difftest._
 
 class SimTopIO extends Bundle {
 	if(Settings.get("DiffTestGPR")){val gpr = Output(new GPRState)}
-	if(Settings.get("DiffTestCSR")){val csr = Output(new CSRState)}
+	if(Settings.get("DiffTestCSR")){val csr = O(new CSRState)}
 	if(Settings.get("TraceLoadStore")){val load = Output(new LoadEvent)}
 	if(Settings.get("TraceLoadStore")){val store = Output(new StoreEvent)}
 	if(Settings.get("TraceInstrCommit")){val instr = Output(new InstrCommit(numPhyRegs = 32))}
@@ -29,13 +29,4 @@ class SimTop extends Module {
 	core.io.dmem <> arbiter.LoadStore
 
 	arbiter.Arbiter <> TP_SRAM.io
-
-	val csr = Wire(Vec(4, UInt(XLEN.W)))
-	if(Settings.get("DiffTestCSR")){
-		io.csr.mstatus	:= csr(0)
-		io.csr.mtvec	:= csr(1)
-		io.csr.mepc		:= csr(2)
-		io.csr.mcause	:= csr(3)
-		BoringUtils.addSink(csr, "CSR")
-	}
 }
