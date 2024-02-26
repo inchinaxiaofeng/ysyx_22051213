@@ -53,9 +53,4 @@ class CSRFile extends Module with HasMarCoreParameter {
 	csrDebug.mcause		:= mcause
 
 	val csr = Wire(Vec(4, UInt(XLEN.W)))
-	csr(0)	:= mstatus
-	csr(1)	:= mtvec
-	csr(2)	:= mepc
-	csr(3)	:= mcause
-	BoringUtils.addSource(csr, "CSR")
 }

@@ -35,18 +35,10 @@ class InstrCommit(val numPhyRegs: Int) extends DifftestBaseBundle with HasValid 
 }
 
 class CSRState extends DifftestBaseBundle {
-	val mstatus	= UInt(XLEN.W)
-	val mtvec	= UInt(XLEN.W)
-	val mepc	= UInt(XLEN.W)
-	val mcause	= UInt(XLEN.W)
-
-	val csr = Wire(Vec(4, UInt(XLEN.W)))
-
-	mstatus	:= csr(0)
-	mtvec	:= csr(1)
-	mepc	:= csr(2)
-	mcause	:= csr(3)
-	BoringUtils.addSink(csr, "CSR")
+	val mstatus	= Wire(UInt(XLEN.W))
+	val mepc	= Wire(UInt(XLEN.W))
+	val mtvec	= Wire(UInt(XLEN.W))
+	val mcause	= Wire(UInt(XLEN.W))
 }
 
 class StoreEvent extends DifftestBaseBundle with HasValid {

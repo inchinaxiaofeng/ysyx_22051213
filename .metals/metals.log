@@ -938,3 +938,72 @@ Caused by: java.lang.UnsupportedOperationException: tail of empty list
 2024.02.26 09:23:08 INFO  time: code lens generation in 2.76s
 2024.02.26 09:23:08 INFO  time: code lens generation in 2.78s
 2024.02.26 12:44:44 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2024.02.26 12:45:32 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2024.02.26 12:46:32 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2024.02.26 12:47:22 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/CSRFile.scala
+2024.02.26 12:47:36 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2024.02.26 12:48:07 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2024.02.26 12:48:26 ERROR Failed to tokenize input for semantic tokens for /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+scala.meta.tokenizers.TokenizeException: <input>:43: error: illegal character '\u3002'
+	val csr = Wire(Vec(4, UInt(XLEN。)))
+                                ^
+	at scala.meta.internal.tokenizers.Reporter.syntaxError(Reporter.scala:23)
+	at scala.meta.internal.tokenizers.Reporter.syntaxError$(Reporter.scala:23)
+	at scala.meta.internal.tokenizers.Reporter$$anon$1.syntaxError(Reporter.scala:33)
+	at scala.meta.internal.tokenizers.Reporter.syntaxError(Reporter.scala:25)
+	at scala.meta.internal.tokenizers.Reporter.syntaxError$(Reporter.scala:25)
+	at scala.meta.internal.tokenizers.Reporter$$anon$1.syntaxError(Reporter.scala:33)
+	at scala.meta.internal.tokenizers.LegacyScanner.fetchOther$1(LegacyScanner.scala:469)
+	at scala.meta.internal.tokenizers.LegacyScanner.fetchToken(LegacyScanner.scala:474)
+	at scala.meta.internal.tokenizers.LegacyScanner.nextToken(LegacyScanner.scala:211)
+	at scala.meta.internal.tokenizers.LegacyScanner.foreach(LegacyScanner.scala:1011)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer.uncachedTokenize(ScalametaTokenizer.scala:24)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer.$anonfun$tokenize$1(ScalametaTokenizer.scala:17)
+	at scala.collection.concurrent.TrieMap.getOrElseUpdate(TrieMap.scala:962)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer.tokenize(ScalametaTokenizer.scala:17)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer$$anon$2.apply(ScalametaTokenizer.scala:332)
+	at scala.meta.tokenizers.Api$XtensionTokenizeDialectInput.tokenize(Api.scala:25)
+	at scala.meta.tokenizers.Api$XtensionTokenizeInputLike.tokenize(Api.scala:14)
+	at scala.meta.internal.metals.SemanticTokensProvider$.getTokens(SemanticTokensProvider.scala:28)
+	at scala.meta.internal.metals.SemanticTokensProvider$.provide(SemanticTokensProvider.scala:89)
+	at scala.meta.internal.metals.Compilers.$anonfun$semanticTokens$3(Compilers.scala:541)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:467)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:833)
+
+2024.02.26 12:48:49 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2024.02.26 12:49:29 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2024.02.26 12:49:34 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2月 26, 2024 12:49:53 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 1345
+2024.02.26 12:50:08 ERROR Failed to tokenize input for semantic tokens for /home/marinatoo/ysyx-workbench/npc/playground/src/module/CSRFile.scala
+scala.meta.tokenizers.TokenizeException: <input>:58: error: illegal character '\uff1a'
+	csr(2)	：
+        ^
+	at scala.meta.internal.tokenizers.Reporter.syntaxError(Reporter.scala:23)
+	at scala.meta.internal.tokenizers.Reporter.syntaxError$(Reporter.scala:23)
+	at scala.meta.internal.tokenizers.Reporter$$anon$1.syntaxError(Reporter.scala:33)
+	at scala.meta.internal.tokenizers.Reporter.syntaxError(Reporter.scala:25)
+	at scala.meta.internal.tokenizers.Reporter.syntaxError$(Reporter.scala:25)
+	at scala.meta.internal.tokenizers.Reporter$$anon$1.syntaxError(Reporter.scala:33)
+	at scala.meta.internal.tokenizers.LegacyScanner.fetchOther$1(LegacyScanner.scala:469)
+	at scala.meta.internal.tokenizers.LegacyScanner.fetchToken(LegacyScanner.scala:474)
+	at scala.meta.internal.tokenizers.LegacyScanner.nextToken(LegacyScanner.scala:211)
+	at scala.meta.internal.tokenizers.LegacyScanner.foreach(LegacyScanner.scala:1011)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer.uncachedTokenize(ScalametaTokenizer.scala:24)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer.$anonfun$tokenize$1(ScalametaTokenizer.scala:17)
+	at scala.collection.concurrent.TrieMap.getOrElseUpdate(TrieMap.scala:962)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer.tokenize(ScalametaTokenizer.scala:17)
+	at scala.meta.internal.tokenizers.ScalametaTokenizer$$anon$2.apply(ScalametaTokenizer.scala:332)
+	at scala.meta.tokenizers.Api$XtensionTokenizeDialectInput.tokenize(Api.scala:25)
+	at scala.meta.tokenizers.Api$XtensionTokenizeInputLike.tokenize(Api.scala:14)
+	at scala.meta.internal.metals.SemanticTokensProvider$.getTokens(SemanticTokensProvider.scala:28)
+	at scala.meta.internal.metals.SemanticTokensProvider$.provide(SemanticTokensProvider.scala:89)
+	at scala.meta.internal.metals.Compilers.$anonfun$semanticTokens$3(Compilers.scala:541)
+	at scala.concurrent.impl.Promise$Transformation.run(Promise.scala:467)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.lang.Thread.run(Thread.java:833)
+
+2024.02.26 12:50:39 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/CSRFile.scala

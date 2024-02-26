@@ -46,6 +46,7 @@ class CSRState extends DifftestBaseBundle {
 	mtvec	:= csr(1)
 	mepc	:= csr(2)
 	mcause	:= csr(3)
+
 	BoringUtils.addSink(csr, "CSR")
 }
 

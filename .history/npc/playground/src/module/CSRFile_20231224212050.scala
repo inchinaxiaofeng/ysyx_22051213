@@ -5,7 +5,6 @@ import chisel3.util._
 import chisel3.util.experimental.BoringUtils
 
 import defs._
-import java.rmi.server.UID
 
 class CSRFile extends Module with HasMarCoreParameter {
 	val io	= IO(new CSRIO())
@@ -51,11 +50,4 @@ class CSRFile extends Module with HasMarCoreParameter {
 	csrDebug.mtvec		:= mtvec
 	csrDebug.mepc		:= mepc
 	csrDebug.mcause		:= mcause
-
-	val csr = Wire(Vec(4, UInt(XLEN.W)))
-	csr(0)	:= mstatus
-	csr(1)	:= mtvec
-	csr(2)	:= mepc
-	csr(3)	:= mcause
-	BoringUtils.addSource(csr, "CSR")
 }

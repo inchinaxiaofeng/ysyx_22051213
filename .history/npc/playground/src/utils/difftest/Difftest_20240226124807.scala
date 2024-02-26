@@ -40,13 +40,9 @@ class CSRState extends DifftestBaseBundle {
 	val mepc	= UInt(XLEN.W)
 	val mcause	= UInt(XLEN.W)
 
-	val csr = Wire(Vec(4, UInt(XLEN.W)))
+	val 
 
-	mstatus	:= csr(0)
-	mtvec	:= csr(1)
-	mepc	:= csr(2)
-	mcause	:= csr(3)
-	BoringUtils.addSink(csr, "CSR")
+	BoringUtils.addSink(mstatus, "MSTATUS")
 }
 
 class StoreEvent extends DifftestBaseBundle with HasValid {

@@ -42,10 +42,6 @@ class CSRState extends DifftestBaseBundle {
 
 	val csr = Wire(Vec(4, UInt(XLEN.W)))
 
-	mstatus	:= csr(0)
-	mtvec	:= csr(1)
-	mepc	:= csr(2)
-	mcause	:= csr(3)
 	BoringUtils.addSink(csr, "CSR")
 }
 
