@@ -34,12 +34,12 @@ class SimTop extends Module {
 		val gpr = Wire(Vec(32, UInt(64.W)))	
 		BoringUtils.addSink(gpr, "GPR")
 		for (i <- 0 until 32) {
-			io.gpr.regs(i) := gpr(i)
+			io.gpr(i) := gpr(i)
 		}
 	}
 
 	if(Settings.get("DiffTestCSR")){
-		val csr = Wire(Vec(4, UInt(64.W)))
+	val csr = Wire(Vec(4, UInt(64.W)))
 		BoringUtils.addSink(csr, "CSR")
 		io.csr.mstatus	:= csr(0)
 		io.csr.mtvec	:= csr(1)

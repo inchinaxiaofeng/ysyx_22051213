@@ -34,7 +34,7 @@ class SimTop extends Module {
 		val gpr = Wire(Vec(32, UInt(64.W)))	
 		BoringUtils.addSink(gpr, "GPR")
 		for (i <- 0 until 32) {
-			io.gpr.regs(i) := gpr(i)
+			io.gpr(i) := gpr(i)
 		}
 	}
 
