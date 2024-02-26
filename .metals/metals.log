@@ -1068,3 +1068,5 @@ scala.meta.tokenizers.TokenizeException: <input>:58: error: illegal character '\
 2月 26, 2024 1:59:06 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 警告: Unmatched cancel notification for request id 6584
 2024.02.26 13:59:11 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.26 13:59:24 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.26 13:59:25 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
