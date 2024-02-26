@@ -14,9 +14,7 @@ class SimTopIO extends Bundle {
 	if (Settings.get("DiffTetsCSR")) {
 		val csr = Output(new CSRState)
 	}
-	if (Settings.get("DiffTestGPR")) {
-		val gpr = Output(new GPRState)
-	}
+	if(Settings.get("DiffTestGPR")){val gpr = Output(new GPRState)}
 	if(Settings.get("TraceLoadStore")){val load = Output(new LoadEvent)}
 	if(Settings.get("TraceLoadStore")){val store = Output(new StoreEvent)}
 	if(Settings.get("TraceInstrCommit")){val instr = Output(new InstrCommit(numPhyRegs = 32))}
