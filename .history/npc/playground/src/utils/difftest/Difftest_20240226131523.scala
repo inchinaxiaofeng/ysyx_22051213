@@ -35,10 +35,10 @@ class InstrCommit(val numPhyRegs: Int) extends DifftestBaseBundle with HasValid 
 }
 
 class CSRState extends DifftestBaseBundle {
-	val mstatus	= Output(UInt(XLEN.W))
-	val mtvec	= Output(UInt(XLEN.W))
-	val mepc	= Output(UInt(XLEN.W))
-	val mcause	= Output(UInt(XLEN.W))
+	val mstatus	= UInt(XLEN.W)
+	val mtvec	= UInt(XLEN.W)
+	val mepc	= UInt(XLEN.W)
+	val mcause	= UInt(XLEN.W)
 
 	val csr = Wire(Vec(4, UInt(XLEN.W)))
 
