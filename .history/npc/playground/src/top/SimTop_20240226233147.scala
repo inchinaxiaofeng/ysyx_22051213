@@ -40,7 +40,7 @@ class SimTop extends Module {
 	}
 
 	if(Settings.get("DiffTestCSR")){
-		val csr = WireInit(Vec(4, 0.U(64.W)))
+		val csr = WireInit(Vec(4, 0.UUInt(64.W)))
 		BoringUtils.addSink(csr, "CSR", forceExists = true)
 		io.csr.mstatus	:= csr(0)
 		io.csr.mtvec	:= csr(1)
