@@ -36,7 +36,7 @@ class SimTop extends Module {
 		for (i <- 0 until 32) {
 			io.gpr.regs(i) := gpr(i)
 		}
-	} else { io.gpr := 0.U }
+	} else { io.gpr.regs := 0.U }
 
 	if(Settings.get("DiffTestCSR")){
 		val csr = Wire(Vec(4, UInt(64.W)))
