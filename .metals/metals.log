@@ -1014,3 +1014,6 @@ scala.meta.tokenizers.TokenizeException: <input>:58: error: illegal character '\
 2024.02.26 12:55:43 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
 2024.02.26 12:58:16 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
 2024.02.26 12:58:24 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/difftest/Difftest.scala
+2月 26, 2024 12:59:29 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 2418
+2024.02.26 13:00:06 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/Settings.scala
