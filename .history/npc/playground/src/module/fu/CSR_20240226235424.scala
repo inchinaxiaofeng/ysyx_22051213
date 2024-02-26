@@ -317,19 +317,12 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 	io.out.valid := valid
 
 	if (!Settings.get("IsChiselTest")) {
-		val mstatus	= WireInit(0.U(XLEN.W))
-		val mtvec	= WireInit(0.U(XLEN.W))
-		val mepc	= WireInit(0.U(XLEN.W))
-		val mcause	= WireInit(0.U(XLEN.W))
+		val mstatus = WireInit(0.U(XLEN.W))
 //		val csr = Wire(Vec(4, UInt(XLEN.W)))
-		mstatus	:= mstatus
-		mtvec	:= mtvec
-		mepc	:= mepc
-		mcause	:= mcause
-		BoringUtils.addSource(mstatus, "MSTATUS")
-		BoringUtils.addSource(mtvec, "MTVEC")
-		BoringUtils.addSource(mepc, "MEPC")
-		BoringUtils.addSource(mcause, "MCAUSE")
-//		BoringUtils.addSource(csr, "CSR", uniqueName = true)
+		mstatus := mstatus
+		csr(1) := mtvec
+		csr(2) := mepc
+		csr(3) := mcause
+		BoringUtils.addSource(csr, "CSR", uniqueName = true)
 	}
 }

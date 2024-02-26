@@ -327,9 +327,6 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 		mepc	:= mepc
 		mcause	:= mcause
 		BoringUtils.addSource(mstatus, "MSTATUS")
-		BoringUtils.addSource(mtvec, "MTVEC")
-		BoringUtils.addSource(mepc, "MEPC")
-		BoringUtils.addSource(mcause, "MCAUSE")
 //		BoringUtils.addSource(csr, "CSR", uniqueName = true)
 	}
 }

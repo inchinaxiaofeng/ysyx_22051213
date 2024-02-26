@@ -51,10 +51,10 @@ class SimTop extends Module {
 		BoringUtils.addSink(mepc, "MEPC")
 		BoringUtils.addSink(mcause, "MCAUSE")
 
-		io.csr.mstatus	:= mstatus	// csr(0)
-		io.csr.mtvec	:= mtvec	// csr(1)
-		io.csr.mepc		:= mepc	// csr(2)
-		io.csr.mcause	:= mcause	// csr(3)
+		io.csr.mstatus	:= // csr(0)
+		io.csr.mtvec	:= // csr(1)
+		io.csr.mepc		:= // csr(2)
+		io.csr.mcause	:= // csr(3)
 	} else {
 		io.csr.mstatus	:= 0.U
 		io.csr.mtvec	:= 0.U
