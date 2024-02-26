@@ -31,11 +31,12 @@ class SimTop extends Module {
 	arbiter.Arbiter <> TP_SRAM.io
 
 	val csr = Wire(Vec(4, UInt(64.W)))
+	io.csr.mstatus	:= csr(0)
+	io.csr.mtvec	:= csr(1)
+	io.csr.mepc		:= csr(2)
+	io.csr.mcause	:= csr(3)
+
 	if(Settings.get("DiffTestCSR")){
 		BoringUtils.addSink(csr, "CSR")
-		io.csr.mstatus	:= csr(0)
-		io.csr.mtvec	:= csr(1)
-		io.csr.mepc		:= csr(2)
-		io.csr.mcause	:= csr(3)
 	}
 }

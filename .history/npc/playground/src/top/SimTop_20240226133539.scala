@@ -31,6 +31,7 @@ class SimTop extends Module {
 	arbiter.Arbiter <> TP_SRAM.io
 
 	val csr = Wire(Vec(4, UInt(64.W)))
+	csr := 0.U
 	if(Settings.get("DiffTestCSR")){
 		BoringUtils.addSink(csr, "CSR")
 		io.csr.mstatus	:= csr(0)
