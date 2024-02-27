@@ -46,10 +46,10 @@ VSimTop::VSimTop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , io_gpr_regs_29{vlSymsp->TOP.io_gpr_regs_29}
     , io_gpr_regs_30{vlSymsp->TOP.io_gpr_regs_30}
     , io_gpr_regs_31{vlSymsp->TOP.io_gpr_regs_31}
-    , io_csr_mstatus{vlSymsp->TOP.io_csr_mstatus}
-    , io_csr_mtvec{vlSymsp->TOP.io_csr_mtvec}
-    , io_csr_mepc{vlSymsp->TOP.io_csr_mepc}
-    , io_csr_mcause{vlSymsp->TOP.io_csr_mcause}
+    , io_csr_regs_0{vlSymsp->TOP.io_csr_regs_0}
+    , io_csr_regs_1{vlSymsp->TOP.io_csr_regs_1}
+    , io_csr_regs_2{vlSymsp->TOP.io_csr_regs_2}
+    , io_csr_regs_3{vlSymsp->TOP.io_csr_regs_3}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

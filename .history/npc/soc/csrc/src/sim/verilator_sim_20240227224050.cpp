@@ -78,21 +78,21 @@ inline void get_debug (CPU_state *state) {
     env_cpu.bruCtrl = sim_cpu->jumpTrace_bruCtrl;
 #endif
 
-//    env_cpu.instr = sim_cpu->debug_instr_instr;
-//    env_cpu.pc_commit = sim_cpu->debug_commit_pc;
-//    env_cpu.pc_dynamic = sim_cpu->debug_dynamic_pc;
-//
-//    env_cpu.stallF = sim_cpu->debug_hazard_stallF;
-//    env_cpu.stallD = sim_cpu->debug_hazard_stallD;
-//    env_cpu.flushE = sim_cpu->debug_hazard_flushE;
-//    env_cpu.exu_forwardA = 
-//        sim_cpu->debug_hazard_hu_exu_ctrl_forwardA;
-//    env_cpu.exu_forwardB =
-//        sim_cpu->debug_hazard_hu_exu_ctrl_forwardB;
-//    env_cpu.idu_forwardA =
-//        sim_cpu->debug_hazard_hu_idu_ctrl_forwardA;
-//    env_cpu.idu_forwardB = 
-//        sim_cpu->debug_hazard_hu_idu_ctrl_forwardB;
+    env_cpu.instr = sim_cpu->debug_instr_instr;
+    env_cpu.pc_commit = sim_cpu->debug_commit_pc;
+    env_cpu.pc_dynamic = sim_cpu->debug_dynamic_pc;
+
+    env_cpu.stallF = sim_cpu->debug_hazard_stallF;
+    env_cpu.stallD = sim_cpu->debug_hazard_stallD;
+    env_cpu.flushE = sim_cpu->debug_hazard_flushE;
+    env_cpu.exu_forwardA = 
+        sim_cpu->debug_hazard_hu_exu_ctrl_forwardA;
+    env_cpu.exu_forwardB =
+        sim_cpu->debug_hazard_hu_exu_ctrl_forwardB;
+    env_cpu.idu_forwardA =
+        sim_cpu->debug_hazard_hu_idu_ctrl_forwardA;
+    env_cpu.idu_forwardB = 
+        sim_cpu->debug_hazard_hu_idu_ctrl_forwardB;
     
 //    printf("alu_srcA:%016lx ", sim_cpu->debug_alu_srcA_data);
 //    printf("alu_srcB:%016lx\n", sim_cpu->debug_alu_srcB_data);

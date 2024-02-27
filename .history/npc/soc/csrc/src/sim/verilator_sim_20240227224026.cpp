@@ -43,27 +43,27 @@ inline void get_debug (CPU_state *state) {
     env_cpu.gpr[29] = sim_cpu->io_gpr_regs_29;
     env_cpu.gpr[30] = sim_cpu->io_gpr_regs_30;
     env_cpu.gpr[31] = sim_cpu->io_gpr_regs_31;
-    env_cpu.csr[0]  = sim_cpu->io_csr_regs_0;
-    env_cpu.csr[1]  = sim_cpu->io_csr_regs_1;
-    env_cpu.csr[2]  = sim_cpu->io_csr_regs_2;
-    env_cpu.csr[3]  = sim_cpu->io_csr_regs_3;
+    env_cpu.csr[0]  = sim_cpu->io_csr_regs;
+    env_cpu.csr[1]  = sim_cpu->io_csr_regs;
+    env_cpu.csr[2]  = sim_cpu->io_csr_regs;
+    env_cpu.csr[3]  = sim_cpu->io_csr_regs;
     // Pipeline Trace
 // #ifdef PIPELINE_TRACE
-//	env_cpu.if_id_pc		= sim_cpu->pipelineTrace_if_id_pc_pc;
-//	env_cpu.if_id_instr		= sim_cpu->pipelineTrace_if_id_instr_instr;
-//	env_cpu.if_id_pcEnable	= sim_cpu->pipelineTrace_if_id_pcEnable;
-//	env_cpu.id_ex_pc		= sim_cpu->pipelineTrace_id_ex_pc_pc;
-//	env_cpu.id_ex_instr		= sim_cpu->pipelineTrace_id_ex_instr_instr;
-//	env_cpu.id_ex_pcEnable	= sim_cpu->pipelineTrace_id_ex_pcEnable;
-//	env_cpu.ex_ls_pc		= sim_cpu->pipelineTrace_ex_ls_pc_pc;
-//	env_cpu.ex_ls_instr		= sim_cpu->pipelineTrace_ex_ls_instr_instr;
-//	env_cpu.ex_ls_pcEnable	= sim_cpu->pipelineTrace_ex_ls_pcEnable;
-//	env_cpu.ls_wb_pc		= sim_cpu->pipelineTrace_ls_wb_pc_pc;
-//	env_cpu.ls_wb_instr		= sim_cpu->pipelineTrace_ls_wb_instr_instr;
-//	env_cpu.ls_wb_pcEnable	= sim_cpu->pipelineTrace_ls_wb_pcEnable;
-//	env_cpu.rf_pc			= sim_cpu->pipelineTrace_rf_pc_pc;
-//	env_cpu.rf_instr		= sim_cpu->pipelineTrace_rf_instr_instr;
-//	env_cpu.rf_pcEnable		= sim_cpu->pipelineTrace_rf_pcEnable;
+	env_cpu.if_id_pc		= sim_cpu->pipelineTrace_if_id_pc_pc;
+	env_cpu.if_id_instr		= sim_cpu->pipelineTrace_if_id_instr_instr;
+	env_cpu.if_id_pcEnable	= sim_cpu->pipelineTrace_if_id_pcEnable;
+	env_cpu.id_ex_pc		= sim_cpu->pipelineTrace_id_ex_pc_pc;
+	env_cpu.id_ex_instr		= sim_cpu->pipelineTrace_id_ex_instr_instr;
+	env_cpu.id_ex_pcEnable	= sim_cpu->pipelineTrace_id_ex_pcEnable;
+	env_cpu.ex_ls_pc		= sim_cpu->pipelineTrace_ex_ls_pc_pc;
+	env_cpu.ex_ls_instr		= sim_cpu->pipelineTrace_ex_ls_instr_instr;
+	env_cpu.ex_ls_pcEnable	= sim_cpu->pipelineTrace_ex_ls_pcEnable;
+	env_cpu.ls_wb_pc		= sim_cpu->pipelineTrace_ls_wb_pc_pc;
+	env_cpu.ls_wb_instr		= sim_cpu->pipelineTrace_ls_wb_instr_instr;
+	env_cpu.ls_wb_pcEnable	= sim_cpu->pipelineTrace_ls_wb_pcEnable;
+	env_cpu.rf_pc			= sim_cpu->pipelineTrace_rf_pc_pc;
+	env_cpu.rf_instr		= sim_cpu->pipelineTrace_rf_instr_instr;
+	env_cpu.rf_pcEnable		= sim_cpu->pipelineTrace_rf_pcEnable;
 // #endif
 
 #ifdef JUMP_TRACE
@@ -78,21 +78,21 @@ inline void get_debug (CPU_state *state) {
     env_cpu.bruCtrl = sim_cpu->jumpTrace_bruCtrl;
 #endif
 
-//    env_cpu.instr = sim_cpu->debug_instr_instr;
-//    env_cpu.pc_commit = sim_cpu->debug_commit_pc;
-//    env_cpu.pc_dynamic = sim_cpu->debug_dynamic_pc;
-//
-//    env_cpu.stallF = sim_cpu->debug_hazard_stallF;
-//    env_cpu.stallD = sim_cpu->debug_hazard_stallD;
-//    env_cpu.flushE = sim_cpu->debug_hazard_flushE;
-//    env_cpu.exu_forwardA = 
-//        sim_cpu->debug_hazard_hu_exu_ctrl_forwardA;
-//    env_cpu.exu_forwardB =
-//        sim_cpu->debug_hazard_hu_exu_ctrl_forwardB;
-//    env_cpu.idu_forwardA =
-//        sim_cpu->debug_hazard_hu_idu_ctrl_forwardA;
-//    env_cpu.idu_forwardB = 
-//        sim_cpu->debug_hazard_hu_idu_ctrl_forwardB;
+    env_cpu.instr = sim_cpu->debug_instr_instr;
+    env_cpu.pc_commit = sim_cpu->debug_commit_pc;
+    env_cpu.pc_dynamic = sim_cpu->debug_dynamic_pc;
+
+    env_cpu.stallF = sim_cpu->debug_hazard_stallF;
+    env_cpu.stallD = sim_cpu->debug_hazard_stallD;
+    env_cpu.flushE = sim_cpu->debug_hazard_flushE;
+    env_cpu.exu_forwardA = 
+        sim_cpu->debug_hazard_hu_exu_ctrl_forwardA;
+    env_cpu.exu_forwardB =
+        sim_cpu->debug_hazard_hu_exu_ctrl_forwardB;
+    env_cpu.idu_forwardA =
+        sim_cpu->debug_hazard_hu_idu_ctrl_forwardA;
+    env_cpu.idu_forwardB = 
+        sim_cpu->debug_hazard_hu_idu_ctrl_forwardB;
     
 //    printf("alu_srcA:%016lx ", sim_cpu->debug_alu_srcA_data);
 //    printf("alu_srcB:%016lx\n", sim_cpu->debug_alu_srcB_data);

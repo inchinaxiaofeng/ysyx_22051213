@@ -34,41 +34,6 @@ VL_ATTR_COLD void VSimTop___024root___eval_initial__TOP(VSimTop___024root* vlSel
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root___eval_initial__TOP\n"); );
     // Body
     vlSelf->io_gpr_regs_0 = 0ULL;
-    vlSelf->io_gpr_regs_1 = 0ULL;
-    vlSelf->io_gpr_regs_2 = 0ULL;
-    vlSelf->io_gpr_regs_3 = 0ULL;
-    vlSelf->io_gpr_regs_4 = 0ULL;
-    vlSelf->io_gpr_regs_5 = 0ULL;
-    vlSelf->io_gpr_regs_6 = 0ULL;
-    vlSelf->io_gpr_regs_7 = 0ULL;
-    vlSelf->io_gpr_regs_8 = 0ULL;
-    vlSelf->io_gpr_regs_9 = 0ULL;
-    vlSelf->io_gpr_regs_10 = 0ULL;
-    vlSelf->io_gpr_regs_11 = 0ULL;
-    vlSelf->io_gpr_regs_12 = 0ULL;
-    vlSelf->io_gpr_regs_13 = 0ULL;
-    vlSelf->io_gpr_regs_14 = 0ULL;
-    vlSelf->io_gpr_regs_15 = 0ULL;
-    vlSelf->io_gpr_regs_16 = 0ULL;
-    vlSelf->io_gpr_regs_17 = 0ULL;
-    vlSelf->io_gpr_regs_18 = 0ULL;
-    vlSelf->io_gpr_regs_19 = 0ULL;
-    vlSelf->io_gpr_regs_20 = 0ULL;
-    vlSelf->io_gpr_regs_21 = 0ULL;
-    vlSelf->io_gpr_regs_22 = 0ULL;
-    vlSelf->io_gpr_regs_23 = 0ULL;
-    vlSelf->io_gpr_regs_24 = 0ULL;
-    vlSelf->io_gpr_regs_25 = 0ULL;
-    vlSelf->io_gpr_regs_26 = 0ULL;
-    vlSelf->io_gpr_regs_27 = 0ULL;
-    vlSelf->io_gpr_regs_28 = 0ULL;
-    vlSelf->io_gpr_regs_29 = 0ULL;
-    vlSelf->io_gpr_regs_30 = 0ULL;
-    vlSelf->io_gpr_regs_31 = 0ULL;
-    vlSelf->io_csr_mstatus = 0ULL;
-    vlSelf->io_csr_mtvec = 0ULL;
-    vlSelf->io_csr_mepc = 0ULL;
-    vlSelf->io_csr_mcause = 0ULL;
 }
 
 VL_ATTR_COLD void VSimTop___024root___eval_final(VSimTop___024root* vlSelf) {
@@ -101,7 +66,7 @@ VL_ATTR_COLD void VSimTop___024root___eval_settle(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VSimTop___024root___dump_triggers__stl(vlSelf);
 #endif
-                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2676, "", "Settle region did not converge.");
+                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2824, "", "Settle region did not converge.");
             }
             vlSelf->__VstlIterCount = ((IData)(1U) 
                                        + vlSelf->__VstlIterCount);
@@ -195,6 +160,72 @@ VL_ATTR_COLD void VSimTop___024root___stl_sequent__TOP__0(VSimTop___024root* vlS
     VlWide<3>/*95:0*/ __Vtemp_h4373a639__0;
     VlWide<3>/*95:0*/ __Vtemp_h84075690__0;
     // Body
+    vlSelf->io_gpr_regs_1 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [1U];
+    vlSelf->io_gpr_regs_2 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [2U];
+    vlSelf->io_gpr_regs_3 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [3U];
+    vlSelf->io_gpr_regs_4 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [4U];
+    vlSelf->io_gpr_regs_5 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [5U];
+    vlSelf->io_gpr_regs_6 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [6U];
+    vlSelf->io_gpr_regs_7 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [7U];
+    vlSelf->io_gpr_regs_8 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [8U];
+    vlSelf->io_gpr_regs_9 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [9U];
+    vlSelf->io_gpr_regs_10 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0xaU];
+    vlSelf->io_gpr_regs_11 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0xbU];
+    vlSelf->io_gpr_regs_12 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0xcU];
+    vlSelf->io_gpr_regs_13 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0xdU];
+    vlSelf->io_gpr_regs_14 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0xeU];
+    vlSelf->io_gpr_regs_15 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0xfU];
+    vlSelf->io_gpr_regs_16 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x10U];
+    vlSelf->io_gpr_regs_17 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x11U];
+    vlSelf->io_gpr_regs_18 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x12U];
+    vlSelf->io_gpr_regs_19 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x13U];
+    vlSelf->io_gpr_regs_20 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x14U];
+    vlSelf->io_gpr_regs_21 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x15U];
+    vlSelf->io_gpr_regs_22 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x16U];
+    vlSelf->io_gpr_regs_23 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x17U];
+    vlSelf->io_gpr_regs_24 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x18U];
+    vlSelf->io_gpr_regs_25 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x19U];
+    vlSelf->io_gpr_regs_26 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x1aU];
+    vlSelf->io_gpr_regs_27 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x1bU];
+    vlSelf->io_gpr_regs_28 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x1cU];
+    vlSelf->io_gpr_regs_29 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x1dU];
+    vlSelf->io_gpr_regs_30 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x1eU];
+    vlSelf->io_gpr_regs_31 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
+        [0x1fU];
+    vlSelf->io_csr_regs_0 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus;
+    vlSelf->io_csr_regs_1 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mtvec;
+    vlSelf->io_csr_regs_2 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mepc;
+    vlSelf->io_csr_regs_3 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mcause;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_out_0_valid 
         = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__snpc 
@@ -1645,10 +1676,10 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     vlSelf->io_gpr_regs_29 = 0;
     vlSelf->io_gpr_regs_30 = 0;
     vlSelf->io_gpr_regs_31 = 0;
-    vlSelf->io_csr_mstatus = 0;
-    vlSelf->io_csr_mtvec = 0;
-    vlSelf->io_csr_mepc = 0;
-    vlSelf->io_csr_mcause = 0;
+    vlSelf->io_csr_regs_0 = 0;
+    vlSelf->io_csr_regs_1 = 0;
+    vlSelf->io_csr_regs_2 = 0;
+    vlSelf->io_csr_regs_3 = 0;
     vlSelf->SimTop__DOT___TP_SRAM_io_ar_ready = 0;
     vlSelf->SimTop__DOT___TP_SRAM_io_r_bits_data = 0;
     vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid = 0;
