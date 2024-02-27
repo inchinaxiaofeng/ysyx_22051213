@@ -4,7 +4,7 @@
 #ifndef __VERILATOR_SIM_H__
 #define __VERILATOR_SIM_H__
 
-#include "VSimTop.h"
+#include "VTopMain.h"
 #include <verilated.h>
 #include <verilated_vcd_c.h>
 #include <common.h>
