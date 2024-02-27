@@ -1644,3 +1644,4 @@ scala.meta.tokenizers.TokenizeException: <input>:78: error: unclosed string lite
 2月 27, 2024 11:48:30 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 警告: Unmatched cancel notification for request id 6498
 2024.02.27 23:48:52 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
+2024.02.27 23:49:25 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
