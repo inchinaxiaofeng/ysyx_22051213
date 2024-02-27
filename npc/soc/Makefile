@@ -1,4 +1,4 @@
-TOPNAME = TopMain
+TOPNAME = SimTop
 BIN = $(BUILD_DIR)/$(TOPNAME)
 INC_PATH += $(NPC_HOME)/soc/csrc/include/ $(AM_HOME)/klib/include/ $(AM_HOME)/am/include/
 SO = riscv64-nemu-interpreter-so
