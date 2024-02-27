@@ -43,7 +43,7 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT___idu_io_out_0_valid;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__valid;
-        CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T;
+        CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T_5;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_out_valid_T_2;
         CData/*2:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_0;
         CData/*1:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_1;
@@ -186,7 +186,8 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_2;
-        QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT__unnamedblk2__DOT__npc;
+        QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_3;
+        QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT__npc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT___exu_io_forward_wb_rfData;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pc;
@@ -210,9 +211,9 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__xorRes;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__shsrcA;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__target;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c;
     };
     struct {
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT___io_redirect_target_T_7;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_2;
