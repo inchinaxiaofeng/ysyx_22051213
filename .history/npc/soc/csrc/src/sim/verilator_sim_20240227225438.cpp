@@ -47,6 +47,48 @@ inline void get_debug (CPU_state *state) {
     env_cpu.csr[1]  = sim_cpu->io_csr_regs_1;
     env_cpu.csr[2]  = sim_cpu->io_csr_regs_2;
     env_cpu.csr[3]  = sim_cpu->io_csr_regs_3;
+
+#ifdef JUMP_TRACE
+    env_cpu.dnpc = sim_cpu->jumpTrace_dynamic_pc;
+    env_cpu.instr_jump = sim_cpu->jumpTrace_instr_jump;
+    env_cpu.instr_branch = sim_cpu->jumpTrace_instr_branch;
+    env_cpu.instr_pcPlusSrc = sim_cpu->jumpTrace_instr_pcPlusSrc;
+    env_cpu.idu_pcSrc = sim_cpu->jumpTrace_idu_pcSrc;
+    env_cpu.bruSrcA = sim_cpu->jumpTrace_bruSrcA;
+    env_cpu.bruSrcB = sim_cpu->jumpTrace_bruSrcB;
+    env_cpu.bruOutC = sim_cpu->jumpTrace_bruOutC;
+    env_cpu.bruCtrl = sim_cpu->jumpTrace_bruCtrl;
+#endif
+
+//    env_cpu.instr = sim_cpu->debug_instr_instr;
+//    env_cpu.pc_commit = sim_cpu->debug_commit_pc;
+//    env_cpu.pc_dynamic = sim_cpu->debug_dynamic_pc;
+//
+//    env_cpu.stallF = sim_cpu->debug_hazard_stallF;
+//    env_cpu.stallD = sim_cpu->debug_hazard_stallD;
+//    env_cpu.flushE = sim_cpu->debug_hazard_flushE;
+//    env_cpu.exu_forwardA = 
+//        sim_cpu->debug_hazard_hu_exu_ctrl_forwardA;
+//    env_cpu.exu_forwardB =
+//        sim_cpu->debug_hazard_hu_exu_ctrl_forwardB;
+//    env_cpu.idu_forwardA =
+//        sim_cpu->debug_hazard_hu_idu_ctrl_forwardA;
+//    env_cpu.idu_forwardB = 
+//        sim_cpu->debug_hazard_hu_idu_ctrl_forwardB;
+    
+//    printf("alu_srcA:%016lx ", sim_cpu->debug_alu_srcA_data);
+//    printf("alu_srcB:%016lx\n", sim_cpu->debug_alu_srcB_data);
+//    printf("ALUE:%016lx ", sim_cpu->debug_alu_data_E_data);
+//    printf("ALUM:%016lx ", sim_cpu->debug_probe_data);
+//    printf("ALUW:%016lx\n", sim_cpu->debug_alu_data_W_data);
+//    printf("IDU_Forward_A:%d ", sim_cpu->debug_forward_idu_A_data);
+//    printf("IDU_Forward_B:%d ", sim_cpu->debug_forward_idu_B_data);
+//    printf("EXU_Forward_A:%d ", sim_cpu->debug_forwardA_data);
+//    printf("EXU_Forward_B:%d\n", sim_cpu->debug_forwardB_data);
+//    printf("rdD:%d ", sim_cpu->debug_rdD_data);
+//    printf("rdE:%d ", sim_cpu->debug_rdE_data);
+//    printf("rdM:%d ", sim_cpu->debug_rdM_data);
+//    printf("rdW:%d\n", sim_cpu->debug_rdW_data);
 }
 
 void sim_init() {
