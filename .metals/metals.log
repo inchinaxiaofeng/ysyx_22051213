@@ -1639,3 +1639,4 @@ scala.meta.tokenizers.TokenizeException: <input>:78: error: unclosed string lite
 2024.02.27 22:17:59 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
 2024.02.27 22:19:31 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/Bundle.scala
 2024.02.27 22:19:51 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/Bundle.scala
+2024.02.27 22:20:26 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/ISU.scala
