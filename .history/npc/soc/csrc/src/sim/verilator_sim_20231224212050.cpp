@@ -116,7 +116,7 @@ void sim_init() {
 	printf(FRONT_FONT "\tinit the vcd..." END_FONT "\n");
 	tfp = new VerilatedVcdC;
 #endif
-	sim_cpu = new VSimTop;
+	sim_cpu = new VTopMain;
 	contextp->traceEverOn(true);
 #ifdef VCD_TRACE
 	sim_cpu->trace(tfp, 5);
