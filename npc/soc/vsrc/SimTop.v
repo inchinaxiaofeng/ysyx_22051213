@@ -298,7 +298,7 @@ module IFU_embedded(	// <stdin>:2:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "DEBUG HERE: npc %x", npc);	// Debug.scala:34:43, :35:31, IFU.scala:37:22
+        $fwrite(32'h80000002, "DEBUG HERE: s/pnpc %x, target %x, npc %x\n", snpc, io_redirect_target, npc);	// Debug.scala:34:43, :35:31, IFU.scala:31:23, :37:22
       if ((`PRINTF_COND_) & _T_8 & ~reset)	// Debug.scala:34:43, IFU.scala:73:30
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T_8 & ~reset)	// Debug.scala:34:43, :35:31, IFU.scala:73:30
