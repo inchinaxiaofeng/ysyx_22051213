@@ -8,6 +8,7 @@ import bus.axi4.{AXI4, AXI4Lite, AXI4Lite_Arbiter}
 import module._
 import defs._
 import top.Settings
+import utils.difftest._
 
 class SimTopIO extends Bundle {
 	val gpr = new RegsDiff(num = 32)

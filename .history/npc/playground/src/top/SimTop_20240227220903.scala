@@ -8,6 +8,7 @@ import bus.axi4.{AXI4, AXI4Lite, AXI4Lite_Arbiter}
 import module._
 import defs._
 import top.Settings
+import utils.difftest._
 
 class SimTopIO extends Bundle {
 	val gpr = new RegsDiff(num = 32)
@@ -32,14 +33,23 @@ class SimTop extends Module {
 	arbiter.Arbiter <> TP_SRAM.io
 
 	if (Settings.get("DiffTestGPR")) {
-		for (i <- 0 until 32) io.gpr.regs(i) := core.io.gpr.regs(i)
+		for (i <- 0 until 32) io.gpr.regs(i) := gpr(i)
 	} else {
 		for (i <- 0 until 32) io.gpr.regs(i) := 0.U(64.W)
 	}
 
 	if(Settings.get("DiffTestCSR")){
-		for (i <- 0 until 4) io.csr.regs(i) := core.io.csr.regs(i)
+		val csr = Wire(Vec(4, UInt(64.W)))
+		csr := VecInit(Seq.fill(4)(0.U))
+		BoringUtils.addSink(csr, "CSR")
+		io.csr.mstatus	:= csr(0)
+		io.csr.mtvec	:= csr(1)
+		io.csr.mepc		:= csr(2)
+		io.csr.mcause	:= csr(3)
 	} else {
-		for (i <- 0 until 4) io.csr.regs(i) := 0.U(64.W)
+		io.csr.mstatus	:= 0.U
+		io.csr.mtvec	:= 0.U
+		io.csr.mepc		:= 0.U
+		io.csr.mcause	:= 0.U
 	}
 }

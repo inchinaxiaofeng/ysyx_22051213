@@ -19,7 +19,6 @@ class Core(implicit val p: MarCoreConfig) extends MarCoreModule {
 		val imem = new AXI4Lite
 		val dmem = new AXI4Lite
 		val gpr = new RegsDiff(num = 32)
-		val csr = new RegsDiff(num = 4)
 	}
 	val io = IO(new MarCoreIO)
 
@@ -51,9 +50,6 @@ class Core(implicit val p: MarCoreConfig) extends MarCoreModule {
 			backend.io.in(0).valid, backend.io.in(0).ready,
 			frontend.io.out(1).valid, frontend.io.out(1).ready,
 			backend.io.in(1).valid, backend.io.in(1).ready)
-
-		io.gpr <> backend.io.gpr
-		io.csr <> backend.io.csr
 	}
 }
 

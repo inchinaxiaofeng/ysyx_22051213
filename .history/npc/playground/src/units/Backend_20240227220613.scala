@@ -52,5 +52,4 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 //		isu.io.out.bits.pc)
 
 	io.gpr <> isu.io.gpr
-	io.csr <> exu.io.csr
 }

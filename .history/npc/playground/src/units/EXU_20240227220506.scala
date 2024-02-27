@@ -127,5 +127,4 @@ class EXU(implicit val p: MarCoreConfig) extends MarCoreModule {
 //		difftest.instrCnt	:= instrCnt
 //		difftest.hasWFI		:= false.B
 //	}
-	io.csr <> csr.io.csr
 }

@@ -18,7 +18,6 @@ class EXU(implicit val p: MarCoreConfig) extends MarCoreModule {
 		val dmem = new AXI4Lite
 		val forward = new ForwardIO
 //		val memMMU = Flipped(new MemMMUIO)
-		val csr = new RegsDiff(num = 4)
 	})
 	
 	val srcA = io.in.bits.data.srcA(XLEN-1, 0)
@@ -127,5 +126,4 @@ class EXU(implicit val p: MarCoreConfig) extends MarCoreModule {
 //		difftest.instrCnt	:= instrCnt
 //		difftest.hasWFI		:= false.B
 //	}
-	io.csr <> csr.io.csr
 }

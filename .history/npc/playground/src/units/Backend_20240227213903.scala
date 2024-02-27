@@ -19,7 +19,6 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 		val redirect = new RedirectIO
 		// Debug
 		val gpr = new RegsDiff(num = 32)
-		val csr = new RegsDiff(num = 4)
 	})
 
 	val isu = Module(new ISU)
@@ -52,5 +51,4 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 //		isu.io.out.bits.pc)
 
 	io.gpr <> isu.io.gpr
-	io.csr <> exu.io.csr
 }

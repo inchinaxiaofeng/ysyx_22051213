@@ -318,9 +318,10 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 	io.out.valid := valid
 
 	if (!Settings.get("IsChiselTest")) {
-		io.csr(0) := mstatus
-		io.csr(1) := mtvec
-		io.csr(2) := mepc
-		io.csr(3) := mcause
+		csr(0) := mstatus
+		csr(1) := mtvec
+		csr(2) := mepc
+		csr(3) := mcause
+		BoringUtils.addSource(csr, "CSR")
 	}
 }

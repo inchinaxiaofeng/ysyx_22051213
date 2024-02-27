@@ -62,7 +62,9 @@ class ISU(implicit val p: MarCoreConfig) extends MarCoreModule with HasRegFilePa
 
 	io.out.bits.cf <> io.in(0).bits.cf
 	io.out.bits.ctrl := io.in(0).bits.ctrl
-	io.out.bits.ctrl.isSrcAForward := srcAForwardNextCycle io.out.bits.ctrl.isSrcBForward := srcBForwardNextCycle
+	io.out.bits.ctrl.isSrcAForward := srcAForwardNextCycle
+	io.out.bits.ctrl.isSrcBForward := srcBForwardNextCycle
+
 	// retire: write rf
 	when (io.wb.rfWen) { rf.write(io.wb.rfDest, io.wb.rfData) }
 
@@ -73,8 +75,4 @@ class ISU(implicit val p: MarCoreConfig) extends MarCoreModule with HasRegFilePa
 
 	io.in(0).ready := !io.in(0).valid || io.out.fire
 	io.in(1).ready := false.B
-
-	if (!Settings.get("IsChiselTest")) {
-		for (i <- 0 until 32) io.gpr(i) := rf.read(i.U)
-	}
 }

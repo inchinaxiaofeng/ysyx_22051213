@@ -109,8 +109,8 @@ class CommitIO extends MarCoreBundle {
 	val commits = Output(Vec(FuType.num, UInt(XLEN.W)))
 }
 
-class RegsDiff(val num: UInt = 0.U) extends MarCoreBundle {
-	val regs = Output(Vec(num, UInt(XLEN.W)))
+class GPRIO extends MarCoreBundle {
+    val regs = Output(Vec(32, UInt(XLEN.W)))
 }
 
 //------------------------ end -----------------------
