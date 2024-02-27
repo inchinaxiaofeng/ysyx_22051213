@@ -1178,7 +1178,7 @@ module ALU(	// <stdin>:2050:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] ALU: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "DEBUG HERE: target %x", _io_redirect_target_T_7);	// ALU.scala:124:34, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "DEBUG HERE: target %x\n", _io_redirect_target_T_7);	// ALU.scala:124:34, Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2050:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2050:10

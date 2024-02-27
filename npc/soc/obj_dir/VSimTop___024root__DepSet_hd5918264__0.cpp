@@ -261,7 +261,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         VL_FWRITEF(0x80000002U,"[%20#] ALU: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_2);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"DEBUG HERE: target %x",
+        VL_FWRITEF(0x80000002U,"DEBUG HERE: target %x\n",
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT___io_redirect_target_T_7);
     }
     vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__rWriteStatuOK 
