@@ -55,7 +55,7 @@ static void trace_and_difftest() {
 	} else if (RESET_VECTOR == env_cpu.pc_commit) {
 		difftest_reg_init();
 	} else {
-//        printf("SKIP\n");
+        printf("SKIP\n");
 	}
 	update_delay_bit();
 #endif
