@@ -33,6 +33,8 @@ class VSimTop__Syms final : public VerilatedSyms {
 
     // SCOPE NAMES
     VerilatedScope __Vscope_SimTop__TP_SRAM__mem;
+    VerilatedScope __Vscope_SimTop__core__backend__exu__alu;
+    VerilatedScope __Vscope_SimTop__core__backend__exu__alu__unnamedblk1;
 
     // CONSTRUCTORS
     VSimTop__Syms(VerilatedContext* contextp, const char* namep, VSimTop* modelp);
