@@ -1713,7 +1713,7 @@ module EXU(	// <stdin>:3506:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] EXU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "csr redirect target:%x, alu redirect target:%x\n", _csr_io_redirect_target, _alu_io_redirect_target);	// Debug.scala:34:43, :35:31, EXU.scala:33:25, :58:25
+        $fwrite(32'h80000002, "csr redirect target:%x, alu redirect target:%x, csr valid:%b\n", _csr_io_redirect_target, _alu_io_redirect_target, _csr_io_redirect_valid);	// Debug.scala:34:43, :35:31, EXU.scala:33:25, :58:25
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3506:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3506:10
