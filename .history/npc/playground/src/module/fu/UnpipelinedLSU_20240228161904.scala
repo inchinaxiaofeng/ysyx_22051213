@@ -421,7 +421,7 @@ class LSExecUnit extends MarCoreModule {
 	io.ioLoadAddrMisaligned  := valid && !isStore /*&& !isAMO*/ && !addrAligned
 	io.ioStoreAddrMisaligned := valid && (isStore/* || isAMO*/) && !addrAligned
 
-	Debug(io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned, "[EXCEPTION] misaligned addr detected\n")
+	Debug(io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned, "[misaligned addr detected[\n")
 
 //	BoringUtils.addSource(WireInit(dmem.isRead && dmem.req.fire), "perfCntCondMloadInstr")
 //	BoringUtils.addSource(BoolStopWatch(dmem.isRead, dmem.resp.fire), "perfCntCondMloadStall")

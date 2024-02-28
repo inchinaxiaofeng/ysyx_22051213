@@ -2421,3 +2421,8 @@ scala.meta.tokenizers.TokenizeException: <input>:93: error: unclosed string lite
 警告: Unmatched cancel notification for request id 21652
 2月 28, 2024 4:08:21 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 警告: Unmatched cancel notification for request id 21661
+2024.02.28 16:19:04 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.02.28 16:19:06 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.02.28 16:19:12 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.02.28 16:19:52 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.02.28 16:19:56 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
