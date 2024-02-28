@@ -1170,10 +1170,9 @@ module ALU(	// <stdin>:2065:10
                 4'h4 ? xorRes : io_in_bits_ctrl[3:0] == 4'h3 ? {63'h0, ~(adderRes[64])} :
                 io_in_bits_ctrl[3:0] == 4'h2 ? {63'h0, slt} : io_in_bits_ctrl[3:0] == 4'h1 ? _res_T_1[63:0]
                 : adderRes[63:0];	// ALU.scala:78:68, :79:40, :80:{35,44}, :81:50, :93:21, :96:{61,70}, :100:60, :101:58, :102:58, :103:68, Cat.scala:33:92, Mux.scala:81:{58,61}
-  wire [63:0]  target = io_in_bits_ctrl[3] ? io_cfIn_pc + io_offset : adderRes[63:0];	// ALU.scala:52:40, :78:68, :117:{25,47}
+  wire         taken = (io_in_bits_ctrl[2:1] == 2'h0 & xorRes == 64'h0 | io_in_bits_ctrl[2:1] == 2'h2 & slt |
+                (&(io_in_bits_ctrl[2:1])) & ~(adderRes[64])) ^ io_in_bits_ctrl[0];	// ALU.scala:53:45, :54:46, :78:68, :79:40, :80:{35,44}, :81:50, :109:68, :116:76, Bitwise.scala:77:12, LookupTree.scala:8:38, Mux.scala:27:73, :81:61
   reg  [63:0]  c;	// GTimer.scala:8:32
-  wire         _io_redirect_target_T = (io_in_bits_ctrl[2:1] == 2'h0 & xorRes == 64'h0 | io_in_bits_ctrl[2:1] == 2'h2 & slt |
-                (&(io_in_bits_ctrl[2:1])) & ~(adderRes[64])) ^ ~(io_in_bits_ctrl[0]);	// ALU.scala:53:45, :54:46, :78:68, :79:40, :80:{35,44}, :81:50, :109:68, :121:32, Bitwise.scala:77:12, LookupTree.scala:8:38, Mux.scala:27:73, :81:61
   reg  [63:0]  c_1;	// GTimer.scala:8:32
   always @(posedge clock) begin
     if (reset) begin
@@ -1191,7 +1190,7 @@ module ALU(	// <stdin>:2065:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] ALU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "Target %b\n", target);	// ALU.scala:117:25, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "Taken %b; isBranch %b\n", taken, io_in_bits_ctrl[3]);	// ALU.scala:52:40, :116:76, Debug.scala:34:43, :35:31
       if (~reset & ~((&(io_cfIn_instr[1:0])) | ~(&(io_cfIn_instr[1:0])) | ~io_in_valid)) begin	// ALU.scala:122:{35,42}, :123:{15,36,57,60}
         if (`ASSERT_VERBOSE_COND_)	// ALU.scala:123:15
           $error("Assertion failed\n    at ALU.scala:123 assert(io.cfIn.instr(1, 0) === \"b11\".U || isRVC || !valid)\n");	// ALU.scala:123:15
@@ -1230,9 +1229,9 @@ module ALU(	// <stdin>:2065:10
   assign io_out_valid = io_in_valid;	// <stdin>:2065:10
   assign io_out_bits = io_in_bits_ctrl[4] ? ((&(io_cfIn_instr[1:0])) ? io_cfIn_pc + 64'h4 : io_cfIn_pc + 64'h2) :
                 io_in_bits_ctrl[5] ? {{32{_GEN_0[31]}}, _GEN_0[31:0]} : _GEN_0;	// <stdin>:2065:10, ALU.scala:50:40, :51:37, :106:{25,61}, :122:{35,42}, :125:{77,95}, :133:{27,38,77,114}, BitUtils.scala:17:32, Bitwise.scala:77:12, Mux.scala:81:58
-  assign io_redirect_target = _io_redirect_target_T & io_in_bits_ctrl[3] ? ((&(io_cfIn_instr[1:0])) ? io_cfIn_pc + 64'h4
-                : io_cfIn_pc + 64'h2) : target;	// <stdin>:2065:10, ALU.scala:52:40, :117:25, :121:32, :122:{35,42}, :125:{34,42,58,77,95}
-  assign io_redirect_valid = io_in_valid & io_in_bits_ctrl[4] & ~(_io_redirect_target_T & io_in_bits_ctrl[3]);	// <stdin>:2065:10, ALU.scala:51:37, :52:40, :121:{31,32,39}, :127:45
+  assign io_redirect_target = ~taken & io_in_bits_ctrl[3] ? ((&(io_cfIn_instr[1:0])) ? io_cfIn_pc + 64'h4 : io_cfIn_pc +
+                64'h2) : io_in_bits_ctrl[3] ? io_cfIn_pc + io_offset : adderRes[63:0];	// <stdin>:2065:10, ALU.scala:52:40, :78:68, :116:76, :117:{25,47}, :121:32, :122:{35,42}, :125:{34,42,58,77,95}
+  assign io_redirect_valid = io_in_valid & io_in_bits_ctrl[4] & ~(~taken & io_in_bits_ctrl[3]);	// <stdin>:2065:10, ALU.scala:51:37, :52:40, :116:76, :121:{31,32,39}, :127:45
 endmodule
 
 module LSExecUnit(	// <stdin>:2239:10

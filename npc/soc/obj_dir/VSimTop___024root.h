@@ -85,7 +85,8 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__csr__io_instrValid;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__slt;
         CData/*5:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__shamt;
-        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT____VdfgTmp_h2f5e54fc__0;
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__taken;
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT____VdfgTmp_h3e2b63bd__0;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioStoreAddrMisaligned_T_2;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioLoadAddrMisaligned_T_3;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__isStore;
@@ -144,9 +145,9 @@ class VSimTop___024root final : public VerilatedModule {
         VL_OUT64(io_gpr_regs_13,63,0);
         VL_OUT64(io_gpr_regs_14,63,0);
         VL_OUT64(io_gpr_regs_15,63,0);
-        VL_OUT64(io_gpr_regs_16,63,0);
     };
     struct {
+        VL_OUT64(io_gpr_regs_16,63,0);
         VL_OUT64(io_gpr_regs_17,63,0);
         VL_OUT64(io_gpr_regs_18,63,0);
         VL_OUT64(io_gpr_regs_19,63,0);
@@ -210,7 +211,6 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_out_bits;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__xorRes;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__shsrcA;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__target;
     };
     struct {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c;
