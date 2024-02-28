@@ -117,7 +117,6 @@ class ALU extends MarCoreModule {
 	val target = Mux(isBranch, io.cfIn.pc + io.offset, adderRes)(VAddrBits-1, 0)
 //	Info(yellowFG+"target:0x%x,instr:0x%x,offset:0x%x,isBranch:%d,pc:0x%x"+resetColor+"\n",
 //		target,io.cfIn.instr,io.offset,isBranch,io.cfIn.pc)
-	Info("Target %b\n", target)
 	val predictWrong = Mux(!taken && isBranch, io.cfIn.brIdx(0), !io.cfIn.brIdx(0) || (io.redirect.target =/= io.cfIn.pnpc))
 	val isRVC = (io.cfIn.instr(1, 0) =/= "b11".U)
 	assert(io.cfIn.instr(1, 0) === "b11".U || isRVC || !valid)
