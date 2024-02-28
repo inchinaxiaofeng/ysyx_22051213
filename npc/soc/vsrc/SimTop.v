@@ -1891,7 +1891,7 @@ module WBU(	// <stdin>:3812:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] WBU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "%x", io_in_bits_decode_cf_redirect_target);	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "%x\n", io_in_bits_decode_cf_redirect_target);	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] WBU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43, :35:31
