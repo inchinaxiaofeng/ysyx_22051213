@@ -1692,8 +1692,9 @@ module EXU(	// <stdin>:3506:10
   wire        _fuValids_1_T_3 = _io_out_valid_T & io_in_valid & ~io_flush;	// EXU.scala:30:{63,87,90}
   wire        _fuValids_3_T_3 = io_in_bits_ctrl_fuType == 3'h3 & io_in_valid & ~io_flush;	// EXU.scala:30:{63,87,90}
   reg  [63:0] c;	// GTimer.scala:8:32
+  wire [63:0] _io_out_bits_decode_cf_redirect_T_target = _csr_io_redirect_valid ? _csr_io_redirect_target : _alu_io_redirect_target;	// EXU.scala:33:25, :58:25, :85:20
   reg  [63:0] c_1;	// GTimer.scala:8:32
-  wire        _io_out_valid_T_4 = io_in_valid & (io_in_bits_ctrl_fuType == 3'h2 | ~_io_out_valid_T | _lsu_io_out_valid);	// EXU.scala:30:63, :43:25, :91:37, Mux.scala:81:58
+  wire        _io_out_valid_T_4 = io_in_valid & (io_in_bits_ctrl_fuType == 3'h2 | ~_io_out_valid_T | _lsu_io_out_valid);	// EXU.scala:30:63, :43:25, :92:37, Mux.scala:81:58
   always @(posedge clock) begin
     if (reset) begin
       c <= 64'h0;	// <stdin>:3506:10, GTimer.scala:8:32
@@ -1713,7 +1714,7 @@ module EXU(	// <stdin>:3506:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] EXU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "csr redirect target:%x, alu redirect target:%x, csr valid:%b\n", _csr_io_redirect_target, _alu_io_redirect_target, _csr_io_redirect_valid);	// Debug.scala:34:43, :35:31, EXU.scala:33:25, :58:25
+        $fwrite(32'h80000002, "redirect:%x,csr redirect target:%x, alu redirect target:%x, csr valid:%b\n", _io_out_bits_decode_cf_redirect_T_target, _csr_io_redirect_target, _alu_io_redirect_target, _csr_io_redirect_valid);	// Debug.scala:34:43, :35:31, EXU.scala:33:25, :58:25, :85:20
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3506:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3506:10
@@ -1808,11 +1809,11 @@ module EXU(	// <stdin>:3506:10
     .io_csr_regs_2          (io_csr_regs_2),
     .io_csr_regs_3          (io_csr_regs_3)
   );
-  assign io_in_ready = ~io_in_valid | _io_out_valid_T_4;	// <stdin>:3506:10, EXU.scala:91:37, :102:{24,37}
-  assign io_out_valid = _io_out_valid_T_4;	// <stdin>:3506:10, EXU.scala:91:37
+  assign io_in_ready = ~io_in_valid | _io_out_valid_T_4;	// <stdin>:3506:10, EXU.scala:92:37, :103:{24,37}
+  assign io_out_valid = _io_out_valid_T_4;	// <stdin>:3506:10, EXU.scala:92:37
   assign io_out_bits_decode_cf_instr = io_in_bits_cf_instr;	// <stdin>:3506:10
   assign io_out_bits_decode_cf_pc = io_in_bits_cf_pc;	// <stdin>:3506:10
-  assign io_out_bits_decode_cf_redirect_target = _csr_io_redirect_valid ? _csr_io_redirect_target : _alu_io_redirect_target;	// <stdin>:3506:10, EXU.scala:33:25, :58:25, :85:20
+  assign io_out_bits_decode_cf_redirect_target = _io_out_bits_decode_cf_redirect_T_target;	// <stdin>:3506:10, EXU.scala:85:20
   assign io_out_bits_decode_cf_redirect_valid = _csr_io_redirect_valid ? _csr_io_redirect_valid : _alu_io_redirect_valid;	// <stdin>:3506:10, EXU.scala:33:25, :58:25, :85:20
   assign io_out_bits_decode_ctrl_fuType = io_in_bits_ctrl_fuType;	// <stdin>:3506:10
   assign io_out_bits_decode_ctrl_rfWen = io_in_bits_ctrl_rfWen & (~_lsu_io_ioLoadAddrMisaligned & ~_lsu_io_ioStoreAddrMisaligned |
@@ -1823,7 +1824,7 @@ module EXU(	// <stdin>:3506:10
   assign io_forward_valid = io_in_valid;	// <stdin>:3506:10
   assign io_forward_wb_rfWen = io_in_bits_ctrl_rfWen;	// <stdin>:3506:10
   assign io_forward_wb_rfDest = io_in_bits_ctrl_rfDest;	// <stdin>:3506:10
-  assign io_forward_wb_rfData = _alu_io_out_valid ? _alu_io_out_bits : _lsu_io_out_bits;	// <stdin>:3506:10, EXU.scala:33:25, :43:25, :107:36
+  assign io_forward_wb_rfData = _alu_io_out_valid ? _alu_io_out_bits : _lsu_io_out_bits;	// <stdin>:3506:10, EXU.scala:33:25, :43:25, :108:36
   assign io_forward_fuType = io_in_bits_ctrl_fuType;	// <stdin>:3506:10
 endmodule
 
