@@ -38,7 +38,7 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 	io.redirect <> wbu.io.redirect
 	Info("exu redirect (%b,%x), wbu redirect (%b,%x)\n",
 		exu.io.out.bits.decode.cf.redirect.valid,
-		exu.io.out.bits.decode.cf.redirect.target,
+		exu.io.out.bits.decode.cf.redirect.target
 		wbu.io.redirect.valid, wbu.io.redirect.target)
 	// forward
 	isu.io.forward <> exu.io.forward
