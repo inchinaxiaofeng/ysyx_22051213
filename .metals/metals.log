@@ -1916,3 +1916,6 @@ scala.meta.tokenizers.TokenizeException: <input>:39: error: invalid escape chara
 2月 28, 2024 2:34:43 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 警告: Unmatched cancel notification for request id 11595
 2024.02.28 14:34:51 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/WBU.scala
+2024.02.28 14:39:30 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/WBU.scala
+2024.02.28 14:44:19 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
+2024.02.28 14:44:37 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
