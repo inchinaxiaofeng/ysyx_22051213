@@ -289,11 +289,23 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    1,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__resetSatp,
                    1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__raiseExceptionIntr));
     }
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] CSR: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_4);
+    }
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+        VL_FWRITEF(0x80000002U,"m|s|u (%b|%b|%b)\n",
+                   1,((0x302U == (0xfffU & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB))) 
+                      & (0U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl))),
+                   1,((0x102U == (0xfffU & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB))) 
+                      & (0U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl))),
+                   1,((2U == (0xfffU & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB))) 
+                      & (0U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl))));
+    }
     if (VL_UNLIKELY((1U & (((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3) 
                             & ((0x302U == (0xfffU & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB))) 
                                & (0U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl)))) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[%20#] CSR: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_4);
+        VL_FWRITEF(0x80000002U,"[%20#] CSR: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_5);
     }
     if (VL_UNLIKELY((1U & (((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3) 
                             & ((0x302U == (0xfffU & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB))) 
@@ -303,7 +315,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__raiseExceptionIntr) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[%20#] CSR: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_5);
+        VL_FWRITEF(0x80000002U,"[%20#] CSR: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_6);
     }
     if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__raiseExceptionIntr) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -440,6 +452,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c = 0ULL;
+        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_6 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_5 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_4 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_3 = 0ULL;
@@ -472,6 +485,8 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     } else {
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c);
+        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_6 
+            = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_6);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_5 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_5);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_4 
