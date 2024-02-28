@@ -2493,3 +2493,4 @@ scala.meta.tokenizers.TokenizeException: <input>:298: error: unclosed string lit
 2月 28, 2024 11:12:16 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 警告: Unmatched cancel notification for request id 25021
 2024.02.28 23:12:20 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.02.28 23:13:55 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
