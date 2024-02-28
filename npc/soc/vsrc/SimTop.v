@@ -1190,7 +1190,7 @@ module ALU(	// <stdin>:2065:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] ALU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "Taken %b; isBranch %b\n", taken, io_in_bits_ctrl[3]);	// ALU.scala:52:40, :116:76, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "pc %x; Taken %b; isBranch %b\n", io_cfIn_pc, taken, io_in_bits_ctrl[3]);	// ALU.scala:52:40, :116:76, Debug.scala:34:43, :35:31
       if (~reset & ~((&(io_cfIn_instr[1:0])) | ~(&(io_cfIn_instr[1:0])) | ~io_in_valid)) begin	// ALU.scala:122:{35,42}, :123:{15,36,57,60}
         if (`ASSERT_VERBOSE_COND_)	// ALU.scala:123:15
           $error("Assertion failed\n    at ALU.scala:123 assert(io.cfIn.instr(1, 0) === \"b11\".U || isRVC || !valid)\n");	// ALU.scala:123:15
