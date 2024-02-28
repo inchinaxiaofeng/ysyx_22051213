@@ -83,6 +83,9 @@ class EXU(implicit val p: MarCoreConfig) extends MarCoreModule {
 	io.out.bits.decode.cf.isBranch := io.in.bits.cf.isBranch
 	io.out.bits.decode.cf.redirect :=
 		Mux(csr.io.redirect.valid, csr.io.redirect, alu.io.redirect)
+//	Info(blueFG+"redirect 0x%x"+resetColor+"\n", io.out.bits.decode.cf.redirect.target)
+//	Info(blueFG+"alu redirect 0x%x"+resetColor+"\n", alu.io.redirect.target)
+//	Info(blueBG+"csr redirect 0x%x"+resetColor+"\n", csr.io.redirect.target)
 
 	io.out.valid := io.in.valid && MuxLookup(fuType, true.B, List(
 		FuType.lsu	-> lsu.io.out.valid,
