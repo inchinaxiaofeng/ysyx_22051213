@@ -344,7 +344,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk2__DOT___T_18) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"misaligned addr detected\n");
+        VL_FWRITEF(0x80000002U,"[EXCEPTION] misaligned addr detected\n");
     }
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__unnamedblk1__DOT___T_1 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_valid) 

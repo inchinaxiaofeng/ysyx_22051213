@@ -1302,7 +1302,7 @@ module LSExecUnit(	// <stdin>:2224:10
       if ((`PRINTF_COND_) & _T_18 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:424:39
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T_18 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:424:39
-        $fwrite(32'h80000002, "misaligned addr detected\n");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[EXCEPTION] misaligned addr detected\n");	// Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2224:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2224:10
