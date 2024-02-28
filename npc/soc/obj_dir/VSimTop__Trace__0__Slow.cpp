@@ -406,13 +406,11 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declQuad(c+130,"io_cfIn_instr", false,-1, 63,0);
     tracep->declQuad(c+132,"io_cfIn_pc", false,-1, 63,0);
     tracep->declBit(c+134,"io_cfIn_exceptionVec_2", false,-1);
-    tracep->declBit(c+171,"io_cfIn_exceptionVec_4", false,-1);
-    tracep->declBit(c+172,"io_cfIn_exceptionVec_6", false,-1);
-    tracep->declBit(c+173,"io_instrValid", false,-1);
+    tracep->declBit(c+171,"io_instrValid", false,-1);
     tracep->declQuad(c+155,"io_out_bits", false,-1, 63,0);
-    tracep->declQuad(c+174,"io_redirect_target", false,-1, 63,0);
-    tracep->declBit(c+176,"io_redirect_valid", false,-1);
-    tracep->declBit(c+177,"io_wenFix", false,-1);
+    tracep->declQuad(c+172,"io_redirect_target", false,-1, 63,0);
+    tracep->declBit(c+174,"io_redirect_valid", false,-1);
+    tracep->declBit(c+175,"io_wenFix", false,-1);
     tracep->declQuad(c+397,"io_csr_regs_0", false,-1, 63,0);
     tracep->declQuad(c+399,"io_csr_regs_1", false,-1, 63,0);
     tracep->declQuad(c+401,"io_csr_regs_2", false,-1, 63,0);
@@ -423,11 +421,11 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declQuad(c+35,"mstatus", false,-1, 63,0);
     tracep->declQuad(c+37,"satp", false,-1, 63,0);
     tracep->declBus(c+39,"priviledgeMode", false,-1, 1,0);
-    tracep->declQuad(c+178,"csri", false,-1, 63,0);
-    tracep->declBit(c+180,"isIllegalAccess", false,-1);
-    tracep->declBit(c+181,"resetSatp", false,-1);
+    tracep->declQuad(c+176,"csri", false,-1, 63,0);
+    tracep->declBit(c+178,"isIllegalAccess", false,-1);
+    tracep->declBit(c+179,"resetSatp", false,-1);
     tracep->declQuad(c+40,"c", false,-1, 63,0);
-    tracep->declBit(c+182,"raiseExceptionIntr", false,-1);
+    tracep->declBit(c+180,"raiseExceptionIntr", false,-1);
     tracep->declQuad(c+42,"c_1", false,-1, 63,0);
     tracep->declQuad(c+44,"c_2", false,-1, 63,0);
     tracep->declQuad(c+46,"c_3", false,-1, 63,0);
@@ -441,7 +439,7 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->pushNamePrefix("lsu ");
     tracep->declBit(c+331,"clock", false,-1);
     tracep->declBit(c+332,"reset", false,-1);
-    tracep->declBit(c+183,"io_in_valid", false,-1);
+    tracep->declBit(c+181,"io_in_valid", false,-1);
     tracep->declQuad(c+139,"io_in_bits_srcA", false,-1, 63,0);
     tracep->declQuad(c+143,"io_in_bits_srcB", false,-1, 63,0);
     tracep->declBus(c+136,"io_in_bits_ctrl", false,-1, 6,0);
@@ -452,7 +450,7 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declBit(c+104,"io_dmem_ar_ready", false,-1);
     tracep->declBit(c+105,"io_dmem_r_valid", false,-1);
     tracep->declQuad(c+325,"io_dmem_r_bits_data", false,-1, 63,0);
-    tracep->declBit(c+184,"io_out_valid", false,-1);
+    tracep->declBit(c+182,"io_out_valid", false,-1);
     tracep->declQuad(c+327,"io_out_bits", false,-1, 63,0);
     tracep->declBit(c+85,"io_dmem_aw_valid", false,-1);
     tracep->declBus(c+86,"io_dmem_aw_bits_addr", false,-1, 31,0);
@@ -461,12 +459,12 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declBus(c+89,"io_dmem_w_bits_strb", false,-1, 7,0);
     tracep->declBit(c+101,"io_dmem_ar_valid", false,-1);
     tracep->declBus(c+86,"io_dmem_ar_bits_addr", false,-1, 31,0);
-    tracep->declBit(c+171,"io_ioLoadAddrMisaligned", false,-1);
-    tracep->declBit(c+172,"io_ioStoreAddrMisaligned", false,-1);
+    tracep->declBit(c+183,"io_ioLoadAddrMisaligned", false,-1);
+    tracep->declBit(c+184,"io_ioStoreAddrMisaligned", false,-1);
     tracep->pushNamePrefix("lsExecUnit ");
     tracep->declBit(c+331,"clock", false,-1);
     tracep->declBit(c+332,"reset", false,-1);
-    tracep->declBit(c+183,"io_in_valid", false,-1);
+    tracep->declBit(c+181,"io_in_valid", false,-1);
     tracep->declQuad(c+185,"io_in_bits_srcA", false,-1, 63,0);
     tracep->declBus(c+136,"io_in_bits_ctrl", false,-1, 6,0);
     tracep->declQuad(c+141,"io_wdata", false,-1, 63,0);
@@ -476,7 +474,7 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declBit(c+104,"io_dmem_ar_ready", false,-1);
     tracep->declBit(c+105,"io_dmem_r_valid", false,-1);
     tracep->declQuad(c+325,"io_dmem_r_bits_data", false,-1, 63,0);
-    tracep->declBit(c+184,"io_out_valid", false,-1);
+    tracep->declBit(c+182,"io_out_valid", false,-1);
     tracep->declQuad(c+327,"io_out_bits", false,-1, 63,0);
     tracep->declBit(c+85,"io_dmem_aw_valid", false,-1);
     tracep->declBus(c+86,"io_dmem_aw_bits_addr", false,-1, 31,0);
@@ -485,8 +483,8 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declBus(c+89,"io_dmem_w_bits_strb", false,-1, 7,0);
     tracep->declBit(c+101,"io_dmem_ar_valid", false,-1);
     tracep->declBus(c+86,"io_dmem_ar_bits_addr", false,-1, 31,0);
-    tracep->declBit(c+171,"io_ioLoadAddrMisaligned", false,-1);
-    tracep->declBit(c+172,"io_ioStoreAddrMisaligned", false,-1);
+    tracep->declBit(c+183,"io_ioLoadAddrMisaligned", false,-1);
+    tracep->declBit(c+184,"io_ioStoreAddrMisaligned", false,-1);
     tracep->declQuad(c+54,"addrLatch", false,-1, 63,0);
     tracep->declBit(c+187,"isStore", false,-1);
     tracep->declBit(c+188,"partialLoad", false,-1);
@@ -1222,21 +1220,21 @@ VL_ATTR_COLD void VSimTop___024root__trace_full_sub_0(VSimTop___024root* vlSelf,
     bufp->fullQData(oldp+167,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__shsrcA),64);
     bufp->fullCData(oldp+169,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__shamt),6);
     bufp->fullBit(oldp+170,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3));
-    bufp->fullBit(oldp+171,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioLoadAddrMisaligned_T_3));
-    bufp->fullBit(oldp+172,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioStoreAddrMisaligned_T_2));
-    bufp->fullBit(oldp+173,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__csr__io_instrValid));
-    bufp->fullQData(oldp+174,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_target),64);
-    bufp->fullBit(oldp+176,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_valid));
-    bufp->fullBit(oldp+177,((0U != (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___GEN))));
-    bufp->fullQData(oldp+178,((QData)((IData)((0x1fU 
+    bufp->fullBit(oldp+171,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__csr__io_instrValid));
+    bufp->fullQData(oldp+172,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_target),64);
+    bufp->fullBit(oldp+174,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_valid));
+    bufp->fullBit(oldp+175,((0U != (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___GEN))));
+    bufp->fullQData(oldp+176,((QData)((IData)((0x1fU 
                                                & (IData)(
                                                          (vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr 
                                                           >> 0xfU)))))),64);
-    bufp->fullBit(oldp+180,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__isIllegalAccess));
-    bufp->fullBit(oldp+181,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__resetSatp));
-    bufp->fullBit(oldp+182,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__raiseExceptionIntr));
-    bufp->fullBit(oldp+183,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3));
-    bufp->fullBit(oldp+184,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_out_valid_T_10));
+    bufp->fullBit(oldp+178,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__isIllegalAccess));
+    bufp->fullBit(oldp+179,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__resetSatp));
+    bufp->fullBit(oldp+180,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__raiseExceptionIntr));
+    bufp->fullBit(oldp+181,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3));
+    bufp->fullBit(oldp+182,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_out_valid_T_10));
+    bufp->fullBit(oldp+183,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioLoadAddrMisaligned_T_3));
+    bufp->fullBit(oldp+184,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioStoreAddrMisaligned_T_2));
     bufp->fullQData(oldp+185,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA),64);
     bufp->fullBit(oldp+187,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__isStore));
     bufp->fullBit(oldp+188,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__partialLoad));
