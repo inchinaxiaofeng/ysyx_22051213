@@ -285,12 +285,11 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 	io.intrNO := Mux(raiseIntr, causeNO, 0.U)
 
 	val raiseExceptionIntr = (raiseException || raiseIntr) && io.instrValid
-	Info("raiseExceptionIntr ((%d||%d)&&%d)\n", raiseException, raiseIntr, io.instrValid)
 	val retTarget = Wire(UInt(VAddrBits.W))
 	val trapTarget = Wire(UInt(VAddrBits.W))
 	io.redirect.valid := (valid && ctrl === CSRCtrl.jmp) || raiseExceptionIntr || resetSatp
 	Info("valid (%d||%d||%d)\n", valid && ctrl === CSRCtrl.jmp, 
-		raiseExceptionIntr, resetSatp) //The second shouldn't be 1 in 22 cycle
+		raiseExceptionIntr, resetSatp) // The second shouldn't be 1 in 22 cycle
 	io.redirect.rtype := 0.U
 	io.redirect.target := Mux(resetSatp, io.cfIn.pc + 4.U, Mux(raiseExceptionIntr, trapTarget, retTarget))
 
