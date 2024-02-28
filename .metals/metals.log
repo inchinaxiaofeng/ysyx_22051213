@@ -2494,3 +2494,5 @@ scala.meta.tokenizers.TokenizeException: <input>:298: error: unclosed string lit
 警告: Unmatched cancel notification for request id 25021
 2024.02.28 23:12:20 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
 2024.02.28 23:13:55 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.02.28 23:16:54 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.02.28 23:16:55 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
