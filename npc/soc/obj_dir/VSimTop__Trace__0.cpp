@@ -41,8 +41,8 @@ void VSimTop___024root__trace_chg_sub_0(VSimTop___024root* vlSelf, VerilatedVcd:
         bufp->chgQData(oldp+20,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__c),64);
         bufp->chgQData(oldp+22,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_1),64);
         bufp->chgQData(oldp+24,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_2),64);
-        bufp->chgQData(oldp+26,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c),64);
-        bufp->chgQData(oldp+28,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c_1),64);
+        bufp->chgQData(oldp+26,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_3),64);
+        bufp->chgQData(oldp+28,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c),64);
         bufp->chgQData(oldp+30,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c),64);
         bufp->chgQData(oldp+32,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_1),64);
         bufp->chgQData(oldp+34,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_2),64);

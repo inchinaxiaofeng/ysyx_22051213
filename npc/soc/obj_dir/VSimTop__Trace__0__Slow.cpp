@@ -322,6 +322,7 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declQuad(c+21,"c", false,-1, 63,0);
     tracep->declQuad(c+23,"c_1", false,-1, 63,0);
     tracep->declQuad(c+25,"c_2", false,-1, 63,0);
+    tracep->declQuad(c+27,"c_3", false,-1, 63,0);
     tracep->pushNamePrefix("exu ");
     tracep->declBit(c+323,"clock", false,-1);
     tracep->declBit(c+324,"reset", false,-1);
@@ -372,8 +373,7 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declQuad(c+391,"io_csr_regs_1", false,-1, 63,0);
     tracep->declQuad(c+393,"io_csr_regs_2", false,-1, 63,0);
     tracep->declQuad(c+395,"io_csr_regs_3", false,-1, 63,0);
-    tracep->declQuad(c+27,"c", false,-1, 63,0);
-    tracep->declQuad(c+29,"c_1", false,-1, 63,0);
+    tracep->declQuad(c+29,"c", false,-1, 63,0);
     tracep->pushNamePrefix("alu ");
     tracep->declBit(c+323,"clock", false,-1);
     tracep->declBit(c+324,"reset", false,-1);
@@ -997,8 +997,8 @@ VL_ATTR_COLD void VSimTop___024root__trace_full_sub_0(VSimTop___024root* vlSelf,
     bufp->fullQData(oldp+21,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__c),64);
     bufp->fullQData(oldp+23,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_1),64);
     bufp->fullQData(oldp+25,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_2),64);
-    bufp->fullQData(oldp+27,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c),64);
-    bufp->fullQData(oldp+29,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c_1),64);
+    bufp->fullQData(oldp+27,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_3),64);
+    bufp->fullQData(oldp+29,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c),64);
     bufp->fullQData(oldp+31,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c),64);
     bufp->fullQData(oldp+33,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_1),64);
     bufp->fullQData(oldp+35,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_2),64);
