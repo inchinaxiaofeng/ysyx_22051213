@@ -2391,3 +2391,8 @@ scala.meta.tokenizers.TokenizeException: <input>:93: error: unclosed string lite
 2024.02.28 15:42:58 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
 2024.02.28 15:43:39 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
 2024.02.28 15:44:00 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
+2024.02.28 15:45:02 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Backend.scala
+2月 28, 2024 3:47:24 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 18904
+2024.02.28 15:47:29 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
+2024.02.28 15:47:37 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
