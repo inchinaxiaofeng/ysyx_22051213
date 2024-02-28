@@ -313,7 +313,7 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 		mstatus := mstatusNew.asUInt
 //		lr := false.B
 		retTarget := mepc(VAddrBits-1, 0)
-		Info("{Mret, set retTarget}\n")
+		Info("Mret, set retTarget\n")
 	}
 
 	when (raiseExceptionIntr) {

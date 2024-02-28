@@ -313,7 +313,7 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 		mstatus := mstatusNew.asUInt
 //		lr := false.B
 		retTarget := mepc(VAddrBits-1, 0)
-		Info("{Mret, set retTarget}\n")
+		Info("Mret, set retTarget")
 	}
 
 	when (raiseExceptionIntr) {
@@ -323,7 +323,6 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 		// TODO support delegS
 		mcause := causeNO
 		mepc := SignExt(io.cfIn.pc, XLEN)
-		Info("mepc: %x\n", io.cfIn.pc)
 		mstatusNew.mpp := priviledgeMode
 		mstatusNew.pie.m := mstatusOld.ie.m
 		mstatusNew.ie.m := false.B
