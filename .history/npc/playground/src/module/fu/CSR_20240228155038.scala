@@ -112,7 +112,6 @@ class CSRIO extends FuCtrlIO {
 }
 
 class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst {
-	implicit val moduleName: String = this.name
 	val io = IO(new CSRIO)
 
 	val (valid, srcA, srcB, ctrl) = (io.in.valid, io.in.bits.srcA, io.in.bits.srcB, io.in.bits.ctrl)
