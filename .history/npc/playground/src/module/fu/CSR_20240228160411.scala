@@ -277,8 +277,7 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 //	csrExpectionVec(loadPageFault) :=
 	val iduExceptionVec = io.cfIn.exceptionVec
 	val raiseExceptionVec = csrExpectionVec.asUInt | iduExceptionVec.asUInt
-	Info("raiseExceptionVec %d, csr|idu:(%x,%x)\n",
-		raiseExceptionVec, csrExpectionVec.asUInt, iduExceptionVec.asUInt)
+	Info("raiseExceptionVec %d\n", raiseExceptionVec)
 	val raiseException = raiseExceptionVec.orR
 	val exceptionNO = ExcPriority.foldRight(0.U)((i: Int, sum: UInt) => Mux(raiseExceptionVec(i), i.U, sum))
 	io.wenFix := raiseException
