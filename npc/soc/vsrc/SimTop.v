@@ -1579,7 +1579,7 @@ module CSR(	// <stdin>:2758:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] CSR: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "raiseExceptionVec %b, csr|idu:(%x,%x)\n", {4'h0, _csrExpectionVec_11_T_2, 1'h0, _csrExpectionVec_9_T_2, _csrExpectionVec_8_T_2, 1'h0,
+        $fwrite(32'h80000002, "raiseExceptionVec %b, csr|idu:(%b,%b)\n", {4'h0, _csrExpectionVec_11_T_2, 1'h0, _csrExpectionVec_9_T_2, _csrExpectionVec_8_T_2, 1'h0,
                                                                 io_cfIn_exceptionVec_6, 1'h0, io_cfIn_exceptionVec_4, _csrExpectionVec_3_T, _GEN, 2'h0}, {4'h0, _csrExpectionVec_11_T_2, 1'h0, _csrExpectionVec_9_T_2, _csrExpectionVec_8_T_2, 4'h0,
                                                                 _csrExpectionVec_3_T, _csrExpectionVec_2_T_1, 2'h0}, {9'h0, io_cfIn_exceptionVec_6, 1'h0, io_cfIn_exceptionVec_4, 1'h0, io_cfIn_exceptionVec_2,
                                                                 2'h0});	// <stdin>:2758:10, CSR.scala:267:75, :272:52, :273:72, :274:76, :275:76, :276:77, :279:{56,74}, :281:{52,76}, Debug.scala:34:43, :35:31
