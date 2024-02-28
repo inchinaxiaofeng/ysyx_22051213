@@ -1988,6 +1988,7 @@ module Backend_inorder(	// <stdin>:3843:10
   wire [4:0]  _wbu_io_wb_rfDest;	// Backend.scala:27:25
   wire [63:0] _wbu_io_wb_rfData;	// Backend.scala:27:25
   wire [63:0] _wbu_io_redirect_target;	// Backend.scala:27:25
+  wire        _wbu_io_redirect_valid;	// Backend.scala:27:25
   wire        _exu_io_in_ready;	// Backend.scala:26:25
   wire        _exu_io_out_valid;	// Backend.scala:26:25
   wire [63:0] _exu_io_out_bits_decode_cf_instr;	// Backend.scala:26:25
@@ -2094,11 +2095,11 @@ module Backend_inorder(	// <stdin>:3843:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] Backend_inorder: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "DEBUG HERE: exu redirect (%b,%x)\n", _exu_io_out_bits_decode_cf_redirect_valid, _exu_io_out_bits_decode_cf_redirect_target);	// Backend.scala:26:25, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "exu redirect (%b,%x)\n", _exu_io_out_bits_decode_cf_redirect_valid, _exu_io_out_bits_decode_cf_redirect_target);	// Backend.scala:26:25, Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] Backend_inorder: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "DEBUG HERE: redirect %x\n", _wbu_io_redirect_target);	// Backend.scala:27:25, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "wbu redirect (%b,%x)\n", _wbu_io_redirect_valid, _wbu_io_redirect_target);	// Backend.scala:27:25, Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] Backend_inorder: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
@@ -2403,9 +2404,10 @@ module Backend_inorder(	// <stdin>:3843:10
     .io_wb_rfDest                         (_wbu_io_wb_rfDest),
     .io_wb_rfData                         (_wbu_io_wb_rfData),
     .io_redirect_target                   (_wbu_io_redirect_target),
-    .io_redirect_valid                    (io_redirect_valid)
+    .io_redirect_valid                    (_wbu_io_redirect_valid)
   );
   assign io_redirect_target = _wbu_io_redirect_target;	// <stdin>:3843:10, Backend.scala:27:25
+  assign io_redirect_valid = _wbu_io_redirect_valid;	// <stdin>:3843:10, Backend.scala:27:25
 endmodule
 
 module Core(	// <stdin>:4092:10
