@@ -320,6 +320,14 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__raiseExceptionIntr),
                    1,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__resetSatp);
     }
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] CSR: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_3);
+    }
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+        VL_FWRITEF(0x80000002U,"resetSatp %b, raiseExceptionIntr %b",
+                   1,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__resetSatp,
+                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__raiseExceptionIntr));
+    }
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk2__DOT___T_18 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioLoadAddrMisaligned_T_3) 
            | (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioStoreAddrMisaligned_T_2));
@@ -451,6 +459,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c = 0ULL;
+        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_3 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_1 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_2 = 0ULL;
@@ -480,6 +489,8 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     } else {
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c);
+        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_3 
+            = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_3);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_1 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c_1);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c 
@@ -556,7 +567,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__unnamedblk1__DOT___T_10 
             = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___wen_T_4) 
                & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__isIllegalAccess)));
-        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__unnamedblk1__DOT___T_40 
+        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__unnamedblk1__DOT___T_45 
             = (((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3) 
                 & (0x302U == (0xfffU & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB)))) 
                & (0U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl)));
@@ -576,7 +587,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___wdata_T_22;
         }
         if ((1U & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__raiseExceptionIntr)))) {
-            if (vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__unnamedblk1__DOT___T_40) {
+            if (vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__unnamedblk1__DOT___T_45) {
                 __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus 
                     = ((0xffffffffffffe000ULL & vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus) 
                        | (QData)((IData)((0x80U | (
@@ -613,7 +624,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
             vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__satp 
                 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___wdata_T_22;
         }
-        if (vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__unnamedblk1__DOT___T_40) {
+        if (vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__unnamedblk1__DOT___T_45) {
             vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode 
                 = (3U & (IData)((vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus 
                                  >> 0xbU)));
