@@ -1955,3 +1955,5 @@ scala.meta.tokenizers.TokenizeException: <input>:120: error: unclosed string lit
 2024.02.28 14:50:10 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
 2024.02.28 14:50:36 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
 2024.02.28 14:59:07 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
+2024.02.28 14:59:57 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/Bundle.scala
+2024.02.28 15:12:04 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
