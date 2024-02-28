@@ -21,7 +21,6 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 	io.in.ready := true.B
 
 	io.redirect := io.in.bits.decode.cf.redirect
-	Info("%x", io.in.bits.decode.cf.redirect.target)
 	io.redirect.valid := io.in.bits.decode.cf.redirect.valid && io.in.valid
 
 	Debug(io.in.valid, 
