@@ -118,7 +118,6 @@ class ALU extends MarCoreModule {
 	Info(yellowFG+"target:0x%x,instr:0x%x,offset:0x%x,isBranch:%d,pc:0x%x"+resetColor+"\n",
 		target,io.cfIn.instr,io.offset,isBranch,io.cfIn.pc)
 	val predictWrong = Mux(!taken && isBranch, io.cfIn.brIdx(0), !io.cfIn.brIdx(0) || (io.redirect.target =/= io.cfIn.pnpc))
-	Info("predictWrong: %b\n", predictWrong)
 	val isRVC = (io.cfIn.instr(1, 0) =/= "b11".U)
 	assert(io.cfIn.instr(1, 0) === "b11".U || isRVC || !valid)
 	Debug(valid && (io.cfIn.instr(1, 0) === "b11".U) =/= !isRVC, "[ERROR] pc %x inst %x rvc %x\n", io.cfIn.pc, io.cfIn.instr, isRVC)
@@ -133,7 +132,7 @@ class ALU extends MarCoreModule {
 	// this is actually for jal and jalr to write pc + 4/2 to rd
 	io.out.bits := Mux(isBru, Mux(!isRVC, SignExt(io.cfIn.pc, AddrBits) + 4.U, SignExt(io.cfIn.pc, AddrBits) + 2.U), aluRes)
 
-//	Debug(valid && isBru, "tgt %x, valid:%d, npc: %x, pdwrong: %x\n", io.redirect.target, io.redirect.valid, io.cfIn.pnpc, predictWrong)
+/	Debug(valid && isBru, "tgt %x, valid:%d, npc: %x, pdwrong: %x\n", io.redirect.target, io.redirect.valid, io.cfIn.pnpc, predictWrong)
 //	Debug(valid && isBru, "taken:%d addrRes:%x srcA:%x srcB:%x ctrl:%x\n", taken, adderRes, srcA, srcB, ctrl)
 //	Debug(valid && isBru, "[BPW] pc %x tgt %x, npc: %x, pdWrong type: %x%x%x%x\n", io.cfIn.pc, io.redirect.target, io.cfIn.pnpc, predictWrong, isBranch, (ctrl === ALUCtrl.jal || ctrl === ALUCtrl.call))
 //	Debug("valid:%d isBru:%d isBranch:%d \n", valid, isBru, isBranch)
