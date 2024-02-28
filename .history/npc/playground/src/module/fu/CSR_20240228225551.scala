@@ -316,15 +316,6 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 	}
 
 	when (raiseExceptionIntr) {
-		// TODO support delegS
-		mcause := causeNO
-		mepc := SignExt(io.cfIn.pc, XLEN)
-		mstatusNew.mpp := priviledgeMode
-		mstatusNew.pie.m := mstatusOld.ie.m
-		mstatusNew.ie.m := false.B
-		priviledgeMode := ModeM
-		when(tvalWen) {mtval := 0.U}
-
 		val mstatusOld = WireInit(mstatus.asTypeOf(new MstatusStruct))
 		val mstatusNew = WireInit(mstatus.asTypeOf(new MstatusStruct))
 
