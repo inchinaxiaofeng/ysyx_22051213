@@ -1698,6 +1698,7 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     vlSelf->SimTop__DOT___arbiter_LoadStore_r_bits_data = 0;
     vlSelf->SimTop__DOT___arbiter_Arbiter_w_bits_strb = 0;
     vlSelf->SimTop__DOT___core_io_dmem_ar_valid = 0;
+    vlSelf->SimTop__DOT__c = 0;
     vlSelf->SimTop__DOT__core__DOT___frontend_io_out_0_bits_ctrl_rfWen = 0;
     vlSelf->SimTop__DOT__core__DOT___frontend_io_out_0_bits_data_imm = 0;
     vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_instr = 0;

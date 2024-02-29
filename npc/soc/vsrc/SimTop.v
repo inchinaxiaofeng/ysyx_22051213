@@ -2912,49 +2912,82 @@ module SimTop(	// <stdin>:4451:10
                 io_csr_regs_2,
                 io_csr_regs_3);
 
-  wire        _TP_SRAM_io_aw_ready;	// SimTop.scala:29:29
-  wire        _TP_SRAM_io_w_ready;	// SimTop.scala:29:29
-  wire        _TP_SRAM_io_b_valid;	// SimTop.scala:29:29
-  wire        _TP_SRAM_io_ar_ready;	// SimTop.scala:29:29
-  wire        _TP_SRAM_io_r_valid;	// SimTop.scala:29:29
-  wire [63:0] _TP_SRAM_io_r_bits_data;	// SimTop.scala:29:29
-  wire        _arbiter_InstFetch_ar_ready;	// SimTop.scala:28:29
-  wire        _arbiter_InstFetch_r_valid;	// SimTop.scala:28:29
-  wire [63:0] _arbiter_InstFetch_r_bits_data;	// SimTop.scala:28:29
-  wire        _arbiter_LoadStore_aw_ready;	// SimTop.scala:28:29
-  wire        _arbiter_LoadStore_w_ready;	// SimTop.scala:28:29
-  wire        _arbiter_LoadStore_b_valid;	// SimTop.scala:28:29
-  wire        _arbiter_LoadStore_ar_ready;	// SimTop.scala:28:29
-  wire        _arbiter_LoadStore_r_valid;	// SimTop.scala:28:29
-  wire [63:0] _arbiter_LoadStore_r_bits_data;	// SimTop.scala:28:29
-  wire        _arbiter_Arbiter_aw_valid;	// SimTop.scala:28:29
-  wire [31:0] _arbiter_Arbiter_aw_bits_addr;	// SimTop.scala:28:29
-  wire        _arbiter_Arbiter_w_valid;	// SimTop.scala:28:29
-  wire [63:0] _arbiter_Arbiter_w_bits_data;	// SimTop.scala:28:29
-  wire [7:0]  _arbiter_Arbiter_w_bits_strb;	// SimTop.scala:28:29
-  wire        _arbiter_Arbiter_ar_valid;	// SimTop.scala:28:29
-  wire [31:0] _arbiter_Arbiter_ar_bits_addr;	// SimTop.scala:28:29
-  wire        _core_io_imem_ar_valid;	// SimTop.scala:27:26
-  wire [31:0] _core_io_imem_ar_bits_addr;	// SimTop.scala:27:26
-  wire        _core_io_dmem_aw_valid;	// SimTop.scala:27:26
-  wire [31:0] _core_io_dmem_aw_bits_addr;	// SimTop.scala:27:26
-  wire        _core_io_dmem_w_valid;	// SimTop.scala:27:26
-  wire [63:0] _core_io_dmem_w_bits_data;	// SimTop.scala:27:26
-  wire [7:0]  _core_io_dmem_w_bits_strb;	// SimTop.scala:27:26
-  wire        _core_io_dmem_ar_valid;	// SimTop.scala:27:26
-  wire [31:0] _core_io_dmem_ar_bits_addr;	// SimTop.scala:27:26
-  Core core (	// SimTop.scala:27:26
+  wire        _TP_SRAM_io_aw_ready;	// SimTop.scala:31:29
+  wire        _TP_SRAM_io_w_ready;	// SimTop.scala:31:29
+  wire        _TP_SRAM_io_b_valid;	// SimTop.scala:31:29
+  wire        _TP_SRAM_io_ar_ready;	// SimTop.scala:31:29
+  wire        _TP_SRAM_io_r_valid;	// SimTop.scala:31:29
+  wire [63:0] _TP_SRAM_io_r_bits_data;	// SimTop.scala:31:29
+  wire        _arbiter_InstFetch_ar_ready;	// SimTop.scala:30:29
+  wire        _arbiter_InstFetch_r_valid;	// SimTop.scala:30:29
+  wire [63:0] _arbiter_InstFetch_r_bits_data;	// SimTop.scala:30:29
+  wire        _arbiter_LoadStore_aw_ready;	// SimTop.scala:30:29
+  wire        _arbiter_LoadStore_w_ready;	// SimTop.scala:30:29
+  wire        _arbiter_LoadStore_b_valid;	// SimTop.scala:30:29
+  wire        _arbiter_LoadStore_ar_ready;	// SimTop.scala:30:29
+  wire        _arbiter_LoadStore_r_valid;	// SimTop.scala:30:29
+  wire [63:0] _arbiter_LoadStore_r_bits_data;	// SimTop.scala:30:29
+  wire        _arbiter_Arbiter_aw_valid;	// SimTop.scala:30:29
+  wire [31:0] _arbiter_Arbiter_aw_bits_addr;	// SimTop.scala:30:29
+  wire        _arbiter_Arbiter_w_valid;	// SimTop.scala:30:29
+  wire [63:0] _arbiter_Arbiter_w_bits_data;	// SimTop.scala:30:29
+  wire [7:0]  _arbiter_Arbiter_w_bits_strb;	// SimTop.scala:30:29
+  wire        _arbiter_Arbiter_ar_valid;	// SimTop.scala:30:29
+  wire [31:0] _arbiter_Arbiter_ar_bits_addr;	// SimTop.scala:30:29
+  wire        _core_io_imem_ar_valid;	// SimTop.scala:29:26
+  wire [31:0] _core_io_imem_ar_bits_addr;	// SimTop.scala:29:26
+  wire        _core_io_dmem_aw_valid;	// SimTop.scala:29:26
+  wire [31:0] _core_io_dmem_aw_bits_addr;	// SimTop.scala:29:26
+  wire        _core_io_dmem_w_valid;	// SimTop.scala:29:26
+  wire [63:0] _core_io_dmem_w_bits_data;	// SimTop.scala:29:26
+  wire [7:0]  _core_io_dmem_w_bits_strb;	// SimTop.scala:29:26
+  wire        _core_io_dmem_ar_valid;	// SimTop.scala:29:26
+  wire [31:0] _core_io_dmem_ar_bits_addr;	// SimTop.scala:29:26
+  reg  [63:0] c;	// GTimer.scala:8:32
+  always @(posedge clock) begin
+    if (reset)
+      c <= 64'h0;	// GTimer.scala:8:32, SimTop.scala:30:29
+    else
+      c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
+  end // always @(posedge)
+  `ifndef SYNTHESIS	// <stdin>:4451:10
+    always @(posedge clock) begin	// Debug.scala:34:43
+      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
+        $fwrite(32'h80000002, "[%d] SimTop: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
+      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "P NPC %x\n", 64'h0);	// Debug.scala:34:43, :35:31, SimTop.scala:30:29
+    end // always @(posedge)
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4451:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4451:10
+    `endif // FIRRTL_BEFORE_INITIAL
+    initial begin	// <stdin>:4451:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4451:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4451:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4451:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4451:10
+      `endif // INIT_RANDOM_PROLOG_
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4451:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4451:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4451:10
+        c = {_RANDOM_0, _RANDOM_1};	// GTimer.scala:8:32
+      `endif // RANDOMIZE_REG_INIT
+    end // initial
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4451:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4451:10
+    `endif // FIRRTL_AFTER_INITIAL
+  `endif // not def SYNTHESIS
+  Core core (	// SimTop.scala:29:26
     .clock                    (clock),
     .reset                    (reset),
-    .io_imem_ar_ready         (_arbiter_InstFetch_ar_ready),	// SimTop.scala:28:29
-    .io_imem_r_valid          (_arbiter_InstFetch_r_valid),	// SimTop.scala:28:29
-    .io_imem_r_bits_data      (_arbiter_InstFetch_r_bits_data),	// SimTop.scala:28:29
-    .io_dmem_aw_ready         (_arbiter_LoadStore_aw_ready),	// SimTop.scala:28:29
-    .io_dmem_w_ready          (_arbiter_LoadStore_w_ready),	// SimTop.scala:28:29
-    .io_dmem_b_valid          (_arbiter_LoadStore_b_valid),	// SimTop.scala:28:29
-    .io_dmem_ar_ready         (_arbiter_LoadStore_ar_ready),	// SimTop.scala:28:29
-    .io_dmem_r_valid          (_arbiter_LoadStore_r_valid),	// SimTop.scala:28:29
-    .io_dmem_r_bits_data      (_arbiter_LoadStore_r_bits_data),	// SimTop.scala:28:29
+    .io_imem_ar_ready         (_arbiter_InstFetch_ar_ready),	// SimTop.scala:30:29
+    .io_imem_r_valid          (_arbiter_InstFetch_r_valid),	// SimTop.scala:30:29
+    .io_imem_r_bits_data      (_arbiter_InstFetch_r_bits_data),	// SimTop.scala:30:29
+    .io_dmem_aw_ready         (_arbiter_LoadStore_aw_ready),	// SimTop.scala:30:29
+    .io_dmem_w_ready          (_arbiter_LoadStore_w_ready),	// SimTop.scala:30:29
+    .io_dmem_b_valid          (_arbiter_LoadStore_b_valid),	// SimTop.scala:30:29
+    .io_dmem_ar_ready         (_arbiter_LoadStore_ar_ready),	// SimTop.scala:30:29
+    .io_dmem_r_valid          (_arbiter_LoadStore_r_valid),	// SimTop.scala:30:29
+    .io_dmem_r_bits_data      (_arbiter_LoadStore_r_bits_data),	// SimTop.scala:30:29
     .io_imem_ar_valid         (_core_io_imem_ar_valid),
     .io_imem_ar_bits_addr     (_core_io_imem_ar_bits_addr),
     .io_dmem_aw_valid         (_core_io_dmem_aw_valid),
@@ -3001,22 +3034,22 @@ module SimTop(	// <stdin>:4451:10
     .io_csr_regs_3            (io_csr_regs_3),
     .io_difftest_commit_valid (io_commit)
   );
-  AXI4Lite_Arbiter arbiter (	// SimTop.scala:28:29
-    .InstFetch_ar_valid     (_core_io_imem_ar_valid),	// SimTop.scala:27:26
-    .InstFetch_ar_bits_addr (_core_io_imem_ar_bits_addr),	// SimTop.scala:27:26
-    .LoadStore_aw_valid     (_core_io_dmem_aw_valid),	// SimTop.scala:27:26
-    .LoadStore_aw_bits_addr (_core_io_dmem_aw_bits_addr),	// SimTop.scala:27:26
-    .LoadStore_w_valid      (_core_io_dmem_w_valid),	// SimTop.scala:27:26
-    .LoadStore_w_bits_data  (_core_io_dmem_w_bits_data),	// SimTop.scala:27:26
-    .LoadStore_w_bits_strb  (_core_io_dmem_w_bits_strb),	// SimTop.scala:27:26
-    .LoadStore_ar_valid     (_core_io_dmem_ar_valid),	// SimTop.scala:27:26
-    .LoadStore_ar_bits_addr (_core_io_dmem_ar_bits_addr),	// SimTop.scala:27:26
-    .Arbiter_aw_ready       (_TP_SRAM_io_aw_ready),	// SimTop.scala:29:29
-    .Arbiter_w_ready        (_TP_SRAM_io_w_ready),	// SimTop.scala:29:29
-    .Arbiter_b_valid        (_TP_SRAM_io_b_valid),	// SimTop.scala:29:29
-    .Arbiter_ar_ready       (_TP_SRAM_io_ar_ready),	// SimTop.scala:29:29
-    .Arbiter_r_valid        (_TP_SRAM_io_r_valid),	// SimTop.scala:29:29
-    .Arbiter_r_bits_data    (_TP_SRAM_io_r_bits_data),	// SimTop.scala:29:29
+  AXI4Lite_Arbiter arbiter (	// SimTop.scala:30:29
+    .InstFetch_ar_valid     (_core_io_imem_ar_valid),	// SimTop.scala:29:26
+    .InstFetch_ar_bits_addr (_core_io_imem_ar_bits_addr),	// SimTop.scala:29:26
+    .LoadStore_aw_valid     (_core_io_dmem_aw_valid),	// SimTop.scala:29:26
+    .LoadStore_aw_bits_addr (_core_io_dmem_aw_bits_addr),	// SimTop.scala:29:26
+    .LoadStore_w_valid      (_core_io_dmem_w_valid),	// SimTop.scala:29:26
+    .LoadStore_w_bits_data  (_core_io_dmem_w_bits_data),	// SimTop.scala:29:26
+    .LoadStore_w_bits_strb  (_core_io_dmem_w_bits_strb),	// SimTop.scala:29:26
+    .LoadStore_ar_valid     (_core_io_dmem_ar_valid),	// SimTop.scala:29:26
+    .LoadStore_ar_bits_addr (_core_io_dmem_ar_bits_addr),	// SimTop.scala:29:26
+    .Arbiter_aw_ready       (_TP_SRAM_io_aw_ready),	// SimTop.scala:31:29
+    .Arbiter_w_ready        (_TP_SRAM_io_w_ready),	// SimTop.scala:31:29
+    .Arbiter_b_valid        (_TP_SRAM_io_b_valid),	// SimTop.scala:31:29
+    .Arbiter_ar_ready       (_TP_SRAM_io_ar_ready),	// SimTop.scala:31:29
+    .Arbiter_r_valid        (_TP_SRAM_io_r_valid),	// SimTop.scala:31:29
+    .Arbiter_r_bits_data    (_TP_SRAM_io_r_bits_data),	// SimTop.scala:31:29
     .InstFetch_ar_ready     (_arbiter_InstFetch_ar_ready),
     .InstFetch_r_valid      (_arbiter_InstFetch_r_valid),
     .InstFetch_r_bits_data  (_arbiter_InstFetch_r_bits_data),
@@ -3034,16 +3067,16 @@ module SimTop(	// <stdin>:4451:10
     .Arbiter_ar_valid       (_arbiter_Arbiter_ar_valid),
     .Arbiter_ar_bits_addr   (_arbiter_Arbiter_ar_bits_addr)
   );
-  TP_SRAM TP_SRAM (	// SimTop.scala:29:29
+  TP_SRAM TP_SRAM (	// SimTop.scala:31:29
     .clock           (clock),
     .reset           (reset),
-    .io_aw_valid     (_arbiter_Arbiter_aw_valid),	// SimTop.scala:28:29
-    .io_aw_bits_addr (_arbiter_Arbiter_aw_bits_addr),	// SimTop.scala:28:29
-    .io_w_valid      (_arbiter_Arbiter_w_valid),	// SimTop.scala:28:29
-    .io_w_bits_data  (_arbiter_Arbiter_w_bits_data),	// SimTop.scala:28:29
-    .io_w_bits_strb  (_arbiter_Arbiter_w_bits_strb),	// SimTop.scala:28:29
-    .io_ar_valid     (_arbiter_Arbiter_ar_valid),	// SimTop.scala:28:29
-    .io_ar_bits_addr (_arbiter_Arbiter_ar_bits_addr),	// SimTop.scala:28:29
+    .io_aw_valid     (_arbiter_Arbiter_aw_valid),	// SimTop.scala:30:29
+    .io_aw_bits_addr (_arbiter_Arbiter_aw_bits_addr),	// SimTop.scala:30:29
+    .io_w_valid      (_arbiter_Arbiter_w_valid),	// SimTop.scala:30:29
+    .io_w_bits_data  (_arbiter_Arbiter_w_bits_data),	// SimTop.scala:30:29
+    .io_w_bits_strb  (_arbiter_Arbiter_w_bits_strb),	// SimTop.scala:30:29
+    .io_ar_valid     (_arbiter_Arbiter_ar_valid),	// SimTop.scala:30:29
+    .io_ar_bits_addr (_arbiter_Arbiter_ar_bits_addr),	// SimTop.scala:30:29
     .io_aw_ready     (_TP_SRAM_io_aw_ready),
     .io_w_ready      (_TP_SRAM_io_w_ready),
     .io_b_valid      (_TP_SRAM_io_b_valid),
@@ -3051,7 +3084,7 @@ module SimTop(	// <stdin>:4451:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
-  assign io_pc = 64'h0;	// <stdin>:4451:10, SimTop.scala:28:29
-  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4451:10, SimTop.scala:28:29
+  assign io_pc = 64'h0;	// <stdin>:4451:10, SimTop.scala:30:29
+  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4451:10, SimTop.scala:30:29
 endmodule
 
