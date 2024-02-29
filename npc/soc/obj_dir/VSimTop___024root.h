@@ -202,17 +202,19 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pc;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcA;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_imm;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pc;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_0;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_1;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_2;
     };
     struct {
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_1;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_2;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_3;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_2;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_3;
