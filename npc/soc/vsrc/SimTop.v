@@ -378,11 +378,13 @@ module Decoder(	// <stdin>:146:10, :835:10
   input         io_in_valid,
   input  [63:0] io_in_bits_instr,
                 io_in_bits_pc,
+                io_in_bits_pnpc,
   input         io_out_ready,
   output        io_in_ready,
                 io_out_valid,
   output [63:0] io_out_bits_cf_instr,
                 io_out_bits_cf_pc,
+                io_out_bits_cf_pnpc,
   output        io_out_bits_cf_exceptionVec_2,
                 io_out_bits_ctrl_srcAType,
                 io_out_bits_ctrl_srcBType,
@@ -537,6 +539,7 @@ module Decoder(	// <stdin>:146:10, :835:10
   assign io_out_valid = io_in_valid;	// <stdin>:146:10, :835:10
   assign io_out_bits_cf_instr = io_in_bits_instr;	// <stdin>:146:10, :835:10
   assign io_out_bits_cf_pc = io_in_bits_pc;	// <stdin>:146:10, :835:10
+  assign io_out_bits_cf_pnpc = io_in_bits_pnpc;	// <stdin>:146:10, :835:10
   assign io_out_bits_cf_exceptionVec_2 = decodeList_0 == 3'h0 & io_in_valid;	// <stdin>:146:10, :835:10, IDU.scala:117:{65,89}, Lookup.scala:34:39
   assign io_out_bits_ctrl_srcAType = io_in_bits_instr[6:0] != 7'h37 & _srcAType_T_19;	// <stdin>:146:10, :835:10, IDU.scala:84:{41,47,54}, Mux.scala:27:73
   assign io_out_bits_ctrl_srcBType = _srcBType_T_19;	// <stdin>:146:10, :835:10, Mux.scala:27:73
@@ -568,6 +571,7 @@ module IDU(	// <stdin>:1524:10
                 io_out_0_valid,
   output [63:0] io_out_0_bits_cf_instr,
                 io_out_0_bits_cf_pc,
+                io_out_0_bits_cf_pnpc,
   output        io_out_0_bits_cf_exceptionVec_2,
                 io_out_0_bits_ctrl_srcAType,
                 io_out_0_bits_ctrl_srcBType,
@@ -592,19 +596,22 @@ module IDU(	// <stdin>:1524:10
   output [4:0]  io_out_1_bits_ctrl_rfDest,
   output [63:0] io_out_1_bits_data_imm);
 
-  wire _decoder2_io_in_ready;	// IDU.scala:132:30
-  wire _decoder2_io_isWFI;	// IDU.scala:132:30
-  wire _decoder1_io_isWFI;	// IDU.scala:131:30
-  wire _WIRE = _decoder1_io_isWFI | _decoder2_io_isWFI;	// <stdin>:1550:5, IDU.scala:131:30, :132:30, :149:66
+  wire        _decoder2_io_in_ready;	// IDU.scala:132:30
+  wire [63:0] _decoder2_io_out_bits_cf_pnpc;	// IDU.scala:132:30
+  wire        _decoder2_io_isWFI;	// IDU.scala:132:30
+  wire        _decoder1_io_isWFI;	// IDU.scala:131:30
+  wire        _WIRE = _decoder1_io_isWFI | _decoder2_io_isWFI;	// <stdin>:1550:5, IDU.scala:131:30, :132:30, :149:66
   Decoder decoder1 (	// IDU.scala:131:30
     .io_in_valid                   (io_in_0_valid),
     .io_in_bits_instr              (io_in_0_bits_instr),
     .io_in_bits_pc                 (io_in_0_bits_pc),
+    .io_in_bits_pnpc               (io_in_0_bits_pnpc),
     .io_out_ready                  (io_out_0_ready),
     .io_in_ready                   (io_in_0_ready),
     .io_out_valid                  (io_out_0_valid),
     .io_out_bits_cf_instr          (io_out_0_bits_cf_instr),
     .io_out_bits_cf_pc             (io_out_0_bits_cf_pc),
+    .io_out_bits_cf_pnpc           (io_out_0_bits_cf_pnpc),
     .io_out_bits_cf_exceptionVec_2 (io_out_0_bits_cf_exceptionVec_2),
     .io_out_bits_ctrl_srcAType     (io_out_0_bits_ctrl_srcAType),
     .io_out_bits_ctrl_srcBType     (io_out_0_bits_ctrl_srcBType),
@@ -621,11 +628,13 @@ module IDU(	// <stdin>:1524:10
     .io_in_valid                   (1'h0),	// <stdin>:1524:10
     .io_in_bits_instr              (64'h0),	// <stdin>:1524:10
     .io_in_bits_pc                 (64'h0),	// <stdin>:1524:10
+    .io_in_bits_pnpc               (64'h0),	// <stdin>:1524:10
     .io_out_ready                  (io_out_1_ready),
     .io_in_ready                   (_decoder2_io_in_ready),
     .io_out_valid                  (io_out_1_valid),
     .io_out_bits_cf_instr          (io_out_1_bits_cf_instr),
     .io_out_bits_cf_pc             (io_out_1_bits_cf_pc),
+    .io_out_bits_cf_pnpc           (_decoder2_io_out_bits_cf_pnpc),
     .io_out_bits_cf_exceptionVec_2 (io_out_1_bits_cf_exceptionVec_2),
     .io_out_bits_ctrl_srcAType     (io_out_1_bits_ctrl_srcAType),
     .io_out_bits_ctrl_srcBType     (io_out_1_bits_ctrl_srcBType),
@@ -655,6 +664,7 @@ module Frontend_embedded(	// <stdin>:1553:10
   output        io_out_0_valid,
   output [63:0] io_out_0_bits_cf_instr,
                 io_out_0_bits_cf_pc,
+                io_out_0_bits_cf_pnpc,
   output        io_out_0_bits_cf_exceptionVec_2,
                 io_out_0_bits_ctrl_srcAType,
                 io_out_0_bits_ctrl_srcBType,
@@ -828,6 +838,7 @@ module Frontend_embedded(	// <stdin>:1553:10
     .io_out_0_valid                  (_idu_io_out_0_valid),
     .io_out_0_bits_cf_instr          (io_out_0_bits_cf_instr),
     .io_out_0_bits_cf_pc             (io_out_0_bits_cf_pc),
+    .io_out_0_bits_cf_pnpc           (io_out_0_bits_cf_pnpc),
     .io_out_0_bits_cf_exceptionVec_2 (io_out_0_bits_cf_exceptionVec_2),
     .io_out_0_bits_ctrl_srcAType     (io_out_0_bits_ctrl_srcAType),
     .io_out_0_bits_ctrl_srcBType     (io_out_0_bits_ctrl_srcBType),
@@ -2435,6 +2446,7 @@ module Core(	// <stdin>:4044:10
   wire        _frontend_io_out_0_valid;	// TopMain.scala:30:50
   wire [63:0] _frontend_io_out_0_bits_cf_instr;	// TopMain.scala:30:50
   wire [63:0] _frontend_io_out_0_bits_cf_pc;	// TopMain.scala:30:50
+  wire [63:0] _frontend_io_out_0_bits_cf_pnpc;	// TopMain.scala:30:50
   wire        _frontend_io_out_0_bits_cf_exceptionVec_2;	// TopMain.scala:30:50
   wire        _frontend_io_out_0_bits_ctrl_srcAType;	// TopMain.scala:30:50
   wire        _frontend_io_out_0_bits_ctrl_srcBType;	// TopMain.scala:30:50
@@ -2459,6 +2471,7 @@ module Core(	// <stdin>:4044:10
   wire [4:0]  _frontend_io_out_1_bits_ctrl_rfDest;	// TopMain.scala:30:50
   wire [63:0] _frontend_io_out_1_bits_data_imm;	// TopMain.scala:30:50
   wire [3:0]  _frontend_io_flushVec;	// TopMain.scala:30:50
+  reg  [63:0] c;	// GTimer.scala:8:32
   reg  [63:0] dataBuffer_0_cf_instr;	// PipelineVector.scala:12:41
   reg  [63:0] dataBuffer_0_cf_pc;	// PipelineVector.scala:12:41
   reg         dataBuffer_0_cf_exceptionVec_2;	// PipelineVector.scala:12:41
@@ -2481,9 +2494,10 @@ module Core(	// <stdin>:4044:10
   wire        _backend_io_in_0_valid_T = ringBufferHead != ringBufferTail;	// PipelineVector.scala:13:45, :14:45, :39:46
   wire        _backend_io_in_1_valid_T_1 = ringBufferHead != ringBufferTail - 1'h1 & _backend_io_in_0_valid_T;	// PipelineVector.scala:13:45, :14:45, :39:46, :42:54, :44:{46,66}
   wire        _dequeueSize_T = _backend_io_in_0_ready & _backend_io_in_0_valid_T;	// Decoupled.scala:52:35, PipelineVector.scala:39:46, TopMain.scala:38:37
-  reg  [63:0] c;	// GTimer.scala:8:32
+  reg  [63:0] c_1;	// GTimer.scala:8:32
   always @(posedge clock) begin
     if (reset) begin
+      c <= 64'h0;	// <stdin>:4044:10, GTimer.scala:8:32
       dataBuffer_0_cf_instr <= 64'h0;	// <stdin>:4044:10, PipelineVector.scala:12:41
       dataBuffer_0_cf_pc <= 64'h0;	// <stdin>:4044:10, PipelineVector.scala:12:41
       dataBuffer_0_cf_exceptionVec_2 <= 1'h0;	// <stdin>:4044:10, PipelineVector.scala:12:41
@@ -2498,11 +2512,12 @@ module Core(	// <stdin>:4044:10
       dataBuffer_0_data_imm <= 64'h0;	// <stdin>:4044:10, PipelineVector.scala:12:41
       ringBufferHead <= 1'h0;	// <stdin>:4044:10, PipelineVector.scala:13:45
       ringBufferTail <= 1'h0;	// <stdin>:4044:10, PipelineVector.scala:14:45
-      c <= 64'h0;	// <stdin>:4044:10, GTimer.scala:8:32
+      c_1 <= 64'h0;	// <stdin>:4044:10, GTimer.scala:8:32
     end
     else begin
       automatic logic wen = _frontend_io_out_0_ready_T_1 & _frontend_io_out_0_valid | _frontend_io_out_1_ready_T_1 &
                                                 _frontend_io_out_1_valid;	// Decoupled.scala:52:35, PipelineVector.scala:26:36, :33:48, :34:48, TopMain.scala:30:50
+      c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
       if (wen) begin	// PipelineVector.scala:26:36
         if (enqueueSize[1]) begin	// PipelineVector.scala:23:56, :24:65
           dataBuffer_0_cf_instr <= _frontend_io_out_1_bits_cf_instr;	// PipelineVector.scala:12:41, TopMain.scala:30:50
@@ -2549,20 +2564,24 @@ module Core(	// <stdin>:4044:10
           end
         end
       end
-      ringBufferHead <= ~(_frontend_io_flushVec[1]) & (wen ? ringBufferHead + enqueueSize[0] : ringBufferHead);	// PipelineVector.scala:13:45, :23:56, :26:36, :27:28, :30:{40,58}, :54:30, :55:36, TopMain.scala:30:50, :41:150
+      ringBufferHead <= ~(_frontend_io_flushVec[1]) & (wen ? ringBufferHead + enqueueSize[0] : ringBufferHead);	// PipelineVector.scala:13:45, :23:56, :26:36, :27:28, :30:{40,58}, :54:30, :55:36, TopMain.scala:30:50, :43:150
       ringBufferTail <= ~(_frontend_io_flushVec[1]) & (_dequeueSize_T ? ringBufferTail + _dequeueSize_T :
-                                                ringBufferTail);	// Decoupled.scala:52:35, PipelineVector.scala:14:45, :27:28, :49:36, :50:{36,54}, :54:30, :55:36, :56:36, TopMain.scala:30:50, :41:150
-      c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
+                                                ringBufferTail);	// Decoupled.scala:52:35, PipelineVector.scala:14:45, :27:28, :49:36, :50:{36,54}, :54:30, :55:36, :56:36, TopMain.scala:30:50, :43:150
+      c_1 <= c_1 + 64'h1;	// GTimer.scala:8:32, :9:24
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:4044:10
-    always @(posedge clock) begin	// PipelineVector.scala:60:27
-      if ((`PRINTF_COND_) & ~reset)	// PipelineVector.scala:60:27
-        $fwrite(32'h80000002, "[DPQ] size %x head %x tail %x enq %x deq %x\n", 1'h0, ringBufferHead, ringBufferTail, enqueueSize, {1'h0, _dequeueSize_T});	// <stdin>:4044:10, Decoupled.scala:52:35, PipelineVector.scala:13:45, :14:45, :23:56, :47:52, :60:27
+    always @(posedge clock) begin	// Debug.scala:34:43
+      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
+        $fwrite(32'h80000002, "[%d] Core: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
+      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "P NPC %x\n", _frontend_io_out_0_bits_cf_pnpc);	// Debug.scala:34:43, :35:31, TopMain.scala:30:50
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, PipelineVector.scala:60:27
-        $fwrite(32'h80000002, "[%d] Core: ", c);	// Debug.scala:34:43, GTimer.scala:8:32, PipelineVector.scala:60:27
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:35:31, PipelineVector.scala:60:27
-        $fwrite(32'h80000002, "flush = %b, 0: frontend:(%d,%d), backend:(%d,%d); 1: frontend:(%d,%d), backend:(%d,%d)\n", _frontend_io_flushVec, _frontend_io_out_0_valid, _frontend_io_out_0_ready_T_1, _backend_io_in_0_valid_T, _backend_io_in_0_ready, _frontend_io_out_1_valid, _frontend_io_out_1_ready_T_1, _backend_io_in_1_valid_T_1, 1'h0);	// <stdin>:4044:10, Debug.scala:35:31, PipelineVector.scala:33:48, :34:48, :39:46, :44:66, :60:27, TopMain.scala:30:50, :38:37
+        $fwrite(32'h80000002, "[DPQ] size %x head %x tail %x enq %x deq %x\n", 1'h0, ringBufferHead, ringBufferTail, enqueueSize, {1'h0, _dequeueSize_T});	// <stdin>:4044:10, Debug.scala:34:43, Decoupled.scala:52:35, PipelineVector.scala:13:45, :14:45, :23:56, :47:52, :60:27
+      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
+        $fwrite(32'h80000002, "[%d] Core: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
+      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "flush = %b, 0: frontend:(%d,%d), backend:(%d,%d); 1: frontend:(%d,%d), backend:(%d,%d)\n", _frontend_io_flushVec, _frontend_io_out_0_valid, _frontend_io_out_0_ready_T_1, _backend_io_in_0_valid_T, _backend_io_in_0_ready, _frontend_io_out_1_valid, _frontend_io_out_1_ready_T_1, _backend_io_in_1_valid_T_1, 1'h0);	// <stdin>:4044:10, Debug.scala:34:43, :35:31, PipelineVector.scala:33:48, :34:48, :39:46, :44:66, TopMain.scala:30:50, :38:37
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4044:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4044:10
@@ -2589,6 +2608,8 @@ module Core(	// <stdin>:4044:10
       automatic logic [31:0] _RANDOM_18;	// <stdin>:4044:10
       automatic logic [31:0] _RANDOM_19;	// <stdin>:4044:10
       automatic logic [31:0] _RANDOM_20;	// <stdin>:4044:10
+      automatic logic [31:0] _RANDOM_21;	// <stdin>:4044:10
+      automatic logic [31:0] _RANDOM_22;	// <stdin>:4044:10
       `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4044:10
         `INIT_RANDOM_PROLOG_	// <stdin>:4044:10
       `endif // INIT_RANDOM_PROLOG_
@@ -2614,21 +2635,24 @@ module Core(	// <stdin>:4044:10
         _RANDOM_18 = `RANDOM;	// <stdin>:4044:10
         _RANDOM_19 = `RANDOM;	// <stdin>:4044:10
         _RANDOM_20 = `RANDOM;	// <stdin>:4044:10
-        dataBuffer_0_cf_instr = {_RANDOM_0, _RANDOM_1};	// PipelineVector.scala:12:41
-        dataBuffer_0_cf_pc = {_RANDOM_2, _RANDOM_3};	// PipelineVector.scala:12:41
-        dataBuffer_0_cf_exceptionVec_2 = _RANDOM_8[4];	// PipelineVector.scala:12:41
-        dataBuffer_0_ctrl_srcAType = _RANDOM_11[5];	// PipelineVector.scala:12:41
-        dataBuffer_0_ctrl_srcBType = _RANDOM_11[6];	// PipelineVector.scala:12:41
-        dataBuffer_0_ctrl_fuType = _RANDOM_11[9:7];	// PipelineVector.scala:12:41
-        dataBuffer_0_ctrl_fuCtrl = _RANDOM_11[16:10];	// PipelineVector.scala:12:41
-        dataBuffer_0_ctrl_rfSrcA = _RANDOM_11[21:17];	// PipelineVector.scala:12:41
-        dataBuffer_0_ctrl_rfSrcB = _RANDOM_11[26:22];	// PipelineVector.scala:12:41
-        dataBuffer_0_ctrl_rfWen = _RANDOM_11[27];	// PipelineVector.scala:12:41
-        dataBuffer_0_ctrl_rfDest = {_RANDOM_11[31:28], _RANDOM_12[0]};	// PipelineVector.scala:12:41
-        dataBuffer_0_data_imm = {_RANDOM_16[31:6], _RANDOM_17, _RANDOM_18[5:0]};	// PipelineVector.scala:12:41
-        ringBufferHead = _RANDOM_18[6];	// PipelineVector.scala:12:41, :13:45
-        ringBufferTail = _RANDOM_18[7];	// PipelineVector.scala:12:41, :14:45
-        c = {_RANDOM_18[31:8], _RANDOM_19, _RANDOM_20[7:0]};	// GTimer.scala:8:32, PipelineVector.scala:12:41
+        _RANDOM_21 = `RANDOM;	// <stdin>:4044:10
+        _RANDOM_22 = `RANDOM;	// <stdin>:4044:10
+        c = {_RANDOM_0, _RANDOM_1};	// GTimer.scala:8:32
+        dataBuffer_0_cf_instr = {_RANDOM_2, _RANDOM_3};	// PipelineVector.scala:12:41
+        dataBuffer_0_cf_pc = {_RANDOM_4, _RANDOM_5};	// PipelineVector.scala:12:41
+        dataBuffer_0_cf_exceptionVec_2 = _RANDOM_10[4];	// PipelineVector.scala:12:41
+        dataBuffer_0_ctrl_srcAType = _RANDOM_13[5];	// PipelineVector.scala:12:41
+        dataBuffer_0_ctrl_srcBType = _RANDOM_13[6];	// PipelineVector.scala:12:41
+        dataBuffer_0_ctrl_fuType = _RANDOM_13[9:7];	// PipelineVector.scala:12:41
+        dataBuffer_0_ctrl_fuCtrl = _RANDOM_13[16:10];	// PipelineVector.scala:12:41
+        dataBuffer_0_ctrl_rfSrcA = _RANDOM_13[21:17];	// PipelineVector.scala:12:41
+        dataBuffer_0_ctrl_rfSrcB = _RANDOM_13[26:22];	// PipelineVector.scala:12:41
+        dataBuffer_0_ctrl_rfWen = _RANDOM_13[27];	// PipelineVector.scala:12:41
+        dataBuffer_0_ctrl_rfDest = {_RANDOM_13[31:28], _RANDOM_14[0]};	// PipelineVector.scala:12:41
+        dataBuffer_0_data_imm = {_RANDOM_18[31:6], _RANDOM_19, _RANDOM_20[5:0]};	// PipelineVector.scala:12:41
+        ringBufferHead = _RANDOM_20[6];	// PipelineVector.scala:12:41, :13:45
+        ringBufferTail = _RANDOM_20[7];	// PipelineVector.scala:12:41, :14:45
+        c_1 = {_RANDOM_20[31:8], _RANDOM_21, _RANDOM_22[7:0]};	// GTimer.scala:8:32, PipelineVector.scala:12:41
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4044:10
@@ -2650,6 +2674,7 @@ module Core(	// <stdin>:4044:10
     .io_out_0_valid                  (_frontend_io_out_0_valid),
     .io_out_0_bits_cf_instr          (_frontend_io_out_0_bits_cf_instr),
     .io_out_0_bits_cf_pc             (_frontend_io_out_0_bits_cf_pc),
+    .io_out_0_bits_cf_pnpc           (_frontend_io_out_0_bits_cf_pnpc),
     .io_out_0_bits_cf_exceptionVec_2 (_frontend_io_out_0_bits_cf_exceptionVec_2),
     .io_out_0_bits_ctrl_srcAType     (_frontend_io_out_0_bits_ctrl_srcAType),
     .io_out_0_bits_ctrl_srcBType     (_frontend_io_out_0_bits_ctrl_srcBType),
@@ -2692,7 +2717,7 @@ module Core(	// <stdin>:4044:10
     .io_in_0_bits_ctrl_rfDest       (dataBuffer_0_ctrl_rfDest),	// PipelineVector.scala:12:41
     .io_in_0_bits_data_imm          (dataBuffer_0_data_imm),	// PipelineVector.scala:12:41
     .io_in_1_valid                  (_backend_io_in_1_valid_T_1),	// PipelineVector.scala:44:66
-    .io_flush                       (_frontend_io_flushVec[3:2]),	// TopMain.scala:30:50, :47:57
+    .io_flush                       (_frontend_io_flushVec[3:2]),	// TopMain.scala:30:50, :49:57
     .io_dmem_aw_ready               (io_dmem_aw_ready),
     .io_dmem_w_ready                (io_dmem_w_ready),
     .io_dmem_b_valid                (io_dmem_b_valid),
@@ -2748,7 +2773,7 @@ module Core(	// <stdin>:4044:10
   );
 endmodule
 
-module AXI4Lite_Arbiter(	// <stdin>:4342:10
+module AXI4Lite_Arbiter(	// <stdin>:4357:10
   input         InstFetch_ar_valid,
   input  [31:0] InstFetch_ar_bits_addr,
   input         LoadStore_aw_valid,
@@ -2785,28 +2810,28 @@ module AXI4Lite_Arbiter(	// <stdin>:4342:10
   wire _T_2 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:35:{39,42}
   wire _T_4 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:42:{20,40}
   wire _GEN = _T | ~_T_2 & _T_4;	// AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :39:41, :42:{40,63}
-  assign InstFetch_ar_ready = ~_T & _T_2 & Arbiter_ar_ready;	// <stdin>:4342:10, AXI4_Arbiter.scala:28:{33,56}, :32:41, :35:{39,63}
-  assign InstFetch_r_valid = ~_T & _T_2 & Arbiter_r_valid;	// <stdin>:4342:10, AXI4_Arbiter.scala:28:{33,56}, :32:41, :33:41, :35:{39,63}
-  assign InstFetch_r_bits_data = _T | ~_T_2 ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4342:10, AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :35:{39,63}
-  assign LoadStore_aw_ready = Arbiter_aw_ready;	// <stdin>:4342:10
-  assign LoadStore_w_ready = Arbiter_w_ready;	// <stdin>:4342:10
-  assign LoadStore_b_valid = Arbiter_b_valid;	// <stdin>:4342:10
-  assign LoadStore_ar_ready = _GEN & Arbiter_ar_ready;	// <stdin>:4342:10, AXI4_Arbiter.scala:28:56, :30:33, :35:63
-  assign LoadStore_r_valid = _GEN & Arbiter_r_valid;	// <stdin>:4342:10, AXI4_Arbiter.scala:28:56, :30:33, :31:41, :35:63
-  assign LoadStore_r_bits_data = _T | ~(_T_2 | ~_T_4) ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4342:10, AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :31:41, :35:{39,63}, :42:{40,63}
-  assign Arbiter_aw_valid = LoadStore_aw_valid;	// <stdin>:4342:10
-  assign Arbiter_aw_bits_addr = LoadStore_aw_bits_addr;	// <stdin>:4342:10
-  assign Arbiter_w_valid = LoadStore_w_valid;	// <stdin>:4342:10
-  assign Arbiter_w_bits_data = LoadStore_w_bits_data;	// <stdin>:4342:10
-  assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4342:10
-  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4342:10, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :37:33, :42:{40,63}, :44:33, :51:41
+  assign InstFetch_ar_ready = ~_T & _T_2 & Arbiter_ar_ready;	// <stdin>:4357:10, AXI4_Arbiter.scala:28:{33,56}, :32:41, :35:{39,63}
+  assign InstFetch_r_valid = ~_T & _T_2 & Arbiter_r_valid;	// <stdin>:4357:10, AXI4_Arbiter.scala:28:{33,56}, :32:41, :33:41, :35:{39,63}
+  assign InstFetch_r_bits_data = _T | ~_T_2 ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4357:10, AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :35:{39,63}
+  assign LoadStore_aw_ready = Arbiter_aw_ready;	// <stdin>:4357:10
+  assign LoadStore_w_ready = Arbiter_w_ready;	// <stdin>:4357:10
+  assign LoadStore_b_valid = Arbiter_b_valid;	// <stdin>:4357:10
+  assign LoadStore_ar_ready = _GEN & Arbiter_ar_ready;	// <stdin>:4357:10, AXI4_Arbiter.scala:28:56, :30:33, :35:63
+  assign LoadStore_r_valid = _GEN & Arbiter_r_valid;	// <stdin>:4357:10, AXI4_Arbiter.scala:28:56, :30:33, :31:41, :35:63
+  assign LoadStore_r_bits_data = _T | ~(_T_2 | ~_T_4) ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4357:10, AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :31:41, :35:{39,63}, :42:{40,63}
+  assign Arbiter_aw_valid = LoadStore_aw_valid;	// <stdin>:4357:10
+  assign Arbiter_aw_bits_addr = LoadStore_aw_bits_addr;	// <stdin>:4357:10
+  assign Arbiter_w_valid = LoadStore_w_valid;	// <stdin>:4357:10
+  assign Arbiter_w_bits_data = LoadStore_w_bits_data;	// <stdin>:4357:10
+  assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4357:10
+  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4357:10, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :37:33, :42:{40,63}, :44:33, :51:41
   assign Arbiter_ar_bits_addr = _T ? LoadStore_ar_bits_addr : _T_2 ? InstFetch_ar_bits_addr : _T_4 ? LoadStore_ar_bits_addr
-                : 32'h0;	// <stdin>:4342:10, AXI4.scala:73:27, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :37:33, :42:{40,63}, :44:33
+                : 32'h0;	// <stdin>:4357:10, AXI4.scala:73:27, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :37:33, :42:{40,63}, :44:33
 endmodule
 
 // external module MEM
 
-module TP_SRAM(	// <stdin>:4408:10
+module TP_SRAM(	// <stdin>:4423:10
   input         clock,
                 reset,
                 io_aw_valid,
@@ -2835,23 +2860,23 @@ module TP_SRAM(	// <stdin>:4408:10
       rReadStatuOK <= io_ar_valid & ~rReadStatuOK;	// TP_SRAM.scala:30:36, :56:{41,44}
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4408:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4408:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4408:10
+  `ifndef SYNTHESIS	// <stdin>:4423:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4423:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4423:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4408:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4408:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4408:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4408:10
+    initial begin	// <stdin>:4423:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4423:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4423:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4423:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4408:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4408:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4423:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4423:10
         rWriteStatuOK = _RANDOM_0[0];	// TP_SRAM.scala:29:36
         rReadStatuOK = _RANDOM_0[1];	// TP_SRAM.scala:29:36, :30:36
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4408:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4408:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4423:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4423:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   MEM mem (	// TP_SRAM.scala:25:25
@@ -2863,14 +2888,14 @@ module TP_SRAM(	// <stdin>:4408:10
     .iWriteData (io_w_bits_data),
     .oReadData  (io_r_bits_data)
   );
-  assign io_aw_ready = io_aw_valid;	// <stdin>:4408:10
-  assign io_w_ready = io_w_valid;	// <stdin>:4408:10
-  assign io_b_valid = rWriteStatuOK;	// <stdin>:4408:10, TP_SRAM.scala:29:36
-  assign io_ar_ready = io_ar_valid;	// <stdin>:4408:10
-  assign io_r_valid = rReadStatuOK;	// <stdin>:4408:10, TP_SRAM.scala:30:36
+  assign io_aw_ready = io_aw_valid;	// <stdin>:4423:10
+  assign io_w_ready = io_w_valid;	// <stdin>:4423:10
+  assign io_b_valid = rWriteStatuOK;	// <stdin>:4423:10, TP_SRAM.scala:29:36
+  assign io_ar_ready = io_ar_valid;	// <stdin>:4423:10
+  assign io_r_valid = rReadStatuOK;	// <stdin>:4423:10, TP_SRAM.scala:30:36
 endmodule
 
-module SimTop(	// <stdin>:4451:10
+module SimTop(	// <stdin>:4466:10
   input         clock,
                 reset,
   output        io_commit,
@@ -2950,30 +2975,30 @@ module SimTop(	// <stdin>:4451:10
     else
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4451:10
+  `ifndef SYNTHESIS	// <stdin>:4466:10
     always @(posedge clock) begin	// Debug.scala:34:43
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] SimTop: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
         $fwrite(32'h80000002, "P NPC %x\n", 64'h0);	// Debug.scala:34:43, :35:31, SimTop.scala:30:29
     end // always @(posedge)
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4451:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4451:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4466:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4466:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4451:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4451:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4451:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4451:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4451:10
+    initial begin	// <stdin>:4466:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4466:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4466:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4466:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4466:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4451:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4451:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4451:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4466:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4466:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4466:10
         c = {_RANDOM_0, _RANDOM_1};	// GTimer.scala:8:32
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4451:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4451:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4466:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4466:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   Core core (	// SimTop.scala:29:26
@@ -3084,7 +3109,7 @@ module SimTop(	// <stdin>:4451:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
-  assign io_pc = 64'h0;	// <stdin>:4451:10, SimTop.scala:30:29
-  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4451:10, SimTop.scala:30:29
+  assign io_pc = 64'h0;	// <stdin>:4466:10, SimTop.scala:30:29
+  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4466:10, SimTop.scala:30:29
 endmodule
 
