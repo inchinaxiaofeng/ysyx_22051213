@@ -277,8 +277,8 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 //	csrExpectionVec(loadPageFault) :=
 	val iduExceptionVec = io.cfIn.exceptionVec
 	val raiseExceptionVec = csrExpectionVec.asUInt | iduExceptionVec.asUInt
-//	Info("raiseExceptionVec=csr|idu %b=(%b|%b)\n",
-//		raiseExceptionVec, csrExpectionVec.asUInt, iduExceptionVec.asUInt)
+	Info("raiseExceptionVec=csr|idu %b=(%b|%b)\n",
+		raiseExceptionVec, csrExpectionVec.asUInt, iduExceptionVec.asUInt)
 	val raiseException = raiseExceptionVec.orR
 	val exceptionNO = ExcPriority.foldRight(0.U)((i: Int, sum: UInt) => Mux(raiseExceptionVec(i), i.U, sum))
 	io.wenFix := raiseException
@@ -287,23 +287,21 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 	io.intrNO := Mux(raiseIntr, causeNO, 0.U)
 
 	val raiseExceptionIntr = (raiseException || raiseIntr) && io.instrValid
-//	Info("raiseExceptionIntr ((%d||%d)&&%d)\n", raiseException, raiseIntr, io.instrValid)
+	Info("raiseExceptionIntr ((%d||%d)&&%d)\n", raiseException, raiseIntr, io.instrValid)
 	val retTarget = Wire(UInt(VAddrBits.W))
 	val trapTarget = Wire(UInt(VAddrBits.W))
 	io.redirect.valid := (valid && ctrl === CSRCtrl.jmp) || raiseExceptionIntr || resetSatp
-//	Info("valid (%d||%d||%d)\n", valid && ctrl === CSRCtrl.jmp, 
-//		raiseExceptionIntr, resetSatp) //The second shouldn't be 1 in 22 cycle
+	Info("valid (%d||%d||%d)\n", valid && ctrl === CSRCtrl.jmp, 
+		raiseExceptionIntr, resetSatp) //The second shouldn't be 1 in 22 cycle
 	io.redirect.rtype := 0.U
 	io.redirect.target := Mux(resetSatp, io.cfIn.pc + 4.U, Mux(raiseExceptionIntr, trapTarget, retTarget))
-//	Info("resetSatp %b, raiseExceptionIntr %b\n", resetSatp, raiseExceptionIntr)
+	Info("resetSatp %b, raiseExceptionIntr %b\n", resetSatp, raiseExceptionIntr)
 
 	// Branch control
 	ret := isMret || isSret || isUret
 //	trapTarget := Mux(delegS, stvec, mtvec)(VAddrBits-1, 0)
 	trapTarget := mtvec(VAddrBits-1, 0)
 	retTarget := DontCare
-
-//	Info("m|s|u (%b|%b|%b)\n", isMret, isSret, isUret)
 
 	when (valid && isMret) {
 		val mstatusOld = WireInit(mstatus.asTypeOf(new MstatusStruct))
@@ -325,7 +323,7 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 		// TODO support delegS
 		mcause := causeNO
 		mepc := SignExt(io.cfIn.pc, XLEN)
-//		Info("mepc: %x\n", io.cfIn.pc)
+		Info("mepc: %x\n", io.cfIn.pc)
 		mstatusNew.mpp := priviledgeMode
 		mstatusNew.pie.m := mstatusOld.ie.m
 		mstatusNew.ie.m := false.B
