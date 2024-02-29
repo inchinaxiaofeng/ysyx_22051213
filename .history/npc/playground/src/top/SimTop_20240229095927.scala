@@ -43,6 +43,4 @@ class SimTop extends Module {
 	} else {
 		for (i <- 0 until 4) io.csr.regs(i) := 0.U(64.W)
 	}
-
-	io.commit := core.io.commit
 }

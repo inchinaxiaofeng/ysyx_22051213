@@ -21,7 +21,6 @@ typedef struct {
 */
 
 	vaddr_t pc; // Reg
-	int commit;
 //	// Pipeline Debug
 //	vaddr_t ls_wb_pc; uint32_t ls_wb_instr; int ls_wb_pcEnable;
 //	vaddr_t ex_ls_pc; uint32_t ex_ls_instr; int ex_ls_pcEnable;

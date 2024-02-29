@@ -55,7 +55,7 @@ class Core(implicit val p: MarCoreConfig) extends MarCoreModule {
 
 		io.gpr <> backend.io.gpr
 		io.csr <> backend.io.csr
-		io.commit := wbu.commit
+		io.commit := 
 	}
 }
 

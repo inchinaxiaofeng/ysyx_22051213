@@ -2505,3 +2505,11 @@ scala.meta.tokenizers.TokenizeException: <input>:298: error: unclosed string lit
 警告: Unmatched cancel notification for request id 26540
 2024.02.28 23:26:21 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
 2024.02.28 23:26:50 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
+2024.02.29 09:50:46 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/TopMain.scala
+2024.02.29 09:51:53 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/TopMain.scala
+2024.02.29 09:58:13 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/WBU.scala
+2024.02.29 09:58:34 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/WBU.scala
+2024.02.29 09:58:54 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/WBU.scala
+2024.02.29 09:59:04 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/TopMain.scala
+2024.02.29 09:59:27 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.29 09:59:47 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
