@@ -66,7 +66,7 @@ VL_ATTR_COLD void VSimTop___024root___eval_settle(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VSimTop___024root___dump_triggers__stl(vlSelf);
 #endif
-                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2945, "", "Settle region did not converge.");
+                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2951, "", "Settle region did not converge.");
             }
             vlSelf->__VstlIterCount = ((IData)(1U) 
                                        + vlSelf->__VstlIterCount);
@@ -164,6 +164,7 @@ VL_ATTR_COLD void VSimTop___024root___stl_sequent__TOP__0(VSimTop___024root* vlS
     VlWide<3>/*95:0*/ __Vtemp_h4373a639__0;
     VlWide<3>/*95:0*/ __Vtemp_h84075690__0;
     // Body
+    vlSelf->io_commit = vlSelf->SimTop__DOT__core__DOT__backend__DOT__valid_1;
     vlSelf->io_gpr_regs_1 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
         [1U];
     vlSelf->io_gpr_regs_2 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
@@ -1651,6 +1652,7 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     // Body
     vlSelf->clock = 0;
     vlSelf->reset = 0;
+    vlSelf->io_commit = 0;
     vlSelf->io_gpr_regs_0 = 0;
     vlSelf->io_gpr_regs_1 = 0;
     vlSelf->io_gpr_regs_2 = 0;

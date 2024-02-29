@@ -407,52 +407,53 @@ void VSimTop___024root__trace_chg_sub_0(VSimTop___024root* vlSelf, VerilatedVcd:
     }
     bufp->chgBit(oldp+330,(vlSelf->clock));
     bufp->chgBit(oldp+331,(vlSelf->reset));
-    bufp->chgQData(oldp+332,(vlSelf->io_gpr_regs_0),64);
-    bufp->chgQData(oldp+334,(vlSelf->io_gpr_regs_1),64);
-    bufp->chgQData(oldp+336,(vlSelf->io_gpr_regs_2),64);
-    bufp->chgQData(oldp+338,(vlSelf->io_gpr_regs_3),64);
-    bufp->chgQData(oldp+340,(vlSelf->io_gpr_regs_4),64);
-    bufp->chgQData(oldp+342,(vlSelf->io_gpr_regs_5),64);
-    bufp->chgQData(oldp+344,(vlSelf->io_gpr_regs_6),64);
-    bufp->chgQData(oldp+346,(vlSelf->io_gpr_regs_7),64);
-    bufp->chgQData(oldp+348,(vlSelf->io_gpr_regs_8),64);
-    bufp->chgQData(oldp+350,(vlSelf->io_gpr_regs_9),64);
-    bufp->chgQData(oldp+352,(vlSelf->io_gpr_regs_10),64);
-    bufp->chgQData(oldp+354,(vlSelf->io_gpr_regs_11),64);
-    bufp->chgQData(oldp+356,(vlSelf->io_gpr_regs_12),64);
-    bufp->chgQData(oldp+358,(vlSelf->io_gpr_regs_13),64);
-    bufp->chgQData(oldp+360,(vlSelf->io_gpr_regs_14),64);
-    bufp->chgQData(oldp+362,(vlSelf->io_gpr_regs_15),64);
-    bufp->chgQData(oldp+364,(vlSelf->io_gpr_regs_16),64);
-    bufp->chgQData(oldp+366,(vlSelf->io_gpr_regs_17),64);
-    bufp->chgQData(oldp+368,(vlSelf->io_gpr_regs_18),64);
-    bufp->chgQData(oldp+370,(vlSelf->io_gpr_regs_19),64);
-    bufp->chgQData(oldp+372,(vlSelf->io_gpr_regs_20),64);
-    bufp->chgQData(oldp+374,(vlSelf->io_gpr_regs_21),64);
-    bufp->chgQData(oldp+376,(vlSelf->io_gpr_regs_22),64);
-    bufp->chgQData(oldp+378,(vlSelf->io_gpr_regs_23),64);
-    bufp->chgQData(oldp+380,(vlSelf->io_gpr_regs_24),64);
-    bufp->chgQData(oldp+382,(vlSelf->io_gpr_regs_25),64);
-    bufp->chgQData(oldp+384,(vlSelf->io_gpr_regs_26),64);
-    bufp->chgQData(oldp+386,(vlSelf->io_gpr_regs_27),64);
-    bufp->chgQData(oldp+388,(vlSelf->io_gpr_regs_28),64);
-    bufp->chgQData(oldp+390,(vlSelf->io_gpr_regs_29),64);
-    bufp->chgQData(oldp+392,(vlSelf->io_gpr_regs_30),64);
-    bufp->chgQData(oldp+394,(vlSelf->io_gpr_regs_31),64);
-    bufp->chgQData(oldp+396,(vlSelf->io_csr_regs_0),64);
-    bufp->chgQData(oldp+398,(vlSelf->io_csr_regs_1),64);
-    bufp->chgQData(oldp+400,(vlSelf->io_csr_regs_2),64);
-    bufp->chgQData(oldp+402,(vlSelf->io_csr_regs_3),64);
-    bufp->chgQData(oldp+404,(vlSelf->SimTop__DOT___TP_SRAM_io_r_bits_data),64);
-    bufp->chgBit(oldp+406,((((1U & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferHead))) 
+    bufp->chgBit(oldp+332,(vlSelf->io_commit));
+    bufp->chgQData(oldp+333,(vlSelf->io_gpr_regs_0),64);
+    bufp->chgQData(oldp+335,(vlSelf->io_gpr_regs_1),64);
+    bufp->chgQData(oldp+337,(vlSelf->io_gpr_regs_2),64);
+    bufp->chgQData(oldp+339,(vlSelf->io_gpr_regs_3),64);
+    bufp->chgQData(oldp+341,(vlSelf->io_gpr_regs_4),64);
+    bufp->chgQData(oldp+343,(vlSelf->io_gpr_regs_5),64);
+    bufp->chgQData(oldp+345,(vlSelf->io_gpr_regs_6),64);
+    bufp->chgQData(oldp+347,(vlSelf->io_gpr_regs_7),64);
+    bufp->chgQData(oldp+349,(vlSelf->io_gpr_regs_8),64);
+    bufp->chgQData(oldp+351,(vlSelf->io_gpr_regs_9),64);
+    bufp->chgQData(oldp+353,(vlSelf->io_gpr_regs_10),64);
+    bufp->chgQData(oldp+355,(vlSelf->io_gpr_regs_11),64);
+    bufp->chgQData(oldp+357,(vlSelf->io_gpr_regs_12),64);
+    bufp->chgQData(oldp+359,(vlSelf->io_gpr_regs_13),64);
+    bufp->chgQData(oldp+361,(vlSelf->io_gpr_regs_14),64);
+    bufp->chgQData(oldp+363,(vlSelf->io_gpr_regs_15),64);
+    bufp->chgQData(oldp+365,(vlSelf->io_gpr_regs_16),64);
+    bufp->chgQData(oldp+367,(vlSelf->io_gpr_regs_17),64);
+    bufp->chgQData(oldp+369,(vlSelf->io_gpr_regs_18),64);
+    bufp->chgQData(oldp+371,(vlSelf->io_gpr_regs_19),64);
+    bufp->chgQData(oldp+373,(vlSelf->io_gpr_regs_20),64);
+    bufp->chgQData(oldp+375,(vlSelf->io_gpr_regs_21),64);
+    bufp->chgQData(oldp+377,(vlSelf->io_gpr_regs_22),64);
+    bufp->chgQData(oldp+379,(vlSelf->io_gpr_regs_23),64);
+    bufp->chgQData(oldp+381,(vlSelf->io_gpr_regs_24),64);
+    bufp->chgQData(oldp+383,(vlSelf->io_gpr_regs_25),64);
+    bufp->chgQData(oldp+385,(vlSelf->io_gpr_regs_26),64);
+    bufp->chgQData(oldp+387,(vlSelf->io_gpr_regs_27),64);
+    bufp->chgQData(oldp+389,(vlSelf->io_gpr_regs_28),64);
+    bufp->chgQData(oldp+391,(vlSelf->io_gpr_regs_29),64);
+    bufp->chgQData(oldp+393,(vlSelf->io_gpr_regs_30),64);
+    bufp->chgQData(oldp+395,(vlSelf->io_gpr_regs_31),64);
+    bufp->chgQData(oldp+397,(vlSelf->io_csr_regs_0),64);
+    bufp->chgQData(oldp+399,(vlSelf->io_csr_regs_1),64);
+    bufp->chgQData(oldp+401,(vlSelf->io_csr_regs_2),64);
+    bufp->chgQData(oldp+403,(vlSelf->io_csr_regs_3),64);
+    bufp->chgQData(oldp+405,(vlSelf->SimTop__DOT___TP_SRAM_io_r_bits_data),64);
+    bufp->chgBit(oldp+407,((((1U & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferHead))) 
                              != (IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferTail)) 
                             & ((3U & ((IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferHead) 
                                       - (IData)(2U))) 
                                != (IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferTail)))));
-    bufp->chgBit(oldp+407,((((IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferHead) 
+    bufp->chgBit(oldp+408,((((IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferHead) 
                              != (1U & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferTail)))) 
                             & (IData)(vlSelf->SimTop__DOT__core__DOT___backend_io_in_0_valid_T))));
-    bufp->chgQData(oldp+408,((((IData)(vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcAType)
+    bufp->chgQData(oldp+409,((((IData)(vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcAType)
                                 ? vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pc
                                 : 0ULL) | (((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcAForwardNextCycle)
                                              ? vlSelf->SimTop__DOT__core__DOT__backend__DOT___exu_io_forward_wb_rfData
@@ -470,7 +471,7 @@ void VSimTop___024root__trace_chg_sub_0(VSimTop___024root* vlSelf, VerilatedVcd:
                                                   : 
                                                  vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
                                                  [vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcA]))))),64);
-    bufp->chgQData(oldp+410,((((IData)(vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcBType)
+    bufp->chgQData(oldp+411,((((IData)(vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcBType)
                                 ? 0ULL : vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_data_imm) 
                               | (((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcBForwardNextCycle)
                                    ? vlSelf->SimTop__DOT__core__DOT__backend__DOT___exu_io_forward_wb_rfData

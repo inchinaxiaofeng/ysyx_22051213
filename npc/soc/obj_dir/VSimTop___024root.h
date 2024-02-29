@@ -19,6 +19,7 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__TP_SRAM__DOT__rWriteStatuOK;
         CData/*0:0*/ SimTop__DOT__TP_SRAM__DOT__rReadStatuOK;
         VL_IN8(reset,0,0);
+        VL_OUT8(io_commit,0,0);
         CData/*0:0*/ SimTop__DOT___TP_SRAM_io_ar_ready;
         CData/*0:0*/ SimTop__DOT___arbiter_InstFetch_r_valid;
         CData/*0:0*/ SimTop__DOT___arbiter_LoadStore_r_valid;
@@ -78,9 +79,9 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_valid;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_redirect_valid;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3;
-        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3;
     };
     struct {
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___io_out_valid_T_4;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__csr__io_instrValid;
@@ -144,9 +145,9 @@ class VSimTop___024root final : public VerilatedModule {
         VL_OUT64(io_gpr_regs_9,63,0);
         VL_OUT64(io_gpr_regs_10,63,0);
         VL_OUT64(io_gpr_regs_11,63,0);
-        VL_OUT64(io_gpr_regs_12,63,0);
     };
     struct {
+        VL_OUT64(io_gpr_regs_12,63,0);
         VL_OUT64(io_gpr_regs_13,63,0);
         VL_OUT64(io_gpr_regs_14,63,0);
         VL_OUT64(io_gpr_regs_15,63,0);
@@ -210,9 +211,9 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___wbClearMask_T_6;
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___isuFireSetMask_T_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_target;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___lsu_io_out_bits;
     };
     struct {
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___lsu_io_out_bits;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_out_bits;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_redirect_target;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c;
