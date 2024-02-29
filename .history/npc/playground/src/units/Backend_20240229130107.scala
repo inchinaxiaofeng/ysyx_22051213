@@ -27,8 +27,6 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 	val exu = Module(new EXU)
 	val wbu = Module(new WBU)
 
-	Info("exu P NPC %x\n", exu.io.out.bits.decode.cf.pnpc)
-
 	PipelineConnect(isu.io.out, exu.io.in, exu.io.out.fire, io.flush(0))
 	PipelineConnect(exu.io.out, wbu.io.in, true.B, io.flush(1))
 
