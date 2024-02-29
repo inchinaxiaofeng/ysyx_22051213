@@ -3184,3 +3184,4 @@ org.eclipse.lsp4j.jsonrpc.ResponseErrorException: Request window/showMessageRequ
 2024.02.29 12:17:02 INFO  time: code lens generation in 1.98s
 2024.02.29 12:17:02 INFO  time: code lens generation in 4.39s
 2024.02.29 12:17:13 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.29 12:18:06 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
