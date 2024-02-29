@@ -48,5 +48,5 @@ class SimTop extends Module {
 	core.io.difftest_commit.ready := true.B
 
 	io.commit := core.io.difftest_commit.valid
-	io.pc := core.io.difftest_commit.bits.decode.cf.pnpc
+	io.pc := core.io.difftest_commit.bits.decode.cf.ppc
 }

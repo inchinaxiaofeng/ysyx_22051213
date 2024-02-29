@@ -3109,3 +3109,5 @@ error while checking package units {
 2024.02.29 10:58:23 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.02.29 10:58:44 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/TopMain.scala
 2024.02.29 10:59:22 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/WBU.scala
+2024.02.29 11:15:34 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.02.29 11:15:36 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
