@@ -215,7 +215,6 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declQuad(c+390,"io_csr_regs_2", false,-1, 63,0);
     tracep->declQuad(c+392,"io_csr_regs_3", false,-1, 63,0);
     tracep->declBit(c+319,"io_difftest_commit_valid", false,-1);
-    tracep->declQuad(c+320,"io_difftest_commit_bits_decode_cf_pc", false,-1, 63,0);
     tracep->declQuad(c+92,"dataBuffer_0_cf_instr", false,-1, 63,0);
     tracep->declQuad(c+94,"dataBuffer_0_cf_pc", false,-1, 63,0);
     tracep->declBit(c+96,"dataBuffer_0_cf_exceptionVec_2", false,-1);
@@ -303,7 +302,6 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declQuad(c+390,"io_csr_regs_2", false,-1, 63,0);
     tracep->declQuad(c+392,"io_csr_regs_3", false,-1, 63,0);
     tracep->declBit(c+319,"io_difftest_commit_valid", false,-1);
-    tracep->declQuad(c+320,"io_difftest_commit_bits_decode_cf_pc", false,-1, 63,0);
     tracep->declBit(c+115,"valid", false,-1);
     tracep->declQuad(c+116,"exu_io_in_bits_r_cf_instr", false,-1, 63,0);
     tracep->declQuad(c+118,"exu_io_in_bits_r_cf_pc", false,-1, 63,0);
@@ -777,7 +775,6 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declQuad(c+112,"io_redirect_target", false,-1, 63,0);
     tracep->declBit(c+114,"io_redirect_valid", false,-1);
     tracep->declBit(c+319,"io_difftest_commit_valid", false,-1);
-    tracep->declQuad(c+320,"io_difftest_commit_bits_decode_cf_pc", false,-1, 63,0);
     tracep->declQuad(c+53,"c", false,-1, 63,0);
     tracep->pushNamePrefix("unnamedblk1 ");
     tracep->popNamePrefix(3);
