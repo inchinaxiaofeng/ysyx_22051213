@@ -1480,6 +1480,8 @@ module CSR(	// <stdin>:2758:10
   input  [63:0] io_cfIn_instr,
                 io_cfIn_pc,
   input         io_cfIn_exceptionVec_2,
+                io_cfIn_exceptionVec_4,
+                io_cfIn_exceptionVec_6,
                 io_instrValid,
   output [63:0] io_out_bits,
                 io_redirect_target,
@@ -1530,8 +1532,8 @@ module CSR(	// <stdin>:2758:10
                 isIllegalAccess) & _wen_T_4;	// CSR.scala:246:51, :250:45, :276:{57,77}, LookupTree.scala:8:38, Mux.scala:81:58
   wire        _exceptionNO_T_20 = _csrExpectionVec_2_T_1 | io_cfIn_exceptionVec_2;	// CSR.scala:276:77, :279:56
   reg  [63:0] c;	// GTimer.scala:8:32
-  wire [4:0]  _GEN = {_csrExpectionVec_11_T_2, _csrExpectionVec_9_T_2, _csrExpectionVec_8_T_2,
-                _csrExpectionVec_3_T, _exceptionNO_T_20};	// CSR.scala:272:52, :273:72, :274:76, :275:76, :279:56
+  wire [6:0]  _GEN = {_csrExpectionVec_11_T_2, _csrExpectionVec_9_T_2, _csrExpectionVec_8_T_2,
+                io_cfIn_exceptionVec_6, io_cfIn_exceptionVec_4, _csrExpectionVec_3_T, _exceptionNO_T_20};	// CSR.scala:272:52, :273:72, :274:76, :275:76, :279:56
   wire        raiseExceptionIntr = (|_GEN) & io_instrValid;	// CSR.scala:279:56, :282:48, :289:64
   reg  [63:0] c_1;	// GTimer.scala:8:32
   reg  [63:0] c_2;	// GTimer.scala:8:32
@@ -1563,7 +1565,8 @@ module CSR(	// <stdin>:2758:10
         mtvec <= _wdata_T_22;	// CSR.scala:172:34, Mux.scala:27:73
       if (raiseExceptionIntr) begin	// CSR.scala:289:64
         mcause <= {60'h0, _csrExpectionVec_3_T ? 4'h3 : _exceptionNO_T_20 ? 4'h2 : _csrExpectionVec_8_T_2 ?
-                                                                4'h8 : _csrExpectionVec_9_T_2 ? 4'h9 : _csrExpectionVec_11_T_2 ? 4'hB : 4'h0};	// <stdin>:2758:10, CSR.scala:173:34, :243:115, :267:75, :272:52, :273:72, :274:76, :275:76, :279:56, :283:80, :286:47
+                                                                4'h8 : _csrExpectionVec_9_T_2 ? 4'h9 : _csrExpectionVec_11_T_2 ? 4'hB :
+                                                                io_cfIn_exceptionVec_6 ? 4'h6 : {1'h0, io_cfIn_exceptionVec_4, 2'h0}};	// <stdin>:2758:10, CSR.scala:173:34, :243:115, :267:75, :272:52, :273:72, :274:76, :275:76, :279:{56,74}, :283:80, :286:47
         mepc <= io_cfIn_pc;	// CSR.scala:175:34
         mstatus <= {mstatus[63:13], priviledgeMode, mstatus[10:8], mstatus[3], mstatus[6:4], 1'h0,
                                                                 mstatus[2:0]};	// <stdin>:2758:10, CSR.scala:176:34, :213:37, :315:39, :322:59, :336:39
@@ -1597,9 +1600,11 @@ module CSR(	// <stdin>:2758:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] CSR: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "raiseExceptionVec=csr|idu %b=(%b|%b)\n", {4'h0, _csrExpectionVec_11_T_2, 1'h0, _csrExpectionVec_9_T_2, _csrExpectionVec_8_T_2, 4'h0,
-                                                                _csrExpectionVec_3_T, _exceptionNO_T_20, 2'h0}, {4'h0, _csrExpectionVec_11_T_2, 1'h0, _csrExpectionVec_9_T_2, _csrExpectionVec_8_T_2, 4'h0,
-                                                                _csrExpectionVec_3_T, _csrExpectionVec_2_T_1, 2'h0}, {13'h0, io_cfIn_exceptionVec_2, 2'h0});	// <stdin>:2758:10, CSR.scala:272:52, :273:72, :274:76, :275:76, :276:77, :279:{56,74}, :281:{52,76}, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "raiseExceptionVec=csr|idu %b=(%b|%b)\n", {4'h0, _csrExpectionVec_11_T_2, 1'h0, _csrExpectionVec_9_T_2, _csrExpectionVec_8_T_2, 1'h0,
+                                                                io_cfIn_exceptionVec_6, 1'h0, io_cfIn_exceptionVec_4, _csrExpectionVec_3_T,
+                                                                _exceptionNO_T_20, 2'h0}, {4'h0, _csrExpectionVec_11_T_2, 1'h0, _csrExpectionVec_9_T_2, _csrExpectionVec_8_T_2, 4'h0,
+                                                                _csrExpectionVec_3_T, _csrExpectionVec_2_T_1, 2'h0}, {9'h0, io_cfIn_exceptionVec_6, 1'h0, io_cfIn_exceptionVec_4, 1'h0, io_cfIn_exceptionVec_2,
+                                                                2'h0});	// <stdin>:2758:10, CSR.scala:272:52, :273:72, :274:76, :275:76, :276:77, :279:{56,74}, :281:{52,76}, Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] CSR: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
@@ -1873,6 +1878,8 @@ module EXU(	// <stdin>:3633:10
     .io_cfIn_instr          (io_in_bits_cf_instr),
     .io_cfIn_pc             (io_in_bits_cf_pc),
     .io_cfIn_exceptionVec_2 (io_in_bits_cf_exceptionVec_2),
+    .io_cfIn_exceptionVec_4 (_lsu_io_ioLoadAddrMisaligned),	// EXU.scala:42:25
+    .io_cfIn_exceptionVec_6 (_lsu_io_ioStoreAddrMisaligned),	// EXU.scala:42:25
     .io_instrValid          (io_in_valid & ~io_flush),	// EXU.scala:30:90, :62:42
     .io_out_bits            (io_out_bits_commits_3),
     .io_redirect_target     (_csr_io_redirect_target),
