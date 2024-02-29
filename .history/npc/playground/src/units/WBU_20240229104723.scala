@@ -12,7 +12,7 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 		val in = Flipped(Decoupled(new CommitIO))
 		val wb = new WriteBackIO
 		val redirect = new RedirectIO
-		val difftest_commit = Decoupled(new CommitIO)
+		val commit = new DiffCommitIO()
 	})
 
 	io.wb.rfWen := io.in.bits.decode.ctrl.rfWen && io.in.valid
@@ -33,8 +33,8 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 		io.in.bits.isMMIO, io.in.bits.intrNO
 	)
 
-	io.difftest_commit := io.in
-
+	io.commit.valid := io.in.valid
+	io.commit.pc := io.in.bits.decode.cf.pc
 //	val falseWire = WireInit(false.B) // make BoringUtils.addSource happy
 //	BoringUtils.addSource(io.in.valid, "perfCntCondMinstret")
 //	BoringUtils.addSource(falseWire, "perfCntCondMultiCommit")

@@ -33,8 +33,6 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 		io.in.bits.isMMIO, io.in.bits.intrNO
 	)
 
-	io.difftest_commit := io.in
-
 //	val falseWire = WireInit(false.B) // make BoringUtils.addSource happy
 //	BoringUtils.addSource(io.in.valid, "perfCntCondMinstret")
 //	BoringUtils.addSource(falseWire, "perfCntCondMultiCommit")

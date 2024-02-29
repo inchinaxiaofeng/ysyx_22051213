@@ -55,7 +55,7 @@ class Core(implicit val p: MarCoreConfig) extends MarCoreModule {
 
 		io.gpr <> backend.io.gpr
 		io.csr <> backend.io.csr
-		io.difftest_commit <> backend.io.difftest_commit
+		io.commit := backend.io.commit
 		Info("Commit %b\n", backend.io.commit)
 	}
 }

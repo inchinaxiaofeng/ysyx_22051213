@@ -1,3 +1,21 @@
+file://<WORKSPACE>/npc/playground/src/units/WBU.scala
+### java.lang.IndexOutOfBoundsException: 0
+
+occurred in the presentation compiler.
+
+presentation compiler configuration:
+Scala version: 3.3.1
+Classpath:
+<HOME>/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.3.1/scala3-library_3-3.3.1.jar [exists ], <HOME>/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.10/scala-library-2.13.10.jar [exists ]
+Options:
+
+
+
+action parameters:
+offset: 360
+uri: file://<WORKSPACE>/npc/playground/src/units/WBU.scala
+text:
+```scala
 package units
 
 import chisel3._
@@ -12,7 +30,7 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 		val in = Flipped(Decoupled(new CommitIO))
 		val wb = new WriteBackIO
 		val redirect = new RedirectIO
-		val difftest_commit = Decoupled(new CommitIO)
+		val commit = new DiffCommitIO)(@@)
 	})
 
 	io.wb.rfWen := io.in.bits.decode.ctrl.rfWen && io.in.valid
@@ -33,8 +51,7 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 		io.in.bits.isMMIO, io.in.bits.intrNO
 	)
 
-	io.difftest_commit := io.in
-
+	io.commit := io.in.valid
 //	val falseWire = WireInit(false.B) // make BoringUtils.addSource happy
 //	BoringUtils.addSource(io.in.valid, "perfCntCondMinstret")
 //	BoringUtils.addSource(falseWire, "perfCntCondMultiCommit")
@@ -72,3 +89,24 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 //	// Pipeline Trace
 //	io.instr <> io.ls_wb_IO.instr
 //}
+```
+
+
+
+#### Error stacktrace:
+
+```
+scala.collection.LinearSeqOps.apply(LinearSeq.scala:131)
+	scala.collection.LinearSeqOps.apply$(LinearSeq.scala:128)
+	scala.collection.immutable.List.apply(List.scala:79)
+	dotty.tools.dotc.util.Signatures$.countParams(Signatures.scala:501)
+	dotty.tools.dotc.util.Signatures$.applyCallInfo(Signatures.scala:186)
+	dotty.tools.dotc.util.Signatures$.computeSignatureHelp(Signatures.scala:94)
+	dotty.tools.dotc.util.Signatures$.signatureHelp(Signatures.scala:63)
+	scala.meta.internal.pc.MetalsSignatures$.signatures(MetalsSignatures.scala:17)
+	scala.meta.internal.pc.SignatureHelpProvider$.signatureHelp(SignatureHelpProvider.scala:51)
+	scala.meta.internal.pc.ScalaPresentationCompiler.signatureHelp$$anonfun$1(ScalaPresentationCompiler.scala:398)
+```
+#### Short summary: 
+
+java.lang.IndexOutOfBoundsException: 0

@@ -11,7 +11,6 @@ import top.Settings
 
 class SimTopIO extends Bundle {
 	val commit = Output(Bool())
-	val pc = Output(UInt(64.W))
 	val gpr = new RegsDiffIO(num = 32)
 	val csr = new RegsDiffIO(num = 4)
 //	val gpr = new GPRState
@@ -48,5 +47,5 @@ class SimTop extends Module {
 	core.io.difftest_commit.ready = true.B
 
 	io.commit := core.io.difftest_commit.valid
-	io.pc := core.io.difftest_commit.bits.decode.cf.pc
+	io.pc := core.io.difftest_commit.
 }

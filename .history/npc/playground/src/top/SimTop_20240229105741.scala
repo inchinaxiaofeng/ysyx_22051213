@@ -11,7 +11,6 @@ import top.Settings
 
 class SimTopIO extends Bundle {
 	val commit = Output(Bool())
-	val pc = Output(UInt(64.W))
 	val gpr = new RegsDiffIO(num = 32)
 	val csr = new RegsDiffIO(num = 4)
 //	val gpr = new GPRState

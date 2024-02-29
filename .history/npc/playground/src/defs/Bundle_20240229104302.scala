@@ -6,7 +6,6 @@ import chisel3.util._
 import defs._
 
 import module._
-import java.rmi.server.UID
 
 //-------------------- new ---------------------------
 
@@ -110,7 +109,7 @@ class CommitIO extends MarCoreBundle {
 	val commits = Output(Vec(FuType.num, UInt(XLEN.W)))
 }
 
-class RegsDiffIO(val num: Int = 0) extends MarCoreBundle {
+class RegsDiff(val num: Int = 0) extends MarCoreBundle {
 	val regs = Output(Vec(num, UInt(XLEN.W)))
 }
 

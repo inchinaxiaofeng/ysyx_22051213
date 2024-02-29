@@ -114,6 +114,11 @@ class RegsDiffIO(val num: Int = 0) extends MarCoreBundle {
 	val regs = Output(Vec(num, UInt(XLEN.W)))
 }
 
+class DiffCommitIO extends MarCoreBundle {
+	val commit = Output(Bool())
+	val commitPC = Output(UInt(VAddrBits.W))
+}
+
 //------------------------ end -----------------------
 
 // Register
