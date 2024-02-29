@@ -67,7 +67,7 @@ VL_ATTR_COLD void VSimTop___024root___eval_settle(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VSimTop___024root___dump_triggers__stl(vlSelf);
 #endif
-                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2898, "", "Settle region did not converge.");
+                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2910, "", "Settle region did not converge.");
             }
             vlSelf->__VstlIterCount = ((IData)(1U) 
                                        + vlSelf->__VstlIterCount);
@@ -1750,6 +1750,7 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT____VdfgTmp_hb4464a68__0 = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT___exu_io_in_ready = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT___exu_io_forward_wb_rfData = 0;
+    vlSelf->SimTop__DOT__core__DOT__backend__DOT__c = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__valid = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pc = 0;
@@ -1773,8 +1774,8 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_1 = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_2 = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_3 = 0;
-    vlSelf->SimTop__DOT__core__DOT__backend__DOT__c = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_1 = 0;
+    vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_2 = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__forwardRfWen = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__dontForward = 0;
