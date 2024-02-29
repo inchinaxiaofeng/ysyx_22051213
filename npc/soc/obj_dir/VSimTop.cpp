@@ -15,6 +15,7 @@ VSimTop::VSimTop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , clock{vlSymsp->TOP.clock}
     , reset{vlSymsp->TOP.reset}
     , io_commit{vlSymsp->TOP.io_commit}
+    , io_pc{vlSymsp->TOP.io_pc}
     , io_gpr_regs_0{vlSymsp->TOP.io_gpr_regs_0}
     , io_gpr_regs_1{vlSymsp->TOP.io_gpr_regs_1}
     , io_gpr_regs_2{vlSymsp->TOP.io_gpr_regs_2}

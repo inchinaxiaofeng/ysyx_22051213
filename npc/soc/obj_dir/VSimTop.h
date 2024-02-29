@@ -29,6 +29,7 @@ class VSimTop VL_NOT_FINAL : public VerilatedModel {
     VL_IN8(&clock,0,0);
     VL_IN8(&reset,0,0);
     VL_OUT8(&io_commit,0,0);
+    VL_OUT64(&io_pc,63,0);
     VL_OUT64(&io_gpr_regs_0,63,0);
     VL_OUT64(&io_gpr_regs_1,63,0);
     VL_OUT64(&io_gpr_regs_2,63,0);

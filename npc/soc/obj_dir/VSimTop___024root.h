@@ -133,6 +133,7 @@ class VSimTop___024root final : public VerilatedModule {
         VlWide<3>/*64:0*/ __VdfgTmp_hf6fc2901__0;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
+        VL_OUT64(io_pc,63,0);
         VL_OUT64(io_gpr_regs_0,63,0);
         VL_OUT64(io_gpr_regs_1,63,0);
         VL_OUT64(io_gpr_regs_2,63,0);
@@ -144,9 +145,9 @@ class VSimTop___024root final : public VerilatedModule {
         VL_OUT64(io_gpr_regs_8,63,0);
         VL_OUT64(io_gpr_regs_9,63,0);
         VL_OUT64(io_gpr_regs_10,63,0);
-        VL_OUT64(io_gpr_regs_11,63,0);
     };
     struct {
+        VL_OUT64(io_gpr_regs_11,63,0);
         VL_OUT64(io_gpr_regs_12,63,0);
         VL_OUT64(io_gpr_regs_13,63,0);
         VL_OUT64(io_gpr_regs_14,63,0);
@@ -178,7 +179,6 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_cf_pc;
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_data_imm;
         QData/*63:0*/ SimTop__DOT__core__DOT__c;
-        QData/*63:0*/ SimTop__DOT__core__DOT__c_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT___ifu_io_out_bits_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pc;
