@@ -1907,9 +1907,9 @@ module WBU(	// <stdin>:3807:10
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:3807:10
     always @(posedge clock) begin	// Debug.scala:34:43
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
+      if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] WBU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43, :35:31
         $fwrite(32'h80000002, "[COMMIT] pc = 0x%x inst %x wen %x wdst %x wdata %x mmio %x intrNO %x\n", io_in_bits_decode_cf_pc, io_in_bits_decode_cf_instr, _io_wb_rfWen_T, io_in_bits_decode_ctrl_rfDest, _GEN_1, 1'h0, 64'h0);	// <stdin>:3807:10, Debug.scala:34:43, :35:31, WBU.scala:18:53, :20:22
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3807:10

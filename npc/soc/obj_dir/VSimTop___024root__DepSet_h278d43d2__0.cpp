@@ -223,10 +223,16 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy 
         = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy;
-    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+    __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus 
+        = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus;
+    __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode 
+        = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode;
+    if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__valid_1) 
+                           & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[%20#] WBU: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c);
     }
-    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+    if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__valid_1) 
+                           & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[COMMIT] pc = 0x%x inst %x wen %x wdst %x wdata %x mmio 0 intrNO 0000000000000000\n",
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pc,
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_instr,
@@ -234,10 +240,6 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    5,vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_ctrl_rfDest,
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT___GEN_1);
     }
-    __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus 
-        = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus;
-    __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode 
-        = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode;
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk2__DOT___T_18 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioLoadAddrMisaligned_T_3) 
            | (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioStoreAddrMisaligned_T_2));
