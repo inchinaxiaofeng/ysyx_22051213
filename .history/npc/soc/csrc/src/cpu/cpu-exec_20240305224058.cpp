@@ -16,7 +16,7 @@
 
 CPU_state env_cpu = {};
 uint64_t g_nr_guest_inst = 0;
-uint64_t g_nr_guest_cycle_num = 0;
+uint64_t
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
@@ -103,7 +103,6 @@ static void execute(uint64_t n) {
     for (; n > 0; n--) {
         exec_once();
         if(env_cpu.pc_commit) g_nr_guest_inst++;
-        g_nr_guest_cycle_num++;
         trace_and_difftest();
         if (SIM_RUNNING != sim_state.state) break;
         IFDEF(CONFIG_DEVICE, device_update());
@@ -116,7 +115,7 @@ static void statistic() {
 #define NUMBERIC_FMT MUXDEF(CONFIG_TARGET_AM, "%", "%'") PRIu64
     Log("host time spent = " NUMBERIC_FMT " us", g_timer);
     Log("total guest instructions = " NUMBERIC_FMT, g_nr_guest_inst);
-    Log("total guest cycle = " NUMBERIC_FMT, g_nr_guest_cycle_num);
+    Log("")
     if (0 < g_timer) Log("simulation frequency = " NUMBERIC_FMT " inst/s", g_nr_guest_inst * 1000000 / g_timer);
     else Log("Finish running in less than 1 us and can not calculate the simulation frequency");
 }
