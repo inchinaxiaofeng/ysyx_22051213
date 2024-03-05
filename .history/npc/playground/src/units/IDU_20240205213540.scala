@@ -63,7 +63,7 @@ class Decoder(implicit val p: MarCoreConfig) extends MarCoreModule with HasInstr
 		InstrS	-> SignExt(Cat(instr(31, 25), instr(11, 7)), XLEN),
 		InstrSA	-> SignExt(Cat(instr(31, 25), instr(11, 7)), XLEN),
 		InstrB	-> SignExt(Cat(instr(31), instr(7), instr(30, 25), instr(11, 8), 0.U(1.W)), XLEN),
-		InstrU	-> SignExt(Cat(instr(31, 12), 0.U(12.W)), XLEN),
+		InstrU	-> SignExt(Cat(instr(31, 12), 0.U(1.W)), XLEN),
 		InstrJ	-> SignExt(Cat(instr(31), instr(19, 12), instr(20), instr(30, 21), 0.U(1.W)), XLEN)
 	))
 
