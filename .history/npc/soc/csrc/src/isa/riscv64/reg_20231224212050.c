@@ -24,11 +24,11 @@ void isa_reg_display() {
 	print_reg_val(GPR, "DNM", env_cpu.pc_dynamic);
 	print_reg_val(GPR, "REG", env_cpu.pc); 
 	printf("\n");
-//	pipeline_trace(env_cpu.if_id_pc, env_cpu.if_id_instr, env_cpu.if_id_pcEnable, "if_id");
-//	pipeline_trace(env_cpu.id_ex_pc, env_cpu.id_ex_instr, env_cpu.id_ex_pcEnable, "id_ex");
-//	pipeline_trace(env_cpu.ex_ls_pc, env_cpu.ex_ls_instr, env_cpu.ex_ls_pcEnable, "ex_ls");
-//	pipeline_trace(env_cpu.ls_wb_pc, env_cpu.ls_wb_instr, env_cpu.ls_wb_pcEnable, "ls_wb");
-//	pipeline_trace(env_cpu.rf_pc, env_cpu.rf_instr, env_cpu.rf_pcEnable, "rf");
+	pipeline_trace(env_cpu.if_id_pc, env_cpu.if_id_instr, env_cpu.if_id_pcEnable, "if_id");
+	pipeline_trace(env_cpu.id_ex_pc, env_cpu.id_ex_instr, env_cpu.id_ex_pcEnable, "id_ex");
+	pipeline_trace(env_cpu.ex_ls_pc, env_cpu.ex_ls_instr, env_cpu.ex_ls_pcEnable, "ex_ls");
+	pipeline_trace(env_cpu.ls_wb_pc, env_cpu.ls_wb_instr, env_cpu.ls_wb_pcEnable, "ls_wb");
+	pipeline_trace(env_cpu.rf_pc, env_cpu.rf_instr, env_cpu.rf_pcEnable, "rf");
 	print_split(CSR)
     print_reg_val(CSR, "mstatus", csr(MSTATUS)) print_reg_val(CSR, "mtvec" , csr(MTVEC) ) printf("\n");
 	print_reg_val(CSR, "mepc"   , csr(MEPC)   ) print_reg_val(CSR, "mcause", csr(MCAUSE)) printf("\n");
