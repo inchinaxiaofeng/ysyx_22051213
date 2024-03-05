@@ -554,7 +554,7 @@ module Decoder(	// <stdin>:146:10, :835:10
                 == 3'h2 ? {{52{io_in_bits_instr[31]}}, io_in_bits_instr[31:25], io_in_bits_instr[11:7]} :
                 64'h0) | (decodeList_0 == 3'h1 ? {{52{io_in_bits_instr[31]}}, io_in_bits_instr[7],
                 io_in_bits_instr[30:25], io_in_bits_instr[11:8], 1'h0} : 64'h0) | (_imm_T_41 ?
-                {{43{io_in_bits_instr[31]}}, io_in_bits_instr[31:12], 1'h0} : 64'h0) | ((&decodeList_0) ?
+                {{32{io_in_bits_instr[31]}}, io_in_bits_instr[31:12], 12'h0} : 64'h0) | ((&decodeList_0) ?
                 {{44{io_in_bits_instr[31]}}, io_in_bits_instr[19:12], io_in_bits_instr[20],
                 io_in_bits_instr[30:21], 1'h0} : 64'h0);	// <stdin>:146:10, :835:10, BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:47:64, :62:41, :63:45, :65:{45,56,66,81}, :66:45, :67:{56,71,82}, Lookup.scala:34:39, LookupTree.scala:8:38, Mux.scala:27:73
   assign io_isWFI = io_in_bits_instr[31:0] == 32'h10500073 & io_in_valid;	// <stdin>:146:10, :835:10, IDU.scala:120:{28,49}, Lookup.scala:31:38

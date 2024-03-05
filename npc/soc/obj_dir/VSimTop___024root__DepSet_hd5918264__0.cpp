@@ -1422,18 +1422,18 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__2(VSimTop___024root* vl
                                                    (6U 
                                                     == (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_0))
                                                     ? 
-                                                   (((- (QData)((IData)(
-                                                                        (1U 
-                                                                         & (IData)(
+                                                   (((QData)((IData)(
+                                                                     (- (IData)(
+                                                                                (1U 
+                                                                                & (IData)(
                                                                                 (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
-                                                                                >> 0x1fU)))))) 
-                                                     << 0x15U) 
+                                                                                >> 0x1fU))))))) 
+                                                     << 0x20U) 
                                                     | (QData)((IData)(
-                                                                      (0x1ffffeU 
-                                                                       & ((IData)(
-                                                                                (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
+                                                                      ((IData)(
+                                                                               (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
                                                                                 >> 0xcU)) 
-                                                                          << 1U)))))
+                                                                       << 0xcU))))
                                                     : 0ULL) 
                                                   | ((IData)(SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT____VdfgTmp_h2bc0261a__0)
                                                       ? 
