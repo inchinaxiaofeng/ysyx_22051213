@@ -3047,6 +3047,7 @@ module SimTop(	// <stdin>:4512:10
   wire [7:0]  _core_io_dmem_w_bits_strb;	// SimTop.scala:29:26
   wire        _core_io_dmem_ar_valid;	// SimTop.scala:29:26
   wire [31:0] _core_io_dmem_ar_bits_addr;	// SimTop.scala:29:26
+  wire        _core_io_difftest_commit_valid;	// SimTop.scala:29:26
   wire [63:0] _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:29:26
   reg  [63:0] c;	// GTimer.scala:8:32
   always @(posedge clock) begin
@@ -3060,7 +3061,7 @@ module SimTop(	// <stdin>:4512:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] SimTop: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "P NPC %x\n", _core_io_difftest_commit_bits_decode_cf_pnpc);	// Debug.scala:34:43, :35:31, SimTop.scala:29:26
+        $fwrite(32'h80000002, "DIFFTEST pc %x valid %b", _core_io_difftest_commit_bits_decode_cf_pnpc, _core_io_difftest_commit_valid);	// Debug.scala:34:43, :35:31, SimTop.scala:29:26
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4512:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4512:10
@@ -3137,7 +3138,7 @@ module SimTop(	// <stdin>:4512:10
     .io_csr_regs_1                          (io_csr_regs_1),
     .io_csr_regs_2                          (io_csr_regs_2),
     .io_csr_regs_3                          (io_csr_regs_3),
-    .io_difftest_commit_valid               (io_commit),
+    .io_difftest_commit_valid               (_core_io_difftest_commit_valid),
     .io_difftest_commit_bits_decode_cf_pnpc (_core_io_difftest_commit_bits_decode_cf_pnpc)
   );
   AXI4Lite_Arbiter arbiter (	// SimTop.scala:30:29
@@ -3190,6 +3191,7 @@ module SimTop(	// <stdin>:4512:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
+  assign io_commit = _core_io_difftest_commit_valid;	// <stdin>:4512:10, SimTop.scala:29:26
   assign io_pc = _core_io_difftest_commit_bits_decode_cf_pnpc;	// <stdin>:4512:10, SimTop.scala:29:26
   assign io_gpr_regs_0 = 64'h0;	// <stdin>:4512:10, SimTop.scala:30:29
 endmodule
