@@ -117,7 +117,7 @@ static void statistic() {
     Log("host time spent = " NUMBERIC_FMT " us", g_timer);
     Log("total guest instructions = " NUMBERIC_FMT, g_nr_guest_inst);
     Log("total guest cycle = " NUMBERIC_FMT, g_nr_guest_cycle_num);
-    Log("commit rate = %d", (double)g_nr_guest_inst/(double)g_nr_guest_cycle_num);
+    Log("commit rate = %d", (double)g_nr_guest_inst/(double));
     if (0 < g_timer) Log("simulation frequency = " NUMBERIC_FMT " inst/s", g_nr_guest_inst * 1000000 / g_timer);
     else Log("Finish running in less than 1 us and can not calculate the simulation frequency");
 }
