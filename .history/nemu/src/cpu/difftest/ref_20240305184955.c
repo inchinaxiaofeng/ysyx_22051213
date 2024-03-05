@@ -96,7 +96,6 @@ void difftest_raise_intr(word_t NO) {
 
 // 初始化REF的DiffTest功能
 void difftest_init(int port, char *img_file) {
-  printf("FFFFFFFFF\n");
   cpu_init(); // Set mstatus
   init_mem();
   /* Perform ISA dependent initialization. */

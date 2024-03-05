@@ -57,7 +57,7 @@ void init_difftest(
 	int port, 
 	char *img_file
 ) {
-	Log("Init Difftest...");
+	Log("init Difftest...");
 	assert(NULL != ref_so_file);
 	assert(0 <= img_size);
 	mem_img_size = img_size;
