@@ -3349,3 +3349,4 @@ scala.meta.tokenizers.TokenizeException: <input>:30: error: unclosed string lite
 警告: Unmatched cancel notification for request id 358
 2024.03.05 20:31:19 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/MarCore.scala
 2024.03.05 20:31:21 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/MarCore.scala
+2024.03.05 20:32:00 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/defs/MarCore.scala
