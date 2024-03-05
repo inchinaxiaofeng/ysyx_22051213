@@ -125,33 +125,33 @@ void assert_fail_msg() {
 
 /* Simulate how the CPU works */
 void cpu_exec(uint64_t n) {
-//	g_print_step = (n < MAX_INST_TO_PRINT);
-	switch (sim_state.state) {
-	case SIM_END: case SIM_ABORT:
-	    printf("Program execution has ended. To restart the program, exit SIM and run again.\n");
-	    return;
-	default: sim_state.state = SIM_RUNNING;
-	}
+//     g_print_step = (n < MAX_INST_TO_PRINT);
+    switch (sim_state.state) {
+    case SIM_END: case SIM_ABORT:
+        printf("Program execution has ended. To restart the program, exit SIM and run again.\n");
+        return;
+    default: sim_state.state = SIM_RUNNING;
+    }
 
-	uint64_t timer_start = get_time();
+    uint64_t timer_start = get_time();
 
-	execute(n);
+    execute(n);
 
-	uint64_t timer_end = get_time();
-	g_timer += timer_end - timer_start;
+    uint64_t timer_end = get_time();
+    g_timer += timer_end - timer_start;
 
-	switch (sim_state.state) {
-	case SIM_RUNNING: sim_state.state = SIM_STOP; break;
-	case SIM_ABORT:
-//	printf("ABORT:\n");
-//	isa_reg_display();
-	case SIM_END:
-		Log("sim: %s at pc = " FMT_WORD,
-			(SIM_ABORT == sim_state.state ? ANSI_FMT("ABORT", ANSI_FG_RED) :
-			 (0 == sim_state.halt_ret ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
-			  ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
-			sim_state.halt_pc);
-		// fall through
-	case SIM_QUIT: statistic();
-	}
+    switch (sim_state.state) {
+    case SIM_RUNNING: sim_state.state = SIM_STOP; break;
+    case SIM_ABORT:
+//        printf("ABORT:\n");
+//        isa_reg_display();
+    case SIM_END:
+        Log("sim: %s at pc = " FMT_WORD,
+            (SIM_ABORT == sim_state.state ? ANSI_FMT("ABORT", ANSI_FG_RED) :
+             (0 == sim_state.halt_ret ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
+              ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
+            sim_state.halt_pc);
+        // fall through
+    case SIM_QUIT: statistic();
+    }
 }
