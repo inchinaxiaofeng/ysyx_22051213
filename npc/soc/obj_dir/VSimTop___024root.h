@@ -218,6 +218,7 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_3;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_2;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_3;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__c;
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___wbClearMask_T_6;
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___isuFireSetMask_T_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_target;
