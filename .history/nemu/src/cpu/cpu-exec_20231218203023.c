@@ -65,7 +65,6 @@ static bool g_print_step = false;
 void device_update();
 
 void cpu_init() {
-  assert(0);
   cpu.csr[0] = 0xa00001800;
 }
 
