@@ -164,7 +164,8 @@ VL_ATTR_COLD void VSimTop___024root___stl_sequent__TOP__0(VSimTop___024root* vlS
     VlWide<3>/*95:0*/ __Vtemp_h4373a639__0;
     VlWide<3>/*95:0*/ __Vtemp_h84075690__0;
     // Body
-    vlSelf->io_commit = vlSelf->SimTop__DOT__core__DOT__backend__DOT__valid_1;
+    vlSelf->io_commit = vlSelf->SimTop__DOT__io_commit_REG;
+    vlSelf->io_pc = vlSelf->SimTop__DOT__io_pc_REG;
     vlSelf->io_gpr_regs_1 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
         [1U];
     vlSelf->io_gpr_regs_2 = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
@@ -235,7 +236,6 @@ VL_ATTR_COLD void VSimTop___024root___stl_sequent__TOP__0(VSimTop___024root* vlS
         = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__snpc 
         = (4ULL + vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc);
-    vlSelf->io_pc = vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT____VdfgTmp_hb4464a68__0 
         = ((1U == (0x1fU & (IData)((vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
                                     >> 7U)))) | (5U 
@@ -1698,6 +1698,8 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     vlSelf->SimTop__DOT___arbiter_LoadStore_r_bits_data = 0;
     vlSelf->SimTop__DOT___arbiter_Arbiter_w_bits_strb = 0;
     vlSelf->SimTop__DOT___core_io_dmem_ar_valid = 0;
+    vlSelf->SimTop__DOT__io_commit_REG = 0;
+    vlSelf->SimTop__DOT__io_pc_REG = 0;
     vlSelf->SimTop__DOT__c = 0;
     vlSelf->SimTop__DOT__core__DOT___frontend_io_out_0_bits_ctrl_rfWen = 0;
     vlSelf->SimTop__DOT__core__DOT___frontend_io_out_0_bits_data_imm = 0;

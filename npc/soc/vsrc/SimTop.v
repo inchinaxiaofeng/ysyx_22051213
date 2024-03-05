@@ -3049,8 +3049,12 @@ module SimTop(	// <stdin>:4512:10
   wire [31:0] _core_io_dmem_ar_bits_addr;	// SimTop.scala:29:26
   wire        _core_io_difftest_commit_valid;	// SimTop.scala:29:26
   wire [63:0] _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:29:26
+  reg         io_commit_REG;	// SimTop.scala:52:29
+  reg  [63:0] io_pc_REG;	// SimTop.scala:53:25
   reg  [63:0] c;	// GTimer.scala:8:32
   always @(posedge clock) begin
+    io_commit_REG <= _core_io_difftest_commit_valid;	// SimTop.scala:29:26, :52:29
+    io_pc_REG <= _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:29:26, :53:25
     if (reset)
       c <= 64'h0;	// GTimer.scala:8:32, SimTop.scala:30:29
     else
@@ -3069,13 +3073,21 @@ module SimTop(	// <stdin>:4512:10
     initial begin	// <stdin>:4512:10
       automatic logic [31:0] _RANDOM_0;	// <stdin>:4512:10
       automatic logic [31:0] _RANDOM_1;	// <stdin>:4512:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4512:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:4512:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:4512:10
       `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4512:10
         `INIT_RANDOM_PROLOG_	// <stdin>:4512:10
       `endif // INIT_RANDOM_PROLOG_
       `ifdef RANDOMIZE_REG_INIT	// <stdin>:4512:10
         _RANDOM_0 = `RANDOM;	// <stdin>:4512:10
         _RANDOM_1 = `RANDOM;	// <stdin>:4512:10
-        c = {_RANDOM_0, _RANDOM_1};	// GTimer.scala:8:32
+        _RANDOM_2 = `RANDOM;	// <stdin>:4512:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:4512:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:4512:10
+        io_commit_REG = _RANDOM_0[0];	// SimTop.scala:52:29
+        io_pc_REG = {_RANDOM_0[31:1], _RANDOM_1, _RANDOM_2[0]};	// SimTop.scala:52:29, :53:25
+        c = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// GTimer.scala:8:32, SimTop.scala:53:25
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4512:10
@@ -3191,8 +3203,8 @@ module SimTop(	// <stdin>:4512:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
-  assign io_commit = _core_io_difftest_commit_valid;	// <stdin>:4512:10, SimTop.scala:29:26
-  assign io_pc = _core_io_difftest_commit_bits_decode_cf_pnpc;	// <stdin>:4512:10, SimTop.scala:29:26
+  assign io_commit = io_commit_REG;	// <stdin>:4512:10, SimTop.scala:52:29
+  assign io_pc = io_pc_REG;	// <stdin>:4512:10, SimTop.scala:53:25
   assign io_gpr_regs_0 = 64'h0;	// <stdin>:4512:10, SimTop.scala:30:29
 endmodule
 
