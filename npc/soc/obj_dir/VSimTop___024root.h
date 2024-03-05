@@ -178,12 +178,11 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__io_pc_REG;
         QData/*63:0*/ SimTop__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT___frontend_io_out_0_bits_data_imm;
-        QData/*63:0*/ SimTop__DOT__core__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_cf_pc;
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_data_imm;
-        QData/*63:0*/ SimTop__DOT__core__DOT__c_1;
+        QData/*63:0*/ SimTop__DOT__core__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT___ifu_io_out_bits_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pc;
@@ -200,8 +199,6 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_3;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT__unnamedblk2__DOT__npc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT___exu_io_forward_wb_rfData;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pnpc;
@@ -211,15 +208,15 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
-    };
-    struct {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_0;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_1;
+    };
+    struct {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_2;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_3;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_2;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_3;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__c;
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___wbClearMask_T_6;
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___isuFireSetMask_T_1;
