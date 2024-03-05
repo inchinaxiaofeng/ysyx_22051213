@@ -19,7 +19,7 @@ trait HasColorfulLog {
 	val blueFG		= if (enable) "\u001b[34m" else "\\33[1;34m"
 	val magentaFG	= if (enable) "\u001b[35m" else "\\33[1;35m"
 	val cyanFG		= if (enable) "\u001b[36m" else "\\33[1;36m"
-	val whiteFG		= if (enable) "\u001b[37m" else "\\33[1;37m"
+	val whiteFG		= if (enable) "\u001b[37m" else "\\33[1;37m]"
 
 	val blackBG		= if (enable) "\u001b[40m" else ""
 	val redBG		= if (enable) "\u001b[41m" else ""
