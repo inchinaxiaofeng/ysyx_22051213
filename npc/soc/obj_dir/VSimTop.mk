@@ -40,7 +40,6 @@ VM_USER_CFLAGS = \
 	-I/home/marinatoo/ysyx-workbench/abstract-machine/am/include/ \
 	-DTOP_NAME="VSimTop" \
 	-Wall \
-	-DBETTER_OUTPUT \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
