@@ -3448,3 +3448,6 @@ scala.meta.tokenizers.TokenizeException: <input>:69: error: unclosed string lite
 2024.03.05 20:51:26 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/ISU.scala
 2024.03.05 20:52:22 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/ISU.scala
 2024.03.05 21:05:39 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/WBU.scala
+3月 05, 2024 9:07:14 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 710
+2024.03.05 21:08:21 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
