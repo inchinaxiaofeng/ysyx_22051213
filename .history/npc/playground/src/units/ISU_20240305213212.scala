@@ -55,7 +55,7 @@ class ISU(implicit val p: MarCoreConfig) extends MarCoreModule with HasRegFilePa
 		((io.in(0).bits.ctrl.srcAType =/= SrcType.pc) && !srcAForwardNextCycle && !srcAForward) -> rf.read(rfSrcA)
 	))
 	io.out.bits.data.srcB := Mux1H(List(
-		(io.in(0).bits.ctrl.srcBType =/= SrcType.reg) -> io.in(0).bits.data.imm,
+		(io.in(0).bits.ctrl.srcBType === SrcType.reg) -> io.in(0).bits.data.imm,
 		srcBForwardNextCycle -> io.forward.wb.rfData,
 		(srcBForward && !srcBForwardNextCycle) -> io.wb.rfData,
 		((io.in(0).bits.ctrl.srcBType === SrcType.reg) && !srcBForwardNextCycle && !srcBForward) -> rf.read(rfSrcB)

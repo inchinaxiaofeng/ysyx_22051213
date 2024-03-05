@@ -50,14 +50,14 @@ class ISU(implicit val p: MarCoreConfig) extends MarCoreModule with HasRegFilePa
 	// out 1
 	io.out.bits.data.srcA := Mux1H(List(
 		(io.in(0).bits.ctrl.srcAType === SrcType.pc) -> SignExt(io.in(0).bits.cf.pc, AddrBits),
-		srcAForwardNextCycle -> io.forward.wb.rfData,
-		(srcAForward && !srcAForwardNextCycle) -> io.wb.rfData,
+		srcAForwardNextCycle -> io.forward.wb.rfData, //io.forward.wb.rfData,
+		(srcAForward && !srcAForwardNextCycle) -> io.wb.rfData, // io.wb.rfData,
 		((io.in(0).bits.ctrl.srcAType =/= SrcType.pc) && !srcAForwardNextCycle && !srcAForward) -> rf.read(rfSrcA)
 	))
 	io.out.bits.data.srcB := Mux1H(List(
-		(io.in(0).bits.ctrl.srcBType =/= SrcType.reg) -> io.in(0).bits.data.imm,
-		srcBForwardNextCycle -> io.forward.wb.rfData,
-		(srcBForward && !srcBForwardNextCycle) -> io.wb.rfData,
+		(io.in(0).bits.ctrl.srcBType === SrcType.reg) -> io.in(0).bits.data.imm,
+		srcBForwardNextCycle -> io.forward.wb.rfData, //io.forward.wb.rfData,
+		(srcBForward && !srcBForwardNextCycle) -> io.wb.rfData, //io.wb.rfData
 		((io.in(0).bits.ctrl.srcBType === SrcType.reg) && !srcBForwardNextCycle && !srcBForward) -> rf.read(rfSrcB)
 	))
 	io.out.bits.data.imm := io.in(0).bits.data.imm
