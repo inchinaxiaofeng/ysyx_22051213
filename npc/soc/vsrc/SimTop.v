@@ -315,16 +315,16 @@ module IFU_embedded(	// <stdin>:2:10
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T_8 & ~reset) begin	// Debug.scala:34:43, :35:31, IFU.scala:73:30
         automatic logic [63:0] npc = io_redirect_valid ? io_redirect_target : snpc;	// IFU.scala:31:23, :37:22
-        $fwrite(32'h80000002, "[IFI] pc=%x redirect %x npc %x pc %x pnpc %x\n", pc[31:0], io_redirect_valid, npc, pc, npc);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, IFU.scala:29:25, :37:22
+        $fwrite(32'h80000002, "\\33[1;35m[IFI] pc=%x redirect %x npc %x pc %x pnpc %x\n", pc[31:0], io_redirect_valid, npc, pc, npc);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, IFU.scala:29:25, :37:22
       end
       if ((`PRINTF_COND_) & _T_14 & ~reset)	// Debug.scala:34:43, Decoupled.scala:52:35
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T_14 & ~reset)	// Debug.scala:34:43, :35:31, Decoupled.scala:52:35
-        $fwrite(32'h80000002, "[IFO] pc=%x inst=%x npc=%x ipf %x\n", pc, io_imem_r_bits_data, snpc, 1'h0);	// <stdin>:2:10, Debug.scala:34:43, :35:31, IFU.scala:29:25, :31:23
+        $fwrite(32'h80000002, "\\33[1;35m[IFO] pc=%x inst=%x npc=%x ipf %x\n", pc, io_imem_r_bits_data, snpc, 1'h0);	// <stdin>:2:10, Debug.scala:34:43, :35:31, IFU.scala:29:25, :31:23
       if ((`PRINTF_COND_) & io_redirect_valid & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & io_redirect_valid & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[Redirect] target 0x%x rtype %b\n", io_redirect_target, 1'h0);	// <stdin>:2:10, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "\\33[1;35m[Redirect] target 0x%x rtype %b\n", io_redirect_target, 1'h0);	// <stdin>:2:10, Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2:10
@@ -1893,7 +1893,7 @@ module WBU(	// <stdin>:3792:10
       if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] WBU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[COMMIT] pc = 0x%x inst %x wen %x wdst %x wdata %x mmio %x intrNO %x\n", io_in_bits_decode_cf_pc, io_in_bits_decode_cf_instr, _io_wb_rfWen_T, io_in_bits_decode_ctrl_rfDest, _GEN_1, 1'h0, 64'h0);	// <stdin>:3792:10, Debug.scala:34:43, :35:31, WBU.scala:18:53, :20:22
+        $fwrite(32'h80000002, "\\33[1;35m[COMMIT] pc = 0x%x inst %x wen %x wdst %x wdata %x mmio %x intrNO %x\n", io_in_bits_decode_cf_pc, io_in_bits_decode_cf_instr, _io_wb_rfWen_T, io_in_bits_decode_ctrl_rfDest, _GEN_1, 1'h0, 64'h0);	// <stdin>:3792:10, Debug.scala:34:43, :35:31, WBU.scala:18:53, :20:22
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3792:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3792:10
