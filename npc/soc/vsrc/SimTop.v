@@ -3061,7 +3061,7 @@ module SimTop(	// <stdin>:4512:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] SimTop: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "DIFFTEST pc %x valid %b", _core_io_difftest_commit_bits_decode_cf_pnpc, _core_io_difftest_commit_valid);	// Debug.scala:34:43, :35:31, SimTop.scala:29:26
+        $fwrite(32'h80000002, "DIFFTEST pc %x valid %b\n", _core_io_difftest_commit_bits_decode_cf_pnpc, _core_io_difftest_commit_valid);	// Debug.scala:34:43, :35:31, SimTop.scala:29:26
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4512:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4512:10

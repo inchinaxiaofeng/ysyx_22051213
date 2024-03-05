@@ -106,7 +106,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    vlSelf->SimTop__DOT__c);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"DIFFTEST pc %x valid %b",
+        VL_FWRITEF(0x80000002U,"DIFFTEST pc %x valid %b\n",
                    64,vlSelf->io_pc,1,(IData)(vlSelf->io_commit));
     }
     vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__rWriteStatuOK 
