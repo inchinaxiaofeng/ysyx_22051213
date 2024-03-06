@@ -83,5 +83,5 @@ class ISU(implicit val p: MarCoreConfig) extends MarCoreModule with HasRegFilePa
 		for (i <- 0 until 32) io.gpr.regs(i) := rf.read(i.U)
 	}
 
-	io.difftest_decode_isu <> io.in
+	io.difftest_commit_isu <> io.in
 }

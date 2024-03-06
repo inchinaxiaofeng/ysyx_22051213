@@ -56,8 +56,8 @@ class Core(implicit val p: MarCoreConfig) extends MarCoreModule {
 
 		io.gpr <> backend.io.gpr
 		io.csr <> backend.io.csr
-		io.difftest_decode_isu <> backend.io.difftest_decode_isu
 		io.difftest_commit_wbu <> backend.io.difftest_commit_wbu
+		io.difftest_decode_isu <> backend.io.difftest_decode_isu
 	}
 }
 
