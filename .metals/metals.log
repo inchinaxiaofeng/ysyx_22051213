@@ -3665,3 +3665,14 @@ scala.meta.tokenizers.TokenizeException: <input>:69: error: unclosed string lite
 2024.03.06 20:41:29 INFO  time: code lens generation in 2.24s
 2024.03.06 20:41:29 INFO  time: code lens generation in 2.29s
 2024.03.06 20:41:41 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/ISU.scala
+2024.03.06 20:48:57 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/ISU.scala
+2024.03.06 20:49:14 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Backend.scala
+2024.03.06 20:49:28 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/TopMain.scala
+2024.03.06 20:50:03 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.03.06 20:50:23 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.03.06 20:50:35 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
+2024.03.06 20:51:05 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/TopMain.scala
+2024.03.06 20:51:06 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/TopMain.scala
+2024.03.06 20:51:14 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Backend.scala
+2024.03.06 20:51:24 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Backend.scala
+2024.03.06 20:51:57 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/WBU.scala

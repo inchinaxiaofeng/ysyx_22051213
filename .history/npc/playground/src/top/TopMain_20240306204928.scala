@@ -21,7 +21,7 @@ class Core(implicit val p: MarCoreConfig) extends MarCoreModule {
 		val gpr = new RegsDiffIO(num = 32)
 		val csr = new RegsDiffIO(num = 4)
 //		val difftest_decode_isu = Decoupled(new DecodeIO)
-		val difftest_commit = Decoupled(new CommitIO)
+		val difftest_commit_wbu = Decoupled(new CommitIO)
 	}
 	val io = IO(new MarCoreIO)
 
@@ -57,7 +57,7 @@ class Core(implicit val p: MarCoreConfig) extends MarCoreModule {
 		io.gpr <> backend.io.gpr
 		io.csr <> backend.io.csr
 //		io.difftest_decode_isu <> backend.io.difftest_decode_isu
-		io.difftest_commit <> backend.io.difftest_commit
+		io.difftest_commit_wbu <> backend.io.difftest_commit_wbu
 	}
 }
 
