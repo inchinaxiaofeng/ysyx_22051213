@@ -53,6 +53,5 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 
 	io.gpr <> isu.io.gpr
 	io.csr <> exu.io.csr
-	io.difftest_commit_isu <> isu.io.difftest_commit_isu
 	io.difftest_commit_wbu <> wbu.io.difftest_commit_wbu
 }

@@ -51,7 +51,7 @@ class SimTop extends Module {
 	core.io.difftest_commit_wbu.ready := true.B
 
 	io.commit := RegNext(core.io.difftest_commit_wbu.valid)
-	io.pc := RegNext(core.io.difftest_commit_wbu.bits.decode.cf.pc)
+	io.pc := RegNext(core.io.difftest_commit.bits.decode.cf.pnpc)
 	Info("DIFFTEST pc %x valid %b\n",
 		core.io.difftest_commit.bits.decode.cf.pnpc,
 		core.io.difftest_commit.valid)

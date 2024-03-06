@@ -82,6 +82,4 @@ class ISU(implicit val p: MarCoreConfig) extends MarCoreModule with HasRegFilePa
 	if (!Settings.get("IsChiselTest")) {
 		for (i <- 0 until 32) io.gpr.regs(i) := rf.read(i.U)
 	}
-
-	io.difftest_commit_isu := io.in
 }
