@@ -40,6 +40,7 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__ringBufferTail;
         CData/*0:0*/ SimTop__DOT__core__DOT___frontend_io_out_0_ready_T_1;
         CData/*0:0*/ SimTop__DOT__core__DOT___backend_io_in_0_valid_T;
+        CData/*0:0*/ SimTop__DOT__core__DOT___dequeueSize_T;
         CData/*0:0*/ SimTop__DOT__core__DOT__unnamedblk1__DOT__wen;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT___idu_io_out_0_valid;
@@ -75,12 +76,13 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcAForward;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcBForward;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT___io_out_valid_T_1;
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT___io_in_0_ready_T_1;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_valid;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_redirect_valid;
-        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3;
-        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3;
     };
     struct {
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3;
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___io_out_valid_T_4;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__csr__io_instrValid;
@@ -143,10 +145,10 @@ class VSimTop___024root final : public VerilatedModule {
         VL_OUT64(io_gpr_regs_7,63,0);
         VL_OUT64(io_gpr_regs_8,63,0);
         VL_OUT64(io_gpr_regs_9,63,0);
-        VL_OUT64(io_gpr_regs_10,63,0);
-        VL_OUT64(io_gpr_regs_11,63,0);
     };
     struct {
+        VL_OUT64(io_gpr_regs_10,63,0);
+        VL_OUT64(io_gpr_regs_11,63,0);
         VL_OUT64(io_gpr_regs_12,63,0);
         VL_OUT64(io_gpr_regs_13,63,0);
         VL_OUT64(io_gpr_regs_14,63,0);
@@ -199,20 +201,22 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT___exu_io_forward_wb_rfData;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pc;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcA;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_imm;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pc;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_0;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_1;
+    };
+    struct {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_2;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_3;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_1;
-    };
-    struct {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__c;
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___wbClearMask_T_6;
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___isuFireSetMask_T_1;
