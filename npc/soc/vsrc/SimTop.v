@@ -1903,8 +1903,7 @@ module WBU(	// <stdin>:3822:10
                 io_redirect_target,
   output        io_redirect_valid,
                 io_difftest_commit_valid,
-  output [63:0] io_difftest_commit_bits_decode_cf_pc,
-                io_difftest_commit_bits_decode_cf_pnpc,
+  output [63:0] io_difftest_commit_bits_decode_cf_pnpc,
                 io_difftest_redirect_target,
   output        io_difftest_redirect_valid);
 
@@ -1955,7 +1954,6 @@ module WBU(	// <stdin>:3822:10
   assign io_redirect_target = io_in_bits_decode_cf_redirect_target;	// <stdin>:3822:10
   assign io_redirect_valid = _io_difftest_redirect_valid_T;	// <stdin>:3822:10, WBU.scala:27:66
   assign io_difftest_commit_valid = io_in_valid;	// <stdin>:3822:10
-  assign io_difftest_commit_bits_decode_cf_pc = io_in_bits_decode_cf_pc;	// <stdin>:3822:10
   assign io_difftest_commit_bits_decode_cf_pnpc = io_in_bits_decode_cf_pnpc;	// <stdin>:3822:10
   assign io_difftest_redirect_target = io_in_bits_decode_cf_redirect_target;	// <stdin>:3822:10
   assign io_difftest_redirect_valid = _io_difftest_redirect_valid_T;	// <stdin>:3822:10, WBU.scala:27:66
@@ -2032,8 +2030,7 @@ module Backend_inorder(	// <stdin>:3857:10
                 io_csr_regs_2,
                 io_csr_regs_3,
   output        io_difftest_commit_valid,
-  output [63:0] io_difftest_commit_bits_decode_cf_pc,
-                io_difftest_commit_bits_decode_cf_pnpc,
+  output [63:0] io_difftest_commit_bits_decode_cf_pnpc,
                 io_difftest_redirect_target,
   output        io_difftest_redirect_valid);
 
@@ -2446,7 +2443,6 @@ module Backend_inorder(	// <stdin>:3857:10
     .io_redirect_target                     (io_redirect_target),
     .io_redirect_valid                      (io_redirect_valid),
     .io_difftest_commit_valid               (io_difftest_commit_valid),
-    .io_difftest_commit_bits_decode_cf_pc   (io_difftest_commit_bits_decode_cf_pc),
     .io_difftest_commit_bits_decode_cf_pnpc (io_difftest_commit_bits_decode_cf_pnpc),
     .io_difftest_redirect_target            (io_difftest_redirect_target),
     .io_difftest_redirect_valid             (io_difftest_redirect_valid)
@@ -2510,8 +2506,7 @@ module Core(	// <stdin>:4080:10
                 io_csr_regs_2,
                 io_csr_regs_3,
   output        io_difftest_commit_valid,
-  output [63:0] io_difftest_commit_bits_decode_cf_pc,
-                io_difftest_commit_bits_decode_cf_pnpc,
+  output [63:0] io_difftest_commit_bits_decode_cf_pnpc,
                 io_difftest_redirect_target,
   output        io_difftest_redirect_valid);
 
@@ -2842,7 +2837,6 @@ module Core(	// <stdin>:4080:10
     .io_csr_regs_2                          (io_csr_regs_2),
     .io_csr_regs_3                          (io_csr_regs_3),
     .io_difftest_commit_valid               (io_difftest_commit_valid),
-    .io_difftest_commit_bits_decode_cf_pc   (io_difftest_commit_bits_decode_cf_pc),
     .io_difftest_commit_bits_decode_cf_pnpc (io_difftest_commit_bits_decode_cf_pnpc),
     .io_difftest_redirect_target            (io_difftest_redirect_target),
     .io_difftest_redirect_valid             (io_difftest_redirect_valid)
@@ -3045,7 +3039,6 @@ module SimTop(	// <stdin>:4488:10
   wire        _core_io_dmem_ar_valid;	// SimTop.scala:29:26
   wire [31:0] _core_io_dmem_ar_bits_addr;	// SimTop.scala:29:26
   wire        _core_io_difftest_commit_valid;	// SimTop.scala:29:26
-  wire [63:0] _core_io_difftest_commit_bits_decode_cf_pc;	// SimTop.scala:29:26
   wire [63:0] _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:29:26
   wire [63:0] _core_io_difftest_redirect_target;	// SimTop.scala:29:26
   wire        _core_io_difftest_redirect_valid;	// SimTop.scala:29:26
@@ -3057,7 +3050,7 @@ module SimTop(	// <stdin>:4488:10
     if (_core_io_difftest_redirect_valid)	// SimTop.scala:29:26
       io_pc_REG <= _core_io_difftest_redirect_target;	// SimTop.scala:29:26, :54:25
     else	// SimTop.scala:29:26
-      io_pc_REG <= _core_io_difftest_commit_bits_decode_cf_pc;	// SimTop.scala:29:26, :54:25
+      io_pc_REG <= _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:29:26, :54:25
     if (reset)
       c <= 64'h0;	// GTimer.scala:8:32, SimTop.scala:30:29
     else
@@ -3154,7 +3147,6 @@ module SimTop(	// <stdin>:4488:10
     .io_csr_regs_2                          (io_csr_regs_2),
     .io_csr_regs_3                          (io_csr_regs_3),
     .io_difftest_commit_valid               (_core_io_difftest_commit_valid),
-    .io_difftest_commit_bits_decode_cf_pc   (_core_io_difftest_commit_bits_decode_cf_pc),
     .io_difftest_commit_bits_decode_cf_pnpc (_core_io_difftest_commit_bits_decode_cf_pnpc),
     .io_difftest_redirect_target            (_core_io_difftest_redirect_target),
     .io_difftest_redirect_valid             (_core_io_difftest_redirect_valid)
