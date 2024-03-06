@@ -36,7 +36,7 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 	io.difftest_commit <> io.in
 	io.difftest_redirect.target := io.in.bits.decode.cf.redirect.target
 	io.difftest_redirect.rtype := io.in.bits.decode.cf.redirect.rtype
-	io.difftest_redirect.valid := io.in.bits.decode.cf.redirect.valid && io.in.valid
+	io.difftest_redirect.rtype := io.in.bits.decode.cf.redirect.valid && io.in.valid
 
 //	val falseWire = WireInit(false.B) // make BoringUtils.addSource happy
 //	BoringUtils.addSource(io.in.valid, "perfCntCondMinstret")

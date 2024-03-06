@@ -13,7 +13,7 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 		val wb = new WriteBackIO
 		val redirect = new RedirectIO
 		val difftest_commit = Decoupled(new CommitIO)
-		val difftest_redirect = new RedirectIO
+		val difftest_redirect = Flipped(new RedirectIO)
 	})
 
 	io.wb.rfWen := io.in.bits.decode.ctrl.rfWen && io.in.valid
@@ -24,6 +24,7 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 
 	io.redirect.target := io.in.bits.decode.cf.redirect.target
 	io.redirect.rtype := io.in.bits.decode.cf.redirect.rtype
+//	Info("%x\n", io.in.bits.decode.cf.redirect.target)
 	io.redirect.valid := io.in.bits.decode.cf.redirect.valid && io.in.valid
 
 	Debug(io.in.valid, 
@@ -34,9 +35,7 @@ class WBU(implicit val p: MarCoreConfig) extends MarCoreModule {
 	)
 
 	io.difftest_commit <> io.in
-	io.difftest_redirect.target := io.in.bits.decode.cf.redirect.target
-	io.difftest_redirect.rtype := io.in.bits.decode.cf.redirect.rtype
-	io.difftest_redirect.valid := io.in.bits.decode.cf.redirect.valid && io.in.valid
+	io.difftest_redirect <> io.redirect
 
 //	val falseWire = WireInit(false.B) // make BoringUtils.addSource happy
 //	BoringUtils.addSource(io.in.valid, "perfCntCondMinstret")
