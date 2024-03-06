@@ -1903,7 +1903,8 @@ module WBU(	// <stdin>:3822:10
                 io_redirect_target,
   output        io_redirect_valid,
                 io_difftest_commit_valid,
-  output [63:0] io_difftest_commit_bits_decode_cf_pnpc);
+  output [63:0] io_difftest_commit_bits_decode_cf_pc,
+                io_difftest_commit_bits_decode_cf_pnpc);
 
   wire             _io_wb_rfWen_T = io_in_bits_decode_ctrl_rfWen & io_in_valid;	// WBU.scala:18:53
   wire [4:0][63:0] _GEN = {{64'h0}, {io_in_bits_commits_3}, {io_in_bits_commits_2}, {io_in_bits_commits_1},
@@ -1951,6 +1952,7 @@ module WBU(	// <stdin>:3822:10
   assign io_redirect_target = io_in_bits_decode_cf_redirect_target;	// <stdin>:3822:10
   assign io_redirect_valid = io_in_bits_decode_cf_redirect_valid & io_in_valid;	// <stdin>:3822:10, WBU.scala:27:66
   assign io_difftest_commit_valid = io_in_valid;	// <stdin>:3822:10
+  assign io_difftest_commit_bits_decode_cf_pc = io_in_bits_decode_cf_pc;	// <stdin>:3822:10
   assign io_difftest_commit_bits_decode_cf_pnpc = io_in_bits_decode_cf_pnpc;	// <stdin>:3822:10
 endmodule
 
@@ -2025,7 +2027,8 @@ module Backend_inorder(	// <stdin>:3853:10
                 io_csr_regs_2,
                 io_csr_regs_3,
   output        io_difftest_commit_valid,
-  output [63:0] io_difftest_commit_bits_decode_cf_pnpc);
+  output [63:0] io_difftest_commit_bits_decode_cf_pc,
+                io_difftest_commit_bits_decode_cf_pnpc);
 
   wire        _wbu_io_wb_rfWen;	// Backend.scala:29:25
   wire [4:0]  _wbu_io_wb_rfDest;	// Backend.scala:29:25
@@ -2436,6 +2439,7 @@ module Backend_inorder(	// <stdin>:3853:10
     .io_redirect_target                     (io_redirect_target),
     .io_redirect_valid                      (io_redirect_valid),
     .io_difftest_commit_valid               (io_difftest_commit_valid),
+    .io_difftest_commit_bits_decode_cf_pc   (io_difftest_commit_bits_decode_cf_pc),
     .io_difftest_commit_bits_decode_cf_pnpc (io_difftest_commit_bits_decode_cf_pnpc)
   );
 endmodule
@@ -2497,7 +2501,8 @@ module Core(	// <stdin>:4075:10
                 io_csr_regs_2,
                 io_csr_regs_3,
   output        io_difftest_commit_valid,
-  output [63:0] io_difftest_commit_bits_decode_cf_pnpc);
+  output [63:0] io_difftest_commit_bits_decode_cf_pc,
+                io_difftest_commit_bits_decode_cf_pnpc);
 
   wire        _backend_io_in_0_ready;	// TopMain.scala:39:37
   wire [63:0] _backend_io_redirect_target;	// TopMain.scala:39:37
@@ -2826,6 +2831,7 @@ module Core(	// <stdin>:4075:10
     .io_csr_regs_2                          (io_csr_regs_2),
     .io_csr_regs_3                          (io_csr_regs_3),
     .io_difftest_commit_valid               (io_difftest_commit_valid),
+    .io_difftest_commit_bits_decode_cf_pc   (io_difftest_commit_bits_decode_cf_pc),
     .io_difftest_commit_bits_decode_cf_pnpc (io_difftest_commit_bits_decode_cf_pnpc)
   );
 endmodule
@@ -3028,11 +3034,9 @@ module SimTop(	// <stdin>:4482:10
   wire        _core_io_difftest_commit_valid;	// SimTop.scala:29:26
   wire [63:0] _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:29:26
   reg         io_commit_REG;	// SimTop.scala:53:29
-  reg  [63:0] io_pc_REG;	// SimTop.scala:54:25
   reg  [63:0] c;	// GTimer.scala:8:32
   always @(posedge clock) begin
     io_commit_REG <= _core_io_difftest_commit_valid;	// SimTop.scala:29:26, :53:29
-    io_pc_REG <= _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:29:26, :54:25
     if (reset)
       c <= 64'h0;	// GTimer.scala:8:32, SimTop.scala:30:29
     else
@@ -3052,8 +3056,6 @@ module SimTop(	// <stdin>:4482:10
       automatic logic [31:0] _RANDOM_0;	// <stdin>:4482:10
       automatic logic [31:0] _RANDOM_1;	// <stdin>:4482:10
       automatic logic [31:0] _RANDOM_2;	// <stdin>:4482:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:4482:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:4482:10
       `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4482:10
         `INIT_RANDOM_PROLOG_	// <stdin>:4482:10
       `endif // INIT_RANDOM_PROLOG_
@@ -3061,11 +3063,8 @@ module SimTop(	// <stdin>:4482:10
         _RANDOM_0 = `RANDOM;	// <stdin>:4482:10
         _RANDOM_1 = `RANDOM;	// <stdin>:4482:10
         _RANDOM_2 = `RANDOM;	// <stdin>:4482:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:4482:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:4482:10
         io_commit_REG = _RANDOM_0[0];	// SimTop.scala:53:29
-        io_pc_REG = {_RANDOM_0[31:1], _RANDOM_1, _RANDOM_2[0]};	// SimTop.scala:53:29, :54:25
-        c = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// GTimer.scala:8:32, SimTop.scala:54:25
+        c = {_RANDOM_0[31:1], _RANDOM_1, _RANDOM_2[0]};	// GTimer.scala:8:32, SimTop.scala:53:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4482:10
@@ -3129,6 +3128,7 @@ module SimTop(	// <stdin>:4482:10
     .io_csr_regs_2                          (io_csr_regs_2),
     .io_csr_regs_3                          (io_csr_regs_3),
     .io_difftest_commit_valid               (_core_io_difftest_commit_valid),
+    .io_difftest_commit_bits_decode_cf_pc   (io_pc),
     .io_difftest_commit_bits_decode_cf_pnpc (_core_io_difftest_commit_bits_decode_cf_pnpc)
   );
   AXI4Lite_Arbiter arbiter (	// SimTop.scala:30:29
@@ -3182,7 +3182,6 @@ module SimTop(	// <stdin>:4482:10
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
   assign io_commit = io_commit_REG;	// <stdin>:4482:10, SimTop.scala:53:29
-  assign io_pc = io_pc_REG;	// <stdin>:4482:10, SimTop.scala:54:25
   assign io_gpr_regs_0 = 64'h0;	// <stdin>:4482:10, SimTop.scala:30:29
 endmodule
 
