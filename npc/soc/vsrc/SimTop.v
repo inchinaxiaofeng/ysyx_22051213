@@ -1904,15 +1904,18 @@ module WBU(	// <stdin>:3822:10
   output        io_redirect_valid,
                 io_difftest_commit_valid,
   output [63:0] io_difftest_commit_bits_decode_cf_pc,
-                io_difftest_commit_bits_decode_cf_pnpc);
+                io_difftest_commit_bits_decode_cf_pnpc,
+                io_difftest_redirect_target,
+  output        io_difftest_redirect_valid);
 
-  wire             _io_wb_rfWen_T = io_in_bits_decode_ctrl_rfWen & io_in_valid;	// WBU.scala:18:53
+  wire             _io_wb_rfWen_T = io_in_bits_decode_ctrl_rfWen & io_in_valid;	// WBU.scala:19:53
   wire [4:0][63:0] _GEN = {{64'h0}, {io_in_bits_commits_3}, {io_in_bits_commits_2}, {io_in_bits_commits_1},
-                {io_in_bits_commits_0}};	// <stdin>:3822:10, WBU.scala:20:22
-  wire [63:0]      _GEN_0;	// WBU.scala:20:22
+                {io_in_bits_commits_0}};	// <stdin>:3822:10, WBU.scala:21:22
+  wire [63:0]      _GEN_0;	// WBU.scala:21:22
   /* synopsys infer_mux_override */
-  assign _GEN_0 = _GEN[io_in_bits_decode_ctrl_fuType] /* cadence map_to_mux */;	// WBU.scala:20:22
-  wire [63:0]      _GEN_1 = io_in_bits_decode_ctrl_fuType > 3'h4 ? io_in_bits_commits_0 : _GEN_0;	// WBU.scala:20:22
+  assign _GEN_0 = _GEN[io_in_bits_decode_ctrl_fuType] /* cadence map_to_mux */;	// WBU.scala:21:22
+  wire [63:0]      _GEN_1 = io_in_bits_decode_ctrl_fuType > 3'h4 ? io_in_bits_commits_0 : _GEN_0;	// WBU.scala:21:22
+  wire             _io_difftest_redirect_valid_T = io_in_bits_decode_cf_redirect_valid & io_in_valid;	// WBU.scala:27:66
   reg  [63:0]      c;	// GTimer.scala:8:32
   always @(posedge clock) begin
     if (reset)
@@ -1925,7 +1928,7 @@ module WBU(	// <stdin>:3822:10
       if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] WBU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[COMMIT] pc = 0x%x inst %x wen %x wdst %x wdata %x mmio %x intrNO %x\n", io_in_bits_decode_cf_pc, io_in_bits_decode_cf_instr, _io_wb_rfWen_T, io_in_bits_decode_ctrl_rfDest, _GEN_1, 1'h0, 64'h0);	// <stdin>:3822:10, Debug.scala:34:43, :35:31, WBU.scala:18:53, :20:22
+        $fwrite(32'h80000002, "[COMMIT] pc = 0x%x inst %x wen %x wdst %x wdata %x mmio %x intrNO %x\n", io_in_bits_decode_cf_pc, io_in_bits_decode_cf_instr, _io_wb_rfWen_T, io_in_bits_decode_ctrl_rfDest, _GEN_1, 1'h0, 64'h0);	// <stdin>:3822:10, Debug.scala:34:43, :35:31, WBU.scala:19:53, :21:22
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3822:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3822:10
@@ -1946,17 +1949,19 @@ module WBU(	// <stdin>:3822:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:3822:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_wb_rfWen = _io_wb_rfWen_T;	// <stdin>:3822:10, WBU.scala:18:53
+  assign io_wb_rfWen = _io_wb_rfWen_T;	// <stdin>:3822:10, WBU.scala:19:53
   assign io_wb_rfDest = io_in_bits_decode_ctrl_rfDest;	// <stdin>:3822:10
-  assign io_wb_rfData = _GEN_1;	// <stdin>:3822:10, WBU.scala:20:22
+  assign io_wb_rfData = _GEN_1;	// <stdin>:3822:10, WBU.scala:21:22
   assign io_redirect_target = io_in_bits_decode_cf_redirect_target;	// <stdin>:3822:10
-  assign io_redirect_valid = io_in_bits_decode_cf_redirect_valid & io_in_valid;	// <stdin>:3822:10, WBU.scala:27:66
+  assign io_redirect_valid = _io_difftest_redirect_valid_T;	// <stdin>:3822:10, WBU.scala:27:66
   assign io_difftest_commit_valid = io_in_valid;	// <stdin>:3822:10
   assign io_difftest_commit_bits_decode_cf_pc = io_in_bits_decode_cf_pc;	// <stdin>:3822:10
   assign io_difftest_commit_bits_decode_cf_pnpc = io_in_bits_decode_cf_pnpc;	// <stdin>:3822:10
+  assign io_difftest_redirect_target = io_in_bits_decode_cf_redirect_target;	// <stdin>:3822:10
+  assign io_difftest_redirect_valid = _io_difftest_redirect_valid_T;	// <stdin>:3822:10, WBU.scala:27:66
 endmodule
 
-module Backend_inorder(	// <stdin>:3853:10
+module Backend_inorder(	// <stdin>:3857:10
   input         clock,
                 reset,
                 io_in_0_valid,
@@ -2028,7 +2033,9 @@ module Backend_inorder(	// <stdin>:3853:10
                 io_csr_regs_3,
   output        io_difftest_commit_valid,
   output [63:0] io_difftest_commit_bits_decode_cf_pc,
-                io_difftest_commit_bits_decode_cf_pnpc);
+                io_difftest_commit_bits_decode_cf_pnpc,
+                io_difftest_redirect_target,
+  output        io_difftest_redirect_valid);
 
   wire        _wbu_io_wb_rfWen;	// Backend.scala:29:25
   wire [4:0]  _wbu_io_wb_rfDest;	// Backend.scala:29:25
@@ -2095,10 +2102,10 @@ module Backend_inorder(	// <stdin>:3853:10
     automatic logic _exu_io_in_bits_T;	// Pipeline.scala:12:26
     _exu_io_in_bits_T = _isu_io_out_valid & _exu_io_in_ready;	// Backend.scala:27:25, :28:25, Pipeline.scala:12:26
     if (reset) begin
-      valid <= 1'h0;	// <stdin>:3853:10, Pipeline.scala:10:28
-      valid_1 <= 1'h0;	// <stdin>:3853:10, Pipeline.scala:10:28
-      c <= 64'h0;	// <stdin>:3853:10, GTimer.scala:8:32
-      c_1 <= 64'h0;	// <stdin>:3853:10, GTimer.scala:8:32
+      valid <= 1'h0;	// <stdin>:3857:10, Pipeline.scala:10:28
+      valid_1 <= 1'h0;	// <stdin>:3857:10, Pipeline.scala:10:28
+      c <= 64'h0;	// <stdin>:3857:10, GTimer.scala:8:32
+      c_1 <= 64'h0;	// <stdin>:3857:10, GTimer.scala:8:32
     end
     else begin
       valid <= ~(io_flush[0]) & (_exu_io_in_bits_T | ~_exu_io_out_valid & valid);	// Backend.scala:28:25, :31:73, Pipeline.scala:10:28, :11:{29,37}, :12:{26,42,50}, :13:{24,32}
@@ -2134,7 +2141,7 @@ module Backend_inorder(	// <stdin>:3853:10
       wbu_io_in_bits_r_commits_3 <= _exu_io_out_bits_commits_3;	// Backend.scala:28:25, Reg.scala:19:16
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:3853:10
+  `ifndef SYNTHESIS	// <stdin>:3857:10
     always @(posedge clock) begin	// Debug.scala:34:43
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] Backend_inorder: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
@@ -2143,122 +2150,122 @@ module Backend_inorder(	// <stdin>:3853:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] Backend_inorder: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "flush = %b, isu:(%d,%d), exu:(%d,%d)\n", io_flush, _isu_io_out_valid, _exu_io_in_ready, _exu_io_out_valid, 1'h1);	// <stdin>:3853:10, Backend.scala:27:25, :28:25, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "flush = %b, isu:(%d,%d), exu:(%d,%d)\n", io_flush, _isu_io_out_valid, _exu_io_in_ready, _exu_io_out_valid, 1'h1);	// <stdin>:3857:10, Backend.scala:27:25, :28:25, Debug.scala:34:43, :35:31
     end // always @(posedge)
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3853:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:3853:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3857:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:3857:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_10;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_11;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_12;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_13;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_14;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_15;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_16;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_17;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_18;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_19;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_20;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_21;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_22;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_23;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_24;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_25;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_26;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_27;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_28;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_29;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_30;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_31;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_32;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_33;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_34;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_35;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_36;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_37;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_38;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_39;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_40;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_41;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_42;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_43;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_44;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_45;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_46;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_47;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_48;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_49;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_50;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_51;	// <stdin>:3853:10
-      automatic logic [31:0] _RANDOM_52;	// <stdin>:3853:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3853:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:3853:10
+    initial begin	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_10;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_11;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_12;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_13;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_14;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_15;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_16;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_17;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_18;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_19;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_20;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_21;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_22;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_23;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_24;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_25;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_26;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_27;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_28;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_29;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_30;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_31;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_32;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_33;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_34;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_35;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_36;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_37;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_38;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_39;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_40;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_41;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_42;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_43;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_44;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_45;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_46;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_47;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_48;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_49;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_50;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_51;	// <stdin>:3857:10
+      automatic logic [31:0] _RANDOM_52;	// <stdin>:3857:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3857:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:3857:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3853:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_10 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_11 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_12 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_13 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_14 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_15 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_16 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_17 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_18 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_19 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_20 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_21 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_22 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_23 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_24 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_25 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_26 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_27 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_28 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_29 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_30 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_31 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_32 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_33 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_34 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_35 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_36 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_37 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_38 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_39 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_40 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_41 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_42 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_43 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_44 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_45 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_46 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_47 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_48 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_49 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_50 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_51 = `RANDOM;	// <stdin>:3853:10
-        _RANDOM_52 = `RANDOM;	// <stdin>:3853:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3857:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_10 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_11 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_12 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_13 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_14 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_15 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_16 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_17 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_18 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_19 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_20 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_21 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_22 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_23 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_24 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_25 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_26 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_27 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_28 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_29 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_30 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_31 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_32 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_33 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_34 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_35 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_36 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_37 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_38 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_39 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_40 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_41 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_42 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_43 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_44 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_45 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_46 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_47 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_48 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_49 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_50 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_51 = `RANDOM;	// <stdin>:3857:10
+        _RANDOM_52 = `RANDOM;	// <stdin>:3857:10
         valid = _RANDOM_0[0];	// Pipeline.scala:10:28
         exu_io_in_bits_r_cf_instr = {_RANDOM_0[31:1], _RANDOM_1, _RANDOM_2[0]};	// Pipeline.scala:10:28, Reg.scala:19:16
         exu_io_in_bits_r_cf_pc = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// Reg.scala:19:16
@@ -2288,8 +2295,8 @@ module Backend_inorder(	// <stdin>:3853:10
         c_1 = {_RANDOM_50[31:15], _RANDOM_51, _RANDOM_52[14:0]};	// GTimer.scala:8:32
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3853:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:3853:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3857:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:3857:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   ISU isu (	// Backend.scala:27:25
@@ -2440,11 +2447,13 @@ module Backend_inorder(	// <stdin>:3853:10
     .io_redirect_valid                      (io_redirect_valid),
     .io_difftest_commit_valid               (io_difftest_commit_valid),
     .io_difftest_commit_bits_decode_cf_pc   (io_difftest_commit_bits_decode_cf_pc),
-    .io_difftest_commit_bits_decode_cf_pnpc (io_difftest_commit_bits_decode_cf_pnpc)
+    .io_difftest_commit_bits_decode_cf_pnpc (io_difftest_commit_bits_decode_cf_pnpc),
+    .io_difftest_redirect_target            (io_difftest_redirect_target),
+    .io_difftest_redirect_valid             (io_difftest_redirect_valid)
   );
 endmodule
 
-module Core(	// <stdin>:4075:10
+module Core(	// <stdin>:4080:10
   input         clock,
                 reset,
                 io_imem_ar_ready,
@@ -2502,7 +2511,9 @@ module Core(	// <stdin>:4075:10
                 io_csr_regs_3,
   output        io_difftest_commit_valid,
   output [63:0] io_difftest_commit_bits_decode_cf_pc,
-                io_difftest_commit_bits_decode_cf_pnpc);
+                io_difftest_commit_bits_decode_cf_pnpc,
+                io_difftest_redirect_target,
+  output        io_difftest_redirect_valid);
 
   wire        _backend_io_in_0_ready;	// TopMain.scala:39:37
   wire [63:0] _backend_io_redirect_target;	// TopMain.scala:39:37
@@ -2552,8 +2563,8 @@ module Core(	// <stdin>:4075:10
   reg         ringBufferHead;	// PipelineVector.scala:13:45
   reg         ringBufferTail;	// PipelineVector.scala:14:45
   wire        ringBufferAllowin = ringBufferHead - 1'h1 != ringBufferTail & {1'h0, ringBufferHead} - 2'h2 != {1'h0,
-                ringBufferTail};	// <stdin>:4075:10, PipelineVector.scala:13:45, :14:45, :16:{75,86,137}
-  wire [1:0]  enqueueSize = {1'h0, _frontend_io_out_0_valid} + {1'h0, _frontend_io_out_1_valid};	// <stdin>:4075:10, PipelineVector.scala:23:56, TopMain.scala:31:50
+                ringBufferTail};	// <stdin>:4080:10, PipelineVector.scala:13:45, :14:45, :16:{75,86,137}
+  wire [1:0]  enqueueSize = {1'h0, _frontend_io_out_0_valid} + {1'h0, _frontend_io_out_1_valid};	// <stdin>:4080:10, PipelineVector.scala:23:56, TopMain.scala:31:50
   wire        _frontend_io_out_0_ready_T_1 = ringBufferAllowin | ~_frontend_io_out_0_valid;	// PipelineVector.scala:16:137, :33:{48,51}, TopMain.scala:31:50
   wire        _frontend_io_out_1_ready_T_1 = ringBufferAllowin | ~_frontend_io_out_1_valid;	// PipelineVector.scala:16:137, :34:{48,51}, TopMain.scala:31:50
   wire        _backend_io_in_0_valid_T = ringBufferHead != ringBufferTail;	// PipelineVector.scala:13:45, :14:45, :39:46
@@ -2562,22 +2573,22 @@ module Core(	// <stdin>:4075:10
   reg  [63:0] c;	// GTimer.scala:8:32
   always @(posedge clock) begin
     if (reset) begin
-      dataBuffer_0_cf_instr <= 64'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_cf_pc <= 64'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_cf_pnpc <= 64'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_cf_exceptionVec_2 <= 1'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_ctrl_srcAType <= 1'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_ctrl_srcBType <= 1'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
+      dataBuffer_0_cf_instr <= 64'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_cf_pc <= 64'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_cf_pnpc <= 64'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_cf_exceptionVec_2 <= 1'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_ctrl_srcAType <= 1'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_ctrl_srcBType <= 1'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
       dataBuffer_0_ctrl_fuType <= 3'h0;	// PipelineVector.scala:12:{41,83}
-      dataBuffer_0_ctrl_fuCtrl <= 7'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_ctrl_rfSrcA <= 5'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_ctrl_rfSrcB <= 5'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_ctrl_rfWen <= 1'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_ctrl_rfDest <= 5'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      dataBuffer_0_data_imm <= 64'h0;	// <stdin>:4075:10, PipelineVector.scala:12:41
-      ringBufferHead <= 1'h0;	// <stdin>:4075:10, PipelineVector.scala:13:45
-      ringBufferTail <= 1'h0;	// <stdin>:4075:10, PipelineVector.scala:14:45
-      c <= 64'h0;	// <stdin>:4075:10, GTimer.scala:8:32
+      dataBuffer_0_ctrl_fuCtrl <= 7'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_ctrl_rfSrcA <= 5'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_ctrl_rfSrcB <= 5'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_ctrl_rfWen <= 1'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_ctrl_rfDest <= 5'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      dataBuffer_0_data_imm <= 64'h0;	// <stdin>:4080:10, PipelineVector.scala:12:41
+      ringBufferHead <= 1'h0;	// <stdin>:4080:10, PipelineVector.scala:13:45
+      ringBufferTail <= 1'h0;	// <stdin>:4080:10, PipelineVector.scala:14:45
+      c <= 64'h0;	// <stdin>:4080:10, GTimer.scala:8:32
     end
     else begin
       automatic logic wen = _frontend_io_out_0_ready_T_1 & _frontend_io_out_0_valid | _frontend_io_out_1_ready_T_1 &
@@ -2637,65 +2648,65 @@ module Core(	// <stdin>:4075:10
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4075:10
+  `ifndef SYNTHESIS	// <stdin>:4080:10
     always @(posedge clock) begin	// PipelineVector.scala:60:27
       if ((`PRINTF_COND_) & ~reset)	// PipelineVector.scala:60:27
-        $fwrite(32'h80000002, "[DPQ] size %x head %x tail %x enq %x deq %x\n", 1'h0, ringBufferHead, ringBufferTail, enqueueSize, {1'h0, _dequeueSize_T});	// <stdin>:4075:10, Decoupled.scala:52:35, PipelineVector.scala:13:45, :14:45, :23:56, :47:52, :60:27
+        $fwrite(32'h80000002, "[DPQ] size %x head %x tail %x enq %x deq %x\n", 1'h0, ringBufferHead, ringBufferTail, enqueueSize, {1'h0, _dequeueSize_T});	// <stdin>:4080:10, Decoupled.scala:52:35, PipelineVector.scala:13:45, :14:45, :23:56, :47:52, :60:27
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, PipelineVector.scala:60:27
         $fwrite(32'h80000002, "[%d] Core: ", c);	// Debug.scala:34:43, GTimer.scala:8:32, PipelineVector.scala:60:27
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:35:31, PipelineVector.scala:60:27
-        $fwrite(32'h80000002, "flush = %b, 0: frontend:(%d,%d), backend:(%d,%d); 1: frontend:(%d,%d), backend:(%d,%d)\n", _frontend_io_flushVec, _frontend_io_out_0_valid, _frontend_io_out_0_ready_T_1, _backend_io_in_0_valid_T, _backend_io_in_0_ready, _frontend_io_out_1_valid, _frontend_io_out_1_ready_T_1, _backend_io_in_1_valid_T_1, 1'h0);	// <stdin>:4075:10, Debug.scala:35:31, PipelineVector.scala:33:48, :34:48, :39:46, :44:66, :60:27, TopMain.scala:31:50, :39:37
+        $fwrite(32'h80000002, "flush = %b, 0: frontend:(%d,%d), backend:(%d,%d); 1: frontend:(%d,%d), backend:(%d,%d)\n", _frontend_io_flushVec, _frontend_io_out_0_valid, _frontend_io_out_0_ready_T_1, _backend_io_in_0_valid_T, _backend_io_in_0_ready, _frontend_io_out_1_valid, _frontend_io_out_1_ready_T_1, _backend_io_in_1_valid_T_1, 1'h0);	// <stdin>:4080:10, Debug.scala:35:31, PipelineVector.scala:33:48, :34:48, :39:46, :44:66, :60:27, TopMain.scala:31:50, :39:37
     end // always @(posedge)
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4075:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4075:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4080:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4080:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_10;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_11;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_12;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_13;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_14;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_15;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_16;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_17;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_18;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_19;	// <stdin>:4075:10
-      automatic logic [31:0] _RANDOM_20;	// <stdin>:4075:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4075:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4075:10
+    initial begin	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_10;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_11;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_12;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_13;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_14;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_15;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_16;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_17;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_18;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_19;	// <stdin>:4080:10
+      automatic logic [31:0] _RANDOM_20;	// <stdin>:4080:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4080:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4080:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4075:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_10 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_11 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_12 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_13 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_14 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_15 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_16 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_17 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_18 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_19 = `RANDOM;	// <stdin>:4075:10
-        _RANDOM_20 = `RANDOM;	// <stdin>:4075:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4080:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_10 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_11 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_12 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_13 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_14 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_15 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_16 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_17 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_18 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_19 = `RANDOM;	// <stdin>:4080:10
+        _RANDOM_20 = `RANDOM;	// <stdin>:4080:10
         dataBuffer_0_cf_instr = {_RANDOM_0, _RANDOM_1};	// PipelineVector.scala:12:41
         dataBuffer_0_cf_pc = {_RANDOM_2, _RANDOM_3};	// PipelineVector.scala:12:41
         dataBuffer_0_cf_pnpc = {_RANDOM_4, _RANDOM_5};	// PipelineVector.scala:12:41
@@ -2714,8 +2725,8 @@ module Core(	// <stdin>:4075:10
         c = {_RANDOM_18[31:8], _RANDOM_19, _RANDOM_20[7:0]};	// GTimer.scala:8:32, PipelineVector.scala:12:41
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4075:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4075:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4080:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4080:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   Frontend_embedded frontend (	// TopMain.scala:31:50
@@ -2832,11 +2843,13 @@ module Core(	// <stdin>:4075:10
     .io_csr_regs_3                          (io_csr_regs_3),
     .io_difftest_commit_valid               (io_difftest_commit_valid),
     .io_difftest_commit_bits_decode_cf_pc   (io_difftest_commit_bits_decode_cf_pc),
-    .io_difftest_commit_bits_decode_cf_pnpc (io_difftest_commit_bits_decode_cf_pnpc)
+    .io_difftest_commit_bits_decode_cf_pnpc (io_difftest_commit_bits_decode_cf_pnpc),
+    .io_difftest_redirect_target            (io_difftest_redirect_target),
+    .io_difftest_redirect_valid             (io_difftest_redirect_valid)
   );
 endmodule
 
-module AXI4Lite_Arbiter(	// <stdin>:4373:10
+module AXI4Lite_Arbiter(	// <stdin>:4379:10
   input         InstFetch_ar_valid,
   input  [31:0] InstFetch_ar_bits_addr,
   input         LoadStore_aw_valid,
@@ -2873,28 +2886,28 @@ module AXI4Lite_Arbiter(	// <stdin>:4373:10
   wire _T_2 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:35:{39,42}
   wire _T_4 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:42:{20,40}
   wire _GEN = _T | ~_T_2 & _T_4;	// AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :39:41, :42:{40,63}
-  assign InstFetch_ar_ready = ~_T & _T_2 & Arbiter_ar_ready;	// <stdin>:4373:10, AXI4_Arbiter.scala:28:{33,56}, :32:41, :35:{39,63}
-  assign InstFetch_r_valid = ~_T & _T_2 & Arbiter_r_valid;	// <stdin>:4373:10, AXI4_Arbiter.scala:28:{33,56}, :32:41, :33:41, :35:{39,63}
-  assign InstFetch_r_bits_data = _T | ~_T_2 ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4373:10, AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :35:{39,63}
-  assign LoadStore_aw_ready = Arbiter_aw_ready;	// <stdin>:4373:10
-  assign LoadStore_w_ready = Arbiter_w_ready;	// <stdin>:4373:10
-  assign LoadStore_b_valid = Arbiter_b_valid;	// <stdin>:4373:10
-  assign LoadStore_ar_ready = _GEN & Arbiter_ar_ready;	// <stdin>:4373:10, AXI4_Arbiter.scala:28:56, :30:33, :35:63
-  assign LoadStore_r_valid = _GEN & Arbiter_r_valid;	// <stdin>:4373:10, AXI4_Arbiter.scala:28:56, :30:33, :31:41, :35:63
-  assign LoadStore_r_bits_data = _T | ~(_T_2 | ~_T_4) ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4373:10, AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :31:41, :35:{39,63}, :42:{40,63}
-  assign Arbiter_aw_valid = LoadStore_aw_valid;	// <stdin>:4373:10
-  assign Arbiter_aw_bits_addr = LoadStore_aw_bits_addr;	// <stdin>:4373:10
-  assign Arbiter_w_valid = LoadStore_w_valid;	// <stdin>:4373:10
-  assign Arbiter_w_bits_data = LoadStore_w_bits_data;	// <stdin>:4373:10
-  assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4373:10
-  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4373:10, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :37:33, :42:{40,63}, :44:33, :51:41
+  assign InstFetch_ar_ready = ~_T & _T_2 & Arbiter_ar_ready;	// <stdin>:4379:10, AXI4_Arbiter.scala:28:{33,56}, :32:41, :35:{39,63}
+  assign InstFetch_r_valid = ~_T & _T_2 & Arbiter_r_valid;	// <stdin>:4379:10, AXI4_Arbiter.scala:28:{33,56}, :32:41, :33:41, :35:{39,63}
+  assign InstFetch_r_bits_data = _T | ~_T_2 ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4379:10, AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :35:{39,63}
+  assign LoadStore_aw_ready = Arbiter_aw_ready;	// <stdin>:4379:10
+  assign LoadStore_w_ready = Arbiter_w_ready;	// <stdin>:4379:10
+  assign LoadStore_b_valid = Arbiter_b_valid;	// <stdin>:4379:10
+  assign LoadStore_ar_ready = _GEN & Arbiter_ar_ready;	// <stdin>:4379:10, AXI4_Arbiter.scala:28:56, :30:33, :35:63
+  assign LoadStore_r_valid = _GEN & Arbiter_r_valid;	// <stdin>:4379:10, AXI4_Arbiter.scala:28:56, :30:33, :31:41, :35:63
+  assign LoadStore_r_bits_data = _T | ~(_T_2 | ~_T_4) ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4379:10, AXI4.scala:96:27, AXI4_Arbiter.scala:28:{33,56}, :31:41, :35:{39,63}, :42:{40,63}
+  assign Arbiter_aw_valid = LoadStore_aw_valid;	// <stdin>:4379:10
+  assign Arbiter_aw_bits_addr = LoadStore_aw_bits_addr;	// <stdin>:4379:10
+  assign Arbiter_w_valid = LoadStore_w_valid;	// <stdin>:4379:10
+  assign Arbiter_w_bits_data = LoadStore_w_bits_data;	// <stdin>:4379:10
+  assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4379:10
+  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4379:10, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :37:33, :42:{40,63}, :44:33, :51:41
   assign Arbiter_ar_bits_addr = _T ? LoadStore_ar_bits_addr : _T_2 ? InstFetch_ar_bits_addr : _T_4 ? LoadStore_ar_bits_addr
-                : 32'h0;	// <stdin>:4373:10, AXI4.scala:73:27, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :37:33, :42:{40,63}, :44:33
+                : 32'h0;	// <stdin>:4379:10, AXI4.scala:73:27, AXI4_Arbiter.scala:28:{33,56}, :30:33, :35:{39,63}, :37:33, :42:{40,63}, :44:33
 endmodule
 
 // external module MEM
 
-module TP_SRAM(	// <stdin>:4439:10
+module TP_SRAM(	// <stdin>:4445:10
   input         clock,
                 reset,
                 io_aw_valid,
@@ -2923,23 +2936,23 @@ module TP_SRAM(	// <stdin>:4439:10
       rReadStatuOK <= io_ar_valid & ~rReadStatuOK;	// TP_SRAM.scala:30:36, :56:{41,44}
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4439:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4439:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4439:10
+  `ifndef SYNTHESIS	// <stdin>:4445:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4445:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4445:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4439:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4439:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4439:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4439:10
+    initial begin	// <stdin>:4445:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4445:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4445:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4445:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4439:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4439:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4445:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4445:10
         rWriteStatuOK = _RANDOM_0[0];	// TP_SRAM.scala:29:36
         rReadStatuOK = _RANDOM_0[1];	// TP_SRAM.scala:29:36, :30:36
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4439:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4439:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4445:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4445:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   MEM mem (	// TP_SRAM.scala:25:25
@@ -2951,14 +2964,14 @@ module TP_SRAM(	// <stdin>:4439:10
     .iWriteData (io_w_bits_data),
     .oReadData  (io_r_bits_data)
   );
-  assign io_aw_ready = io_aw_valid;	// <stdin>:4439:10
-  assign io_w_ready = io_w_valid;	// <stdin>:4439:10
-  assign io_b_valid = rWriteStatuOK;	// <stdin>:4439:10, TP_SRAM.scala:29:36
-  assign io_ar_ready = io_ar_valid;	// <stdin>:4439:10
-  assign io_r_valid = rReadStatuOK;	// <stdin>:4439:10, TP_SRAM.scala:30:36
+  assign io_aw_ready = io_aw_valid;	// <stdin>:4445:10
+  assign io_w_ready = io_w_valid;	// <stdin>:4445:10
+  assign io_b_valid = rWriteStatuOK;	// <stdin>:4445:10, TP_SRAM.scala:29:36
+  assign io_ar_ready = io_ar_valid;	// <stdin>:4445:10
+  assign io_r_valid = rReadStatuOK;	// <stdin>:4445:10, TP_SRAM.scala:30:36
 endmodule
 
-module SimTop(	// <stdin>:4482:10
+module SimTop(	// <stdin>:4488:10
   input         clock,
                 reset,
   output        io_commit,
@@ -3032,43 +3045,56 @@ module SimTop(	// <stdin>:4482:10
   wire        _core_io_dmem_ar_valid;	// SimTop.scala:29:26
   wire [31:0] _core_io_dmem_ar_bits_addr;	// SimTop.scala:29:26
   wire        _core_io_difftest_commit_valid;	// SimTop.scala:29:26
+  wire [63:0] _core_io_difftest_commit_bits_decode_cf_pc;	// SimTop.scala:29:26
   wire [63:0] _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:29:26
+  wire [63:0] _core_io_difftest_redirect_target;	// SimTop.scala:29:26
+  wire        _core_io_difftest_redirect_valid;	// SimTop.scala:29:26
   reg         io_commit_REG;	// SimTop.scala:53:29
+  reg  [63:0] io_pc_REG;	// SimTop.scala:54:25
   reg  [63:0] c;	// GTimer.scala:8:32
   always @(posedge clock) begin
     io_commit_REG <= _core_io_difftest_commit_valid;	// SimTop.scala:29:26, :53:29
+    if (_core_io_difftest_redirect_valid)	// SimTop.scala:29:26
+      io_pc_REG <= _core_io_difftest_redirect_target;	// SimTop.scala:29:26, :54:25
+    else	// SimTop.scala:29:26
+      io_pc_REG <= _core_io_difftest_commit_bits_decode_cf_pc;	// SimTop.scala:29:26, :54:25
     if (reset)
       c <= 64'h0;	// GTimer.scala:8:32, SimTop.scala:30:29
     else
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4482:10
+  `ifndef SYNTHESIS	// <stdin>:4488:10
     always @(posedge clock) begin	// Debug.scala:34:43
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] SimTop: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
         $fwrite(32'h80000002, "DIFFTEST pc %x valid %b\n", _core_io_difftest_commit_bits_decode_cf_pnpc, _core_io_difftest_commit_valid);	// Debug.scala:34:43, :35:31, SimTop.scala:29:26
     end // always @(posedge)
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4482:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4482:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4488:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4488:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4482:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4482:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4482:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:4482:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4482:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4482:10
+    initial begin	// <stdin>:4488:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4488:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4488:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4488:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:4488:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:4488:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4488:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4488:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4482:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4482:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4482:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:4482:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4488:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4488:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4488:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:4488:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:4488:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:4488:10
         io_commit_REG = _RANDOM_0[0];	// SimTop.scala:53:29
-        c = {_RANDOM_0[31:1], _RANDOM_1, _RANDOM_2[0]};	// GTimer.scala:8:32, SimTop.scala:53:29
+        io_pc_REG = {_RANDOM_0[31:1], _RANDOM_1, _RANDOM_2[0]};	// SimTop.scala:53:29, :54:25
+        c = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// GTimer.scala:8:32, SimTop.scala:54:25
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4482:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4482:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4488:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4488:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   Core core (	// SimTop.scala:29:26
@@ -3128,8 +3154,10 @@ module SimTop(	// <stdin>:4482:10
     .io_csr_regs_2                          (io_csr_regs_2),
     .io_csr_regs_3                          (io_csr_regs_3),
     .io_difftest_commit_valid               (_core_io_difftest_commit_valid),
-    .io_difftest_commit_bits_decode_cf_pc   (io_pc),
-    .io_difftest_commit_bits_decode_cf_pnpc (_core_io_difftest_commit_bits_decode_cf_pnpc)
+    .io_difftest_commit_bits_decode_cf_pc   (_core_io_difftest_commit_bits_decode_cf_pc),
+    .io_difftest_commit_bits_decode_cf_pnpc (_core_io_difftest_commit_bits_decode_cf_pnpc),
+    .io_difftest_redirect_target            (_core_io_difftest_redirect_target),
+    .io_difftest_redirect_valid             (_core_io_difftest_redirect_valid)
   );
   AXI4Lite_Arbiter arbiter (	// SimTop.scala:30:29
     .InstFetch_ar_valid     (_core_io_imem_ar_valid),	// SimTop.scala:29:26
@@ -3181,7 +3209,8 @@ module SimTop(	// <stdin>:4482:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
-  assign io_commit = io_commit_REG;	// <stdin>:4482:10, SimTop.scala:53:29
-  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4482:10, SimTop.scala:30:29
+  assign io_commit = io_commit_REG;	// <stdin>:4488:10, SimTop.scala:53:29
+  assign io_pc = io_pc_REG;	// <stdin>:4488:10, SimTop.scala:54:25
+  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4488:10, SimTop.scala:30:29
 endmodule
 
