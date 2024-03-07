@@ -46,7 +46,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 	val funct3 = io.instr(14, 12)
 
 	// LSU control FSM state
-	val s_idle :: s_exec :: s_load :: Nil = Enum(3)
+	val s_idle :: s_exec :: s_load /*:: s_lr :: s_sc :: s_amo_l :: s_amo_a :: s_amo_s*/ :: Nil = Enum(3)
 
 	// LSU control FSM
 	val state = RegInit(s_idle)
@@ -234,8 +234,6 @@ class LSExecUnit extends MarCoreModule {
 			}
 		}
 	}
-
-	Info("[LSU EXEC] stateRW (%x,%x)\n", state_read, state_write)
 
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
 		"[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n",

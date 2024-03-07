@@ -235,8 +235,6 @@ class LSExecUnit extends MarCoreModule {
 		}
 	}
 
-	Info("[LSU EXEC] stateRW (%x,%x)\n", state_read, state_write)
-
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
 		"[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n",
 		addr, ctrl(1, 0), io.wdata, isStore)
