@@ -122,7 +122,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 		io.in.ready := true.B
 	}
 
-//	Debug(io.out.fire, "[LSU-AGU] state %x inv %x inr $x\n", state, io.in.valid, io.in.ready)
+	Debug(io.out.fire, "[LSU-AGU] state %x inv %x inr $x\n", state, io.in.valid, io.in.ready)
 
 	// Controled by FSM
 	io.in.ready := lsExecUnit.io.in.ready
