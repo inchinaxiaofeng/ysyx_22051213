@@ -235,7 +235,7 @@ class LSExecUnit extends MarCoreModule {
 		}
 	}
 
-	Info("[LSU EXEC] stateRW (%x,%x), bvalid %b bready %b\n",
+	Info("[LSU EXEC] stateRW (%x,%x), bvalid bready\n",
 		state_read, state_write, dmem.b.valid, dmem.b.ready)
 
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
