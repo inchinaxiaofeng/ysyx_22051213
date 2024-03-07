@@ -111,9 +111,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 			lsExecUnit.io.wdata			:= DontCare
 			io.in.ready					:= lsExecUnit.io.out.fire
 			io.out.valid				:= lsExecUnit.io.out.valid
-			when (lsExecUnit.io.out.fire) { state := s_idle 
-				Info("FFFFFFFFFFFFFFFFFFFFFFFFFFFFF yeah!\n")
-			} // load finished
+			when (lsExecUnit.io.out.fire) { state := s_idle } // load finished
 		}
 	}
 	when (/*dtlbPF || */io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned) {

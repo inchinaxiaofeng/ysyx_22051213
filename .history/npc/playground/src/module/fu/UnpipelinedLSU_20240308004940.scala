@@ -111,9 +111,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 			lsExecUnit.io.wdata			:= DontCare
 			io.in.ready					:= lsExecUnit.io.out.fire
 			io.out.valid				:= lsExecUnit.io.out.valid
-			when (lsExecUnit.io.out.fire) { state := s_idle 
-				Info("FFFFFFFFFFFFFFFFFFFFFFFFFFFFF yeah!\n")
-			} // load finished
+			when (lsExecUnit.io.out.fire) { state := s_idle } // load finished
 		}
 	}
 	when (/*dtlbPF || */io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned) {
@@ -122,20 +120,31 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 		io.in.ready := true.B
 	}
 
-	Debug(io.out.fire, "[LSU-AGU] state %x inv %x inr $x\n", state, io.in.valid, io.in.ready)
-
+//	Debug(io.out.fire, "[LSU-AGU] state %x inv %x inr $x\n", state, io.in.valid, io.in.ready)
 	// Controled by FSM
 	io.in.ready := lsExecUnit.io.in.ready
 	lsExecUnit.io.wdata := io.wdata
 	io.out.valid := lsExecUnit.io.out.valid
 
+	// Set LR/SC bits
+//	setLr := io.out.fire && (lrReq || scReq)
+//	setLrVal := lrReq
+//	setLrAddr := srcA
+
 	io.dmem <> lsExecUnit.io.dmem
-	io.out.bits := lsExecUnit.io.out.bits
+	io.out.bits := /*Mux(scReq, scInvalid, Mux(state === s_amo_s, atomRegReg, */lsExecUnit.io.out.bits/*))*/
+
+//	val lsuMMIO = WireInit(false.B)
+//	BoringUtils.addSink(lsuMMIO, "lsuMMIO")
+
+//	val mmioReg = RegInit(false.B)
+//	when (!mmioReg) { mmioReg := lsuMMIO }
+//	when (io.out.valid) { mmioReg := false.B }
+//	io.isMMIO := mmioReg && io.out.valid
 
 	io.ioLoadAddrMisaligned := lsExecUnit.io.ioLoadAddrMisaligned
 	io.ioStoreAddrMisaligned := lsExecUnit.io.ioStoreAddrMisaligned
 }
-
 // 具体操作LS行为的模型
 class LSExecUnit extends MarCoreModule {
 	implicit val moduleName: String = this.name
