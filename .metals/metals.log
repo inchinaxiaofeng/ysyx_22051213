@@ -4509,3 +4509,4 @@ scala.meta.tokenizers.TokenizeException: <input>:70: error: unclosed string inte
 
 2024.03.08 00:59:58 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
 2024.03.08 01:00:01 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.08 01:00:37 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
