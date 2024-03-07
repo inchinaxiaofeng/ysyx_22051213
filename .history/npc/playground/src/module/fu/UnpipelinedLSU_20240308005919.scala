@@ -67,7 +67,6 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 	io.in.ready					:= false.B
 
 	switch (state) {
-		Info("[STATE] state %x\n", state)
 		is (s_idle) { // calculate address
 			lsExecUnit.io.in.valid		:= false.B
 			lsExecUnit.io.out.ready		:= DontCare
@@ -115,7 +114,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 			when (lsExecUnit.io.out.fire) { state := s_idle } // load finished
 		}
 	}
-	when (io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned) {
+	when (/*dtlbPF || */io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned) {
 		state := s_idle
 		io.out.valid := true.B
 		io.in.ready := true.B
