@@ -199,29 +199,39 @@ class LSExecUnit extends MarCoreModule {
 	val s_idle/* :: s_wait_tlb */:: s_wait_resp :: s_partialLoad :: Nil = Enum(3)
 	val state = RegInit(s_idle)
 
+//	val dtlbFinish = WireInit(false.B)
+//	val dtlbPF = WireInit(false.B)
+//	val dtlbEnable = WireInit(false.B)
+//	if (Settings.get("HasDTLB")) {
+//		BoringUtils.addSink(dtlbFinish, "DTLBFINISH")
+//		BoringUtils.addSink(dtlbPF, "DTLBPF")
+//		BoringUtils.addSink(dtlbEnable, "DTLBENABLE")
+//	}
+
+//	io.dtlbPF := dtlbPF
+
 	switch (state) {
 		is (s_idle) {
 //			when (dmem.req.fire && dtlbEnable ) { state := s_wait_tlb  }
-			when ((dmem.aw.ready&&dmem.w.ready) ||
-				(dmem.ar.ready&&dmem.r.ready)) {
+			when ((dmem.aw.ready&&dmem.w.ready) || (dmem.ar.ready&&dmem.r.ready)) {
 				state := s_wait_resp
 			}
 		}
+//		is (s_wait_tlb) {
+//			when (dtlbFinish && dtlbPF ) { state := s_idle }
+//			when (dtlbFinish && !dtlbPF) { state := s_wait_resp }
+//		}
 		is (s_wait_resp) { 
-			when (dmem.b.bits.resp === AXI4Parameters.RESP_OKAY ||
-				dmem.r.bits.resp === AXI4Parameters.RESP_OKAY) {
+			when (dmem.b.bits.resp === AXI4Parameters.RESP_OKAY||
+			dmem.r.bits.resp === AXI4Parameters.RESP_OKAY) {
 				state := Mux(partialLoad, s_partialLoad, s_idle)
 			}
 		}
 		is (s_partialLoad) { state := s_idle }
 	}
 
-	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] %x, size %x, wdata_raw %x, isStore %x\n",
-		addr, ctrl(1, 0), io.wdata, isStore)
-	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n",
-		dtlbFinish, dtlbPF, state, dmem.req.bits.addr, dmem.req.fire, dmem.resp.fire, dmem.resp.bits.rdata)
+//	Debug(dmem.req.fire, "[LSU] %x, size %x, wdata_raw %x, isStore %x\n", addr, ctrl(1, 0), io.wdata, isStore)
+//	Debug(dmem.req.fire, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbPF, state, dmem.req.bits.addr, dmem.req.fire, dmem.resp.fire, dmem.resp.bits.rdata)
 //	Debug(dtlbFinish && dtlbEnable, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbEnable, dtlbPF, state, dmem.req.bits.addr, dmem.resp.fire, dmem.resp.bits.rdata)
 
 	val size = ctrl(1, 0)

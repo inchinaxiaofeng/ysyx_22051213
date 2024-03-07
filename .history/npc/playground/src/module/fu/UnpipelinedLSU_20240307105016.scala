@@ -219,9 +219,7 @@ class LSExecUnit extends MarCoreModule {
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
 		"[LSU] %x, size %x, wdata_raw %x, isStore %x\n",
 		addr, ctrl(1, 0), io.wdata, isStore)
-	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n",
-		dtlbFinish, dtlbPF, state, dmem.req.bits.addr, dmem.req.fire, dmem.resp.fire, dmem.resp.bits.rdata)
+//	Debug(dmem.req.fire, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbPF, state, dmem.req.bits.addr, dmem.req.fire, dmem.resp.fire, dmem.resp.bits.rdata)
 //	Debug(dtlbFinish && dtlbEnable, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbEnable, dtlbPF, state, dmem.req.bits.addr, dmem.resp.fire, dmem.resp.bits.rdata)
 
 	val size = ctrl(1, 0)

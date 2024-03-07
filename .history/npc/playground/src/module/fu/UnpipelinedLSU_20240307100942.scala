@@ -38,17 +38,52 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 	// 暂时不需要任何关于原子操作的代码
 	val storeReq	= valid & LSUCtrl.isStore(ctrl)
 	val loadReq		= valid & LSUCtrl.isLoad(ctrl)
+//	val atomReq		= valid & LSUCtrl.isAtom(ctrl)
+//	val amoReq		= valid & LSUCtrl.isAMO(ctrl)
+//	val lrReq		= valid & LSUCtrl.isLR(ctrl)
+//	val scReq		= valid & LSUCtrl.isSC(ctrl)
 	if (Settings.get("HasDTLB")) {
 //		BoringUtils.addSource(WireInit(amoReq), "ISAMO")
 	}
+//	BoringUtils.addSource(WireInit(amoReq), "ISAMO2")
 
+//	val aq = io.instr(26)
+//	val rl = io.instr(25)
 	val funct3 = io.instr(14, 12)
+
+//	val atomWidthW = !funct3(0)
+//	val atomWidthD = funct3(0)
+
+	// Atom LR/SC Control Bits
+	// Maybe we needn't this time
+//	val setLr = Wire(Bool())
+//	val setLrVal = Wire(Bool())
+//	val setLrAddr = Wire(UInt(AddrBits.W))
+//	val lr = WireInit(Bool(), false.B)
+//	val lrAddr = WireInit(UInt(AddrBits.W), DontCare)
+//	BoringUtils.addSource(setLr, "set_lr")
+//	BoringUtils.addSource(setLrVal, "set_lr_val")
+//	BoringUtils.addSource(setLrAddr, "set_lr_addr")
+//	BoringUtils.addSource(lr, "lr")
+//	BoringUtils.addSource(lrAddr, "lr_addr")
+
+//	val scInvalid = (srcA =/= lrAddr || !lr) && scReq
+
+	// PF signal from TLB
+	// TODO
 
 	// LSU control FSM state
 	val s_idle :: s_exec :: s_load /*:: s_lr :: s_sc :: s_amo_l :: s_amo_a :: s_amo_s*/ :: Nil = Enum(3)
 
 	// LSU control FSM
 	val state = RegInit(s_idle)
+//	val atomMemReg = Reg(UInt(XLEN.W))
+//	val atomRegReg = Reg(UInt(XLEN.W))
+//	val atomALU = Module(new AtomALU)
+//	atomALU.io.srcA := atomMemReg
+//	atomALU.io.srcB := io.wdata
+//	atomALU.io.ctrl := ctrl
+//	atomALU.io.isWordOp := atomWidthW
 
 	val addr = if (IndependentAddrCalcState) {
 		RegNext(srcA + srcB, state === s_idle)
@@ -112,6 +147,82 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 			io.out.valid				:= lsExecUnit.io.out.valid
 			when (lsExecUnit.io.out.fire) { state := s_idle } // load finished
 		}
+
+//		is (s_amo_l) {
+//			lsExecUnit.io.in.valid		:= true.B
+//			lsExecUnit.io.out.ready		:= true.B
+//			lsExecUnit.io.in.bits.srcA	:= srcA
+//			lsExecUnit.io.in.bits.srcB	:= DontCare
+//			lsExecUnit.io.in.bits.ctrl	:= Mux(atomWidthD, LSUCtrl.ld, LSUCtrl.lw)
+//			lsExecUnit.io.wdata			:= DontCare
+//			io.in.ready					:= false.B
+//			io.out.valid				:= false.B
+//			when (lsExecUnit.io.out.fire) {
+//				state := s_amo_a;
+//				Debug("[AMO-L] lsExecUnit.io.out.bits %x addr %x srcB %x\n", lsExecUnit.io.out.bits, lsExecUnit.io.in.bits.srcA, io.wdata)
+//			}
+//			atomMemReg := lsExecUnit.io.out.bits
+//			atomRegReg := lsExecUnit.io.out.bits
+//		}
+
+//		is (s_amo_a) {
+//			lsExecUnit.io.in.valid		:= false.B
+//			lsExecUnit.io.out.ready		:= false.B
+//			lsExecUnit.io.in.bits.srcA	:= DontCare
+//			lsExecUnit.io.in.bits.srcB	:= DontCare
+//			lsExecUnit.io.in.bits.ctrl	:= DontCare
+//			lsExecUnit.io.wdata			:= DontCare
+//			io.in.ready					:= false.B
+//			io.out.valid				:= false.B
+//			state						:= s_amo_s
+//			atomMemReg					:= atomALU.io.result
+//			Debug("[AMO-A] srcA %x srcB %x res %x\n", atomMemReg, io.wdata, atomALU.io.result)
+//		}
+
+//		is (s_amo_s) {
+//			lsExecUnit.io.in.valid		:= true.B
+//			lsExecUnit.io.out.ready		:= io.out.ready
+//			lsExecUnit.io.in.bits.srcA	:= srcA
+//			lsExecUnit.io.in.bits.srcB	:= DontCare
+//			lsExecUnit.io.in.bits.ctrl	:= Mux(atomWidthD, LSUCtrl.sd, LSUCtrl.sw)
+//			lsExecUnit.io.wdata			:= atomMemReg
+//			io.in.ready					:= lsExecUnit.io.out.fire
+//			io.out.valid				:= lsExecUnit.io.out.fire
+//			when (lsExecUnit.io.out.fire) {
+//				state := s_idle;
+//				Debug("[AMO-S] atomRegReg %x addr %x\n", atomRegReg, lsExecUnit.io.in.bits.srcA)
+//			}
+//		}
+
+//		is (s_lr) {
+//			lsExecUnit.io.in.valid		:= true.B
+//			lsExecUnit.io.out.ready		:= io.out.ready
+//			lsExecUnit.io.in.bits.srcA	:= srcA
+//			lsExecUnit.io.in.bits.srcB	:= DontCare
+//			lsExecUnit.io.in.bits.ctrl	:= Mux(atomWidthD, LSUCtrl.ld, LSUCtrl.lw)
+//			lsExecUnit.io.wdata			:= DontCare
+//			io.in.ready					:= lsExecUnit.io.out.fire
+//			io.out.valid				:= lsExecUnit.io.out.fire
+//			when (lsExecUnit.io.out.fire) {
+//				state := s_idle;
+//				Debug("[LR]\n")
+//			}
+//		}
+
+//		is (s_sc) {
+//			lsExecUnit.io.in.valid		:= true.B
+//			lsExecUnit.io.out.ready		:= io.out.ready
+//			lsExecUnit.io.in.bits.srcA	:= srcA
+//			lsExecUnit.io.in.bits.srcB	:= DontCare
+//			lsExecUnit.io.in.bits.ctrl	:= Mux(atomWidthD, LSUCtrl.sd, LSUCtrl.sw)
+//			lsExecUnit.io.wdata			:= io.wdata
+//			io.in.ready					:= lsExecUnit.io.out.fire
+//			io.out.valid				:= lsExecUnit.io.out.fire
+//			when (lsExecUnit.io.out.fire) {
+//				state := s_idle;
+//				Debug("[SC]\n")
+//			}
+//		}
 	}
 	when (/*dtlbPF || */io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned) {
 		state := s_idle
@@ -199,29 +310,39 @@ class LSExecUnit extends MarCoreModule {
 	val s_idle/* :: s_wait_tlb */:: s_wait_resp :: s_partialLoad :: Nil = Enum(3)
 	val state = RegInit(s_idle)
 
+//	val dtlbFinish = WireInit(false.B)
+//	val dtlbPF = WireInit(false.B)
+//	val dtlbEnable = WireInit(false.B)
+	if (Settings.get("HasDTLB")) {
+//		BoringUtils.addSink(dtlbFinish, "DTLBFINISH")
+//		BoringUtils.addSink(dtlbPF, "DTLBPF")
+//		BoringUtils.addSink(dtlbEnable, "DTLBENABLE")
+	}
+
+//	io.dtlbPF := dtlbPF
+
 	switch (state) {
 		is (s_idle) {
 //			when (dmem.req.fire && dtlbEnable ) { state := s_wait_tlb  }
-			when ((dmem.aw.ready&&dmem.w.ready) ||
-				(dmem.ar.ready&&dmem.r.ready)) {
+			when ((dmem.aw.ready&&dmem.w.ready) || (dmem.ar.ready&&dmem.r.ready)) {
 				state := s_wait_resp
 			}
 		}
+//		is (s_wait_tlb) {
+//			when (dtlbFinish && dtlbPF ) { state := s_idle }
+//			when (dtlbFinish && !dtlbPF) { state := s_wait_resp }
+//		}
 		is (s_wait_resp) { 
-			when (dmem.b.bits.resp === AXI4Parameters.RESP_OKAY ||
-				dmem.r.bits.resp === AXI4Parameters.RESP_OKAY) {
+			when (dmem.b.bits.resp === AXI4Parameters.RESP_OKAY||
+			dmem.r.bits.resp === AXI4Parameters.RESP_OKAY) {
 				state := Mux(partialLoad, s_partialLoad, s_idle)
 			}
 		}
 		is (s_partialLoad) { state := s_idle }
 	}
 
-	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] %x, size %x, wdata_raw %x, isStore %x\n",
-		addr, ctrl(1, 0), io.wdata, isStore)
-	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n",
-		dtlbFinish, dtlbPF, state, dmem.req.bits.addr, dmem.req.fire, dmem.resp.fire, dmem.resp.bits.rdata)
+//	Debug(dmem.req.fire, "[LSU] %x, size %x, wdata_raw %x, isStore %x\n", addr, ctrl(1, 0), io.wdata, isStore)
+//	Debug(dmem.req.fire, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbPF, state, dmem.req.bits.addr, dmem.req.fire, dmem.resp.fire, dmem.resp.bits.rdata)
 //	Debug(dtlbFinish && dtlbEnable, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbEnable, dtlbPF, state, dmem.req.bits.addr, dmem.resp.fire, dmem.resp.bits.rdata)
 
 	val size = ctrl(1, 0)
