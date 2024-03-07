@@ -410,6 +410,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    1,(1U & (~ (IData)((3U == (3U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr)))))));
     }
     if (vlSelf->reset) {
+        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c_1 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c = 0ULL;
@@ -443,6 +444,8 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_write = 0U;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_read = 0U;
     } else {
+        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c_1 
+            = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c_1);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c 
