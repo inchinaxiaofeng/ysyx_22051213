@@ -24,6 +24,8 @@ class TP_SRAM extends MarCoreModule {
 
 	val mem	= Module(new MEM())
 	// Used to simulate SRAM delay, OK == run
+//	val rWriteBuilded	= RegInit(false.B)
+//	val rReadBuilded	= RegInit(false.B)
 	val rWriteStatuOK = RegInit(false.B)
 	val rReadStatuOK  = RegInit(false.B)
 	/* Just push the data to SRAM and use enable signal control */

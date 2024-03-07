@@ -197,7 +197,7 @@ class LSExecUnit extends MarCoreModule {
 	val isStore = valid && LSUCtrl.isStore(ctrl)
 	val partialLoad = !isStore && (ctrl =/= LSUCtrl.ld)
 
-	val sr_idle :: sr_wait_resp :: sr_partialLoad :: Nil = Enum(3)
+	val sr_idle :: sr_wait_resp :: Nil = Enum(2)
 	val sw_idle :: sw_wait_aw :: sw_wait_w :: sw_wait_resp :: Nil = Enum(4)
 	val state_read = RegInit(sr_idle)
 	val state_write = RegInit(sw_idle)
@@ -205,17 +205,15 @@ class LSExecUnit extends MarCoreModule {
 	switch (sr_idle) {
 		is (sr_idle) {
 			when (dmem.ar.ready && valid && !isStore) {
-				state_read := sr_wait_resp	
+				state_read := sr_wait_resp				
 			}
 		}
 
 		is (sr_wait_resp) {
 			when (dmem.r.valid && dmem.r.ready) {
-				state_read := Mux(partialLoad, sr_partialLoad, sr_wait_resp)
+				state_read := sr_wait_resp
 			}
 		}
-
-		is (sr_partialLoad) { state_read := sr_idle}
 	}
 
 	switch (sw_idle) {
@@ -248,9 +246,9 @@ class LSExecUnit extends MarCoreModule {
 		"[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n",
 		addr, ctrl(1, 0), io.wdata, isStore)
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] stateRW (%x,%x) Raddr %x Waddr %x rFire %x bFire %d Rdata %x\n",
-		state_read, state_write, dmem.ar.bits.addr, dmem.aw.bits.addr,
-		dmem.r.fire, dmem.b.fire, dmem.r.bits.data)
+		"[LSU] state %d addr %x Waddr %x rValid %x %d Rdata %x\n",
+//		"[LSU] state %d addr %x dmemReqFire %d dmemRespFire %d dmemRdata %x\n",
+		state, dmem.ar.bits.addr, dmem.aw.bits.addr, dmem.req.fire, dmem.resp.fire, dmem.r.bits.data)
 //	Debug(dtlbFinish && dtlbEnable, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbEnable, dtlbPF, state, dmem.req.bits.addr, dmem.resp.fire, dmem.resp.bits.rdata)
 
 	val size = ctrl(1, 0)
@@ -268,18 +266,13 @@ class LSExecUnit extends MarCoreModule {
 
 	io.out.valid := Mux(
 		io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned,
-		true.B, Mux(partialLoad,
-			state_read === sr_partialLoad,
-			(dmem.r.fire || dmem.b.fire) &&
-			(state_read === sr_wait_resp || state_write === sw_wait_resp)
-		)
+		true.B,
+		(dmem.r.fire || dmem.b.fire) &&
+		(state_read === sr_wait_resp || state_write === sw_wait_resp)
 	)
 	io.in.ready := state_read === sr_idle && state_write === sw_idle
 
-	Debug(io.out.fire, 
-		"[LSU-EXECUNIT] stateRW (%x,%x) rResp %x wResp %x lm %x sm %x\n", 
-		state_read, state_write, dmem.r.fire, dmem.b.fire,
-		io.ioLoadAddrMisaligned, io.ioStoreAddrMisaligned)
+	Debug(io.out.fire, "[LSU-EXECUNIT] state %x rResp %x wResp %x lm %x sm %x\n", state, dmem.r.fire, dmem.b.fire, io.ioLoadAddrMisaligned, io.ioStoreAddrMisaligned)
 
 	val rdata = dmem.r.bits.data
 	val rdataLatch = RegNext(rdata)
@@ -323,11 +316,10 @@ class LSExecUnit extends MarCoreModule {
 //	BoringUtils.addSink(isAMO, "ISAMO2")
 //	BoringUtils.addSource(addr, "LSUADDR")
 
-	io.ioLoadAddrMisaligned  := valid && !isStore && !addrAligned
-	io.ioStoreAddrMisaligned := valid && isStore && !addrAligned
+	io.ioLoadAddrMisaligned  := valid && !isStore /*&& !isAMO*/ && !addrAligned
+	io.ioStoreAddrMisaligned := valid && (isStore/* || isAMO*/) && !addrAligned
 
-	Debug(io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned,
-		"[EXCEPTION] misaligned addr detected\n")
+	Debug(io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned, "[EXCEPTION] misaligned addr detected\n")
 
 //	BoringUtils.addSource(WireInit(dmem.isRead && dmem.req.fire), "perfCntCondMloadInstr")
 //	BoringUtils.addSource(BoolStopWatch(dmem.isRead, dmem.resp.fire), "perfCntCondMloadStall")

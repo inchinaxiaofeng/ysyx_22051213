@@ -20,10 +20,16 @@ object LSUCtrl {
 	def sw		= "b0001010".U
 	def sd		= "b0001011".U
 
+//	def lr		= "b0100000".U
+//	def sc		= "b0100001".U
+
 	def isAdd(ctrl: UInt) = ctrl(6)
 	def isAtom(ctrl: UInt): Bool = ctrl(5)
 	def isStore(ctrl: UInt): Bool = ctrl(3)
 	def isLoad(ctrl: UInt): Bool = !isStore(ctrl) & !isAtom(ctrl)
+//	def isLR(ctrl: UInt): Bool = ctrl === lr
+//	def isSC(ctrl: UInt): Bool = ctrl === sc
+//	def isAMO(ctrl: UInt): Bool = isAtom(ctrl) && !isLR(ctrl) && !isSC(ctrl)
 
 	def needMemRead(ctrl: UInt): Bool = isLoad(ctrl) // || isAMO(ctrl) || isLR(ctrl)
 	def needMemWrite(ctrl: UInt): Bool = isStore(ctrl) // || isAMO(ctrl) || isSC(ctrl)

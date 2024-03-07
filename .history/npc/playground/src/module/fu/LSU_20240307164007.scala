@@ -24,6 +24,9 @@ object LSUCtrl {
 	def isAtom(ctrl: UInt): Bool = ctrl(5)
 	def isStore(ctrl: UInt): Bool = ctrl(3)
 	def isLoad(ctrl: UInt): Bool = !isStore(ctrl) & !isAtom(ctrl)
+//	def isLR(ctrl: UInt): Bool = ctrl === lr
+//	def isSC(ctrl: UInt): Bool = ctrl === sc
+//	def isAMO(ctrl: UInt): Bool = isAtom(ctrl) && !isLR(ctrl) && !isSC(ctrl)
 
 	def needMemRead(ctrl: UInt): Bool = isLoad(ctrl) // || isAMO(ctrl) || isLR(ctrl)
 	def needMemWrite(ctrl: UInt): Bool = isStore(ctrl) // || isAMO(ctrl) || isSC(ctrl)

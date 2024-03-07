@@ -248,9 +248,9 @@ class LSExecUnit extends MarCoreModule {
 		"[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n",
 		addr, ctrl(1, 0), io.wdata, isStore)
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] stateRW (%x,%x) Raddr %x Waddr %x rFire %x bFire %d Rdata %x\n",
-		state_read, state_write, dmem.ar.bits.addr, dmem.aw.bits.addr,
-		dmem.r.fire, dmem.b.fire, dmem.r.bits.data)
+		"[LSU] stateRW (%x,%x) Raddr %x Waddr %x rValid %x %d Rdata %x\n",
+//		"[LSU] state %d addr %x dmemReqFire %d dmemRespFire %d dmemRdata %x\n",
+		state_read, state_write, dmem.ar.bits.addr, dmem.aw.bits.addr, dmem.req.fire, dmem.resp.fire, dmem.r.bits.data)
 //	Debug(dtlbFinish && dtlbEnable, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbEnable, dtlbPF, state, dmem.req.bits.addr, dmem.resp.fire, dmem.resp.bits.rdata)
 
 	val size = ctrl(1, 0)
