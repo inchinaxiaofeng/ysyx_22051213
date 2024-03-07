@@ -70,6 +70,8 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__2(VSimTop___024root* vl
     VL_ZERO_W(65, SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____VdfgTmp_ha05fe7d2__0);
     CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT____VdfgTmp_h46ed3be2__0;
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT____VdfgTmp_h46ed3be2__0 = 0;
+    CData/*0:0*/ SimTop__DOT__arbiter__DOT___GEN;
+    SimTop__DOT__arbiter__DOT___GEN = 0;
     VlWide<10>/*319:0*/ __Vtemp_h716d392e__0;
     VlWide<3>/*95:0*/ __Vtemp_ha8eb555e__0;
     VlWide<3>/*95:0*/ __Vtemp_h300296b8__0;
@@ -1594,14 +1596,17 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__2(VSimTop___024root* vl
     vlSelf->SimTop__DOT__arbiter__DOT____VdfgTmp_h8ed2ed50__0 
         = ((~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)) 
            & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_2));
-    vlSelf->SimTop__DOT__arbiter__DOT___GEN = ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T) 
-                                               | ((~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_2)) 
-                                                  & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_4)));
+    SimTop__DOT__arbiter__DOT___GEN = ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T) 
+                                       | ((~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_2)) 
+                                          & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_4)));
     vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid 
         = ((IData)(vlSelf->SimTop__DOT__arbiter__DOT____VdfgTmp_h8ed2ed50__0) 
            & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__rReadStatuOK));
+    vlSelf->SimTop__DOT___arbiter_LoadStore_ar_ready 
+        = ((IData)(SimTop__DOT__arbiter__DOT___GEN) 
+           & (IData)(vlSelf->SimTop__DOT___TP_SRAM_io_ar_ready));
     vlSelf->SimTop__DOT___arbiter_LoadStore_r_valid 
-        = ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN) 
+        = ((IData)(SimTop__DOT__arbiter__DOT___GEN) 
            & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__rReadStatuOK));
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_out_valid_T_2 
         = ((~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush)) 
@@ -1736,7 +1741,7 @@ void VSimTop___024root___eval(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                     VSimTop___024root___dump_triggers__act(vlSelf);
 #endif
-                    VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2968, "", "Active region did not converge.");
+                    VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2981, "", "Active region did not converge.");
                 }
                 vlSelf->__VactIterCount = ((IData)(1U) 
                                            + vlSelf->__VactIterCount);
@@ -1751,7 +1756,7 @@ void VSimTop___024root___eval(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VSimTop___024root___dump_triggers__nba(vlSelf);
 #endif
-                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2968, "", "NBA region did not converge.");
+                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 2981, "", "NBA region did not converge.");
             }
             __VnbaIterCount = ((IData)(1U) + __VnbaIterCount);
             VSimTop___024root___eval_nba(vlSelf);
