@@ -3716,3 +3716,5 @@ scala.meta.tokenizers.TokenizeException: <input>:69: error: unclosed string lite
 2024.03.07 10:50:16 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
 2024.03.07 10:50:48 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
 2024.03.07 10:50:55 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.07 10:51:34 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.07 10:51:48 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
