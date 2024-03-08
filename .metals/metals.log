@@ -4844,3 +4844,6 @@ scala.meta.tokenizers.TokenizeException: <input>:219: error: unclosed string int
 2024.03.08 14:36:09 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/IFU.scala
 2024.03.08 14:36:34 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/IFU.scala
 2024.03.08 14:36:55 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 14:37:16 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 14:37:30 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 14:37:54 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
