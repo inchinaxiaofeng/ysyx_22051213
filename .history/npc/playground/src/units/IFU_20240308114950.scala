@@ -56,7 +56,7 @@ class IFU_embedded extends MarCoreModule with HasResetVector {
 			when (io.imem.r.fire) { state := s_wait_resp}
 		}
 	}
-
+//	io.imem := DontCare
 	io.imem.ar.bits.apply(addr = pc)
 	io.imem.ar.valid := state === s_idle && io.out.ready
 	io.imem.r.ready := state === s_wait_resp && (io.out.ready || io.flushVec(0))
