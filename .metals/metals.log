@@ -5014,3 +5014,4 @@ Caused by: java.lang.UnsupportedOperationException: tail of empty list
 2024.03.08 15:11:32 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
 2024.03.08 15:11:34 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
 2024.03.08 15:11:48 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 15:12:24 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
