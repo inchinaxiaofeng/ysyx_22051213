@@ -35,23 +35,19 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 	LoadStore.b		<> Arbiter.b
 
 	when(InstFetch.ar.valid && LoadStore.ar.valid) {
-		Info("[LoadStore <> SRAM]")
 		// Both LoadStore and InstFetch send read request, satisfy LoadStore first
 		LoadStore.ar	<> Arbiter.ar
 		LoadStore.r		<> Arbiter.r
 	}.elsewhen(InstFetch.ar.valid && !LoadStore.ar.valid) {
-		Info("[InstFetch <> SRAM]")
 		// Only InstFetch
 		InstFetch.ar	<> Arbiter.ar
 		InstFetch.r		<> Arbiter.r
 	}.elsewhen(!InstFetch.ar.valid && LoadStore.ar.valid) {
-		Info("[LoadStore <> SRAM]")
 		// Only LoadStore
 		LoadStore.ar	<> Arbiter.ar
 		LoadStore.r		<> Arbiter.r
 	}.otherwise {
 		// No read request
-		Info("[DONT CARE <> SRAM]")
 		Arbiter.ar.valid	:= false.B
 		Arbiter.r.ready		:= false.B
 		Arbiter.ar.bits.apply()

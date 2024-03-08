@@ -51,7 +51,6 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 		LoadStore.r		<> Arbiter.r
 	}.otherwise {
 		// No read request
-		Info("[DONT CARE <> SRAM]")
 		Arbiter.ar.valid	:= false.B
 		Arbiter.r.ready		:= false.B
 		Arbiter.ar.bits.apply()
