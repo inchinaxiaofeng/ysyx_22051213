@@ -3018,7 +3018,7 @@ module AXI4Lite_Arbiter(	// <stdin>:4440:10
       if ((`PRINTF_COND_) & _GEN_3 & ~reset)	// AXI4_Arbiter.scala:48:63, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_3 & ~reset)	// AXI4_Arbiter.scala:48:63, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[DONT CARE <=x=> SRAM]\n");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[DONT CARE <===> SRAM]\n");	// Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4440:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4440:10
