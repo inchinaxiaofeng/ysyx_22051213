@@ -30,12 +30,9 @@ class TP_SRAM extends MarCoreModule {
 	val state_load = RegInit(s_idle)
 	val state_store = RegInit(s_idle)
 
-	Info("======================================= " +
-		"statels (%x,%x) arv %x arr %x araddr %x " +
-		"awv awr awaddr \n",
-		state_load, state_store,
-		io.ar.valid, io.ar.ready, io.ar.bits.addr,
-		io.aw.valid, io.aw.ready, io.aw.bits.addr)
+	Info("=======================================" +
+		" statels (%x,%x) arv %x arr %x\n",
+		state_load, state_store, io.ar.valid, io.ar.ready)
 
 
 	switch (state_load) {
