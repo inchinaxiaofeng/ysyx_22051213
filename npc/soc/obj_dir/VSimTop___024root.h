@@ -179,6 +179,7 @@ class VSimTop___024root final : public VerilatedModule {
         VL_OUT64(io_csr_regs_1,63,0);
         VL_OUT64(io_csr_regs_2,63,0);
         VL_OUT64(io_csr_regs_3,63,0);
+        QData/*63:0*/ SimTop__DOT___TP_SRAM_io_r_bits_data;
         QData/*63:0*/ SimTop__DOT__io_pc_REG;
         QData/*63:0*/ SimTop__DOT__core__DOT___frontend_io_out_0_bits_data_imm;
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_cf_instr;
@@ -210,9 +211,9 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_0;
     };
     struct {
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_0;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_2;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_3;
@@ -227,7 +228,9 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__xorRes;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__shsrcA;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__target;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__addrLatch;
@@ -256,8 +259,6 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__arbiter__DOT__c_2;
         QData/*63:0*/ SimTop__DOT__arbiter__DOT__c_3;
         QData/*63:0*/ SimTop__DOT__arbiter__DOT__c_4;
-        QData/*63:0*/ SimTop__DOT__TP_SRAM__DOT___mem_oReadData;
-        QData/*63:0*/ SimTop__DOT__TP_SRAM__DOT__c;
         QData/*63:0*/ __Vdlyvval__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
         VlUnpacked<QData/*63:0*/, 32> SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory;
         VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
