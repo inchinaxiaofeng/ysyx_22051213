@@ -41,7 +41,7 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 		LoadStore.ar	<> Arbiter.ar
 		LoadStore.r		<> Arbiter.r
 	}.elsewhen(InstFetch.ar.valid && !LoadStore.ar.valid) {
-		Info("[InstFetch <=X=> SRAM]\n")
+		Info("[InstFetch <===> SRAM]\n")
 		// Only InstFetch
 		InstFetch.ar	<> Arbiter.ar
 		InstFetch.r		<> Arbiter.r
