@@ -102,6 +102,14 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0 = 0;
     CData/*0:0*/ SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1;
     SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1 = 0;
+    CData/*0:0*/ SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2;
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2 = 0;
+    CData/*0:0*/ SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_3;
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_3 = 0;
+    CData/*0:0*/ SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_4;
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_4 = 0;
+    CData/*0:0*/ SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_5;
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_5 = 0;
     IData/*31:0*/ __Vdly__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy;
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy = 0;
     CData/*1:0*/ __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load;
@@ -113,6 +121,8 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     // Body
     vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_store 
         = vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store;
+    vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state 
+        = vlSelf->SimTop__DOT__arbiter__DOT__state;
     vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_load 
         = vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load;
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load 
@@ -175,9 +185,13 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
         VL_FWRITEF(0x80000002U,"MEM iReadAddr %x oReadData %x\n",
-                   32,((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN)
-                        ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
-                        : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc)),
+                   32,((0U != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))
+                        ? ((1U == (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))
+                            ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc)
+                            : (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA))
+                        : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN)
+                            ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
+                            : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc))),
                    64,vlSelf->SimTop__DOT__TP_SRAM__DOT___mem_oReadData);
     }
     vlSelf->__Vdly__SimTop__DOT__core__DOT__ringBufferHead 
@@ -245,37 +259,67 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode 
         = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode;
     SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0 
-        = ((~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)) 
-           & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_7));
+        = ((~ (IData)((0U != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state)))) 
+           & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_1));
     SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1 
-        = ((((~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)) 
-             & (~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_7))) 
-            & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready))) 
-           & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
-    if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T) 
+        = (1U & ((~ (IData)((0U != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state)))) 
+                 & (~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_1))));
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2 
+        = ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1) 
+           & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_8));
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_3 
+        = (((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1) 
+            & (~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_8))) 
+           & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_15));
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_4 
+        = ((0U != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state)) 
+           & (1U == (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state)));
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_5 
+        = (((0U != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state)) 
+            & (1U != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))) 
+           & (2U == (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state)));
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0) 
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[%20#] AXI4Lite_Arbiter: ",
                    64,vlSelf->SimTop__DOT__arbiter__DOT__c);
     }
-    if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T) 
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0) 
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM]\n");
     }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0) 
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2) 
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[%20#] AXI4Lite_Arbiter: ",
                    64,vlSelf->SimTop__DOT__arbiter__DOT__c_1);
     }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0) 
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[InstFetch <=X=> SRAM]\n");
+        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM]\n");
     }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1) 
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_3) 
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[%20#] AXI4Lite_Arbiter: ",
                    64,vlSelf->SimTop__DOT__arbiter__DOT__c_2);
     }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1) 
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_3) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM]\n");
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_4) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] AXI4Lite_Arbiter: ",
+                   64,vlSelf->SimTop__DOT__arbiter__DOT__c_3);
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_4) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM]\n");
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_5) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] AXI4Lite_Arbiter: ",
+                   64,vlSelf->SimTop__DOT__arbiter__DOT__c_4);
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_5) 
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM]\n");
     }
@@ -437,6 +481,8 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__TP_SRAM__DOT__c = 0ULL;
+        vlSelf->SimTop__DOT__arbiter__DOT__c_4 = 0ULL;
+        vlSelf->SimTop__DOT__arbiter__DOT__c_3 = 0ULL;
         vlSelf->SimTop__DOT__arbiter__DOT__c_2 = 0ULL;
         vlSelf->SimTop__DOT__arbiter__DOT__c_1 = 0ULL;
         vlSelf->SimTop__DOT__arbiter__DOT__c = 0ULL;
@@ -458,6 +504,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__c_1 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__c = 0ULL;
+        vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state = 0U;
         __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load = 0U;
         __Vdly__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy = 0U;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mtvec = 0ULL;
@@ -469,6 +516,10 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     } else {
         vlSelf->SimTop__DOT__TP_SRAM__DOT__c = (1ULL 
                                                 + vlSelf->SimTop__DOT__TP_SRAM__DOT__c);
+        vlSelf->SimTop__DOT__arbiter__DOT__c_4 = (1ULL 
+                                                  + vlSelf->SimTop__DOT__arbiter__DOT__c_4);
+        vlSelf->SimTop__DOT__arbiter__DOT__c_3 = (1ULL 
+                                                  + vlSelf->SimTop__DOT__arbiter__DOT__c_3);
         vlSelf->SimTop__DOT__arbiter__DOT__c_2 = (1ULL 
                                                   + vlSelf->SimTop__DOT__arbiter__DOT__c_2);
         vlSelf->SimTop__DOT__arbiter__DOT__c_1 = (1ULL 
@@ -510,6 +561,24 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__c 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__frontend__DOT__c);
         vlSelf->SimTop__DOT__core__DOT__c = (1ULL + vlSelf->SimTop__DOT__core__DOT__c);
+        if ((0U != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))) {
+            if (vlSelf->SimTop__DOT__arbiter__DOT___T_21) {
+                if (((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1) 
+                     & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))) {
+                    vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state = 0U;
+                }
+            } else if ((((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_28) 
+                         & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_store)) 
+                        & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store))) {
+                vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state = 0U;
+            }
+        } else if (vlSelf->SimTop__DOT__arbiter__DOT___T_1) {
+            vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state = 2U;
+        } else if (vlSelf->SimTop__DOT__arbiter__DOT___T_8) {
+            vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state = 1U;
+        } else if (vlSelf->SimTop__DOT__arbiter__DOT___T_15) {
+            vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state = 2U;
+        }
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk1__DOT___GEN_2 
             = (((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load) 
                 << 6U) | (((((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_out_valid_T_5) 
@@ -667,16 +736,31 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)
                                           ? (((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)) 
                                               | (~ 
-                                                 (((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN)
+                                                 (((0U 
+                                                    != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))
                                                     ? 
-                                                   (1U 
-                                                    == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load))
-                                                    : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1)) 
+                                                   ((1U 
+                                                     == (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))
+                                                     ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1)
+                                                     : 
+                                                    (1U 
+                                                     == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load)))
+                                                    : 
+                                                   ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN)
+                                                     ? 
+                                                    (1U 
+                                                     == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load))
+                                                     : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1))) 
                                                   & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)))) 
                                              & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))
-                                          : (((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN)
-                                               ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)
-                                               : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready)) 
+                                          : (((0U != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))
+                                               ? ((1U 
+                                                   == (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))
+                                                   ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready)
+                                                   : (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid))
+                                               : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN)
+                                                   ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)
+                                                   : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready))) 
                                              | (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_store 
         = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_store)
@@ -839,9 +923,17 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__1(VSimTop___024root* vl
         VSimTop___024root____Vdpiimwrap_SimTop__DOT__TP_SRAM__DOT__mem__DOT__vaddr_read_TOP(
                                                                                 (&(vlSymsp->__Vscope_SimTop__TP_SRAM__mem)), 
                                                                                 "/home/marinatoo/ysyx-workbench/npc/playground/resources/MEM.sv", 0x2cU, (QData)((IData)(
+                                                                                ((0U 
+                                                                                != (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))
+                                                                                 ? 
+                                                                                ((1U 
+                                                                                == (IData)(vlSelf->SimTop__DOT__arbiter__DOT__state))
+                                                                                 ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc)
+                                                                                 : (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA))
+                                                                                 : 
                                                                                 ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN)
                                                                                  ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
-                                                                                 : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc)))), 8U, __Vfunc_SimTop__DOT__TP_SRAM__DOT__mem__DOT__vaddr_read__0__Vfuncout);
+                                                                                 : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc))))), 8U, __Vfunc_SimTop__DOT__TP_SRAM__DOT__mem__DOT__vaddr_read__0__Vfuncout);
         vlSelf->SimTop__DOT__TP_SRAM__DOT___mem_oReadData 
             = __Vfunc_SimTop__DOT__TP_SRAM__DOT__mem__DOT__vaddr_read__0__Vfuncout;
     } else {
