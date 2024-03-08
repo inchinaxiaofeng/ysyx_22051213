@@ -1370,7 +1370,7 @@ module LSExecUnit(	// <stdin>:2254:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "================ stateRW (%x,%x), bvalid %b bready %b\n", state_read, state_write, io_dmem_b_valid, state_write);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:187:33, :188:34
+        $fwrite(32'h80000002, "==================== stateRW (%x,%x), bvalid %b bready %b\n", state_read, state_write, io_dmem_b_valid, state_write);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:187:33, :188:34
       if ((`PRINTF_COND_) & _T_22 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:221:43
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T_22 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:221:43
@@ -1515,7 +1515,7 @@ module UnpipelinedLSU(	// <stdin>:2610:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] UnpipelinedLSU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "================= state %x\n", 2'h0);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:45:28
+        $fwrite(32'h80000002, "===================================== state %x\n", 2'h0);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:45:28
       if ((`PRINTF_COND_) & _lsExecUnit_io_out_valid & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:32:32
         $fwrite(32'h80000002, "[%d] UnpipelinedLSU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _lsExecUnit_io_out_valid & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:32:32
@@ -3050,13 +3050,13 @@ module TP_SRAM(	// <stdin>:4523:10
     end
     else begin
       if (state_read)	// TP_SRAM.scala:30:33
-        state_read <= (~state_read | ~io_r_ready) & state_read;	// TP_SRAM.scala:30:33, :35:29, :41:{43,56}
+        state_read <= (~state_read | ~io_r_ready) & state_read;	// TP_SRAM.scala:30:33, :36:29, :42:{43,56}
       else	// TP_SRAM.scala:30:33
-        state_read <= ~state_read & io_ar_valid | state_read;	// Decoupled.scala:52:35, TP_SRAM.scala:30:33, :35:29, :37:{43,56}
+        state_read <= ~state_read & io_ar_valid | state_read;	// Decoupled.scala:52:35, TP_SRAM.scala:30:33, :36:29, :38:{43,56}
       if (state_write)	// TP_SRAM.scala:31:34
-        state_write <= (~state_write | ~io_b_ready) & state_write;	// TP_SRAM.scala:31:34, :45:30, :51:{43,57}
+        state_write <= (~state_write | ~io_b_ready) & state_write;	// TP_SRAM.scala:31:34, :46:30, :52:{43,57}
       else	// TP_SRAM.scala:31:34
-        state_write <= ~state_write & io_aw_valid & io_w_valid | state_write;	// TP_SRAM.scala:31:34, :45:30, :47:{42,56,70}
+        state_write <= ~state_write & io_aw_valid & io_w_valid | state_write;	// TP_SRAM.scala:31:34, :46:30, :48:{42,56,70}
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
     end
   end // always @(posedge)
@@ -3065,7 +3065,7 @@ module TP_SRAM(	// <stdin>:4523:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] TP_SRAM: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "=========== stateRW (%x,%x)\n", state_read, state_write);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:30:33, :31:34
+        $fwrite(32'h80000002, "===================== stateRW (%x,%x)\n", state_read, state_write);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:30:33, :31:34
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4523:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4523:10
@@ -3099,10 +3099,10 @@ module TP_SRAM(	// <stdin>:4523:10
     .iWriteData (io_w_bits_data),
     .oReadData  (io_r_bits_data)
   );
-  assign io_aw_ready = ~state_write;	// <stdin>:4523:10, TP_SRAM.scala:31:34, :45:30
-  assign io_w_ready = ~state_write;	// <stdin>:4523:10, TP_SRAM.scala:31:34, :45:30
+  assign io_aw_ready = ~state_write;	// <stdin>:4523:10, TP_SRAM.scala:31:34, :46:30
+  assign io_w_ready = ~state_write;	// <stdin>:4523:10, TP_SRAM.scala:31:34, :46:30
   assign io_b_valid = state_write;	// <stdin>:4523:10, TP_SRAM.scala:31:34
-  assign io_ar_ready = ~state_read;	// <stdin>:4523:10, TP_SRAM.scala:30:33, :35:29
+  assign io_ar_ready = ~state_read;	// <stdin>:4523:10, TP_SRAM.scala:30:33, :36:29
   assign io_r_valid = state_read;	// <stdin>:4523:10, TP_SRAM.scala:30:33
 endmodule
 
