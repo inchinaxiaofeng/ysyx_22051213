@@ -59,7 +59,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 	io.out.valid				:= false.B
 	io.in.ready					:= false.B
 
-//	Info("===================================== state %x\n", state)
+	Info("===================================== state %x\n", state)
 
 	switch (state) {
 		is (s_idle) { // calculate address

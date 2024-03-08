@@ -18,6 +18,15 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 	// "module part external" and
 	// "SoC/Simulation external"
 
+//	val s_idle :: s_imem_exec :: s_dmem_exec :: Nil = Enum(2)
+//	val state = RegInit(s_idle)
+//
+//	switch (state) {
+//		is (s_idle) {
+//
+//		}
+//	}
+
 	InstFetch := DontCare
 	LoadStore := DontCare
 	Arbiter := DontCare

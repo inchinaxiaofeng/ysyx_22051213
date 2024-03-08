@@ -17,7 +17,6 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 	// This is the interface between the
 	// "module part external" and
 	// "SoC/Simulation external"
-
 	InstFetch := DontCare
 	LoadStore := DontCare
 	Arbiter := DontCare
