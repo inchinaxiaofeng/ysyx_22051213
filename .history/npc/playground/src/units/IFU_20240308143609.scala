@@ -54,7 +54,7 @@ class IFU_embedded extends MarCoreModule with HasResetVector {
 	// Close AW and W channel by setting false.B to aw.valid and w.valid signal.
 	// Calling apply func with default args has no effect on closing a channel.
 //	io.imem.aw.valid := false.B;	io.imem.w.valid := false.B;
-//	io.imem.aw.bits.apply();		io.imem.w.bits.apply();
+	io.imem.aw.bits.apply();		io.imem.w.bits.apply();
 
 	io.out.bits := DontCare
 	io.out.bits.instr := io.imem.r.bits.data
