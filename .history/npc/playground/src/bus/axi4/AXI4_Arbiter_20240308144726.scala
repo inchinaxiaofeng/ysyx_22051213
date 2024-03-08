@@ -37,35 +37,35 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 		// Both LoadStore and InstFetch send read request, satisfy LoadStore first
 		LoadStore.ar	<> Arbiter.ar
 		LoadStore.r		<> Arbiter.r
-//		InstFetch.ar.ready	:= false.B
-//		InstFetch.r.valid	:= false.B
-//		InstFetch.r.bits.apply()
+		InstFetch.ar.ready	:= false.B
+		InstFetch.r.valid	:= false.B
+		InstFetch.r.bits.apply()
 	}.elsewhen(InstFetch.ar.valid && !LoadStore.ar.valid) {
 		// Only InstFetch
 		InstFetch.ar	<> Arbiter.ar
 		InstFetch.r		<> Arbiter.r
-//		LoadStore.ar.ready	:= false.B
-//		LoadStore.r.valid	:= false.B
-//		LoadStore.r.bits.apply()
+		LoadStore.ar.ready	:= false.B
+		LoadStore.r.valid	:= false.B
+		LoadStore.r.bits.apply()
 	}.elsewhen(!InstFetch.ar.valid && LoadStore.ar.valid) {
 		// Only LoadStore
 		LoadStore.ar	<> Arbiter.ar
 		LoadStore.r		<> Arbiter.r
-//		InstFetch.ar.ready	:= false.B
-//		InstFetch.r.valid	:= false.B
-//		InstFetch.r.bits.apply()
+		InstFetch.ar.ready	:= false.B
+		InstFetch.r.valid	:= false.B
+		InstFetch.r.bits.apply()
 	}.otherwise {
 		// No read request
 		Arbiter.ar.valid	:= false.B
 		Arbiter.r.ready		:= false.B
 		Arbiter.ar.bits.apply()
 
-//		InstFetch.ar.ready	:= false.B
-//		InstFetch.r.valid	:= false.B
-//		InstFetch.r.bits.apply()
-//
-//		LoadStore.ar.ready	:= false.B
-//		LoadStore.r.valid	:= false.B
-//		LoadStore.r.bits.apply()
+		InstFetch.ar.ready	:= false.B
+		InstFetch.r.valid	:= false.B
+		InstFetch.r.bits.apply()
+
+		LoadStore.ar.ready	:= false.B
+		LoadStore.r.valid	:= false.B
+		LoadStore.r.bits.apply()
 	}
 }
