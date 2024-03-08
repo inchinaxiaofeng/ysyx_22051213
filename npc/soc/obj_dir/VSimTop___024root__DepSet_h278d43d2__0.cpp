@@ -105,17 +105,24 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     CData/*1:0*/ __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode;
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode = 0;
     // Body
+    vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_store 
+        = vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store;
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
         VL_FWRITEF(0x80000002U,"[%20#] TP_SRAM: ",64,
                    vlSelf->SimTop__DOT__TP_SRAM__DOT__c);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"======================================= statels (%x,%x)\n",
+        VL_FWRITEF(0x80000002U,"======================================= statels (%x,%x)arv %x arr %x\n",
                    1,vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load,
-                   1,(IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store));
+                   1,(IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store),
+                   1,((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
+                       ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)
+                       : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_2)
+                           ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready)
+                           : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_4) 
+                              & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)))),
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
     }
-    vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_store 
-        = vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store;
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
         VL_FWRITEF(0x80000002U,"[%20#] Backend_inorder: ",
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__c);

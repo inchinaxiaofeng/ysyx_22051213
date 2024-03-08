@@ -3051,13 +3051,13 @@ module TP_SRAM(	// <stdin>:4524:10
     end
     else begin
       if (state_load)	// TP_SRAM.scala:30:33
-        state_load <= (~state_load | ~io_r_ready) & state_load;	// TP_SRAM.scala:30:33, :36:29, :42:{43,56}
+        state_load <= (~state_load | ~io_r_ready) & state_load;	// TP_SRAM.scala:30:33, :37:29, :43:{43,56}
       else	// TP_SRAM.scala:30:33
-        state_load <= ~state_load & io_ar_valid | state_load;	// Decoupled.scala:52:35, TP_SRAM.scala:30:33, :36:29, :38:{43,56}
+        state_load <= ~state_load & io_ar_valid | state_load;	// Decoupled.scala:52:35, TP_SRAM.scala:30:33, :37:29, :39:{43,56}
       if (state_store)	// TP_SRAM.scala:31:34
-        state_store <= (~state_store | ~io_b_ready) & state_store;	// TP_SRAM.scala:31:34, :46:30, :52:{43,57}
+        state_store <= (~state_store | ~io_b_ready) & state_store;	// TP_SRAM.scala:31:34, :47:30, :53:{43,57}
       else	// TP_SRAM.scala:31:34
-        state_store <= ~state_store & io_aw_valid & io_w_valid | state_store;	// TP_SRAM.scala:31:34, :46:30, :48:{42,56,70}
+        state_store <= ~state_store & io_aw_valid & io_w_valid | state_store;	// TP_SRAM.scala:31:34, :47:30, :49:{42,56,70}
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
     end
   end // always @(posedge)
@@ -3066,7 +3066,7 @@ module TP_SRAM(	// <stdin>:4524:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] TP_SRAM: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "======================================= statels (%x,%x)\n", state_load, state_store);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:30:33, :31:34
+        $fwrite(32'h80000002, "======================================= statels (%x,%x)arv %x arr %x\n", state_load, state_store, io_ar_valid, ~state_load);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:30:33, :31:34, :37:29
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4524:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4524:10
@@ -3100,10 +3100,10 @@ module TP_SRAM(	// <stdin>:4524:10
     .iWriteData (io_w_bits_data),
     .oReadData  (io_r_bits_data)
   );
-  assign io_aw_ready = ~state_store;	// <stdin>:4524:10, TP_SRAM.scala:31:34, :46:30
-  assign io_w_ready = ~state_store;	// <stdin>:4524:10, TP_SRAM.scala:31:34, :46:30
+  assign io_aw_ready = ~state_store;	// <stdin>:4524:10, TP_SRAM.scala:31:34, :47:30
+  assign io_w_ready = ~state_store;	// <stdin>:4524:10, TP_SRAM.scala:31:34, :47:30
   assign io_b_valid = state_store;	// <stdin>:4524:10, TP_SRAM.scala:31:34
-  assign io_ar_ready = ~state_load;	// <stdin>:4524:10, TP_SRAM.scala:30:33, :36:29
+  assign io_ar_ready = ~state_load;	// <stdin>:4524:10, TP_SRAM.scala:30:33, :37:29
   assign io_r_valid = state_load;	// <stdin>:4524:10, TP_SRAM.scala:30:33
 endmodule
 
