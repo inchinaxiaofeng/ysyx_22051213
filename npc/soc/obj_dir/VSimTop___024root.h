@@ -87,6 +87,7 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*5:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__shamt;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioStoreAddrMisaligned_T_2;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_ioLoadAddrMisaligned_T_3;
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_out_valid_T_5;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__isStore;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__partialLoad;
         CData/*1:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load;
@@ -97,6 +98,7 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_47;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_out_valid_T_10;
+        CData/*7:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk1__DOT___GEN_2;
         CData/*7:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT____VdfgTmp_h513adbfe__0;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__isDivSign;
         CData/*1:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode;
@@ -114,7 +116,7 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu__DOT___io_wb_rfWen_T;
         CData/*0:0*/ SimTop__DOT__arbiter__DOT___T;
         CData/*0:0*/ SimTop__DOT__arbiter__DOT___T_7;
-        CData/*0:0*/ SimTop__DOT__arbiter__DOT___T_14;
+        CData/*0:0*/ SimTop__DOT__arbiter__DOT___GEN;
         CData/*0:0*/ __Vdly__SimTop__DOT__core__DOT__ringBufferHead;
         CData/*4:0*/ __Vdlyvdim0__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
         CData/*0:0*/ __Vdlyvset__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
@@ -143,10 +145,10 @@ class VSimTop___024root final : public VerilatedModule {
         VL_OUT64(io_gpr_regs_6,63,0);
         VL_OUT64(io_gpr_regs_7,63,0);
         VL_OUT64(io_gpr_regs_8,63,0);
-        VL_OUT64(io_gpr_regs_9,63,0);
-        VL_OUT64(io_gpr_regs_10,63,0);
     };
     struct {
+        VL_OUT64(io_gpr_regs_9,63,0);
+        VL_OUT64(io_gpr_regs_10,63,0);
         VL_OUT64(io_gpr_regs_11,63,0);
         VL_OUT64(io_gpr_regs_12,63,0);
         VL_OUT64(io_gpr_regs_13,63,0);
@@ -209,10 +211,10 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_2;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_3;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_1;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__c;
     };
     struct {
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__c_1;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__c;
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___wbClearMask_T_6;
         QData/*62:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__unnamedblk1__DOT___isuFireSetMask_T_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_target;
