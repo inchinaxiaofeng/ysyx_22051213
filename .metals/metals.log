@@ -4663,3 +4663,10 @@ scala.meta.tokenizers.TokenizeException: <input>:70: error: unclosed string inte
 2024.03.08 10:58:15 INFO  compile Compilation failed
 2024.03.08 10:58:15 INFO  time: ran 'mill bloopInstall' in 25s
 2024.03.08 10:58:15 ERROR Mill command failed: /home/marinatoo/ysyx-workbench/.metals/millw --mill-version 0.11.7 --import ivy:com.lihaoyi::mill-contrib-bloop: mill.contrib.bloop.Bloop/install
+2024.03.08 11:09:57 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
+2024.03.08 11:10:12 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.08 11:10:28 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.08 11:10:31 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.08 11:10:35 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.08 11:10:37 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.08 11:10:45 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala

@@ -12,7 +12,9 @@ import top.Settings
 class UnpipeLSUIO extends FuCtrlIO {
 	val wdata = Input(UInt(XLEN.W))
 	val instr = Input(UInt(32.W)) // Atom insts need aq rl funct3 bit from instr
+//	val dmem = new SimpleBusUC(addrBits = VAddrBits)
 	val dmem = new AXI4Lite
+//	val isMMIO = Output(Bool())
 	val ioLoadAddrMisaligned = Output(Bool()) // TODO: refactor it for new backend
 	val ioStoreAddrMisaligned = Output(Bool()) // TODO: refactor it for new backend
 }
