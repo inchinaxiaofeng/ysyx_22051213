@@ -32,6 +32,7 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 	LoadStore.w		<> Arbiter.w
 	LoadStore.b		<> Arbiter.b
 
+
 	when(InstFetch.ar.valid && LoadStore.ar.valid) {
 		// Both LoadStore and InstFetch send read request, satisfy LoadStore first
 		LoadStore.ar	<> Arbiter.ar
