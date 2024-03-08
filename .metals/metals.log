@@ -4573,3 +4573,9 @@ scala.meta.tokenizers.TokenizeException: <input>:70: error: unclosed string inte
 2024.03.08 10:49:54 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.03.08 10:50:07 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/SimTop.scala
 2024.03.08 10:50:49 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
+2024.03.08 10:51:26 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.08 10:51:29 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.08 10:51:36 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.08 10:51:40 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.08 10:51:45 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.08 10:52:08 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
