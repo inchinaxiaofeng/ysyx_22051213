@@ -229,7 +229,9 @@ class LSExecUnit extends MarCoreModule {
 		}
 
 		is (sw_wait_resp) {
-			when (dmem.b.fire) { state_write := sw_idle }
+			when (dmem.b.valid && dmem.b.ready) {
+				state_write := sw_idle
+			}
 		}
 	}
 

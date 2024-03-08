@@ -4515,3 +4515,12 @@ scala.meta.tokenizers.TokenizeException: <input>:70: error: unclosed string inte
 2024.03.08 01:05:52 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
 2024.03.08 01:07:11 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
 2024.03.08 01:07:25 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.08 10:02:43 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
+2024.03.08 10:03:05 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
+2024.03.08 10:04:06 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
+2024.03.08 10:04:14 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
+3月 08, 2024 10:04:23 上午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 29985
+2024.03.08 10:09:12 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
+2024.03.08 10:09:21 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.08 10:09:48 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala

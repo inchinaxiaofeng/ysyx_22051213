@@ -24,21 +24,21 @@ class TP_SRAM extends MarCoreModule {
 
 	val mem	= Module(new MEM())
 
-//	val sr_idle :: sr_exec :: Nil = Enum(2)
-//	val state_read = RegInit(sr_idle)
-//
-//	switch (state_read) {
-//		is (sr_idle) {
-//			when (io.ar.valid && io.ar.ready) {
-//				state_read := sr_exec				
-//			}
-//		}
-//
-//		is (sr_exec) {
-//
-//		}
-//	}
-//
+	val sr_idle :: sr_exec :: Nil = Enum(2)
+	val state_read = RegInit(sr_idle)
+
+	switch (state_read) {
+		is (sr_idle) {
+			when (io.ar.valid && io.ar.ready) {
+				state_read := sr_exec
+			}
+		}
+
+		is (sr_exec) {
+
+		}
+	}
+
 	// Used to simulate SRAM delay, OK == run
 	val rWriteStatuOK = RegInit(false.B)
 	val rReadStatuOK  = RegInit(false.B)
