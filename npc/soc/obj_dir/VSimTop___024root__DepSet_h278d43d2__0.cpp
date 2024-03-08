@@ -98,6 +98,10 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk2__DOT___T_18 = 0;
     CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk2__DOT___T_28;
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk2__DOT___T_28 = 0;
+    CData/*0:0*/ SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0;
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0 = 0;
+    CData/*0:0*/ SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1;
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1 = 0;
     IData/*31:0*/ __Vdly__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy;
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy = 0;
     CData/*1:0*/ __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load;
@@ -240,6 +244,41 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus;
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode 
         = vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode;
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0 
+        = ((~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)) 
+           & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_7));
+    SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1 
+        = ((((~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)) 
+             & (~ (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_7))) 
+            & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready))) 
+           & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
+    if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] AXI4Lite_Arbiter: ",
+                   64,vlSelf->SimTop__DOT__arbiter__DOT__c);
+    }
+    if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM]\n");
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] AXI4Lite_Arbiter: ",
+                   64,vlSelf->SimTop__DOT__arbiter__DOT__c_1);
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[InstFetch <=X=> SRAM]\n");
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] AXI4Lite_Arbiter: ",
+                   64,vlSelf->SimTop__DOT__arbiter__DOT__c_2);
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_1) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM]\n");
+    }
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__unnamedblk1__DOT___T_1 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_valid) 
            | (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_redirect_valid));
@@ -398,6 +437,9 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (vlSelf->reset) {
         vlSelf->SimTop__DOT__TP_SRAM__DOT__c = 0ULL;
+        vlSelf->SimTop__DOT__arbiter__DOT__c_2 = 0ULL;
+        vlSelf->SimTop__DOT__arbiter__DOT__c_1 = 0ULL;
+        vlSelf->SimTop__DOT__arbiter__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_3 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_2 = 0ULL;
@@ -427,6 +469,12 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     } else {
         vlSelf->SimTop__DOT__TP_SRAM__DOT__c = (1ULL 
                                                 + vlSelf->SimTop__DOT__TP_SRAM__DOT__c);
+        vlSelf->SimTop__DOT__arbiter__DOT__c_2 = (1ULL 
+                                                  + vlSelf->SimTop__DOT__arbiter__DOT__c_2);
+        vlSelf->SimTop__DOT__arbiter__DOT__c_1 = (1ULL 
+                                                  + vlSelf->SimTop__DOT__arbiter__DOT__c_1);
+        vlSelf->SimTop__DOT__arbiter__DOT__c = (1ULL 
+                                                + vlSelf->SimTop__DOT__arbiter__DOT__c);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_3 
