@@ -58,8 +58,8 @@ class IFU_embedded extends MarCoreModule with HasResetVector {
 	}
 //	io.imem := DontCare
 	io.imem.ar.bits.apply(addr = pc)
-	io.imem.ar.valid := state === s_idle && io.out.ready
-	io.imem.r.ready := state === s_wait_resp && (io.out.ready || io.flushVec(0))
+	io.imem.ar.valid := io.out.ready
+	io.imem.r.ready := io.out.ready || io.flushVec(0)
 	// Close B channel by setting false.B to b.ready signal.
 	io.imem.b.ready := false.B
 	// Close AW and W channel by setting false.B to aw.valid and w.valid signal.

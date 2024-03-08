@@ -45,21 +45,11 @@ class IFU_embedded extends MarCoreModule with HasResetVector {
 	io.flushVec := Mux(io.redirect.valid, "b1111".U, 0.U)
 	io.bpFlush := false.B
 
-	val s_idle :: s_wait_resp :: Nil = Enum(2)
-	val state = RegInit(s_idle)
-	switch (state) {
-		is (s_idle) {
-			when (dmem.ar.fire) { state := s_wait_resp}
-		}
-
-		is (s_wait_resp) {
-			when (dmem.r.fire) { state := s_wait_resp}
-		}
-	}
+	val s_idle :: sl_wait_resp :: Nil = Enum(2)
 //	io.imem := DontCare
 	io.imem.ar.bits.apply(addr = pc)
-	io.imem.ar.valid := state === s_idle && io.out.ready
-	io.imem.r.ready := state === s_wait_resp && (io.out.ready || io.flushVec(0))
+	io.imem.ar.valid := io.out.ready
+	io.imem.r.ready := io.out.ready || io.flushVec(0)
 	// Close B channel by setting false.B to b.ready signal.
 	io.imem.b.ready := false.B
 	// Close AW and W channel by setting false.B to aw.valid and w.valid signal.
