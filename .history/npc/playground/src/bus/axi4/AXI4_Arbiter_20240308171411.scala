@@ -32,17 +32,14 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 	switch (state) {
 		is (s_idle) {
 			when (InstFetch.ar.valid && LoadStore.ar.valid) {
-				Info("[LoadStore <===> SRAM]\n")
 				LoadStore.ar <> Arbiter.ar
 				LoadStore.r  <> Arbiter.r
 				state := s_ls_exec
 			}.elsewhen (InstFetch.ar.valid && !LoadStore.ar.valid) {
-				Info("[InstFetch <===> SRAM]\n")
 				InstFetch.ar <> Arbiter.ar
 				InstFetch.r  <> Arbiter.r
 				state := s_if_exec
 			}.elsewhen (!InstFecth.ar.valid && LoadStore.ar.valid) {
-				Info("[LoadStore <===> SRAM]\n")
 				LoadStore.ar <> Arbiter.ar
 				LoadStore.r  <> Arbiter.r
 				state := s_ls_exec
@@ -50,17 +47,13 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 		}
 
 		is (s_if_exec) {
-			Info("[InstFetch <===> SRAM]\n")
 			InstFetch.ar <> Arbiter.ar
 			InstFetch.r  <> Arbiter.r
 			when (InstFetch.r.fire) { state := s_idle }
 		}
 
 		is (s_ls_exec) {
-			Info("[LoadStore <===> SRAM]\n")
-			LoadStore.ar <> Arbiter.ar
-			LoadStore.r  <> Arbiter.r
-			when (LoadStore.b.fire) { state := s_idle }
+
 		}
 	}
 

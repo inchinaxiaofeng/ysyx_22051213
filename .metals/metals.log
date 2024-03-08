@@ -5070,3 +5070,35 @@ scala.meta.tokenizers.TokenizeException: <input>:53: error: unclosed comment
 2024.03.08 16:31:37 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
 2024.03.08 16:37:10 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
 2024.03.08 16:47:18 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
+2024.03.08 16:49:09 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 16:49:20 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 16:50:24 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 16:54:01 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 16:54:25 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 16:55:07 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:02:00 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+3月 08, 2024 5:02:17 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 17445
+2024.03.08 17:02:53 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:04:59 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:05:07 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:06:08 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:06:22 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:10:06 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:10:08 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:10:09 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:10:20 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:10:31 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:11:06 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:11:29 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:11:30 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:12:40 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:12:50 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:14:11 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:14:55 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+3月 08, 2024 5:15:09 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 19256
+2024.03.08 17:15:32 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:15:34 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:15:58 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.08 17:15:59 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
