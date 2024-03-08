@@ -38,6 +38,7 @@ class TP_SRAM extends MarCoreModule {
 		io.ar.valid, io.ar.ready, io.ar.bits.addr,
 		io.aw.valid, io.aw.ready, io.aw.bits.addr)
 
+
 	switch (state_load) {
 		is (s_idle) {
 			when (io.ar.fire) { state_load := s_exec }
