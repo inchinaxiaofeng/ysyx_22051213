@@ -15,6 +15,8 @@ class SimTopIO extends Bundle {
 	val pc = Output(UInt(64.W))
 	val gpr = new RegsDiffIO(num = 32)
 	val csr = new RegsDiffIO(num = 4)
+//	val gpr = new GPRState
+//	val csr = new CSRState
 //	val load = Output(new LoadEvent)
 //	val store = Output(new StoreEvent)
 //	val instr = Output(new InstrCommit(numPhyRegs = 32))
@@ -45,6 +47,7 @@ class SimTop extends Module {
 		for (i <- 0 until 4) io.csr.regs(i) := 0.U(64.W)
 	}
 
+//	core.io.difftest_decode_isu.ready := true.B
 	core.io.difftest_commit.ready := true.B
 
 	io.commit := RegNext(core.io.difftest_commit.valid)
