@@ -30,7 +30,7 @@ class TP_SRAM extends MarCoreModule {
 	val state_load = RegInit(s_idle)
 	val state_store = RegInit(s_idle)
 
-	Info("======================================= statels (%x,%x)\n",
+	Info("======================================= stateRW (%x,%x)\n",
 		state_load, state_store)
 
 	switch (state_load) {
@@ -61,18 +61,18 @@ class TP_SRAM extends MarCoreModule {
 
 	/* Write */
 	// Immediately ready
-	io.w.ready	:= state_store === s_idle
-	io.aw.ready	:= state_store === s_idle
-	mem.io.iWen := state_store === s_exec
-	io.b.valid := state_store === s_exec
+	io.w.ready	:= state_write === s_idle
+	io.aw.ready	:= state_write === s_idle
+	mem.io.iWen := state_write === s_exec
+	io.b.valid := state_write === s_exec
 	// if not ready, anything can be resp
 	io.b.bits.apply(resp = Mux(io.b.ready, AXI4Parameters.RESP_OKAY, AXI4Parameters.RESP_SLVERR))
 
 	/* Read */
 	// Immediately ready
-	io.ar.ready := state_load === s_idle
-	mem.io.iRen := state_load === s_exec
-	io.r.valid := state_load === s_exec
+	io.ar.ready := state_read === s_idle
+	mem.io.iRen := state_read === s_exec
+	io.r.valid := state_read === s_exec
 	// if not ready, anything can be resp
 	io.r.bits.apply(data = mem.io.oReadData, resp =
 		Mux(io.r.ready, AXI4Parameters.RESP_OKAY, AXI4Parameters.RESP_SLVERR))
