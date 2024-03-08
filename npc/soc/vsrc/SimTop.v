@@ -279,7 +279,7 @@ module IFU_embedded(	// <stdin>:2:10
   wire [63:0] snpc = pc + 64'h4;	// IFU.scala:29:25, :31:23
   assign _io_imem_r_ready_T_1 = io_out_ready | io_redirect_valid;	// IFU.scala:51:41
   reg  [63:0] c;	// GTimer.scala:8:32
-  wire        _io_out_valid_T_2 = io_imem_r_valid & ~io_redirect_valid;	// IFU.scala:71:{41,44}
+  wire        _io_out_valid_T_2 = io_imem_r_valid & ~io_redirect_valid;	// IFU.scala:65:{41,44}
   reg  [63:0] c_1;	// GTimer.scala:8:32
   reg  [63:0] c_2;	// GTimer.scala:8:32
   reg  [63:0] c_3;	// GTimer.scala:8:32
@@ -306,15 +306,15 @@ module IFU_embedded(	// <stdin>:2:10
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2:10
     always @(posedge clock) begin	// Debug.scala:34:43
-      automatic logic _T_8 = _T_5 | io_imem_ar_ready & io_out_ready;	// Decoupled.scala:52:35, IFU.scala:73:30
-      automatic logic _T_14 = io_out_ready & _io_out_valid_T_2;	// Decoupled.scala:52:35, IFU.scala:71:41
+      automatic logic _T_8 = _T_5 | io_imem_ar_ready & io_out_ready;	// Decoupled.scala:52:35, IFU.scala:67:30
+      automatic logic _T_14 = io_out_ready & _io_out_valid_T_2;	// Decoupled.scala:52:35, IFU.scala:65:41
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
         $fwrite(32'h80000002, " %x\n", snpc);	// Debug.scala:34:43, :35:31, IFU.scala:31:23
-      if ((`PRINTF_COND_) & _T_8 & ~reset)	// Debug.scala:34:43, IFU.scala:73:30
+      if ((`PRINTF_COND_) & _T_8 & ~reset)	// Debug.scala:34:43, IFU.scala:67:30
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_8 & ~reset) begin	// Debug.scala:34:43, :35:31, IFU.scala:73:30
+      if ((`PRINTF_COND_) & _T_8 & ~reset) begin	// Debug.scala:34:43, :35:31, IFU.scala:67:30
         automatic logic [63:0] npc = io_redirect_valid ? io_redirect_target : snpc;	// IFU.scala:31:23, :37:22
         $fwrite(32'h80000002, "[IFI] pc=%x redirect %x npc %x pc %x pnpc %x\n", pc[31:0], io_redirect_valid, npc, pc, npc);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, IFU.scala:29:25, :37:22
       end
@@ -369,7 +369,7 @@ module IFU_embedded(	// <stdin>:2:10
   assign io_imem_ar_valid = io_out_ready;	// <stdin>:2:10
   assign io_imem_ar_bits_addr = pc[31:0];	// <stdin>:2:10, AXI4.scala:73:27, IFU.scala:29:25
   assign io_imem_r_ready = _io_imem_r_ready_T_1;	// <stdin>:2:10, IFU.scala:51:41
-  assign io_out_valid = _io_out_valid_T_2;	// <stdin>:2:10, IFU.scala:71:41
+  assign io_out_valid = _io_out_valid_T_2;	// <stdin>:2:10, IFU.scala:65:41
   assign io_out_bits_instr = io_imem_r_bits_data;	// <stdin>:2:10
   assign io_out_bits_pc = pc;	// <stdin>:2:10, IFU.scala:29:25
   assign io_out_bits_pnpc = snpc;	// <stdin>:2:10, IFU.scala:31:23
@@ -2994,29 +2994,29 @@ module AXI4Lite_Arbiter(	// <stdin>:4470:10
   output [31:0] Arbiter_ar_bits_addr,
   output        Arbiter_r_ready);
 
-  wire _T = InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:37:33
-  wire _T_2 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:44:{39,42}
-  wire _T_4 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:51:{20,40}
-  wire _GEN = _T | ~_T_2 & _T_4;	// AXI4.scala:96:27, AXI4_Arbiter.scala:37:{33,56}, :39:33, :44:{39,63}, :48:41, :51:{40,63}
-  assign InstFetch_ar_ready = ~_T & _T_2 & Arbiter_ar_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:{33,56}, :41:41, :44:{39,63}
-  assign InstFetch_r_valid = ~_T & _T_2 & Arbiter_r_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:{33,56}, :41:41, :42:41, :44:{39,63}
-  assign InstFetch_r_bits_data = _T | ~_T_2 ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4470:10, AXI4.scala:96:27, AXI4_Arbiter.scala:37:{33,56}, :44:{39,63}
+  wire _T = InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:34:33
+  wire _T_2 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:41:{39,42}
+  wire _T_4 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:48:{20,40}
+  wire _GEN = _T | ~_T_2 & _T_4;	// AXI4.scala:96:27, AXI4_Arbiter.scala:34:{33,56}, :36:33, :41:{39,63}, :45:41, :48:{40,63}
+  assign InstFetch_ar_ready = ~_T & _T_2 & Arbiter_ar_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:34:{33,56}, :38:41, :41:{39,63}
+  assign InstFetch_r_valid = ~_T & _T_2 & Arbiter_r_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:34:{33,56}, :38:41, :39:41, :41:{39,63}
+  assign InstFetch_r_bits_data = _T | ~_T_2 ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4470:10, AXI4.scala:96:27, AXI4_Arbiter.scala:34:{33,56}, :41:{39,63}
   assign LoadStore_aw_ready = Arbiter_aw_ready;	// <stdin>:4470:10
   assign LoadStore_w_ready = Arbiter_w_ready;	// <stdin>:4470:10
   assign LoadStore_b_valid = Arbiter_b_valid;	// <stdin>:4470:10
-  assign LoadStore_ar_ready = _GEN & Arbiter_ar_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:56, :39:33, :44:63
-  assign LoadStore_r_valid = _GEN & Arbiter_r_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:56, :39:33, :40:41, :44:63
-  assign LoadStore_r_bits_data = _T | ~(_T_2 | ~_T_4) ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4470:10, AXI4.scala:96:27, AXI4_Arbiter.scala:37:{33,56}, :40:41, :44:{39,63}, :51:{40,63}
+  assign LoadStore_ar_ready = _GEN & Arbiter_ar_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:34:56, :36:33, :41:63
+  assign LoadStore_r_valid = _GEN & Arbiter_r_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:34:56, :36:33, :37:41, :41:63
+  assign LoadStore_r_bits_data = _T | ~(_T_2 | ~_T_4) ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4470:10, AXI4.scala:96:27, AXI4_Arbiter.scala:34:{33,56}, :37:41, :41:{39,63}, :48:{40,63}
   assign Arbiter_aw_valid = LoadStore_aw_valid;	// <stdin>:4470:10
   assign Arbiter_aw_bits_addr = LoadStore_aw_bits_addr;	// <stdin>:4470:10
   assign Arbiter_w_valid = LoadStore_w_valid;	// <stdin>:4470:10
   assign Arbiter_w_bits_data = LoadStore_w_bits_data;	// <stdin>:4470:10
   assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4470:10
   assign Arbiter_b_ready = LoadStore_b_ready;	// <stdin>:4470:10
-  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:{33,56}, :39:33, :44:{39,63}, :46:33, :51:{40,63}, :53:33, :60:41
+  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:34:{33,56}, :36:33, :41:{39,63}, :43:33, :48:{40,63}, :50:33, :57:41
   assign Arbiter_ar_bits_addr = _T ? LoadStore_ar_bits_addr : _T_2 ? InstFetch_ar_bits_addr : _T_4 ? LoadStore_ar_bits_addr
-                : 32'h0;	// <stdin>:4470:10, AXI4.scala:73:27, AXI4_Arbiter.scala:37:{33,56}, :39:33, :44:{39,63}, :46:33, :51:{40,63}, :53:33
-  assign Arbiter_r_ready = _T ? LoadStore_r_ready : _T_2 ? InstFetch_r_ready : _T_4 & LoadStore_r_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:{33,56}, :40:41, :44:{39,63}, :47:41, :51:{40,63}, :54:41, :61:41
+                : 32'h0;	// <stdin>:4470:10, AXI4.scala:73:27, AXI4_Arbiter.scala:34:{33,56}, :36:33, :41:{39,63}, :43:33, :48:{40,63}, :50:33
+  assign Arbiter_r_ready = _T ? LoadStore_r_ready : _T_2 ? InstFetch_r_ready : _T_4 & LoadStore_r_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:34:{33,56}, :37:41, :41:{39,63}, :44:41, :48:{40,63}, :51:41, :58:41
 endmodule
 
 // external module MEM
