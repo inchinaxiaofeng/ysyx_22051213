@@ -50,5 +50,5 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 		// Only LoadStore
 		LoadStore.ar	<> Arbiter.ar
 		LoadStore.r		<> Arbiter.r
-	}.otherwise { Info("[DONT CARE <===> SRAM]\n") }
+	}.otherwise { Info("[DONTCARE <=x=> SRAM]\n") }
 }
