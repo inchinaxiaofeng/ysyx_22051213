@@ -23,7 +23,6 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT___arbiter_InstFetch_r_valid;
         CData/*0:0*/ SimTop__DOT___arbiter_LoadStore_ar_ready;
         CData/*7:0*/ SimTop__DOT___arbiter_Arbiter_w_bits_strb;
-        CData/*0:0*/ SimTop__DOT___core_io_dmem_ar_valid;
         CData/*0:0*/ SimTop__DOT__io_commit_REG;
         CData/*0:0*/ SimTop__DOT__core__DOT___frontend_io_out_0_bits_ctrl_rfWen;
         CData/*0:0*/ SimTop__DOT__core__DOT__dataBuffer_0_cf_exceptionVec_2;
@@ -79,9 +78,9 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT___io_in_0_ready_T_1;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_valid;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_redirect_valid;
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3;
     };
     struct {
-        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT___io_out_valid_T_4;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid;
@@ -94,10 +93,11 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__partialLoad;
         CData/*1:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_read;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_write;
-        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_38;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_39;
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_40;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__wValid;
-        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_46;
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid;
+        CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_47;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_out_valid_T_10;
         CData/*7:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT____VdfgTmp_h513adbfe__0;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__isDivSign;

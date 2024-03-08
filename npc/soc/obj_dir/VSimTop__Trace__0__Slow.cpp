@@ -533,6 +533,7 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declQuad(c+63,"c_2", false,-1, 63,0);
     tracep->declBus(c+206,"reqWmask", false,-1, 14,0);
     tracep->declBit(c+95,"wValid", false,-1);
+    tracep->declBit(c+114,"rValid", false,-1);
     tracep->declQuad(c+65,"c_3", false,-1, 63,0);
     tracep->declQuad(c+67,"rdataLatch", false,-1, 63,0);
     tracep->declQuad(c+69,"c_4", false,-1, 63,0);
@@ -1168,11 +1169,11 @@ VL_ATTR_COLD void VSimTop___024root__trace_full_sub_0(VSimTop___024root* vlSelf,
                                                   : 0ULL))))),64);
     bufp->fullCData(oldp+99,(vlSelf->SimTop__DOT___arbiter_Arbiter_w_bits_strb),8);
     bufp->fullBit(oldp+100,(((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
-                              ? (IData)(vlSelf->SimTop__DOT___core_io_dmem_ar_valid)
+                              ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)
                               : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_2)
                                   ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready)
                                   : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_4) 
-                                     & (IData)(vlSelf->SimTop__DOT___core_io_dmem_ar_valid))))));
+                                     & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid))))));
     bufp->fullIData(oldp+101,(((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
                                 ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
                                 : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_2)
@@ -1227,7 +1228,7 @@ VL_ATTR_COLD void VSimTop___024root__trace_full_sub_0(VSimTop___024root* vlSelf,
     bufp->fullBit(oldp+111,(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready));
     bufp->fullIData(oldp+112,((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc)),32);
     bufp->fullBit(oldp+113,(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1));
-    bufp->fullBit(oldp+114,(vlSelf->SimTop__DOT___core_io_dmem_ar_valid));
+    bufp->fullBit(oldp+114,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
     bufp->fullBit(oldp+115,(((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)) 
                              & (IData)(vlSelf->SimTop__DOT__arbiter__DOT____VdfgTmp_h8ed2ed50__0))));
     bufp->fullBit(oldp+116,(vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid));
@@ -1279,7 +1280,7 @@ VL_ATTR_COLD void VSimTop___024root__trace_full_sub_0(VSimTop___024root* vlSelf,
     bufp->fullBit(oldp+167,(((~ (((0U != (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___GEN)) 
                                   & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3)) 
                                  | ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3) 
-                                    & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_46)))) 
+                                    & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_47)))) 
                              & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_rfWen))));
     bufp->fullQData(oldp+168,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_out_bits),64);
     bufp->fullQData(oldp+170,(((8U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl))

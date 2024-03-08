@@ -149,11 +149,11 @@ void VSimTop___024root__trace_chg_sub_0(VSimTop___024root* vlSelf, VerilatedVcd:
                                                      : 0ULL))))),64);
         bufp->chgCData(oldp+98,(vlSelf->SimTop__DOT___arbiter_Arbiter_w_bits_strb),8);
         bufp->chgBit(oldp+99,(((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
-                                ? (IData)(vlSelf->SimTop__DOT___core_io_dmem_ar_valid)
+                                ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)
                                 : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_2)
                                     ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready)
                                     : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_4) 
-                                       & (IData)(vlSelf->SimTop__DOT___core_io_dmem_ar_valid))))));
+                                       & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid))))));
         bufp->chgIData(oldp+100,(((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
                                    ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
                                    : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_2)
@@ -208,7 +208,7 @@ void VSimTop___024root__trace_chg_sub_0(VSimTop___024root* vlSelf, VerilatedVcd:
         bufp->chgBit(oldp+110,(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready));
         bufp->chgIData(oldp+111,((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc)),32);
         bufp->chgBit(oldp+112,(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1));
-        bufp->chgBit(oldp+113,(vlSelf->SimTop__DOT___core_io_dmem_ar_valid));
+        bufp->chgBit(oldp+113,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
         bufp->chgBit(oldp+114,(((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)) 
                                 & (IData)(vlSelf->SimTop__DOT__arbiter__DOT____VdfgTmp_h8ed2ed50__0))));
         bufp->chgBit(oldp+115,(vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid));
@@ -260,7 +260,7 @@ void VSimTop___024root__trace_chg_sub_0(VSimTop___024root* vlSelf, VerilatedVcd:
         bufp->chgBit(oldp+166,(((~ (((0U != (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___GEN)) 
                                      & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_3_T_3)) 
                                     | ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3) 
-                                       & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_46)))) 
+                                       & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_47)))) 
                                 & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_rfWen))));
         bufp->chgQData(oldp+167,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_out_bits),64);
         bufp->chgQData(oldp+169,(((8U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl))
