@@ -183,47 +183,47 @@ class LSExecUnit extends MarCoreModule {
 	val partialLoad = !isStore && (ctrl =/= LSUCtrl.ld)
 
 	val sl_idle :: sl_wait_resp :: sl_partialLoad :: Nil = Enum(3)
-	val ss_idle :: ss_wait_resp :: Nil = Enum(2)
-	val state_load = RegInit(sl_idle)
-	val state_store = RegInit(ss_idle)
+	val sw_idle :: sw_wait_resp :: Nil = Enum(2)
+	val state_load = RegInit(sr_idle)
+	val state_write = RegInit(sw_idle)
 
-	switch (sl_idle) {
-		is (sl_idle) {
+	switch (sr_idle) {
+		is (sr_idle) {
 			when (dmem.ar.fire && !isStore) {
-				state_load := sl_wait_resp
+				state_read := sr_wait_resp	
 			}
 		}
 
-		is (sl_wait_resp) {
+		is (sr_wait_resp) {
 			when (dmem.r.fire) {
-				state_load := Mux(partialLoad, sl_partialLoad, sl_wait_resp)
+				state_read := Mux(partialLoad, sr_partialLoad, sr_wait_resp)
 			}
 		}
 
-		is (sl_partialLoad) { state_load := sl_idle}
+		is (sr_partialLoad) { state_read := sr_idle}
 	}
 
-	switch (ss_idle) {
-		is (ss_idle) {
+	switch (sw_idle) {
+		is (sw_idle) {
 			when (dmem.aw.fire && dmem.w.fire && isStore) {
-				state_store := ss_wait_resp
+				state_write := sw_wait_resp
 			}
 		}
 
-		is (ss_wait_resp) {
-			when (dmem.b.fire) { state_store := ss_idle }
+		is (sw_wait_resp) {
+			when (dmem.b.fire) { state_write := sw_idle }
 		}
 	}
 
-	Info("==================== statels (%x,%x), bvalid %b bready %b\n",
-		state_load, state_store, dmem.b.valid, dmem.b.ready)
+	Info("==================== stateRW (%x,%x), bvalid %b bready %b\n",
+		state_read, state_write, dmem.b.valid, dmem.b.ready)
 
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
 		"[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n",
 		addr, ctrl(1, 0), io.wdata, isStore)
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] statels (%x,%x) Raddr %x Waddr %x rFire %x bFire %d Rdata %x\n",
-		state_load, state_store, dmem.ar.bits.addr, dmem.aw.bits.addr,
+		"[LSU] stateRW (%x,%x) Raddr %x Waddr %x rFire %x bFire %d Rdata %x\n",
+		state_read, state_write, dmem.ar.bits.addr, dmem.aw.bits.addr,
 		dmem.r.fire, dmem.b.fire, dmem.r.bits.data)
 //	Debug(dtlbFinish && dtlbEnable, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbEnable, dtlbPF, state, dmem.req.bits.addr, dmem.resp.fire, dmem.resp.bits.rdata)
 
@@ -231,28 +231,28 @@ class LSExecUnit extends MarCoreModule {
 	val reqAddr  = if (XLEN == 32) SignExt(addr, VAddrBits)   else addr(VAddrBits-1, 0)
 	val reqWdata = if (XLEN == 32) genWdata32(io.wdata, size) else genWdata(io.wdata, size)
 	val reqWmask = if (XLEN == 32) genWmask32(addr, size)     else genWmask(addr, size)
-	val wValid = valid && (state_store === ss_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
-	val rValid = valid && (state_load === sl_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
+	val wValid = valid && (state_write === sw_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
+	val rValid = valid && (state_read === sr_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
 
 	dmem.aw.bits.apply(addr = reqAddr); dmem.aw.valid := wValid;
 	dmem.w.bits.apply(data = reqWdata, strb = reqWmask); dmem.w.valid := wValid;
-	dmem.b.ready := state_store === ss_wait_resp
+	dmem.b.ready := state_write === sw_wait_resp
 	dmem.ar.bits.apply(addr = reqAddr); dmem.ar.valid := rValid
-	dmem.r.ready := state_load === sl_wait_resp
+	dmem.r.ready := state_read === sr_wait_resp
 
 	io.out.valid := Mux(
 		io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned,
 		true.B, Mux(partialLoad,
-			state_load === sl_partialLoad,
+			state_read === sr_partialLoad,
 			(dmem.r.fire || dmem.b.fire) &&
-			(state_load === sl_wait_resp || state_store === ss_wait_resp)
+			(state_read === sr_wait_resp || state_write === sw_wait_resp)
 		)
 	)
-	io.in.ready := state_load === sl_idle && state_store === ss_idle
+	io.in.ready := state_read === sr_idle && state_write === sw_idle
 
 	Debug(io.out.fire, 
-		"[LSU-EXECUNIT] statels (%x,%x) rResp %x wResp %x lm %x sm %x\n", 
-		state_load, state_store, dmem.r.fire, dmem.b.fire,
+		"[LSU-EXECUNIT] s_RW (%x,%x) rResp %x wResp %x lm %x sm %x\n", 
+		state_read, state_write, dmem.r.fire, dmem.b.fire,
 		io.ioLoadAddrMisaligned, io.ioStoreAddrMisaligned)
 
 	val rdata = dmem.r.bits.data

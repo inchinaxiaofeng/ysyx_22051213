@@ -231,8 +231,8 @@ class LSExecUnit extends MarCoreModule {
 	val reqAddr  = if (XLEN == 32) SignExt(addr, VAddrBits)   else addr(VAddrBits-1, 0)
 	val reqWdata = if (XLEN == 32) genWdata32(io.wdata, size) else genWdata(io.wdata, size)
 	val reqWmask = if (XLEN == 32) genWmask32(addr, size)     else genWmask(addr, size)
-	val wValid = valid && (state_store === ss_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
-	val rValid = valid && (state_load === sl_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
+	val wValid = valid && (state_write === ss_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
+	val rValid = valid && (state_read === sl_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
 
 	dmem.aw.bits.apply(addr = reqAddr); dmem.aw.valid := wValid;
 	dmem.w.bits.apply(data = reqWdata, strb = reqWmask); dmem.w.valid := wValid;

@@ -184,8 +184,8 @@ class LSExecUnit extends MarCoreModule {
 
 	val sl_idle :: sl_wait_resp :: sl_partialLoad :: Nil = Enum(3)
 	val ss_idle :: ss_wait_resp :: Nil = Enum(2)
-	val state_load = RegInit(sl_idle)
-	val state_store = RegInit(ss_idle)
+	val state_load = RegInit(sr_idle)
+	val state_store = RegInit(sw_idle)
 
 	switch (sl_idle) {
 		is (sl_idle) {
@@ -231,8 +231,8 @@ class LSExecUnit extends MarCoreModule {
 	val reqAddr  = if (XLEN == 32) SignExt(addr, VAddrBits)   else addr(VAddrBits-1, 0)
 	val reqWdata = if (XLEN == 32) genWdata32(io.wdata, size) else genWdata(io.wdata, size)
 	val reqWmask = if (XLEN == 32) genWmask32(addr, size)     else genWmask(addr, size)
-	val wValid = valid && (state_store === ss_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
-	val rValid = valid && (state_load === sl_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
+	val wValid = valid && (state_write === sw_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
+	val rValid = valid && (state_read === sr_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
 
 	dmem.aw.bits.apply(addr = reqAddr); dmem.aw.valid := wValid;
 	dmem.w.bits.apply(data = reqWdata, strb = reqWmask); dmem.w.valid := wValid;
@@ -251,8 +251,8 @@ class LSExecUnit extends MarCoreModule {
 	io.in.ready := state_load === sl_idle && state_store === ss_idle
 
 	Debug(io.out.fire, 
-		"[LSU-EXECUNIT] statels (%x,%x) rResp %x wResp %x lm %x sm %x\n", 
-		state_load, state_store, dmem.r.fire, dmem.b.fire,
+		"[LSU-EXECUNIT] s_RW (%x,%x) rResp %x wResp %x lm %x sm %x\n", 
+		state_read, state_write, dmem.r.fire, dmem.b.fire,
 		io.ioLoadAddrMisaligned, io.ioStoreAddrMisaligned)
 
 	val rdata = dmem.r.bits.data
