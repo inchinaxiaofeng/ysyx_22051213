@@ -17,6 +17,7 @@ trait HasResetVector {
 class IFU_embedded extends MarCoreModule with HasResetVector {
 	implicit val moduleName: String = this.name
 	val io = IO(new Bundle {
+//		val imem = new SimpleBusUC(userBits = VAddrBits*2, addrBits = VAddrBits)
 		val imem = new AXI4Lite
 		val out = Decoupled(new CtrlFlowIO)
 		val redirect = Flipped(new RedirectIO)
@@ -30,7 +31,7 @@ class IFU_embedded extends MarCoreModule with HasResetVector {
 	val snpc = pc + 4.U // sequential next PC
 
 	// predict next pc
-	val pnpc = pc + 4.U // bpu.io.out.target // static predict pc
+	val pnpc = pc + 4.U // bpu.io.out.target // 分支预测npc
 	val npc = Mux(io.redirect.valid, io.redirect.target, Mux(false.B/*bpu.io.out.valid*/, pnpc, snpc))
 
 	when (pcUpdate) { pc := npc }

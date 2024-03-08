@@ -30,7 +30,7 @@ class IFU_embedded extends MarCoreModule with HasResetVector {
 	val snpc = pc + 4.U // sequential next PC
 
 	// predict next pc
-	val pnpc = pc + 4.U // bpu.io.out.target // static predict pc
+	val pnpc = pc + 4.U // bpu.io.out.target // 分支预测npc
 	val npc = Mux(io.redirect.valid, io.redirect.target, Mux(false.B/*bpu.io.out.valid*/, pnpc, snpc))
 
 	when (pcUpdate) { pc := npc }

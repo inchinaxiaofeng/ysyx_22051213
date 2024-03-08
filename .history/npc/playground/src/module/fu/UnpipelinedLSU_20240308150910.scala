@@ -200,7 +200,7 @@ class LSExecUnit extends MarCoreModule {
 			}
 		}
 
-		is (sl_partialLoad) { state_load := sl_idle }
+		is (sl_partialLoad) { state_load := sl_idle}
 	}
 
 	switch (state_store) {
