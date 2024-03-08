@@ -782,7 +782,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__2(VSimTop___024root* vl
                                                & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid)))));
     if (SimTop__DOT__core__DOT__frontend__DOT__unnamedblk1__DOT___idu_io_in_0_bits_T) {
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
-            = vlSelf->SimTop__DOT___TP_SRAM_io_r_bits_data;
+            = vlSelf->SimTop__DOT__TP_SRAM__DOT___mem_oReadData;
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pc 
             = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc;
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pnpc 
@@ -1648,7 +1648,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_comb__TOP__0(VSimTop___024root* vlSel
                                                    == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl))
                                                    ? vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT____VdfgTmp_hb190fabb__0
                                                    : 0ULL))))))
-            : vlSelf->SimTop__DOT___TP_SRAM_io_r_bits_data);
+            : vlSelf->SimTop__DOT__TP_SRAM__DOT___mem_oReadData);
     vlSelf->SimTop__DOT__core__DOT__backend__DOT___exu_io_forward_wb_rfData 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid)
             ? vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_out_bits
@@ -1712,7 +1712,7 @@ void VSimTop___024root___eval(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                     VSimTop___024root___dump_triggers__act(vlSelf);
 #endif
-                    VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3028, "", "Active region did not converge.");
+                    VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3044, "", "Active region did not converge.");
                 }
                 vlSelf->__VactIterCount = ((IData)(1U) 
                                            + vlSelf->__VactIterCount);
@@ -1727,7 +1727,7 @@ void VSimTop___024root___eval(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VSimTop___024root___dump_triggers__nba(vlSelf);
 #endif
-                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3028, "", "NBA region did not converge.");
+                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3044, "", "NBA region did not converge.");
             }
             __VnbaIterCount = ((IData)(1U) + __VnbaIterCount);
             VSimTop___024root___eval_nba(vlSelf);
