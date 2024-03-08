@@ -2994,9 +2994,9 @@ module AXI4Lite_Arbiter(	// <stdin>:4470:10
   output [31:0] Arbiter_ar_bits_addr,
   output        Arbiter_r_ready);
 
-  wire _T = InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:36:33
-  wire _T_2 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:43:{39,42}
-  wire _T_4 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:50:{20,40}
+  wire _T = InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:35:33
+  wire _T_2 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:39:{39,42}
+  wire _T_4 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:43:{20,40}
   assign InstFetch_ar_ready = Arbiter_ar_ready;	// <stdin>:4470:10
   assign InstFetch_r_valid = Arbiter_r_valid;	// <stdin>:4470:10
   assign InstFetch_r_bits_data = Arbiter_r_bits_data;	// <stdin>:4470:10
@@ -3012,10 +3012,10 @@ module AXI4Lite_Arbiter(	// <stdin>:4470:10
   assign Arbiter_w_bits_data = LoadStore_w_bits_data;	// <stdin>:4470:10
   assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4470:10
   assign Arbiter_b_ready = LoadStore_b_ready;	// <stdin>:4470:10
-  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:36:{33,56}, :38:33, :43:{39,63}, :45:33, :50:{40,63}, :52:33, :59:41
+  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:35:{33,56}, :37:33, :39:{39,63}, :41:33, :43:{40,63}, :45:33, :49:41
   assign Arbiter_ar_bits_addr = _T ? LoadStore_ar_bits_addr : _T_2 ? InstFetch_ar_bits_addr : _T_4 ? LoadStore_ar_bits_addr
-                : 32'h0;	// <stdin>:4470:10, AXI4.scala:73:27, AXI4_Arbiter.scala:36:{33,56}, :38:33, :43:{39,63}, :45:33, :50:{40,63}, :52:33
-  assign Arbiter_r_ready = _T ? LoadStore_r_ready : _T_2 ? InstFetch_r_ready : _T_4 & LoadStore_r_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:36:{33,56}, :39:41, :43:{39,63}, :46:41, :50:{40,63}, :53:41, :60:41
+                : 32'h0;	// <stdin>:4470:10, AXI4.scala:73:27, AXI4_Arbiter.scala:35:{33,56}, :37:33, :39:{39,63}, :41:33, :43:{40,63}, :45:33
+  assign Arbiter_r_ready = _T ? LoadStore_r_ready : _T_2 ? InstFetch_r_ready : _T_4 & LoadStore_r_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:35:{33,56}, :38:41, :39:{39,63}, :42:41, :43:{40,63}, :46:41, :50:41
 endmodule
 
 // external module MEM
