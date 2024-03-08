@@ -2994,34 +2994,34 @@ module AXI4Lite_Arbiter(	// <stdin>:4470:10
   output [31:0] Arbiter_ar_bits_addr,
   output        Arbiter_r_ready);
 
-  wire _T = InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:40:33
-  wire _T_2 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:47:{39,42}
-  wire _T_4 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:54:{20,40}
-  wire _GEN = _T | ~_T_2 & _T_4;	// AXI4.scala:96:27, AXI4_Arbiter.scala:40:{33,56}, :42:33, :47:{39,63}, :51:41, :54:{40,63}
-  assign InstFetch_ar_ready = ~_T & _T_2 & Arbiter_ar_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:40:{33,56}, :44:41, :47:{39,63}
-  assign InstFetch_r_valid = ~_T & _T_2 & Arbiter_r_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:40:{33,56}, :44:41, :45:41, :47:{39,63}
-  assign InstFetch_r_bits_data = _T | ~_T_2 ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4470:10, AXI4.scala:96:27, AXI4_Arbiter.scala:40:{33,56}, :47:{39,63}
+  wire _T = InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:37:33
+  wire _T_2 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:44:{39,42}
+  wire _T_4 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:51:{20,40}
+  wire _GEN = _T | ~_T_2 & _T_4;	// AXI4.scala:96:27, AXI4_Arbiter.scala:37:{33,56}, :39:33, :44:{39,63}, :48:41, :51:{40,63}
+  assign InstFetch_ar_ready = ~_T & _T_2 & Arbiter_ar_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:{33,56}, :41:41, :44:{39,63}
+  assign InstFetch_r_valid = ~_T & _T_2 & Arbiter_r_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:{33,56}, :41:41, :42:41, :44:{39,63}
+  assign InstFetch_r_bits_data = _T | ~_T_2 ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4470:10, AXI4.scala:96:27, AXI4_Arbiter.scala:37:{33,56}, :44:{39,63}
   assign LoadStore_aw_ready = Arbiter_aw_ready;	// <stdin>:4470:10
   assign LoadStore_w_ready = Arbiter_w_ready;	// <stdin>:4470:10
   assign LoadStore_b_valid = Arbiter_b_valid;	// <stdin>:4470:10
-  assign LoadStore_ar_ready = _GEN & Arbiter_ar_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:40:56, :42:33, :47:63
-  assign LoadStore_r_valid = _GEN & Arbiter_r_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:40:56, :42:33, :43:41, :47:63
-  assign LoadStore_r_bits_data = _T | ~(_T_2 | ~_T_4) ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4470:10, AXI4.scala:96:27, AXI4_Arbiter.scala:40:{33,56}, :43:41, :47:{39,63}, :54:{40,63}
+  assign LoadStore_ar_ready = _GEN & Arbiter_ar_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:56, :39:33, :44:63
+  assign LoadStore_r_valid = _GEN & Arbiter_r_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:56, :39:33, :40:41, :44:63
+  assign LoadStore_r_bits_data = _T | ~(_T_2 | ~_T_4) ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4470:10, AXI4.scala:96:27, AXI4_Arbiter.scala:37:{33,56}, :40:41, :44:{39,63}, :51:{40,63}
   assign Arbiter_aw_valid = LoadStore_aw_valid;	// <stdin>:4470:10
   assign Arbiter_aw_bits_addr = LoadStore_aw_bits_addr;	// <stdin>:4470:10
   assign Arbiter_w_valid = LoadStore_w_valid;	// <stdin>:4470:10
   assign Arbiter_w_bits_data = LoadStore_w_bits_data;	// <stdin>:4470:10
   assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4470:10
   assign Arbiter_b_ready = LoadStore_b_ready;	// <stdin>:4470:10
-  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:40:{33,56}, :42:33, :47:{39,63}, :49:33, :54:{40,63}, :56:33, :63:41
+  assign Arbiter_ar_valid = _T ? LoadStore_ar_valid : _T_2 ? InstFetch_ar_valid : _T_4 & LoadStore_ar_valid;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:{33,56}, :39:33, :44:{39,63}, :46:33, :51:{40,63}, :53:33, :60:41
   assign Arbiter_ar_bits_addr = _T ? LoadStore_ar_bits_addr : _T_2 ? InstFetch_ar_bits_addr : _T_4 ? LoadStore_ar_bits_addr
-                : 32'h0;	// <stdin>:4470:10, AXI4.scala:73:27, AXI4_Arbiter.scala:40:{33,56}, :42:33, :47:{39,63}, :49:33, :54:{40,63}, :56:33
-  assign Arbiter_r_ready = _T ? LoadStore_r_ready : _T_2 ? InstFetch_r_ready : _T_4 & LoadStore_r_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:40:{33,56}, :43:41, :47:{39,63}, :50:41, :54:{40,63}, :57:41, :64:41
+                : 32'h0;	// <stdin>:4470:10, AXI4.scala:73:27, AXI4_Arbiter.scala:37:{33,56}, :39:33, :44:{39,63}, :46:33, :51:{40,63}, :53:33
+  assign Arbiter_r_ready = _T ? LoadStore_r_ready : _T_2 ? InstFetch_r_ready : _T_4 & LoadStore_r_ready;	// <stdin>:4470:10, AXI4_Arbiter.scala:37:{33,56}, :40:41, :44:{39,63}, :47:41, :51:{40,63}, :54:41, :61:41
 endmodule
 
 // external module MEM
 
-module TP_SRAM(	// <stdin>:4543:10
+module TP_SRAM(	// <stdin>:4551:10
   input         clock,
                 reset,
                 io_aw_valid,
@@ -3061,34 +3061,34 @@ module TP_SRAM(	// <stdin>:4543:10
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4543:10
+  `ifndef SYNTHESIS	// <stdin>:4551:10
     always @(posedge clock) begin	// Debug.scala:34:43
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] TP_SRAM: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
         $fwrite(32'h80000002, "======================================= statels (%x,%x) arv %x arr %x\n", state_load, state_store, io_ar_valid, ~state_load);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:30:33, :31:34, :37:29
     end // always @(posedge)
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4543:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4543:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4551:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4551:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4543:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4543:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4543:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:4543:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4543:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4543:10
+    initial begin	// <stdin>:4551:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4551:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4551:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4551:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4551:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4551:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4543:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4543:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4543:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:4543:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4551:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4551:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4551:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:4551:10
         state_load = _RANDOM_0[0];	// TP_SRAM.scala:30:33
         state_store = _RANDOM_0[1];	// TP_SRAM.scala:30:33, :31:34
         c = {_RANDOM_0[31:2], _RANDOM_1, _RANDOM_2[1:0]};	// GTimer.scala:8:32, TP_SRAM.scala:30:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4543:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4543:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4551:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4551:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   MEM mem (	// TP_SRAM.scala:27:25
@@ -3100,14 +3100,14 @@ module TP_SRAM(	// <stdin>:4543:10
     .iWriteData (io_w_bits_data),
     .oReadData  (io_r_bits_data)
   );
-  assign io_aw_ready = ~state_store;	// <stdin>:4543:10, TP_SRAM.scala:31:34, :47:30
-  assign io_w_ready = ~state_store;	// <stdin>:4543:10, TP_SRAM.scala:31:34, :47:30
-  assign io_b_valid = state_store;	// <stdin>:4543:10, TP_SRAM.scala:31:34
-  assign io_ar_ready = ~state_load;	// <stdin>:4543:10, TP_SRAM.scala:30:33, :37:29
-  assign io_r_valid = state_load;	// <stdin>:4543:10, TP_SRAM.scala:30:33
+  assign io_aw_ready = ~state_store;	// <stdin>:4551:10, TP_SRAM.scala:31:34, :47:30
+  assign io_w_ready = ~state_store;	// <stdin>:4551:10, TP_SRAM.scala:31:34, :47:30
+  assign io_b_valid = state_store;	// <stdin>:4551:10, TP_SRAM.scala:31:34
+  assign io_ar_ready = ~state_load;	// <stdin>:4551:10, TP_SRAM.scala:30:33, :37:29
+  assign io_r_valid = state_load;	// <stdin>:4551:10, TP_SRAM.scala:30:33
 endmodule
 
-module SimTop(	// <stdin>:4621:10
+module SimTop(	// <stdin>:4629:10
   input         clock,
                 reset,
   output        io_commit,
@@ -3198,27 +3198,27 @@ module SimTop(	// <stdin>:4621:10
     else	// SimTop.scala:27:26
       io_pc_REG <= _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:27:26, :51:25
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4621:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4621:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4621:10
+  `ifndef SYNTHESIS	// <stdin>:4629:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4629:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4629:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4621:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4621:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4621:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:4621:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4621:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4621:10
+    initial begin	// <stdin>:4629:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4629:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4629:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4629:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4629:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4629:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4621:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4621:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4621:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:4621:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4629:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4629:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4629:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:4629:10
         io_commit_REG = _RANDOM_0[0];	// SimTop.scala:50:29
         io_pc_REG = {_RANDOM_0[31:1], _RANDOM_1, _RANDOM_2[0]};	// SimTop.scala:50:29, :51:25
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4621:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4621:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4629:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4629:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   Core core (	// SimTop.scala:27:26
@@ -3342,8 +3342,8 @@ module SimTop(	// <stdin>:4621:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
-  assign io_commit = io_commit_REG;	// <stdin>:4621:10, SimTop.scala:50:29
-  assign io_pc = io_pc_REG;	// <stdin>:4621:10, SimTop.scala:51:25
-  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4621:10, SimTop.scala:28:29
+  assign io_commit = io_commit_REG;	// <stdin>:4629:10, SimTop.scala:50:29
+  assign io_pc = io_pc_REG;	// <stdin>:4629:10, SimTop.scala:51:25
+  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4629:10, SimTop.scala:28:29
 endmodule
 
