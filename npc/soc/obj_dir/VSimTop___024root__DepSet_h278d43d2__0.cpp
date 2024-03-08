@@ -361,7 +361,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[InstFetch <---> SRAM]\n");
+        VL_FWRITEF(0x80000002U,"[InstFetch <=X=> SRAM]\n");
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2) 
                            & (~ (IData)(vlSelf->reset)))))) {

@@ -3010,7 +3010,7 @@ module AXI4Lite_Arbiter(	// <stdin>:4440:10
       if ((`PRINTF_COND_) & _GEN_0 & ~reset)	// AXI4_Arbiter.scala:43:63, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_0 & ~reset)	// AXI4_Arbiter.scala:43:63, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <---> SRAM]\n");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[InstFetch <=X=> SRAM]\n");	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:48:63, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:48:63, Debug.scala:34:43, :35:31
