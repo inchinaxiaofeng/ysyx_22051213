@@ -35,7 +35,7 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 	// Close B channel by setting false.B to b.valid signal.
 //	InstFetch.b.valid := false.B; InstFetch.b.bits.apply();
 	// Close AW and W channel by setting false.B to aw.ready and w.ready.
-//	InstFetch.aw.ready := false.B; InstFetch.w.ready := false.B;
+	InstFetch.aw.ready := false.B; InstFetch.w.ready := false.B;
 
 	when(InstFetch.ar.valid && LoadStore.ar.valid) {
 		// Both LoadStore and InstFetch send read request, satisfy LoadStore first
