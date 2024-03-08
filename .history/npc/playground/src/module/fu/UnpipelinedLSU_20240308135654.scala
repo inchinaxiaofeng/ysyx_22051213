@@ -215,8 +215,8 @@ class LSExecUnit extends MarCoreModule {
 		}
 	}
 
-	Info("======================================= statels (%x,%x)" +
-		" arv %x arr %x bv %b br %b\n",
+	Info("========================= statels (%x,%x) arv %x arr %x " +
+		"bv %b br %b\n",
 		state_load, state_store, dmem.ar.valid, dmem.ar.ready,
 		dmem.b.valid, dmem.b.ready)
 
