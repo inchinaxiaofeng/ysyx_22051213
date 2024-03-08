@@ -6,7 +6,6 @@ import chisel3.util._
 import bus.axi4._
 import defs._
 import utils._
-import java.rmi.server.UID
 
 // Can't Change In YSYX
 class MEM extends BlackBox {
@@ -24,7 +23,6 @@ class MEM extends BlackBox {
 class TP_SRAM extends MarCoreModule {
 	implicit val moduleName: String = this.name
 	val io	= IO(Flipped(new AXI4Lite))
-	val busy = IO(Output(Bool()))
 
 	val mem	= Module(new MEM())
 
@@ -55,7 +53,6 @@ class TP_SRAM extends MarCoreModule {
 	/* Just push the data to SRAM and use enable signal control */
 	Info("MEM iReadAddr %x oReadData %x\n",
 		io.ar.bits.addr, mem.io.oReadData)
-	//Fixme: 能够从对应地址读取正确的数据，但是因为时序问题，导致实际传输出去的数据是紧接着的指令地址对应的指令数据
 	mem.io.iReadAddr := io.ar.bits.addr
 	mem.io.iWriteAddr := io.aw.bits.addr
 	mem.io.iWriteData := io.w.bits.data

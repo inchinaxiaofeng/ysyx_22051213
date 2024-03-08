@@ -6,7 +6,6 @@ import chisel3.util._
 import bus.axi4._
 import defs._
 import utils._
-import java.rmi.server.UID
 
 // Can't Change In YSYX
 class MEM extends BlackBox {
@@ -24,7 +23,6 @@ class MEM extends BlackBox {
 class TP_SRAM extends MarCoreModule {
 	implicit val moduleName: String = this.name
 	val io	= IO(Flipped(new AXI4Lite))
-	val busy = IO(Output(Bool()))
 
 	val mem	= Module(new MEM())
 
