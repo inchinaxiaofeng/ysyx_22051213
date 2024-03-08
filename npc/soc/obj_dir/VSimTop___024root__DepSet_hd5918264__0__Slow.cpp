@@ -22,10 +22,10 @@ VL_ATTR_COLD void VSimTop___024root___eval_initial(VSimTop___024root* vlSelf) {
     // Body
     VSimTop___024root___eval_initial__TOP(vlSelf);
     vlSelf->__Vtrigrprev__TOP__clock = vlSelf->clock;
-    vlSelf->__Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_read 
-        = vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read;
-    vlSelf->__Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_write 
-        = vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write;
+    vlSelf->__Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_load 
+        = vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load;
+    vlSelf->__Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_store 
+        = vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store;
 }
 
 VL_ATTR_COLD void VSimTop___024root___eval_initial__TOP(VSimTop___024root* vlSelf) {
@@ -393,7 +393,7 @@ VL_ATTR_COLD void VSimTop___024root___stl_sequent__TOP__0(VSimTop___024root* vlS
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferHead) 
            != (IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferTail));
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_40 
-        = ((IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write) 
+        = ((IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store) 
            & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_store));
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__isDivSign 
         = (IData)((4U == (5U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl))));
@@ -1533,7 +1533,7 @@ VL_ATTR_COLD void VSimTop___024root___stl_sequent__TOP__0(VSimTop___024root* vlS
                                                   & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_4)));
     vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid 
         = ((IData)(vlSelf->SimTop__DOT__arbiter__DOT____VdfgTmp_h8ed2ed50__0) 
-           & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read));
+           & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load));
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___lsu_io_out_bits 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__partialLoad)
             ? (((0U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl))
@@ -1556,12 +1556,12 @@ VL_ATTR_COLD void VSimTop___024root___stl_sequent__TOP__0(VSimTop___024root* vlS
                                                    : 0ULL))))))
             : vlSelf->SimTop__DOT___arbiter_LoadStore_r_bits_data);
     vlSelf->SimTop__DOT___arbiter_LoadStore_ar_ready 
-        = ((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)) 
+        = ((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)) 
            & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN));
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_39 
         = ((1U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load)) 
            & ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN) 
-              & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)));
+              & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)));
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T_5 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1) 
            & (IData)(vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid));
@@ -1624,7 +1624,7 @@ VL_ATTR_COLD void VSimTop___024root___dump_triggers__act(VSimTop___024root* vlSe
         VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge clock)\n");
     }
     if (vlSelf->__VactTriggered.at(1U)) {
-        VL_DBG_MSGF("         'act' region trigger index 1 is active: @([changed] SimTop.TP_SRAM.state_read or [changed] SimTop.TP_SRAM.state_write)\n");
+        VL_DBG_MSGF("         'act' region trigger index 1 is active: @([changed] SimTop.TP_SRAM.state_load or [changed] SimTop.TP_SRAM.state_store)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -1642,7 +1642,7 @@ VL_ATTR_COLD void VSimTop___024root___dump_triggers__nba(VSimTop___024root* vlSe
         VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge clock)\n");
     }
     if (vlSelf->__VnbaTriggered.at(1U)) {
-        VL_DBG_MSGF("         'nba' region trigger index 1 is active: @([changed] SimTop.TP_SRAM.state_read or [changed] SimTop.TP_SRAM.state_write)\n");
+        VL_DBG_MSGF("         'nba' region trigger index 1 is active: @([changed] SimTop.TP_SRAM.state_load or [changed] SimTop.TP_SRAM.state_store)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -1875,19 +1875,19 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     vlSelf->SimTop__DOT__arbiter__DOT___T_4 = 0;
     vlSelf->SimTop__DOT__arbiter__DOT___GEN = 0;
     vlSelf->SimTop__DOT__arbiter__DOT____VdfgTmp_h8ed2ed50__0 = 0;
-    vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read = 0;
-    vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write = 0;
+    vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load = 0;
+    vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store = 0;
     vlSelf->SimTop__DOT__TP_SRAM__DOT__c = 0;
     VL_ZERO_RESET_W(65, vlSelf->__VdfgTmp_hf6fc2901__0);
     vlSelf->__Vdly__SimTop__DOT__core__DOT__ringBufferHead = 0;
     vlSelf->__Vdlyvdim0__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0 = 0;
     vlSelf->__Vdlyvval__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0 = 0;
     vlSelf->__Vdlyvset__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0 = 0;
-    vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_read = 0;
-    vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_write = 0;
+    vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_load = 0;
+    vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_store = 0;
     vlSelf->__Vtrigrprev__TOP__clock = 0;
-    vlSelf->__Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_read = 0;
-    vlSelf->__Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_write = 0;
+    vlSelf->__Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_load = 0;
+    vlSelf->__Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_store = 0;
     vlSelf->__VactDidInit = 0;
     for (int __Vi0 = 0; __Vi0 < 4; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;

@@ -161,10 +161,10 @@ void VSimTop___024root__trace_chg_sub_0(VSimTop___024root* vlSelf, VerilatedVcd:
                                        : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_4)
                                            ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
                                            : 0U)))),32);
-        bufp->chgBit(oldp+101,((1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write)))));
-        bufp->chgBit(oldp+102,(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write));
-        bufp->chgBit(oldp+103,((1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)))));
-        bufp->chgBit(oldp+104,(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read));
+        bufp->chgBit(oldp+101,((1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store)))));
+        bufp->chgBit(oldp+102,(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store));
+        bufp->chgBit(oldp+103,((1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)))));
+        bufp->chgBit(oldp+104,(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load));
         bufp->chgQData(oldp+105,((QData)((IData)(((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
                                                    ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
                                                    : 
@@ -209,12 +209,12 @@ void VSimTop___024root__trace_chg_sub_0(VSimTop___024root* vlSelf, VerilatedVcd:
         bufp->chgIData(oldp+111,((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc)),32);
         bufp->chgBit(oldp+112,(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1));
         bufp->chgBit(oldp+113,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
-        bufp->chgBit(oldp+114,(((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)) 
+        bufp->chgBit(oldp+114,(((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)) 
                                 & (IData)(vlSelf->SimTop__DOT__arbiter__DOT____VdfgTmp_h8ed2ed50__0))));
         bufp->chgBit(oldp+115,(vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid));
         bufp->chgBit(oldp+116,(vlSelf->SimTop__DOT___arbiter_LoadStore_ar_ready));
         bufp->chgBit(oldp+117,(((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN) 
-                                & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read))));
+                                & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
         bufp->chgQData(oldp+118,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target),64);
         bufp->chgBit(oldp+120,(vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush));
         bufp->chgQData(oldp+121,(vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_instr),64);

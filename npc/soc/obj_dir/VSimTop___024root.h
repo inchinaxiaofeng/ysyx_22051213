@@ -16,8 +16,8 @@ class VSimTop___024root final : public VerilatedModule {
     // Anonymous structures to workaround compiler member-count bugs
     struct {
         VL_IN8(clock,0,0);
-        CData/*0:0*/ SimTop__DOT__TP_SRAM__DOT__state_read;
-        CData/*0:0*/ SimTop__DOT__TP_SRAM__DOT__state_write;
+        CData/*0:0*/ SimTop__DOT__TP_SRAM__DOT__state_load;
+        CData/*0:0*/ SimTop__DOT__TP_SRAM__DOT__state_store;
         VL_IN8(reset,0,0);
         VL_OUT8(io_commit,0,0);
         CData/*0:0*/ SimTop__DOT___arbiter_InstFetch_r_valid;
@@ -122,11 +122,11 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ __Vdly__SimTop__DOT__core__DOT__ringBufferHead;
         CData/*4:0*/ __Vdlyvdim0__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
         CData/*0:0*/ __Vdlyvset__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
-        CData/*0:0*/ __Vdly__SimTop__DOT__TP_SRAM__DOT__state_read;
-        CData/*0:0*/ __Vdly__SimTop__DOT__TP_SRAM__DOT__state_write;
+        CData/*0:0*/ __Vdly__SimTop__DOT__TP_SRAM__DOT__state_load;
+        CData/*0:0*/ __Vdly__SimTop__DOT__TP_SRAM__DOT__state_store;
         CData/*0:0*/ __Vtrigrprev__TOP__clock;
-        CData/*0:0*/ __Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_read;
-        CData/*0:0*/ __Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_write;
+        CData/*0:0*/ __Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_load;
+        CData/*0:0*/ __Vtrigrprev__TOP__SimTop__DOT__TP_SRAM__DOT__state_store;
         CData/*0:0*/ __VactDidInit;
         CData/*0:0*/ __VactContinue;
         IData/*31:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy;

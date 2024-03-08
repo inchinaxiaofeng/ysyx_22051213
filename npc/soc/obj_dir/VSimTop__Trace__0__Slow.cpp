@@ -112,8 +112,8 @@ VL_ATTR_COLD void VSimTop___024root__trace_init_sub__TOP__0(VSimTop___024root* v
     tracep->declBit(c+104,"io_ar_ready", false,-1);
     tracep->declBit(c+105,"io_r_valid", false,-1);
     tracep->declQuad(c+426,"io_r_bits_data", false,-1, 63,0);
-    tracep->declBit(c+105,"state_read", false,-1);
-    tracep->declBit(c+103,"state_write", false,-1);
+    tracep->declBit(c+105,"state_load", false,-1);
+    tracep->declBit(c+103,"state_store", false,-1);
     tracep->declQuad(c+5,"c", false,-1, 63,0);
     tracep->pushNamePrefix("mem ");
     tracep->declBus(c+105,"iRen", false,-1, 0,0);
@@ -1181,10 +1181,10 @@ VL_ATTR_COLD void VSimTop___024root__trace_full_sub_0(VSimTop___024root* vlSelf,
                                     : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_4)
                                         ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
                                         : 0U)))),32);
-    bufp->fullBit(oldp+102,((1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write)))));
-    bufp->fullBit(oldp+103,(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write));
-    bufp->fullBit(oldp+104,((1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)))));
-    bufp->fullBit(oldp+105,(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read));
+    bufp->fullBit(oldp+102,((1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store)))));
+    bufp->fullBit(oldp+103,(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store));
+    bufp->fullBit(oldp+104,((1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)))));
+    bufp->fullBit(oldp+105,(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load));
     bufp->fullQData(oldp+106,((QData)((IData)(((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
                                                 ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
                                                 : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_2)
@@ -1229,12 +1229,12 @@ VL_ATTR_COLD void VSimTop___024root__trace_full_sub_0(VSimTop___024root* vlSelf,
     bufp->fullIData(oldp+112,((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc)),32);
     bufp->fullBit(oldp+113,(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1));
     bufp->fullBit(oldp+114,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
-    bufp->fullBit(oldp+115,(((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)) 
+    bufp->fullBit(oldp+115,(((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)) 
                              & (IData)(vlSelf->SimTop__DOT__arbiter__DOT____VdfgTmp_h8ed2ed50__0))));
     bufp->fullBit(oldp+116,(vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid));
     bufp->fullBit(oldp+117,(vlSelf->SimTop__DOT___arbiter_LoadStore_ar_ready));
     bufp->fullBit(oldp+118,(((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN) 
-                             & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read))));
+                             & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
     bufp->fullQData(oldp+119,(vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target),64);
     bufp->fullBit(oldp+121,(vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush));
     bufp->fullQData(oldp+122,(vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_instr),64);

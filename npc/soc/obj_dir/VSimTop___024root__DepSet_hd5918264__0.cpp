@@ -81,11 +81,11 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__2(VSimTop___024root* vl
     VlWide<3>/*95:0*/ __Vtemp_h4373a639__0;
     VlWide<3>/*95:0*/ __Vtemp_h84075690__0;
     // Body
-    vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write 
-        = vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_write;
-    vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read = vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_read;
+    vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store 
+        = vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_store;
+    vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load = vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_load;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_40 
-        = ((IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write) 
+        = ((IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store) 
            & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_store));
     SimTop__DOT__core__DOT__backend__DOT__unnamedblk1__DOT___exu_io_in_bits_T 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT___io_out_valid_T_1) 
@@ -1597,14 +1597,14 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__2(VSimTop___024root* vl
                                                   & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_4)));
     vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid 
         = ((IData)(vlSelf->SimTop__DOT__arbiter__DOT____VdfgTmp_h8ed2ed50__0) 
-           & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read));
+           & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load));
     vlSelf->SimTop__DOT___arbiter_LoadStore_ar_ready 
-        = ((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)) 
+        = ((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)) 
            & (IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN));
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___T_39 
         = ((1U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load)) 
            & ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___GEN) 
-              & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read)));
+              & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)));
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T_5 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1) 
            & (IData)(vlSelf->SimTop__DOT___arbiter_InstFetch_r_valid));

@@ -3040,24 +3040,24 @@ module TP_SRAM(	// <stdin>:4524:10
                 io_r_valid,
   output [63:0] io_r_bits_data);
 
-  reg        state_read;	// TP_SRAM.scala:30:33
-  reg        state_write;	// TP_SRAM.scala:31:34
+  reg        state_load;	// TP_SRAM.scala:30:33
+  reg        state_store;	// TP_SRAM.scala:31:34
   reg [63:0] c;	// GTimer.scala:8:32
   always @(posedge clock) begin
     if (reset) begin
-      state_read <= 1'h0;	// TP_SRAM.scala:30:33
-      state_write <= 1'h0;	// TP_SRAM.scala:30:33, :31:34
+      state_load <= 1'h0;	// TP_SRAM.scala:30:33
+      state_store <= 1'h0;	// TP_SRAM.scala:30:33, :31:34
       c <= 64'h0;	// GTimer.scala:8:32
     end
     else begin
-      if (state_read)	// TP_SRAM.scala:30:33
-        state_read <= (~state_read | ~io_r_ready) & state_read;	// TP_SRAM.scala:30:33, :36:29, :42:{43,56}
+      if (state_load)	// TP_SRAM.scala:30:33
+        state_load <= (~state_load | ~io_r_ready) & state_load;	// TP_SRAM.scala:30:33, :36:29, :42:{43,56}
       else	// TP_SRAM.scala:30:33
-        state_read <= ~state_read & io_ar_valid | state_read;	// Decoupled.scala:52:35, TP_SRAM.scala:30:33, :36:29, :38:{43,56}
-      if (state_write)	// TP_SRAM.scala:31:34
-        state_write <= (~state_write | ~io_b_ready) & state_write;	// TP_SRAM.scala:31:34, :46:30, :52:{43,57}
+        state_load <= ~state_load & io_ar_valid | state_load;	// Decoupled.scala:52:35, TP_SRAM.scala:30:33, :36:29, :38:{43,56}
+      if (state_store)	// TP_SRAM.scala:31:34
+        state_store <= (~state_store | ~io_b_ready) & state_store;	// TP_SRAM.scala:31:34, :46:30, :52:{43,57}
       else	// TP_SRAM.scala:31:34
-        state_write <= ~state_write & io_aw_valid & io_w_valid | state_write;	// TP_SRAM.scala:31:34, :46:30, :48:{42,56,70}
+        state_store <= ~state_store & io_aw_valid & io_w_valid | state_store;	// TP_SRAM.scala:31:34, :46:30, :48:{42,56,70}
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
     end
   end // always @(posedge)
@@ -3066,7 +3066,7 @@ module TP_SRAM(	// <stdin>:4524:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] TP_SRAM: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "===================== stateRW (%x,%x)\n", state_read, state_write);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:30:33, :31:34
+        $fwrite(32'h80000002, "======================================= statels (%x,%x)\n", state_load, state_store);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:30:33, :31:34
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4524:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4524:10
@@ -3082,8 +3082,8 @@ module TP_SRAM(	// <stdin>:4524:10
         _RANDOM_0 = `RANDOM;	// <stdin>:4524:10
         _RANDOM_1 = `RANDOM;	// <stdin>:4524:10
         _RANDOM_2 = `RANDOM;	// <stdin>:4524:10
-        state_read = _RANDOM_0[0];	// TP_SRAM.scala:30:33
-        state_write = _RANDOM_0[1];	// TP_SRAM.scala:30:33, :31:34
+        state_load = _RANDOM_0[0];	// TP_SRAM.scala:30:33
+        state_store = _RANDOM_0[1];	// TP_SRAM.scala:30:33, :31:34
         c = {_RANDOM_0[31:2], _RANDOM_1, _RANDOM_2[1:0]};	// GTimer.scala:8:32, TP_SRAM.scala:30:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
@@ -3092,19 +3092,19 @@ module TP_SRAM(	// <stdin>:4524:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   MEM mem (	// TP_SRAM.scala:27:25
-    .iRen       (state_read),	// TP_SRAM.scala:30:33
-    .iWen       (state_write),	// TP_SRAM.scala:31:34
+    .iRen       (state_load),	// TP_SRAM.scala:30:33
+    .iWen       (state_store),	// TP_SRAM.scala:31:34
     .iReadAddr  (io_ar_bits_addr),
     .iWriteAddr (io_aw_bits_addr),
     .iByteMask  (io_w_bits_strb),
     .iWriteData (io_w_bits_data),
     .oReadData  (io_r_bits_data)
   );
-  assign io_aw_ready = ~state_write;	// <stdin>:4524:10, TP_SRAM.scala:31:34, :46:30
-  assign io_w_ready = ~state_write;	// <stdin>:4524:10, TP_SRAM.scala:31:34, :46:30
-  assign io_b_valid = state_write;	// <stdin>:4524:10, TP_SRAM.scala:31:34
-  assign io_ar_ready = ~state_read;	// <stdin>:4524:10, TP_SRAM.scala:30:33, :36:29
-  assign io_r_valid = state_read;	// <stdin>:4524:10, TP_SRAM.scala:30:33
+  assign io_aw_ready = ~state_store;	// <stdin>:4524:10, TP_SRAM.scala:31:34, :46:30
+  assign io_w_ready = ~state_store;	// <stdin>:4524:10, TP_SRAM.scala:31:34, :46:30
+  assign io_b_valid = state_store;	// <stdin>:4524:10, TP_SRAM.scala:31:34
+  assign io_ar_ready = ~state_load;	// <stdin>:4524:10, TP_SRAM.scala:30:33, :36:29
+  assign io_r_valid = state_load;	// <stdin>:4524:10, TP_SRAM.scala:30:33
 endmodule
 
 module SimTop(	// <stdin>:4602:10
