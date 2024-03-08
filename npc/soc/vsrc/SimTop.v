@@ -2992,23 +2992,23 @@ module AXI4Lite_Arbiter(	// <stdin>:4395:10
       if ((`PRINTF_COND_) & _GEN_0 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_0 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM]\n");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle\n");	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:39:80, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:39:80, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <===> SRAM]\n");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[InstFetch <===> SRAM] idle\n");	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN_3 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_3 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM]\n");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle\n");	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <===> SRAM]\n");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[InstFetch <===> SRAM] exec\n");	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN_5 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_4);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_5 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM]\n");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <===> SRAM] exec\n");	// Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4395:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4395:10

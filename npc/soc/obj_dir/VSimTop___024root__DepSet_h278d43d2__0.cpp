@@ -285,7 +285,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM]\n");
+        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM] idle\n");
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -294,7 +294,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM]\n");
+        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM] idle\n");
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_3) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -303,7 +303,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_3) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM]\n");
+        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM] idle\n");
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_4) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -312,7 +312,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_4) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM]\n");
+        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM] exec\n");
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_5) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -321,7 +321,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_5) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM]\n");
+        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM] exec\n");
     }
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__unnamedblk1__DOT___T_1 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_valid) 
