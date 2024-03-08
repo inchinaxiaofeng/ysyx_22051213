@@ -44,7 +44,7 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT___idu_io_out_0_valid;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__valid;
-        CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1;
+        CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_3;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T_9;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__state;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_ar_valid_T_1;
