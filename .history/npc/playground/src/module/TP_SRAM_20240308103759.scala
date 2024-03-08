@@ -48,6 +48,9 @@ class TP_SRAM extends MarCoreModule {
 		}
 	}
 
+	// Used to simulate SRAM delay, OK == run
+	val rWriteStatuOK = RegInit(false.B)
+	val rReadStatuOK  = RegInit(false.B)
 	/* Just push the data to SRAM and use enable signal control */
 	mem.io.iReadAddr := io.ar.bits.addr
 	mem.io.iWriteAddr := io.aw.bits.addr
@@ -58,6 +61,10 @@ class TP_SRAM extends MarCoreModule {
 	// Immediately ready
 	io.w.ready	:= state_write === s_idle
 	io.aw.ready	:= state_write === s_idle
+	rWriteStatuOK := Mux(
+		io.aw.valid && io.w.valid && !rWriteStatuOK,
+		true.B, false.B
+	) // All valid and not reading/writting, start transformate
 	mem.io.iWen := state_write === s_exec
 	io.b.valid := state_write === s_exec
 	// if not ready, anything can be resp
@@ -66,6 +73,7 @@ class TP_SRAM extends MarCoreModule {
 	/* Read */
 	// Immediately ready
 	io.ar.ready := state_read === s_idle
+//	rReadStatuOK := Mux(io.ar.valid && !rReadStatuOK, true.B, false.B)
 	mem.io.iRen := state_read === s_exec
 	io.r.valid := state_read === s_exec
 	// if not ready, anything can be resp

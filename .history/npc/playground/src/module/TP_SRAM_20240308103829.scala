@@ -48,6 +48,9 @@ class TP_SRAM extends MarCoreModule {
 		}
 	}
 
+	// Used to simulate SRAM delay, OK == run
+	val rWriteStatuOK = RegInit(false.B)
+	val rReadStatuOK  = RegInit(false.B)
 	/* Just push the data to SRAM and use enable signal control */
 	mem.io.iReadAddr := io.ar.bits.addr
 	mem.io.iWriteAddr := io.aw.bits.addr

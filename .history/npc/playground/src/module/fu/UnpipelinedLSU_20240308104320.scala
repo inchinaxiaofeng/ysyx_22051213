@@ -122,8 +122,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 		io.in.ready := true.B
 	}
 
-	Debug(io.out.fire, "[LSU-AGU] stateRW (%x,%x) inv %x inr $x\n",
-	state_read, state_write, io.in.valid, io.in.ready)
+	Debug(io.out.fire, "[LSU-AGU] state %x inv %x inr $x\n", state, io.in.valid, io.in.ready)
 
 	// Controled by FSM
 	io.in.ready := lsExecUnit.io.in.ready
@@ -222,14 +221,14 @@ class LSExecUnit extends MarCoreModule {
 		}
 	}
 
-	Info("[LSU EXEC] stateRW (%x,%x), bvalid %b bready %b\n",
+	Info("[LSU EXEC] s_RW (%x,%x), bvalid %b bready %b\n",
 		state_read, state_write, dmem.b.valid, dmem.b.ready)
 
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
 		"[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n",
 		addr, ctrl(1, 0), io.wdata, isStore)
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] stateRW (%x,%x) Raddr %x Waddr %x rFire %x bFire %d Rdata %x\n",
+		"[LSU] s_RW (%x,%x) Raddr %x Waddr %x rFire %x bFire %d Rdata %x\n",
 		state_read, state_write, dmem.ar.bits.addr, dmem.aw.bits.addr,
 		dmem.r.fire, dmem.b.fire, dmem.r.bits.data)
 //	Debug(dtlbFinish && dtlbEnable, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbEnable, dtlbPF, state, dmem.req.bits.addr, dmem.resp.fire, dmem.resp.bits.rdata)

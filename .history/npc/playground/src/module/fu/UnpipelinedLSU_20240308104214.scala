@@ -122,8 +122,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 		io.in.ready := true.B
 	}
 
-	Debug(io.out.fire, "[LSU-AGU] stateRW (%x,%x) inv %x inr $x\n",
-	state_read, state_write, io.in.valid, io.in.ready)
+//	Debug(io.out.fire, "[LSU-AGU] state %x inv %x inr $x\n", state, io.in.valid, io.in.ready)
 
 	// Controled by FSM
 	io.in.ready := lsExecUnit.io.in.ready
@@ -222,7 +221,7 @@ class LSExecUnit extends MarCoreModule {
 		}
 	}
 
-	Info("[LSU EXEC] stateRW (%x,%x), bvalid %b bready %b\n",
+	Info("[LSU EXEC] s_RW (%x,%x), bvalid %b bready %b\n",
 		state_read, state_write, dmem.b.valid, dmem.b.ready)
 
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,

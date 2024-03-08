@@ -25,29 +25,25 @@ class TP_SRAM extends MarCoreModule {
 	val mem	= Module(new MEM())
 
 	val s_idle :: s_exec :: Nil = Enum(2)
-	val state_read = RegInit(s_idle)
-	val state_write = RegInit(s_idle)
+	val state_read = RegInit(sr_idle)
 
 	switch (state_read) {
-		is (s_idle) {
-			when (io.ar.fire) { state_read := s_exec }
+		is (sr_idle) {
+			when (io.ar.fire) { state_read := sr_exec }
 		}
 
-		is (s_exec) {
-			when (io.r.ready) { state_read := s_idle }
-		}
-	}
-
-	switch (state_write) {
-		is (s_idle) {
-			when (io.aw.fire && io.w.fire) { state_write := s_exec }
-		}
-
-		is (s_exec) {
-			when (io.b.ready) { state_write := s_idle }
+		is (sr_exec) {
+			when (io.r.ready) {
+				state_read := sr_idle
+			}
 		}
 	}
 
+	switch
+
+	// Used to simulate SRAM delay, OK == run
+	val rWriteStatuOK = RegInit(false.B)
+	val rReadStatuOK  = RegInit(false.B)
 	/* Just push the data to SRAM and use enable signal control */
 	mem.io.iReadAddr := io.ar.bits.addr
 	mem.io.iWriteAddr := io.aw.bits.addr
@@ -56,18 +52,23 @@ class TP_SRAM extends MarCoreModule {
 
 	/* Write */
 	// Immediately ready
-	io.w.ready	:= state_write === s_idle
-	io.aw.ready	:= state_write === s_idle
-	mem.io.iWen := state_write === s_exec
-	io.b.valid := state_write === s_exec
+	io.w.ready	:= io.w.valid
+	io.aw.ready	:= io.aw.valid
+	rWriteStatuOK := Mux(
+		io.aw.valid && io.w.valid && !rWriteStatuOK,
+		true.B, false.B
+	) // All valid and not reading/writting, start transformate
+	mem.io.iWen := rWriteStatuOK
+	io.b.valid := rWriteStatuOK
 	// if not ready, anything can be resp
 	io.b.bits.apply(resp = Mux(io.b.ready, AXI4Parameters.RESP_OKAY, AXI4Parameters.RESP_SLVERR))
 
 	/* Read */
 	// Immediately ready
-	io.ar.ready := state_read === s_idle
-	mem.io.iRen := state_read === s_exec
-	io.r.valid := state_read === s_exec
+	io.ar.ready := state_read === sr_idle
+	rReadStatuOK := Mux(io.ar.valid && !rReadStatuOK, true.B, false.B)
+	mem.io.iRen := rReadStatuOK
+	io.r.valid := rReadStatuOK
 	// if not ready, anything can be resp
 	io.r.bits.apply(data = mem.io.oReadData, resp =
 		Mux(io.r.ready, AXI4Parameters.RESP_OKAY, AXI4Parameters.RESP_SLVERR))

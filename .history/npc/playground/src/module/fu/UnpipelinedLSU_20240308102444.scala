@@ -122,8 +122,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 		io.in.ready := true.B
 	}
 
-	Debug(io.out.fire, "[LSU-AGU] stateRW (%x,%x) inv %x inr $x\n",
-	state_read, state_write, io.in.valid, io.in.ready)
+//	Debug(io.out.fire, "[LSU-AGU] state %x inv %x inr $x\n", state, io.in.valid, io.in.ready)
 
 	// Controled by FSM
 	io.in.ready := lsExecUnit.io.in.ready
@@ -214,7 +213,19 @@ class LSExecUnit extends MarCoreModule {
 		is (sw_idle) {
 			when (dmem.aw.ready && dmem.w.ready && valid && isStore) {
 				state_write := sw_wait_resp
+			}.elsewhen (dmem.w.ready && valid && isStore) {
+				state_write := sw_wait_aw
+			}.elsewhen (dmem.aw.ready && valid && isStore) {
+				state_write := sw_wait_w
 			}
+		}
+
+		is (sw_wait_aw) {
+			when (dmem.aw.ready) { state_write := sw_wait_resp }
+		}
+
+		is (sw_wait_w) {
+			when (dmem.w.ready) { state_write := sw_wait_resp }
 		}
 
 		is (sw_wait_resp) {
@@ -243,9 +254,9 @@ class LSExecUnit extends MarCoreModule {
 
 	dmem.aw.bits.apply(addr = reqAddr); dmem.aw.valid := wValid;
 	dmem.w.bits.apply(data = reqWdata, strb = reqWmask); dmem.w.valid := wValid;
-	dmem.b.ready := state_write === sw_wait_resp
+	dmem.b.ready := true.B
 	dmem.ar.bits.apply(addr = reqAddr); dmem.ar.valid := rValid
-	dmem.r.ready := state_read === sr_wait_resp
+	dmem.r.ready := true.B
 
 	io.out.valid := Mux(
 		io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned,
@@ -258,7 +269,7 @@ class LSExecUnit extends MarCoreModule {
 	io.in.ready := state_read === sr_idle && state_write === sw_idle
 
 	Debug(io.out.fire, 
-		"[LSU-EXECUNIT] s_RW (%x,%x) rResp %x wResp %x lm %x sm %x\n", 
+		"[LSU-EXECUNIT] stateRW (%x,%x) rResp %x wResp %x lm %x sm %x\n", 
 		state_read, state_write, dmem.r.fire, dmem.b.fire,
 		io.ioLoadAddrMisaligned, io.ioStoreAddrMisaligned)
 
