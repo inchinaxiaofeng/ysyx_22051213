@@ -273,23 +273,23 @@ module IFU_embedded(	// <stdin>:2:10
                 io_out_bits_pnpc,
   output [3:0]  io_flushVec);
 
-  wire        _io_imem_r_ready_T_1;	// IFU.scala:51:41
+  wire        _io_imem_r_ready_T_1;	// IFU.scala:45:41
   reg  [63:0] pc;	// IFU.scala:29:25
-  wire        _T_5 = _io_imem_r_ready_T_1 & io_imem_r_valid;	// Decoupled.scala:52:35, IFU.scala:51:41
+  wire        _T_5 = _io_imem_r_ready_T_1 & io_imem_r_valid;	// Decoupled.scala:52:35, IFU.scala:45:41
   wire [63:0] snpc = pc + 64'h4;	// IFU.scala:29:25, :31:23
-  assign _io_imem_r_ready_T_1 = io_out_ready | io_redirect_valid;	// IFU.scala:51:41
+  assign _io_imem_r_ready_T_1 = io_out_ready | io_redirect_valid;	// IFU.scala:45:41
   reg  [63:0] c;	// GTimer.scala:8:32
-  wire        _io_out_valid_T_2 = io_imem_r_valid & ~io_redirect_valid;	// IFU.scala:65:{41,44}
+  wire        _io_out_valid_T_2 = io_imem_r_valid & ~io_redirect_valid;	// IFU.scala:54:{41,44}
   reg  [63:0] c_1;	// GTimer.scala:8:32
   reg  [63:0] c_2;	// GTimer.scala:8:32
   reg  [63:0] c_3;	// GTimer.scala:8:32
   always @(posedge clock) begin
     if (reset) begin
       pc <= 64'h80000000;	// IFU.scala:29:25
-      c <= 64'h0;	// GTimer.scala:8:32, IFU.scala:48:17
-      c_1 <= 64'h0;	// GTimer.scala:8:32, IFU.scala:48:17
-      c_2 <= 64'h0;	// GTimer.scala:8:32, IFU.scala:48:17
-      c_3 <= 64'h0;	// GTimer.scala:8:32, IFU.scala:48:17
+      c <= 64'h0;	// GTimer.scala:8:32, IFU.scala:42:17
+      c_1 <= 64'h0;	// GTimer.scala:8:32, IFU.scala:42:17
+      c_2 <= 64'h0;	// GTimer.scala:8:32, IFU.scala:42:17
+      c_3 <= 64'h0;	// GTimer.scala:8:32, IFU.scala:42:17
     end
     else begin
       if (io_redirect_valid | _T_5) begin	// Decoupled.scala:52:35, IFU.scala:30:42
@@ -306,17 +306,17 @@ module IFU_embedded(	// <stdin>:2:10
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2:10
     always @(posedge clock) begin	// Debug.scala:34:43
-      automatic logic _T_8 = _T_5 | io_imem_ar_ready & io_out_ready;	// Decoupled.scala:52:35, IFU.scala:67:30
-      automatic logic _T_14 = io_out_ready & _io_out_valid_T_2;	// Decoupled.scala:52:35, IFU.scala:65:41
+      automatic logic _T_8 = _T_5 | io_imem_ar_ready & io_out_ready;	// Decoupled.scala:52:35, IFU.scala:56:30
+      automatic logic _T_14 = io_out_ready & _io_out_valid_T_2;	// Decoupled.scala:52:35, IFU.scala:54:41
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
         $fwrite(32'h80000002, " %x\n", snpc);	// Debug.scala:34:43, :35:31, IFU.scala:31:23
-      if ((`PRINTF_COND_) & _T_8 & ~reset)	// Debug.scala:34:43, IFU.scala:67:30
+      if ((`PRINTF_COND_) & _T_8 & ~reset)	// Debug.scala:34:43, IFU.scala:56:30
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_8 & ~reset) begin	// Debug.scala:34:43, :35:31, IFU.scala:67:30
-        automatic logic [63:0] npc = io_redirect_valid ? io_redirect_target : snpc;	// IFU.scala:31:23, :37:22
-        $fwrite(32'h80000002, "[IFI] pc=%x redirect %x npc %x pc %x pnpc %x\n", pc[31:0], io_redirect_valid, npc, pc, npc);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, IFU.scala:29:25, :37:22
+      if ((`PRINTF_COND_) & _T_8 & ~reset) begin	// Debug.scala:34:43, :35:31, IFU.scala:56:30
+        automatic logic [63:0] npc = io_redirect_valid ? io_redirect_target : snpc;	// IFU.scala:31:23, :35:22
+        $fwrite(32'h80000002, "[IFI] pc=%x redirect %x npc %x pc %x pnpc %x\n", pc[31:0], io_redirect_valid, npc, pc, npc);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, IFU.scala:29:25, :35:22
       end
       if ((`PRINTF_COND_) & _T_14 & ~reset)	// Debug.scala:34:43, Decoupled.scala:52:35
         $fwrite(32'h80000002, "[%d] IFU_embedded: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
@@ -368,12 +368,12 @@ module IFU_embedded(	// <stdin>:2:10
   `endif // not def SYNTHESIS
   assign io_imem_ar_valid = io_out_ready;	// <stdin>:2:10
   assign io_imem_ar_bits_addr = pc[31:0];	// <stdin>:2:10, AXI4.scala:73:27, IFU.scala:29:25
-  assign io_imem_r_ready = _io_imem_r_ready_T_1;	// <stdin>:2:10, IFU.scala:51:41
-  assign io_out_valid = _io_out_valid_T_2;	// <stdin>:2:10, IFU.scala:65:41
+  assign io_imem_r_ready = _io_imem_r_ready_T_1;	// <stdin>:2:10, IFU.scala:45:41
+  assign io_out_valid = _io_out_valid_T_2;	// <stdin>:2:10, IFU.scala:54:41
   assign io_out_bits_instr = io_imem_r_bits_data;	// <stdin>:2:10
   assign io_out_bits_pc = pc;	// <stdin>:2:10, IFU.scala:29:25
   assign io_out_bits_pnpc = snpc;	// <stdin>:2:10, IFU.scala:31:23
-  assign io_flushVec = {4{io_redirect_valid}};	// <stdin>:2:10, IFU.scala:45:27
+  assign io_flushVec = {4{io_redirect_valid}};	// <stdin>:2:10, IFU.scala:39:27
 endmodule
 
 module Decoder(	// <stdin>:158:10, :847:10
@@ -3051,11 +3051,11 @@ module TP_SRAM(	// <stdin>:4551:10
     end
     else begin
       if (state_load)	// TP_SRAM.scala:30:33
-        state_load <= (~state_load | ~io_r_ready) & state_load;	// TP_SRAM.scala:30:33, :37:29, :43:{43,56}
+        state_load <= (~state_load | ~(io_r_ready & state_load)) & state_load;	// Decoupled.scala:52:35, TP_SRAM.scala:30:33, :37:29, :43:{42,55}
       else	// TP_SRAM.scala:30:33
         state_load <= ~state_load & io_ar_valid | state_load;	// Decoupled.scala:52:35, TP_SRAM.scala:30:33, :37:29, :39:{43,56}
       if (state_store)	// TP_SRAM.scala:31:34
-        state_store <= (~state_store | ~io_b_ready) & state_store;	// TP_SRAM.scala:31:34, :47:30, :53:{43,57}
+        state_store <= (~state_store | ~(io_b_ready & state_store)) & state_store;	// Decoupled.scala:52:35, TP_SRAM.scala:31:34, :47:30, :53:{42,56}
       else	// TP_SRAM.scala:31:34
         state_store <= ~state_store & io_aw_valid & io_w_valid | state_store;	// TP_SRAM.scala:31:34, :47:30, :49:{42,56,70}
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
@@ -3107,7 +3107,7 @@ module TP_SRAM(	// <stdin>:4551:10
   assign io_r_valid = state_load;	// <stdin>:4551:10, TP_SRAM.scala:30:33
 endmodule
 
-module SimTop(	// <stdin>:4629:10
+module SimTop(	// <stdin>:4631:10
   input         clock,
                 reset,
   output        io_commit,
@@ -3198,27 +3198,27 @@ module SimTop(	// <stdin>:4629:10
     else	// SimTop.scala:27:26
       io_pc_REG <= _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:27:26, :51:25
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4629:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4629:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4629:10
+  `ifndef SYNTHESIS	// <stdin>:4631:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4631:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4631:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4629:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4629:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4629:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:4629:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4629:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4629:10
+    initial begin	// <stdin>:4631:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4631:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4631:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4631:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4631:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4631:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4629:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4629:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4629:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:4629:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4631:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4631:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4631:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:4631:10
         io_commit_REG = _RANDOM_0[0];	// SimTop.scala:50:29
         io_pc_REG = {_RANDOM_0[31:1], _RANDOM_1, _RANDOM_2[0]};	// SimTop.scala:50:29, :51:25
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4629:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4629:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4631:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4631:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   Core core (	// SimTop.scala:27:26
@@ -3342,8 +3342,8 @@ module SimTop(	// <stdin>:4629:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
-  assign io_commit = io_commit_REG;	// <stdin>:4629:10, SimTop.scala:50:29
-  assign io_pc = io_pc_REG;	// <stdin>:4629:10, SimTop.scala:51:25
-  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4629:10, SimTop.scala:28:29
+  assign io_commit = io_commit_REG;	// <stdin>:4631:10, SimTop.scala:50:29
+  assign io_pc = io_pc_REG;	// <stdin>:4631:10, SimTop.scala:51:25
+  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4631:10, SimTop.scala:28:29
 endmodule
 
