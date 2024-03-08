@@ -110,7 +110,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    vlSelf->SimTop__DOT__TP_SRAM__DOT__c);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"stateRW (%x,%x)\n",
+        VL_FWRITEF(0x80000002U,"=========== stateRW (%x,%x)\n",
                    1,vlSelf->SimTop__DOT__TP_SRAM__DOT__state_read,
                    1,(IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write));
     }
@@ -163,7 +163,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"[LSU STATE] state 0\n");
+        VL_FWRITEF(0x80000002U,"================= state 0\n");
     }
     if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___io_out_valid_T_10) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -336,7 +336,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"[LSU EXEC] stateRW (%x,%x), bvalid %b bready %b\n",
+        VL_FWRITEF(0x80000002U,"================ stateRW (%x,%x), bvalid %b bready %b\n",
                    2,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_read,
                    1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_write),
                    1,vlSelf->SimTop__DOT__TP_SRAM__DOT__state_write,

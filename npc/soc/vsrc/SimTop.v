@@ -1299,51 +1299,51 @@ module LSExecUnit(	// <stdin>:2254:10
                 io_ioLoadAddrMisaligned,
                 io_ioStoreAddrMisaligned);
 
-  wire        _io_ioStoreAddrMisaligned_T_2;	// UnpipelinedLSU.scala:308:54
-  wire        _io_ioLoadAddrMisaligned_T_3;	// UnpipelinedLSU.scala:307:55
-  wire        _io_out_valid_T_5;	// UnpipelinedLSU.scala:248:36
-  reg  [63:0] addrLatch;	// UnpipelinedLSU.scala:188:32
-  wire        isStore = io_in_valid & io_in_bits_ctrl[3];	// LSU.scala:25:45, UnpipelinedLSU.scala:189:29
-  wire        partialLoad = ~isStore & io_in_bits_ctrl != 7'h3;	// UnpipelinedLSU.scala:189:29, :190:{27,36,45}
-  reg  [1:0]  state_read;	// UnpipelinedLSU.scala:194:33
-  reg         state_write;	// UnpipelinedLSU.scala:195:34
+  wire        _io_ioStoreAddrMisaligned_T_2;	// UnpipelinedLSU.scala:301:54
+  wire        _io_ioLoadAddrMisaligned_T_3;	// UnpipelinedLSU.scala:300:55
+  wire        _io_out_valid_T_5;	// UnpipelinedLSU.scala:241:36
+  reg  [63:0] addrLatch;	// UnpipelinedLSU.scala:181:32
+  wire        isStore = io_in_valid & io_in_bits_ctrl[3];	// LSU.scala:25:45, UnpipelinedLSU.scala:182:29
+  wire        partialLoad = ~isStore & io_in_bits_ctrl != 7'h3;	// UnpipelinedLSU.scala:182:29, :183:{27,36,45}
+  reg  [1:0]  state_read;	// UnpipelinedLSU.scala:187:33
+  reg         state_write;	// UnpipelinedLSU.scala:188:34
   reg  [63:0] c;	// GTimer.scala:8:32
   reg  [63:0] c_1;	// GTimer.scala:8:32
-  wire        _T_38 = _io_out_valid_T_5 & io_dmem_r_valid;	// Decoupled.scala:52:35, UnpipelinedLSU.scala:248:36
-  wire        _T_39 = state_write & io_dmem_b_valid;	// Decoupled.scala:52:35, UnpipelinedLSU.scala:195:34
+  wire        _T_38 = _io_out_valid_T_5 & io_dmem_r_valid;	// Decoupled.scala:52:35, UnpipelinedLSU.scala:241:36
+  wire        _T_39 = state_write & io_dmem_b_valid;	// Decoupled.scala:52:35, UnpipelinedLSU.scala:188:34
   reg  [63:0] c_2;	// GTimer.scala:8:32
-  wire        _reqWmask_T_1 = io_in_bits_ctrl[1:0] == 2'h1;	// LookupTree.scala:8:38, UnpipelinedLSU.scala:200:44, :230:27
-  wire        _reqWmask_T_2 = io_in_bits_ctrl[1:0] == 2'h2;	// LookupTree.scala:8:38, UnpipelinedLSU.scala:206:50, :230:27
+  wire        _reqWmask_T_1 = io_in_bits_ctrl[1:0] == 2'h1;	// LookupTree.scala:8:38, UnpipelinedLSU.scala:193:44, :223:27
+  wire        _reqWmask_T_2 = io_in_bits_ctrl[1:0] == 2'h2;	// LookupTree.scala:8:38, UnpipelinedLSU.scala:199:50, :223:27
   wire [14:0] reqWmask = {7'h0, {4'h0, {2'h0, {1'h0, ~(|(io_in_bits_ctrl[1:0]))} | {2{_reqWmask_T_1}}} |
-                {4{_reqWmask_T_2}}} | {8{&(io_in_bits_ctrl[1:0])}}} << io_in_bits_srcA[2:0];	// LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:159:{20,27}, :188:32, :194:33, :230:27
+                {4{_reqWmask_T_2}}} | {8{&(io_in_bits_ctrl[1:0])}}} << io_in_bits_srcA[2:0];	// LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:152:{20,27}, :181:32, :187:33, :223:27
   wire        wValid = io_in_valid & ~state_write & isStore & ~_io_ioLoadAddrMisaligned_T_3 &
-                ~_io_ioStoreAddrMisaligned_T_2;	// UnpipelinedLSU.scala:189:29, :195:34, :241:{44,71,96,99}, :307:55, :308:54
-  wire        _io_in_ready_T = state_read == 2'h0;	// UnpipelinedLSU.scala:194:33, :242:43
-  assign _io_out_valid_T_5 = state_read == 2'h1;	// UnpipelinedLSU.scala:194:33, :200:44, :248:36
-  wire        _T_46 = _io_ioLoadAddrMisaligned_T_3 | _io_ioStoreAddrMisaligned_T_2;	// UnpipelinedLSU.scala:251:41, :307:55, :308:54
+                ~_io_ioStoreAddrMisaligned_T_2;	// UnpipelinedLSU.scala:182:29, :188:34, :234:{44,71,96,99}, :300:55, :301:54
+  wire        _io_in_ready_T = state_read == 2'h0;	// UnpipelinedLSU.scala:187:33, :235:43
+  assign _io_out_valid_T_5 = state_read == 2'h1;	// UnpipelinedLSU.scala:187:33, :193:44, :241:36
+  wire        _T_46 = _io_ioLoadAddrMisaligned_T_3 | _io_ioStoreAddrMisaligned_T_2;	// UnpipelinedLSU.scala:244:41, :300:55, :301:54
   wire        _io_out_valid_T_10 = _T_46 | (partialLoad ? state_read == 2'h2 : (_T_38 | _T_39) & (_io_out_valid_T_5 |
-                state_write));	// Decoupled.scala:52:35, UnpipelinedLSU.scala:190:36, :194:33, :195:34, :206:50, :248:36, :250:28, :251:41, :252:28, :253:36, :254:{38,54}, :255:54
+                state_write));	// Decoupled.scala:52:35, UnpipelinedLSU.scala:183:36, :187:33, :188:34, :199:50, :241:36, :243:28, :244:41, :245:28, :246:36, :247:{38,54}, :248:54
   reg  [63:0] c_3;	// GTimer.scala:8:32
-  reg  [63:0] rdataLatch;	// UnpipelinedLSU.scala:266:33
+  reg  [63:0] rdataLatch;	// UnpipelinedLSU.scala:259:33
   wire [31:0] _GEN = (addrLatch[2:0] == 3'h1 ? rdataLatch[39:8] : 32'h0) | (addrLatch[2:0] == 3'h2 ?
                 rdataLatch[47:16] : 32'h0) | (addrLatch[2:0] == 3'h3 ? rdataLatch[55:24] : 32'h0) |
-                (addrLatch[2:0] == 3'h4 ? rdataLatch[63:32] : 32'h0);	// Bitwise.scala:77:12, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:188:32, :266:33, :267:46, :269:46, :270:46, :271:46, :272:46
-  wire [23:0] _GEN_0 = _GEN[23:0] | (addrLatch[2:0] == 3'h5 ? rdataLatch[63:40] : 24'h0);	// LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:188:32, :266:33, :267:46, :273:46
-  wire [15:0] _GEN_1 = _GEN_0[15:0] | (addrLatch[2:0] == 3'h6 ? rdataLatch[63:48] : 16'h0);	// LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:188:32, :266:33, :267:46, :274:46
+                (addrLatch[2:0] == 3'h4 ? rdataLatch[63:32] : 32'h0);	// Bitwise.scala:77:12, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:181:32, :259:33, :260:46, :262:46, :263:46, :264:46, :265:46
+  wire [23:0] _GEN_0 = _GEN[23:0] | (addrLatch[2:0] == 3'h5 ? rdataLatch[63:40] : 24'h0);	// LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:181:32, :259:33, :260:46, :266:46
+  wire [15:0] _GEN_1 = _GEN_0[15:0] | (addrLatch[2:0] == 3'h6 ? rdataLatch[63:48] : 16'h0);	// LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:181:32, :259:33, :260:46, :267:46
   wire [31:0] _rdataPartialLoad_T_20 = (addrLatch[2:0] == 3'h0 ? rdataLatch[31:0] : 32'h0) | {_GEN[31:24], _GEN_0[23:16],
-                _GEN_1[15:8], _GEN_1[7:0] | ((&(addrLatch[2:0])) ? rdataLatch[63:56] : 8'h0)};	// Bitwise.scala:77:12, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:188:32, :266:33, :267:46, :275:46
+                _GEN_1[15:8], _GEN_1[7:0] | ((&(addrLatch[2:0])) ? rdataLatch[63:56] : 8'h0)};	// Bitwise.scala:77:12, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:181:32, :259:33, :260:46, :268:46
   wire        _addrAligned_T_17 = ~(|(io_in_bits_ctrl[1:0])) | io_in_bits_ctrl[1:0] == 2'h1 & ~(io_in_bits_srcA[0]) |
                 io_in_bits_ctrl[1:0] == 2'h2 & io_in_bits_srcA[1:0] == 2'h0 | (&(io_in_bits_ctrl[1:0])) &
-                io_in_bits_srcA[2:0] == 3'h0;	// LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:159:27, :194:33, :200:44, :206:50, :230:27, :294:{33,37}, :295:{33,40}, :296:40
-  assign _io_ioLoadAddrMisaligned_T_3 = io_in_valid & ~isStore & ~_addrAligned_T_17;	// Mux.scala:27:73, UnpipelinedLSU.scala:189:29, :190:27, :307:{55,58}
-  assign _io_ioStoreAddrMisaligned_T_2 = io_in_valid & isStore & ~_addrAligned_T_17;	// Mux.scala:27:73, UnpipelinedLSU.scala:189:29, :307:58, :308:54
+                io_in_bits_srcA[2:0] == 3'h0;	// LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:152:27, :187:33, :193:44, :199:50, :223:27, :287:{33,37}, :288:{33,40}, :289:40
+  assign _io_ioLoadAddrMisaligned_T_3 = io_in_valid & ~isStore & ~_addrAligned_T_17;	// Mux.scala:27:73, UnpipelinedLSU.scala:182:29, :183:27, :300:{55,58}
+  assign _io_ioStoreAddrMisaligned_T_2 = io_in_valid & isStore & ~_addrAligned_T_17;	// Mux.scala:27:73, UnpipelinedLSU.scala:182:29, :300:58, :301:54
   reg  [63:0] c_4;	// GTimer.scala:8:32
   always @(posedge clock) begin
-    addrLatch <= io_in_bits_srcA;	// UnpipelinedLSU.scala:188:32
-    rdataLatch <= io_dmem_r_bits_data;	// UnpipelinedLSU.scala:266:33
+    addrLatch <= io_in_bits_srcA;	// UnpipelinedLSU.scala:181:32
+    rdataLatch <= io_dmem_r_bits_data;	// UnpipelinedLSU.scala:259:33
     if (reset) begin
-      state_read <= 2'h0;	// UnpipelinedLSU.scala:194:33
-      state_write <= 1'h0;	// UnpipelinedLSU.scala:188:32, :195:34
+      state_read <= 2'h0;	// UnpipelinedLSU.scala:187:33
+      state_write <= 1'h0;	// UnpipelinedLSU.scala:181:32, :188:34
       c <= 64'h0;	// GTimer.scala:8:32
       c_1 <= 64'h0;	// GTimer.scala:8:32
       c_2 <= 64'h0;	// GTimer.scala:8:32
@@ -1351,9 +1351,9 @@ module LSExecUnit(	// <stdin>:2254:10
       c_4 <= 64'h0;	// GTimer.scala:8:32
     end
     else begin
-      if (io_dmem_ar_ready & io_in_valid & ~isStore)	// UnpipelinedLSU.scala:189:29, :190:27, :199:54
-        state_read <= 2'h1;	// UnpipelinedLSU.scala:194:33, :200:44
-      state_write <= io_dmem_aw_ready & io_dmem_w_ready & io_in_valid & isStore | state_write;	// UnpipelinedLSU.scala:189:29, :195:34, :215:{70,82}, :216:45
+      if (io_dmem_ar_ready & io_in_valid & ~isStore)	// UnpipelinedLSU.scala:182:29, :183:27, :192:54
+        state_read <= 2'h1;	// UnpipelinedLSU.scala:187:33, :193:44
+      state_write <= io_dmem_aw_ready & io_dmem_w_ready & io_in_valid & isStore | state_write;	// UnpipelinedLSU.scala:182:29, :188:34, :208:{70,82}, :209:45
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
       c_1 <= c_1 + 64'h1;	// GTimer.scala:8:32, :9:24
       c_2 <= c_2 + 64'h1;	// GTimer.scala:8:32, :9:24
@@ -1363,29 +1363,29 @@ module LSExecUnit(	// <stdin>:2254:10
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2254:10
     always @(posedge clock) begin	// Debug.scala:34:43
-      automatic logic _T_27 = io_dmem_aw_ready & io_dmem_w_ready;	// UnpipelinedLSU.scala:228:28
-      automatic logic _T_28 = io_dmem_ar_ready & _io_out_valid_T_5;	// UnpipelinedLSU.scala:228:59, :248:36
-      automatic logic _T_22 = _T_27 | _T_28;	// UnpipelinedLSU.scala:228:{28,43,59}
-      automatic logic _T_32 = _T_27 | _T_28;	// UnpipelinedLSU.scala:228:{28,59}, :231:43
+      automatic logic _T_27 = io_dmem_aw_ready & io_dmem_w_ready;	// UnpipelinedLSU.scala:221:28
+      automatic logic _T_28 = io_dmem_ar_ready & _io_out_valid_T_5;	// UnpipelinedLSU.scala:221:59, :241:36
+      automatic logic _T_22 = _T_27 | _T_28;	// UnpipelinedLSU.scala:221:{28,43,59}
+      automatic logic _T_32 = _T_27 | _T_28;	// UnpipelinedLSU.scala:221:{28,59}, :224:43
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LSU EXEC] stateRW (%x,%x), bvalid %b bready %b\n", state_read, state_write, io_dmem_b_valid, state_write);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:194:33, :195:34
-      if ((`PRINTF_COND_) & _T_22 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:228:43
+        $fwrite(32'h80000002, "================ stateRW (%x,%x), bvalid %b bready %b\n", state_read, state_write, io_dmem_b_valid, state_write);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:187:33, :188:34
+      if ((`PRINTF_COND_) & _T_22 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:221:43
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_22 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:228:43
-        $fwrite(32'h80000002, "[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n", io_in_bits_srcA, io_in_bits_ctrl[1:0], io_wdata, isStore);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:189:29, :230:27
-      if ((`PRINTF_COND_) & _T_32 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:231:43
+      if ((`PRINTF_COND_) & _T_22 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:221:43
+        $fwrite(32'h80000002, "[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n", io_in_bits_srcA, io_in_bits_ctrl[1:0], io_wdata, isStore);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:182:29, :223:27
+      if ((`PRINTF_COND_) & _T_32 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:224:43
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_32 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:231:43
-        $fwrite(32'h80000002, "[LSU] stateRW (%x,%x) Raddr %x Waddr %x rFire %x bFire %d Rdata %x\n", state_read, state_write, io_in_bits_srcA[31:0], io_in_bits_srcA[31:0], _T_38, _T_39, io_dmem_r_bits_data);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, Decoupled.scala:52:35, UnpipelinedLSU.scala:194:33, :195:34
-      if ((`PRINTF_COND_) & _io_out_valid_T_10 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:250:28
+      if ((`PRINTF_COND_) & _T_32 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:224:43
+        $fwrite(32'h80000002, "[LSU] stateRW (%x,%x) Raddr %x Waddr %x rFire %x bFire %d Rdata %x\n", state_read, state_write, io_in_bits_srcA[31:0], io_in_bits_srcA[31:0], _T_38, _T_39, io_dmem_r_bits_data);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, Decoupled.scala:52:35, UnpipelinedLSU.scala:187:33, :188:34
+      if ((`PRINTF_COND_) & _io_out_valid_T_10 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:243:28
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _io_out_valid_T_10 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:250:28
-        $fwrite(32'h80000002, "[LSU-EXECUNIT] s_RW (%x,%x) rResp %x wResp %x lm %x sm %x\n", state_read, state_write, _T_38, _T_39, _io_ioLoadAddrMisaligned_T_3, _io_ioStoreAddrMisaligned_T_2);	// Debug.scala:34:43, :35:31, Decoupled.scala:52:35, UnpipelinedLSU.scala:194:33, :195:34, :307:55, :308:54
-      if ((`PRINTF_COND_) & _T_46 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:251:41
+      if ((`PRINTF_COND_) & _io_out_valid_T_10 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:243:28
+        $fwrite(32'h80000002, "[LSU-EXECUNIT] s_RW (%x,%x) rResp %x wResp %x lm %x sm %x\n", state_read, state_write, _T_38, _T_39, _io_ioLoadAddrMisaligned_T_3, _io_ioStoreAddrMisaligned_T_2);	// Debug.scala:34:43, :35:31, Decoupled.scala:52:35, UnpipelinedLSU.scala:187:33, :188:34, :300:55, :301:54
+      if ((`PRINTF_COND_) & _T_46 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:244:41
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_4);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_46 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:251:41
+      if ((`PRINTF_COND_) & _T_46 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:244:41
         $fwrite(32'h80000002, "[EXCEPTION] misaligned addr detected\n");	// Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2254:10
@@ -1426,23 +1426,23 @@ module LSExecUnit(	// <stdin>:2254:10
         _RANDOM_12 = `RANDOM;	// <stdin>:2254:10
         _RANDOM_13 = `RANDOM;	// <stdin>:2254:10
         _RANDOM_14 = `RANDOM;	// <stdin>:2254:10
-        addrLatch = {_RANDOM_0, _RANDOM_1};	// UnpipelinedLSU.scala:188:32
-        state_read = _RANDOM_2[1:0];	// UnpipelinedLSU.scala:194:33
-        state_write = _RANDOM_2[2];	// UnpipelinedLSU.scala:194:33, :195:34
-        c = {_RANDOM_2[31:3], _RANDOM_3, _RANDOM_4[2:0]};	// GTimer.scala:8:32, UnpipelinedLSU.scala:194:33
+        addrLatch = {_RANDOM_0, _RANDOM_1};	// UnpipelinedLSU.scala:181:32
+        state_read = _RANDOM_2[1:0];	// UnpipelinedLSU.scala:187:33
+        state_write = _RANDOM_2[2];	// UnpipelinedLSU.scala:187:33, :188:34
+        c = {_RANDOM_2[31:3], _RANDOM_3, _RANDOM_4[2:0]};	// GTimer.scala:8:32, UnpipelinedLSU.scala:187:33
         c_1 = {_RANDOM_4[31:3], _RANDOM_5, _RANDOM_6[2:0]};	// GTimer.scala:8:32
         c_2 = {_RANDOM_6[31:3], _RANDOM_7, _RANDOM_8[2:0]};	// GTimer.scala:8:32
         c_3 = {_RANDOM_8[31:3], _RANDOM_9, _RANDOM_10[2:0]};	// GTimer.scala:8:32
-        rdataLatch = {_RANDOM_10[31:3], _RANDOM_11, _RANDOM_12[2:0]};	// GTimer.scala:8:32, UnpipelinedLSU.scala:266:33
-        c_4 = {_RANDOM_12[31:3], _RANDOM_13, _RANDOM_14[2:0]};	// GTimer.scala:8:32, UnpipelinedLSU.scala:266:33
+        rdataLatch = {_RANDOM_10[31:3], _RANDOM_11, _RANDOM_12[2:0]};	// GTimer.scala:8:32, UnpipelinedLSU.scala:259:33
+        c_4 = {_RANDOM_12[31:3], _RANDOM_13, _RANDOM_14[2:0]};	// GTimer.scala:8:32, UnpipelinedLSU.scala:259:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2254:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:2254:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_in_ready = _io_in_ready_T & ~state_write;	// <stdin>:2254:10, UnpipelinedLSU.scala:195:34, :241:44, :242:43, :258:47
-  assign io_out_valid = _io_out_valid_T_10;	// <stdin>:2254:10, UnpipelinedLSU.scala:250:28
+  assign io_in_ready = _io_in_ready_T & ~state_write;	// <stdin>:2254:10, UnpipelinedLSU.scala:188:34, :234:44, :235:43, :251:47
+  assign io_out_valid = _io_out_valid_T_10;	// <stdin>:2254:10, UnpipelinedLSU.scala:243:28
   assign io_out_bits = partialLoad ? (io_in_bits_ctrl == 7'h0 ? {{56{_rdataPartialLoad_T_20[7]}},
                 _rdataPartialLoad_T_20[7:0]} : 64'h0) | (io_in_bits_ctrl == 7'h1 ?
                 {{48{_rdataPartialLoad_T_20[15]}}, _rdataPartialLoad_T_20[15:0]} : 64'h0) |
@@ -1451,21 +1451,21 @@ module LSExecUnit(	// <stdin>:2254:10
                 _rdataPartialLoad_T_20[7:0]} : 64'h0) | (io_in_bits_ctrl == 7'h5 ?
                 {{48{_rdataPartialLoad_T_20[15]}}, _rdataPartialLoad_T_20[15:0]} : 64'h0) |
                 (io_in_bits_ctrl == 7'h6 ? {{32{_rdataPartialLoad_T_20[31]}}, _rdataPartialLoad_T_20} :
-                64'h0) : io_dmem_r_bits_data;	// <stdin>:2254:10, BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, GTimer.scala:8:32, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:159:20, :190:36, :285:52, :286:52, :299:27
-  assign io_dmem_aw_valid = wValid;	// <stdin>:2254:10, UnpipelinedLSU.scala:241:96
+                64'h0) : io_dmem_r_bits_data;	// <stdin>:2254:10, BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, GTimer.scala:8:32, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:152:20, :183:36, :278:52, :279:52, :292:27
+  assign io_dmem_aw_valid = wValid;	// <stdin>:2254:10, UnpipelinedLSU.scala:234:96
   assign io_dmem_aw_bits_addr = io_in_bits_srcA[31:0];	// <stdin>:2254:10, AXI4.scala:73:27
-  assign io_dmem_w_valid = wValid;	// <stdin>:2254:10, UnpipelinedLSU.scala:241:96
+  assign io_dmem_w_valid = wValid;	// <stdin>:2254:10, UnpipelinedLSU.scala:234:96
   assign io_dmem_w_bits_data = ((|(io_in_bits_ctrl[1:0])) ? 64'h0 : {2{{2{{2{io_wdata[7:0]}}}}}}) | (_reqWmask_T_1 ?
                 {2{{2{io_wdata[15:0]}}}} : 64'h0) | (_reqWmask_T_2 ? {2{io_wdata[31:0]}} : 64'h0) |
-                ((&(io_in_bits_ctrl[1:0])) ? io_wdata : 64'h0);	// <stdin>:2254:10, Cat.scala:33:92, GTimer.scala:8:32, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:164:48, :165:48, :166:48, :230:27
-  assign io_dmem_w_bits_strb = reqWmask[7:0];	// <stdin>:2254:10, AXI4.scala:83:27, UnpipelinedLSU.scala:159:20
-  assign io_dmem_b_ready = state_write;	// <stdin>:2254:10, UnpipelinedLSU.scala:195:34
+                ((&(io_in_bits_ctrl[1:0])) ? io_wdata : 64'h0);	// <stdin>:2254:10, Cat.scala:33:92, GTimer.scala:8:32, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:157:48, :158:48, :159:48, :223:27
+  assign io_dmem_w_bits_strb = reqWmask[7:0];	// <stdin>:2254:10, AXI4.scala:83:27, UnpipelinedLSU.scala:152:20
+  assign io_dmem_b_ready = state_write;	// <stdin>:2254:10, UnpipelinedLSU.scala:188:34
   assign io_dmem_ar_valid = io_in_valid & _io_in_ready_T & ~isStore & ~_io_ioLoadAddrMisaligned_T_3 &
-                ~_io_ioStoreAddrMisaligned_T_2;	// <stdin>:2254:10, UnpipelinedLSU.scala:189:29, :190:27, :241:{71,99}, :242:{43,96}, :307:55, :308:54
+                ~_io_ioStoreAddrMisaligned_T_2;	// <stdin>:2254:10, UnpipelinedLSU.scala:182:29, :183:27, :234:{71,99}, :235:{43,96}, :300:55, :301:54
   assign io_dmem_ar_bits_addr = io_in_bits_srcA[31:0];	// <stdin>:2254:10, AXI4.scala:73:27
-  assign io_dmem_r_ready = _io_out_valid_T_5;	// <stdin>:2254:10, UnpipelinedLSU.scala:248:36
-  assign io_ioLoadAddrMisaligned = _io_ioLoadAddrMisaligned_T_3;	// <stdin>:2254:10, UnpipelinedLSU.scala:307:55
-  assign io_ioStoreAddrMisaligned = _io_ioStoreAddrMisaligned_T_2;	// <stdin>:2254:10, UnpipelinedLSU.scala:308:54
+  assign io_dmem_r_ready = _io_out_valid_T_5;	// <stdin>:2254:10, UnpipelinedLSU.scala:241:36
+  assign io_ioLoadAddrMisaligned = _io_ioLoadAddrMisaligned_T_3;	// <stdin>:2254:10, UnpipelinedLSU.scala:300:55
+  assign io_ioStoreAddrMisaligned = _io_ioStoreAddrMisaligned_T_2;	// <stdin>:2254:10, UnpipelinedLSU.scala:301:54
 endmodule
 
 module UnpipelinedLSU(	// <stdin>:2610:10
@@ -1496,8 +1496,8 @@ module UnpipelinedLSU(	// <stdin>:2610:10
                 io_ioLoadAddrMisaligned,
                 io_ioStoreAddrMisaligned);
 
-  wire        _lsExecUnit_io_in_ready;	// UnpipelinedLSU.scala:35:32
-  wire        _lsExecUnit_io_out_valid;	// UnpipelinedLSU.scala:35:32
+  wire        _lsExecUnit_io_in_ready;	// UnpipelinedLSU.scala:32:32
+  wire        _lsExecUnit_io_out_valid;	// UnpipelinedLSU.scala:32:32
   reg  [63:0] c;	// GTimer.scala:8:32
   reg  [63:0] c_1;	// GTimer.scala:8:32
   always @(posedge clock) begin
@@ -1515,11 +1515,11 @@ module UnpipelinedLSU(	// <stdin>:2610:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] UnpipelinedLSU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LSU STATE] state %x\n", 2'h0);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:52:28
-      if ((`PRINTF_COND_) & _lsExecUnit_io_out_valid & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:35:32
+        $fwrite(32'h80000002, "================= state %x\n", 2'h0);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:45:28
+      if ((`PRINTF_COND_) & _lsExecUnit_io_out_valid & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:32:32
         $fwrite(32'h80000002, "[%d] UnpipelinedLSU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _lsExecUnit_io_out_valid & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:35:32
-        $fwrite(32'h80000002, "[LSU-AGU] state %x inv %x inr %x\n", 2'h0, io_in_valid, _lsExecUnit_io_in_ready);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:35:32, :52:28
+      if ((`PRINTF_COND_) & _lsExecUnit_io_out_valid & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:32:32
+        $fwrite(32'h80000002, "[LSU-AGU] state %x inv %x inr %x\n", 2'h0, io_in_valid, _lsExecUnit_io_in_ready);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:32:32, :45:28
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2610:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2610:10
@@ -1547,11 +1547,11 @@ module UnpipelinedLSU(	// <stdin>:2610:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:2610:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  LSExecUnit lsExecUnit (	// UnpipelinedLSU.scala:35:32
+  LSExecUnit lsExecUnit (	// UnpipelinedLSU.scala:32:32
     .clock                    (clock),
     .reset                    (reset),
     .io_in_valid              (io_in_valid),
-    .io_in_bits_srcA          (io_in_bits_srcA + io_in_bits_srcB),	// UnpipelinedLSU.scala:85:73
+    .io_in_bits_srcA          (io_in_bits_srcA + io_in_bits_srcB),	// UnpipelinedLSU.scala:78:73
     .io_in_bits_ctrl          (io_in_bits_ctrl),
     .io_wdata                 (io_wdata),
     .io_dmem_aw_ready         (io_dmem_aw_ready),
@@ -1575,7 +1575,7 @@ module UnpipelinedLSU(	// <stdin>:2610:10
     .io_ioLoadAddrMisaligned  (io_ioLoadAddrMisaligned),
     .io_ioStoreAddrMisaligned (io_ioStoreAddrMisaligned)
   );
-  assign io_out_valid = _lsExecUnit_io_out_valid;	// <stdin>:2610:10, UnpipelinedLSU.scala:35:32
+  assign io_out_valid = _lsExecUnit_io_out_valid;	// <stdin>:2610:10, UnpipelinedLSU.scala:32:32
 endmodule
 
 module Multiplier(	// <stdin>:2746:10
@@ -3065,7 +3065,7 @@ module TP_SRAM(	// <stdin>:4523:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] TP_SRAM: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "stateRW (%x,%x)\n", state_read, state_write);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:30:33, :31:34
+        $fwrite(32'h80000002, "=========== stateRW (%x,%x)\n", state_read, state_write);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:30:33, :31:34
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4523:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4523:10
