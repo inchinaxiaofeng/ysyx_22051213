@@ -74,14 +74,14 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     VSimTop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VSimTop___024root___nba_sequent__TOP__0\n"); );
     // Init
-    CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_8;
-    SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_8 = 0;
-    CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_14;
-    SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_14 = 0;
+    CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_3;
+    SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_3 = 0;
+    CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_9;
+    SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_9 = 0;
     CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__unnamedblk1__DOT___T_1;
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__unnamedblk1__DOT___T_1 = 0;
-    CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_20;
-    SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_20 = 0;
+    CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_15;
+    SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_15 = 0;
     IData/*31:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___GEN;
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___GEN = 0;
     IData/*23:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___GEN_0;
@@ -115,22 +115,6 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     // Body
     vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_store 
         = vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store;
-    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"[%20#] TP_SRAM: ",64,
-                   vlSelf->SimTop__DOT__TP_SRAM__DOT__c);
-    }
-    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"======================================= statels (%x,%x) arv %x arr %x\n",
-                   1,vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load,
-                   1,(IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store),
-                   1,((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
-                       ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)
-                       : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_7)
-                           ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready)
-                           : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_14) 
-                              & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)))),
-                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
-    }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
         VL_FWRITEF(0x80000002U,"[%20#] Backend_inorder: ",
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__c);
@@ -191,6 +175,31 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    1,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___fuValids_1_T_3,
                    1,((~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_store)) 
                       & (0U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load))));
+    }
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] TP_SRAM: ",64,
+                   vlSelf->SimTop__DOT__TP_SRAM__DOT__c);
+    }
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+        VL_FWRITEF(0x80000002U,"======================================= statels (%x,%x) arv %x arr %x araddr %x awv %x awr %x awaddr %x\n",
+                   1,vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load,
+                   1,(IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store),
+                   1,((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
+                       ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)
+                       : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_7)
+                           ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready)
+                           : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_14) 
+                              & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid)))),
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))),
+                   32,((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T)
+                        ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
+                        : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_7)
+                            ? (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc)
+                            : ((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_14)
+                                ? (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA)
+                                : 0U))),1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__wValid),
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store))),
+                   32,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA));
     }
     vlSelf->__Vdly__SimTop__DOT__core__DOT__ringBufferHead 
         = vlSelf->SimTop__DOT__core__DOT__ringBufferHead;
@@ -328,26 +337,19 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_redirect_valid),
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_redirect_target);
     }
-    SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_8 
-        = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T_5) 
+    SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_3 
+        = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T) 
            | ((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load)) 
               & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready)));
-    SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_14 
+    SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_9 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready) 
            & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_out_valid_T_2));
-    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_3) 
+                           & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[%20#] IFU_embedded: ",
                    64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c);
     }
-    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U," %x\n",64,(4ULL + vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc));
-    }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_8) 
-                           & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[%20#] IFU_embedded: ",
-                   64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_1);
-    }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_8) 
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_3) 
                            & (~ (IData)(vlSelf->reset)))))) {
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT__unnamedblk2__DOT__npc 
             = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush)
@@ -360,12 +362,12 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc,
                    64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT__unnamedblk2__DOT__npc);
     }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_14) 
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_9) 
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[%20#] IFU_embedded: ",
-                   64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_2);
+                   64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_1);
     }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_14) 
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT___T_9) 
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[IFO] pc=%x inst=%x npc=%x ipf 0\n",
                    64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc,
@@ -375,12 +377,41 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush) 
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[%20#] IFU_embedded: ",
-                   64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_3);
+                   64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_2);
     }
     if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush) 
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[Redirect] target 0x%x rtype 0\n",
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target);
+    }
+    SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_15 
+        = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid) 
+           & ((3U == (3U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr))) 
+              != (3U == (3U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr)))));
+    if (VL_UNLIKELY((1U & ((~ (IData)(vlSelf->reset)) 
+                           & (~ (((3U == (3U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr))) 
+                                  | (~ (IData)((3U 
+                                                == 
+                                                (3U 
+                                                 & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr)))))) 
+                                 | (~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid)))))))) {
+        VL_WRITEF("[%0t] %%Error: SimTop.v:1212: Assertion failed in %NSimTop.core.backend.exu.alu.unnamedblk1: Assertion failed\n    at ALU.scala:120 assert(io.cfIn.instr(1, 0) === \"b11\".U || isRVC || !valid)\n\n",
+                  64,VL_TIME_UNITED_Q(1),-12,vlSymsp->name());
+        VL_STOP_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 1212, "");
+        VL_WRITEF("[%0t] %%Error: SimTop.v:1214: Assertion failed in %NSimTop.core.backend.exu.alu.unnamedblk1\n",
+                  64,VL_TIME_UNITED_Q(1),-12,vlSymsp->name());
+        VL_STOP_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 1214, "");
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_15) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] ALU: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c);
+    }
+    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_15) 
+                           & (~ (IData)(vlSelf->reset)))))) {
+        VL_FWRITEF(0x80000002U,"[ERROR] pc %x inst %x rvc %x\n",
+                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pc,
+                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr,
+                   1,(1U & (~ (IData)((3U == (3U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr)))))));
     }
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk1__DOT___T_28 
         = (1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store)));
@@ -459,43 +490,6 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                            & (~ (IData)(vlSelf->reset)))))) {
         VL_FWRITEF(0x80000002U,"[EXCEPTION] misaligned addr detected\n");
     }
-    SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_20 
-        = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid) 
-           & ((3U == (3U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr))) 
-              != (3U == (3U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr)))));
-    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"[%20#] ALU: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c);
-    }
-    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"ALU srcA %x srcB %x\n",
-                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcA,
-                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB);
-    }
-    if (VL_UNLIKELY((1U & ((~ (IData)(vlSelf->reset)) 
-                           & (~ (((3U == (3U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr))) 
-                                  | (~ (IData)((3U 
-                                                == 
-                                                (3U 
-                                                 & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr)))))) 
-                                 | (~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid)))))))) {
-        VL_WRITEF("[%0t] %%Error: SimTop.v:1233: Assertion failed in %NSimTop.core.backend.exu.alu.unnamedblk1: Assertion failed\n    at ALU.scala:121 assert(io.cfIn.instr(1, 0) === \"b11\".U || isRVC || !valid)\n\n",
-                  64,VL_TIME_UNITED_Q(1),-12,vlSymsp->name());
-        VL_STOP_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 1233, "");
-        VL_WRITEF("[%0t] %%Error: SimTop.v:1235: Assertion failed in %NSimTop.core.backend.exu.alu.unnamedblk1\n",
-                  64,VL_TIME_UNITED_Q(1),-12,vlSymsp->name());
-        VL_STOP_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 1235, "");
-    }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_20) 
-                           & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[%20#] ALU: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_1);
-    }
-    if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_20) 
-                           & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[ERROR] pc %x inst %x rvc %x\n",
-                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pc,
-                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr,
-                   1,(1U & (~ (IData)((3U == (3U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr)))))));
-    }
     vlSelf->__Vdly__SimTop__DOT__TP_SRAM__DOT__state_store 
         = ((~ (IData)(vlSelf->reset)) & ((IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store)
                                           ? (((~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store)) 
@@ -549,13 +543,11 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c_1 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c = 0ULL;
-        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_1 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_1 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__c = 0ULL;
-        vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_3 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_2 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_1 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c = 0ULL;
@@ -599,8 +591,6 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c_1);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c);
-        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_1 
-            = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_1);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__c 
@@ -611,8 +601,6 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_1);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__c 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__c);
-        vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_3 
-            = (1ULL + vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_3);
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_2 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_2);
         vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_1 

@@ -66,7 +66,7 @@ VL_ATTR_COLD void VSimTop___024root___eval_settle(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VSimTop___024root___dump_triggers__stl(vlSelf);
 #endif
-                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3186, "", "Settle region did not converge.");
+                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3160, "", "Settle region did not converge.");
             }
             vlSelf->__VstlIterCount = ((IData)(1U) 
                                        + vlSelf->__VstlIterCount);
@@ -1125,7 +1125,7 @@ VL_ATTR_COLD void VSimTop___024root___stl_sequent__TOP__0(VSimTop___024root* vlS
                           | ((0x2b3U == SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___GEN_1) 
                              | ((0x333U == SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___GEN_1) 
                                 | (0x3b3U == SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___GEN_1)))))))));
-    vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T_5 
+    vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1) 
            & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load));
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__res 
@@ -1706,13 +1706,12 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__c_3 = 0;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_imem_r_ready_T_1 = 0;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__pc = 0;
-    vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T_5 = 0;
+    vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___T = 0;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__snpc = 0;
-    vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c = 0;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT___io_out_valid_T_2 = 0;
+    vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c = 0;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_1 = 0;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_2 = 0;
-    vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_3 = 0;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT__unnamedblk2__DOT__npc = 0;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_0 = 0;
     vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_1 = 0;
@@ -1780,13 +1779,12 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___io_out_valid_T_4 = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__csr__io_instrValid = 0;
-    vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c = 0;
     VL_ZERO_RESET_W(65, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__adderRes);
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__xorRes = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__slt = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__shsrcA = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__shamt = 0;
-    vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c_1 = 0;
+    vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__c = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__c_1 = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT____Vcellinp__lsExecUnit__io_in_bits_srcA = 0;
