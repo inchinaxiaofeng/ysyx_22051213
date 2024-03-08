@@ -30,9 +30,15 @@ class IFU_embedded extends MarCoreModule with HasResetVector {
 	val pcUpdate = io.redirect.valid || io.imem.r.fire
 	val snpc = pc + 4.U // sequential next PC
 
+//	val bpu = Module(new BPU_embedded) // 分支预测单元
+
 	// predict next pc
 	val pnpc = pc + 4.U // bpu.io.out.target // 分支预测npc
 	val npc = Mux(io.redirect.valid, io.redirect.target, Mux(false.B/*bpu.io.out.valid*/, pnpc, snpc))
+
+//	bpu.io.in.pc.valid := io.imem.req.fire // only predict when ICache accepts a request
+//	bpu.io.in.pc.bits := npc // predict one cycle early
+//	bpu.io.flush := io.redirect.valid // 重定向时，之前记录的已经没用了
 
 	when (pcUpdate) { pc := npc }
 

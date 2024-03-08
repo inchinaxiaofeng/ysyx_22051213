@@ -50,7 +50,7 @@ class TP_SRAM extends MarCoreModule {
 		}
 
 		is (s_exec) {
-			when (io.b.fire) { state_store := s_idle }
+			when (io.b.ready) { state_store := s_idle }
 		}
 	}
 
