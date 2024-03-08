@@ -2959,7 +2959,7 @@ module AXI4Lite_Arbiter(	// <stdin>:4395:10
           if (InstFetch_r_ready & Arbiter_r_valid)	// Decoupled.scala:52:35
             state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
         end
-        else if (_T_28 & LoadStore_b_ready & Arbiter_b_valid)	// AXI4_Arbiter.scala:30:28, :32:24, :63:49
+        else if (_T_28 & LoadStore_r_ready & Arbiter_r_valid)	// AXI4_Arbiter.scala:30:28, :32:24, :63:49
           state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
       end
       else if (_T_1)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50

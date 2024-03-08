@@ -568,8 +568,8 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                     vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state = 0U;
                 }
             } else if ((((IData)(vlSelf->SimTop__DOT__arbiter__DOT___T_28) 
-                         & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_store)) 
-                        & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store))) {
+                         & (1U == (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_load))) 
+                        & (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))) {
                 vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state = 0U;
             }
         } else if (vlSelf->SimTop__DOT__arbiter__DOT___T_1) {
