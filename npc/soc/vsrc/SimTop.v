@@ -3026,19 +3026,19 @@ module AXI4Lite_Arbiter(	// <stdin>:4470:10
       if ((`PRINTF_COND_) & _T & ~reset)	// AXI4_Arbiter.scala:37:33, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T & ~reset)	// AXI4_Arbiter.scala:37:33, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <> SRAM]");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <> SRAM]\n");	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN & ~reset)	// AXI4_Arbiter.scala:42:63, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN & ~reset)	// AXI4_Arbiter.scala:42:63, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <> SRAM]");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[InstFetch <> SRAM]\n");	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN_1 & ~reset)	// AXI4_Arbiter.scala:47:63, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_1 & ~reset)	// AXI4_Arbiter.scala:47:63, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <> SRAM]");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <> SRAM]\n");	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:47:63, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:47:63, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[DONT CARE <> SRAM]");	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[DONT CARE <> SRAM]\n");	// Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4470:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4470:10
