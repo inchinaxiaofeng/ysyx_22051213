@@ -189,7 +189,7 @@ class LSExecUnit extends MarCoreModule {
 
 	switch (sr_idle) {
 		is (sr_idle) {
-			when (dmem.ar.fire && !isStore) {
+			when (dmem.ar.ready && dmem.ar.valid && !isStore) {
 				state_read := sr_wait_resp	
 			}
 		}
@@ -205,7 +205,7 @@ class LSExecUnit extends MarCoreModule {
 
 	switch (sw_idle) {
 		is (sw_idle) {
-			when (dmem.aw.fire && dmem.w.fire && isStore) {
+			when (dmem.aw.ready && dmem.w.ready && valid && isStore) {
 				state_write := sw_wait_resp
 			}
 		}
