@@ -32,7 +32,7 @@ class TP_SRAM extends MarCoreModule {
 
 	Info("======================================= statels (%x,%x)" +
   "arv %x arr %x\n",
-		state_load, state_store, io.ar.valid, io.ar.ready)
+		state_load, state_store)
 
 	switch (state_load) {
 		is (s_idle) {
