@@ -113,8 +113,8 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__unnamedblk1__DOT___T_10;
         CData/*0:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu__DOT___io_wb_rfWen_T;
         CData/*0:0*/ SimTop__DOT__arbiter__DOT___T;
-        CData/*0:0*/ SimTop__DOT__arbiter__DOT___T_2;
-        CData/*0:0*/ SimTop__DOT__arbiter__DOT___T_4;
+        CData/*0:0*/ SimTop__DOT__arbiter__DOT___T_7;
+        CData/*0:0*/ SimTop__DOT__arbiter__DOT___T_14;
         CData/*0:0*/ __Vdly__SimTop__DOT__core__DOT__ringBufferHead;
         CData/*4:0*/ __Vdlyvdim0__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
         CData/*0:0*/ __Vdlyvset__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
@@ -250,6 +250,10 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___wdata_T_22;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu__DOT___GEN_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c;
+        QData/*63:0*/ SimTop__DOT__arbiter__DOT__c;
+        QData/*63:0*/ SimTop__DOT__arbiter__DOT__c_1;
+        QData/*63:0*/ SimTop__DOT__arbiter__DOT__c_2;
+        QData/*63:0*/ SimTop__DOT__arbiter__DOT__c_3;
         QData/*63:0*/ SimTop__DOT__TP_SRAM__DOT__c;
         QData/*63:0*/ __Vdlyvval__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
         VlUnpacked<QData/*63:0*/, 32> SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory;
