@@ -80,7 +80,6 @@ class ALU extends MarCoreModule {
 	val sltu		= !adderRes(XLEN)
 	val slt			= xorRes(XLEN-1) ^ sltu
 
-	Info("srcA %x\n", srcA)
 
 	val shsrcA = MuxLookup (
 		ctrl,
