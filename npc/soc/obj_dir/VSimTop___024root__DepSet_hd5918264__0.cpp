@@ -572,103 +572,68 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__2(VSimTop___024root* vl
         vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_data_imm = 0ULL;
         vlSelf->__Vdly__SimTop__DOT__core__DOT__ringBufferHead = 0U;
     } else {
-        vlSelf->SimTop__DOT__core__DOT__unnamedblk1__DOT__wen 
+        vlSelf->SimTop__DOT__core__DOT__unnamedblk1__DOT___wen_T 
             = ((IData)(vlSelf->SimTop__DOT__core__DOT___frontend_io_out_0_ready_T_1) 
                & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid));
-        if (vlSelf->SimTop__DOT__core__DOT__unnamedblk1__DOT__wen) {
-            if ((2U & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid))) {
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_instr = 0ULL;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pc = 0ULL;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pnpc = 0ULL;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_exceptionVec_2 = 0U;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcAType = 0U;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcBType = 0U;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_fuType = 3U;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_fuCtrl = 0U;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcA = 0U;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcB = 0U;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfWen = 0U;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfDest = 0U;
-                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_data_imm = 0ULL;
-            } else if (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid) {
-                if (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid) {
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_instr 
-                        = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pc 
-                        = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pc;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pnpc 
-                        = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pnpc;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_exceptionVec_2 
-                        = ((0U == (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_0)) 
-                           & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid));
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcAType 
-                        = ((0x37U != (0x7fU & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr))) 
-                           & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___srcAType_T_19));
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcBType 
-                        = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___srcBType_T_19;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_fuType 
-                        = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_1;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_fuCtrl 
-                        = ((0U == (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_1))
-                            ? ((0x58U == (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_2))
-                                ? ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT____VdfgTmp_hb4464a68__0)
-                                    ? 0x5cU : (((1U 
-                                                 == 
-                                                 (0x1fU 
+        if (((IData)(vlSelf->SimTop__DOT__core__DOT__unnamedblk1__DOT___wen_T) 
+             & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid))) {
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_instr 
+                = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr;
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pc 
+                = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pc;
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pnpc 
+                = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pnpc;
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_exceptionVec_2 
+                = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid) 
+                   & (0U == (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_0)));
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcAType 
+                = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid) 
+                   & ((0x37U != (0x7fU & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr))) 
+                      & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___srcAType_T_19)));
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcBType 
+                = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid) 
+                   & (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___srcBType_T_19));
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_fuType 
+                = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_1;
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_fuCtrl 
+                = ((0U == (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_1))
+                    ? ((0x58U == (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_2))
+                        ? ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT____VdfgTmp_hb4464a68__0)
+                            ? 0x5cU : (((1U == (0x1fU 
+                                                & (IData)(
+                                                          (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
+                                                           >> 0xfU)))) 
+                                        | (5U == (0x1fU 
                                                   & (IData)(
                                                             (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
-                                                             >> 0xfU)))) 
-                                                | (5U 
-                                                   == 
-                                                   (0x1fU 
-                                                    & (IData)(
-                                                              (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
-                                                               >> 0xfU)))))
-                                                ? 0x5eU
-                                                : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___GEN_4)))
-                                : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___GEN_4))
-                            : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_2));
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcA 
-                        = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___srcAType_T_19)
-                            ? 0U : (0x1fU & (IData)(
-                                                    (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
-                                                     >> 0xfU))));
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcB 
-                        = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___srcBType_T_19)
-                            ? 0U : (0x1fU & (IData)(
-                                                    (vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
-                                                     >> 0x14U))));
-                    if (vlSelf->SimTop__DOT__core__DOT___frontend_io_out_0_bits_ctrl_rfWen) {
-                        vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfWen = 1U;
-                        vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfDest 
-                            = (0x1fU & (IData)((vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
-                                                >> 7U)));
-                    } else {
-                        vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfWen = 0U;
-                        vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfDest = 0U;
-                    }
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_data_imm 
-                        = vlSelf->SimTop__DOT__core__DOT___frontend_io_out_0_bits_data_imm;
-                } else {
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_instr = 0ULL;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pc = 0ULL;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pnpc = 0ULL;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_exceptionVec_2 = 0U;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcAType = 0U;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcBType = 0U;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_fuType = 3U;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_fuCtrl = 0U;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcA = 0U;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcB = 0U;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfWen = 0U;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfDest = 0U;
-                    vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_data_imm = 0ULL;
-                }
+                                                             >> 0xfU)))))
+                                        ? 0x5eU : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___GEN_4)))
+                        : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___GEN_4))
+                    : (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__decodeList_2));
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcA 
+                = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___srcAType_T_19)
+                    ? 0U : (0x1fU & (IData)((vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
+                                             >> 0xfU))));
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcB 
+                = ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT___srcBType_T_19)
+                    ? 0U : (0x1fU & (IData)((vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
+                                             >> 0x14U))));
+            if (vlSelf->SimTop__DOT__core__DOT___frontend_io_out_0_bits_ctrl_rfWen) {
+                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfWen 
+                    = vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid;
+                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfDest 
+                    = (0x1fU & (IData)((vlSelf->SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr 
+                                        >> 7U)));
+            } else {
+                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfWen = 0U;
+                vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfDest = 0U;
             }
+            vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_data_imm 
+                = vlSelf->SimTop__DOT__core__DOT___frontend_io_out_0_bits_data_imm;
         }
         vlSelf->__Vdly__SimTop__DOT__core__DOT__ringBufferHead 
             = (1U & ((~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush)) 
-                     & ((IData)(vlSelf->SimTop__DOT__core__DOT__unnamedblk1__DOT__wen)
+                     & ((IData)(vlSelf->SimTop__DOT__core__DOT__unnamedblk1__DOT___wen_T)
                          ? ((IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferHead) 
                             + (IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid))
                          : (IData)(vlSelf->SimTop__DOT__core__DOT__ringBufferHead))));
@@ -1722,7 +1687,7 @@ void VSimTop___024root___eval(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                     VSimTop___024root___dump_triggers__act(vlSelf);
 #endif
-                    VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3208, "", "Active region did not converge.");
+                    VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3155, "", "Active region did not converge.");
                 }
                 vlSelf->__VactIterCount = ((IData)(1U) 
                                            + vlSelf->__VactIterCount);
@@ -1737,7 +1702,7 @@ void VSimTop___024root___eval(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VSimTop___024root___dump_triggers__nba(vlSelf);
 #endif
-                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3208, "", "NBA region did not converge.");
+                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3155, "", "NBA region did not converge.");
             }
             __VnbaIterCount = ((IData)(1U) + __VnbaIterCount);
             VSimTop___024root___eval_nba(vlSelf);

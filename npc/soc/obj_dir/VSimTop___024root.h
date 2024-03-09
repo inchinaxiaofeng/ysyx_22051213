@@ -37,7 +37,7 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__core__DOT___frontend_io_out_0_ready_T_1;
         CData/*0:0*/ SimTop__DOT__core__DOT___backend_io_in_0_valid_T;
         CData/*0:0*/ SimTop__DOT__core__DOT___dequeueSize_T;
-        CData/*0:0*/ SimTop__DOT__core__DOT__unnamedblk1__DOT__wen;
+        CData/*0:0*/ SimTop__DOT__core__DOT__unnamedblk1__DOT___wen_T;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT___idu_io_out_0_valid;
         CData/*0:0*/ SimTop__DOT__core__DOT__frontend__DOT__valid;
@@ -200,6 +200,8 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__c_2;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__ifu__DOT__unnamedblk1__DOT__unnamedblk2__DOT__npc;
+        QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder1__DOT__c;
+        QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder2__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT___exu_io_forward_wb_rfData;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pc;
@@ -209,10 +211,10 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_imm;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pc;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target;
     };
     struct {
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_0;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_2;
