@@ -232,7 +232,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         VL_FWRITEF(0x80000002U,"[%20#] ISU: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__c);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"SrcA For ALU %x\n",
+        VL_FWRITEF(0x80000002U,"SrcA For ALU %x source %b%b%b%b\n",
                    64,(((IData)(vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcAType)
                          ? vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_cf_pc
                          : 0ULL) | (((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcAForwardNextCycle)
@@ -250,7 +250,14 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                                                      ? 0ULL
                                                      : 
                                                     vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory
-                                                    [vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcA])))));
+                                                    [vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_rfSrcA])))),
+                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcAType),
+                   1,vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcAForwardNextCycle,
+                   1,((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcAForward) 
+                      & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcAForwardNextCycle))),
+                   1,(1U & (((~ (IData)(vlSelf->SimTop__DOT__core__DOT__dataBuffer_0_ctrl_srcAType)) 
+                             & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcAForwardNextCycle))) 
+                            & (~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__srcAForward)))));
     }
     vlSelf->__Vdlyvset__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0 = 0U;
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy 
