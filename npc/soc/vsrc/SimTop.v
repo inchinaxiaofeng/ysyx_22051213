@@ -1209,7 +1209,7 @@ module ALU(	// <stdin>:2062:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] ALU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "Redirect: target %x\n", target);	// ALU.scala:117:25, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "Redirect: target %x isBrunch %x adderRes %x\n", target, io_in_bits_ctrl[3], adderRes);	// ALU.scala:52:40, :78:68, :117:25, Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2062:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2062:10
@@ -1237,10 +1237,10 @@ module ALU(	// <stdin>:2062:10
   `endif // not def SYNTHESIS
   assign io_out_valid = io_in_valid;	// <stdin>:2062:10
   assign io_out_bits = io_in_bits_ctrl[4] ? ((&(io_cfIn_instr[1:0])) ? io_cfIn_pc + 64'h4 : io_cfIn_pc + 64'h2) :
-                io_in_bits_ctrl[5] ? {{32{_GEN_0[31]}}, _GEN_0[31:0]} : _GEN_0;	// <stdin>:2062:10, ALU.scala:50:40, :51:37, :106:{25,61}, :119:{35,42}, :124:{77,95}, :133:{27,38,77,114}, BitUtils.scala:17:32, Bitwise.scala:77:12, Mux.scala:81:58
+                io_in_bits_ctrl[5] ? {{32{_GEN_0[31]}}, _GEN_0[31:0]} : _GEN_0;	// <stdin>:2062:10, ALU.scala:50:40, :51:37, :106:{25,61}, :119:{35,42}, :125:{77,95}, :134:{27,38,77,114}, BitUtils.scala:17:32, Bitwise.scala:77:12, Mux.scala:81:58
   assign io_redirect_target = _io_redirect_target_T & io_in_bits_ctrl[3] ? ((&(io_cfIn_instr[1:0])) ? io_cfIn_pc + 64'h4
-                : io_cfIn_pc + 64'h2) : target;	// <stdin>:2062:10, ALU.scala:52:40, :117:25, :118:32, :119:{35,42}, :124:{34,42,58,77,95}
-  assign io_redirect_valid = io_in_valid & io_in_bits_ctrl[4] & ~(_io_redirect_target_T & io_in_bits_ctrl[3]);	// <stdin>:2062:10, ALU.scala:51:37, :52:40, :118:{31,32,39}, :126:45
+                : io_cfIn_pc + 64'h2) : target;	// <stdin>:2062:10, ALU.scala:52:40, :117:25, :118:32, :119:{35,42}, :125:{34,42,58,77,95}
+  assign io_redirect_valid = io_in_valid & io_in_bits_ctrl[4] & ~(_io_redirect_target_T & io_in_bits_ctrl[3]);	// <stdin>:2062:10, ALU.scala:51:37, :52:40, :118:{31,32,39}, :127:45
 endmodule
 
 module LSExecUnit(	// <stdin>:2236:10
