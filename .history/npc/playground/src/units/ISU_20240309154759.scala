@@ -49,14 +49,13 @@ class ISU(implicit val p: MarCoreConfig) extends MarCoreModule with HasRegFilePa
 	val rf = new RegFile
 
 	// out 1
-	Info("SrcA For ALU %x source %b%b%b%b\n",
-		io.out.bits.data.srcA, 
-		io.in(0).bits.ctrl.srcAType === SrcType.pc,
-		srcAForwardNextCycle,
-		srcAForward && !srcAForwardNextCycle
-		(io.in(0).bits.ctrl.srcAType =/= SrcType.pc) && !srcAForwardNextCycle && !srcAForward
+	Info("SrcA For ALU %x source %b%b%b%b\n", io.out.bits.data.srcA, 
+			io.in(0).bits.ctrl.srcAType === SrcType.pc,
+			srcAForwardNextCycle,
+			srcAForward && !srcAForwardNextCycle
+			(io.in(0).bits.ctrl.srcAType =/= SrcType.pc) && !srcAForwardNextCycle && !srcAForward
+		)
 	)
-	
 	io.out.bits.data.srcA := Mux1H(List(
 		(io.in(0).bits.ctrl.srcAType === SrcType.pc) -> SignExt(io.in(0).bits.cf.pc, AddrBits),
 		srcAForwardNextCycle -> io.forward.wb.rfData,
