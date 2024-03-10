@@ -66,7 +66,7 @@ VL_ATTR_COLD void VSimTop___024root___eval_settle(VSimTop___024root* vlSelf) {
 #ifdef VL_DEBUG
                 VSimTop___024root___dump_triggers__stl(vlSelf);
 #endif
-                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3171, "", "Settle region did not converge.");
+                VL_FATAL_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 3185, "", "Settle region did not converge.");
             }
             vlSelf->__VstlIterCount = ((IData)(1U) 
                                        + vlSelf->__VstlIterCount);
@@ -1852,6 +1852,7 @@ VL_ATTR_COLD void VSimTop___024root___ctor_var_reset(VSimTop___024root* vlSelf) 
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___exceptionNO_T_20 = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___GEN = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__raiseExceptionIntr = 0;
+    vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__unnamedblk1__DOT___T_10 = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT___io_wb_rfWen_T = 0;
     vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT___GEN_1 = 0;

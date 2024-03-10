@@ -256,6 +256,7 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__satp;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT___wdata_T_22;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu__DOT___GEN_1;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c;
         QData/*63:0*/ SimTop__DOT__arbiter__DOT__c;
