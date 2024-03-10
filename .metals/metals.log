@@ -5164,3 +5164,4 @@ scala.meta.tokenizers.TokenizeException: <input>:53: error: unclosed comment
 3月 10, 2024 8:57:59 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 警告: Unmatched cancel notification for request id 29371
 2024.03.10 20:58:38 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.10 20:59:25 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
