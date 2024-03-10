@@ -49,15 +49,34 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 		}
 
 		is (s_if_exec) {
+			Info("[InstFetch <===> SRAM] exec ifv%x,lsv%x\n", InstFetch.ar.valid, LoadStore.ar.valid)
 			InstFetch.ar <> Arbiter.ar
 			InstFetch.r  <> Arbiter.r
 			when (InstFetch.r.fire) { state := s_idle }
 		}
 
 		is (s_ls_exec) {
+			Info("[LoadStore <===> SRAM] exec ifv%x,lsv%x\n", InstFetch.ar.valid, LoadStore.ar.valid)
 			LoadStore.ar <> Arbiter.ar
 			LoadStore.r  <> Arbiter.r
 			when (LoadStore.r.fire) { state := s_idle }
 		}
 	}
+
+//	when(InstFetch.ar.valid && LoadStore.ar.valid) {
+//		Info("[LoadStore <===> SRAM]\n")
+//		// Both LoadStore and InstFetch send read request, satisfy LoadStore first
+//		LoadStore.ar	<> Arbiter.ar
+//		LoadStore.r		<> Arbiter.r
+//	}.elsewhen(InstFetch.ar.valid && !LoadStore.ar.valid) {
+//		Info("[InstFetch <===> SRAM]\n")
+//		// Only InstFetch
+//		InstFetch.ar	<> Arbiter.ar
+//		InstFetch.r		<> Arbiter.r
+//	}.elsewhen(!InstFetch.ar.valid && LoadStore.ar.valid) {
+//		Info("[LoadStore <===> SRAM]\n")
+//		// Only LoadStore
+//		LoadStore.ar	<> Arbiter.ar
+//		LoadStore.r		<> Arbiter.r
+//	}.otherwise {/* Info("[DONT CARE <===> SRAM]\n") */}
 }
