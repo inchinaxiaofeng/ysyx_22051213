@@ -5147,3 +5147,15 @@ scala.meta.tokenizers.TokenizeException: <input>:53: error: unclosed comment
 2024.03.10 08:25:31 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/IDU.scala
 2024.03.10 08:48:05 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
 2024.03.10 08:48:06 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+3月 10, 2024 8:22:11 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 26422
+2024.03.10 20:22:41 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
+2024.03.10 20:25:43 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
+2024.03.10 20:27:07 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.10 20:27:21 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.10 20:28:31 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.10 20:28:36 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.10 20:28:58 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.10 20:29:02 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/CSR.scala
+2024.03.10 20:48:57 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.10 20:50:20 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala

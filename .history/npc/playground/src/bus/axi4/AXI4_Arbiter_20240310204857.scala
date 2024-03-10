@@ -32,17 +32,17 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 	switch (state) {
 		is (s_idle) {
 			when (InstFetch.ar.valid && LoadStore.ar.valid) {
-				Info("[LoadStore <===> SRAM] idle ifv%x,lsv%x\n")
+				Info("[LoadStore <===> SRAM] idle\n")
 				LoadStore.ar <> Arbiter.ar
 				LoadStore.r  <> Arbiter.r
 				state := s_ls_exec
 			}.elsewhen (InstFetch.ar.valid && !LoadStore.ar.valid) {
-				Info("[InstFetch <===> SRAM] idle ifv%x,lsv%x\n")
+				Info("[InstFetch <===> SRAM] idle(ifv%x,lsv%x\n")
 				InstFetch.ar <> Arbiter.ar
 				InstFetch.r  <> Arbiter.r
 				state := s_if_exec
 			}.elsewhen (!InstFetch.ar.valid && LoadStore.ar.valid) {
-				Info("[LoadStore <===> SRAM] idle ifv%x,lsv%x\n", InstrFetch.ar.valid, LoadStore.ar.valid)
+				Info("[LoadStore <===> SRAM] idle(ifv%x,lsv%x\n", InstrFetch.ar.valid, LoadStore.ar.valid)
 				LoadStore.ar <> Arbiter.ar
 				LoadStore.r  <> Arbiter.r
 				state := s_ls_exec
@@ -50,14 +50,14 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 		}
 
 		is (s_if_exec) {
-			Info("[InstFetch <===> SRAM] exec ifv%x,lsv%x\n")
+			Info("[InstFetch <===> SRAM] exec\n")
 			InstFetch.ar <> Arbiter.ar
 			InstFetch.r  <> Arbiter.r
 			when (InstFetch.r.fire) { state := s_idle }
 		}
 
 		is (s_ls_exec) {
-			Info("[LoadStore <===> SRAM] exec ifv%x,lsv%x\n")
+			Info("[LoadStore <===> SRAM] exec\n")
 			LoadStore.ar <> Arbiter.ar
 			LoadStore.r  <> Arbiter.r
 			when (LoadStore.r.fire) { state := s_idle }

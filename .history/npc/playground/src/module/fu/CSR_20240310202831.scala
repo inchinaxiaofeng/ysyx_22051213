@@ -292,8 +292,7 @@ class CSR (implicit val p: MarCoreConfig) extends MarCoreModule with HasCSRConst
 	io.redirect.target := Mux(resetSatp, io.cfIn.pc + 4.U, Mux(raiseExceptionIntr, trapTarget, retTarget))
 
 	Info("Redirect valid %b|%b|%b\n",
-		valid && ctrl === CSRCtrl.jmp,
-		raiseExceptionIntr, resertSatp)
+		valid && ctrl === CSRCtrl.jmp, raiseExceptionIntr, resertSatp)
 
 	// Branch control
 	ret := isMret || isSret || isUret
