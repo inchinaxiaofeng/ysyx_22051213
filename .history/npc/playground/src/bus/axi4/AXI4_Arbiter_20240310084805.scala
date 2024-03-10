@@ -46,7 +46,7 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 				LoadStore.ar <> Arbiter.ar
 				LoadStore.r  <> Arbiter.r
 				state := s_ls_exec
-			}.otherwise { Info("[DONT CARE <=X=> SRAM] idle") }
+			}.otherwise { Info("[DONT CARE <=X=> SRAM] idle")}
 		}
 
 		is (s_if_exec) {
