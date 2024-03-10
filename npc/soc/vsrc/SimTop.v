@@ -415,7 +415,7 @@ module Decoder(	// <stdin>:143:10
   wire        _decodeList_T_31 = _GEN_1 == 17'h2B3;	// Lookup.scala:31:38
   wire        _decodeList_T_33 = _GEN_1 == 17'h333;	// Lookup.scala:31:38
   wire        _decodeList_T_35 = _GEN_1 == 17'h3B3;	// Lookup.scala:31:38
-  wire        _decodeList_T_37 = io_in_bits_instr[6:0] == 7'h37;	// IDU.scala:86:54, Lookup.scala:31:38
+  wire        _decodeList_T_37 = io_in_bits_instr[6:0] == 7'h37;	// IDU.scala:87:54, Lookup.scala:31:38
   wire        _decodeList_T_39 = io_in_bits_instr[6:0] == 7'h17;	// Lookup.scala:31:38, :34:39
   wire        _decodeList_T_41 = io_in_bits_instr[6:0] == 7'h6F;	// Lookup.scala:31:38
   wire        _decodeList_T_43 = _GEN == 10'h67;	// Lookup.scala:31:38
@@ -529,10 +529,10 @@ module Decoder(	// <stdin>:143:10
   wire        _srcAType_T_19 = _imm_T_41 | (&decodeList_0);	// Lookup.scala:34:39, LookupTree.scala:8:38, Mux.scala:27:73
   wire        _srcBType_T_19 = _imm_T_37 | _imm_T_41 | (&decodeList_0);	// Lookup.scala:34:39, LookupTree.scala:8:38, Mux.scala:27:73
   reg  [63:0] c;	// GTimer.scala:8:32
-  wire        _T_23 = io_in_bits_instr[11:7] == 5'h1;	// IDU.scala:48:64, :78:46
-  wire        _T_24 = io_in_bits_instr[11:7] == 5'h5;	// IDU.scala:48:64, :78:61
-  wire        _T_19 = decodeList_2 == 7'h58;	// IDU.scala:79:48, Lookup.scala:34:39
-  wire [6:0]  _GEN_4 = (_T_23 | _T_24) & _T_19 ? 7'h5C : decodeList_2;	// IDU.scala:34:33, :78:{46,54,61}, :79:{38,48,65,91}, Lookup.scala:34:39
+  wire        _T_23 = io_in_bits_instr[11:7] == 5'h1;	// IDU.scala:48:64, :79:46
+  wire        _T_24 = io_in_bits_instr[11:7] == 5'h5;	// IDU.scala:48:64, :79:61
+  wire        _T_19 = decodeList_2 == 7'h58;	// IDU.scala:80:48, Lookup.scala:34:39
+  wire [6:0]  _GEN_4 = (_T_23 | _T_24) & _T_19 ? 7'h5C : decodeList_2;	// IDU.scala:34:33, :79:{46,54,61}, :80:{38,48,65,91}, Lookup.scala:34:39
   always @(posedge clock) begin
     if (reset)
       c <= 64'h0;	// <stdin>:143:10, GTimer.scala:8:32
@@ -544,7 +544,7 @@ module Decoder(	// <stdin>:143:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] Decoder: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "SrcAType is pc %x, rfSrcA %x\n", _srcAType_T_19, io_in_bits_instr[19:15]);	// Debug.scala:34:43, :35:31, IDU.scala:48:34, Mux.scala:27:73
+        $fwrite(32'h80000002, "SrcAType is pc %x, rfSrcA %x Instr %x\n", _srcAType_T_19, io_in_bits_instr[19:15], io_in_bits_instr);	// Debug.scala:34:43, :35:31, IDU.scala:48:34, Mux.scala:27:73
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:143:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:143:10
@@ -565,29 +565,29 @@ module Decoder(	// <stdin>:143:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:143:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_in_ready = ~io_in_valid | io_out_ready & io_in_valid;	// <stdin>:143:10, Decoupled.scala:52:35, IDU.scala:106:{24,37}
+  assign io_in_ready = ~io_in_valid | io_out_ready & io_in_valid;	// <stdin>:143:10, Decoupled.scala:52:35, IDU.scala:107:{24,37}
   assign io_out_valid = io_in_valid;	// <stdin>:143:10
   assign io_out_bits_cf_instr = io_in_bits_instr;	// <stdin>:143:10
   assign io_out_bits_cf_pc = io_in_bits_pc;	// <stdin>:143:10
   assign io_out_bits_cf_pnpc = io_in_bits_pnpc;	// <stdin>:143:10
-  assign io_out_bits_cf_exceptionVec_2 = decodeList_0 == 3'h0 & io_in_valid;	// <stdin>:143:10, IDU.scala:119:{65,89}, Lookup.scala:34:39
-  assign io_out_bits_ctrl_srcAType = io_in_bits_instr[6:0] != 7'h37 & _srcAType_T_19;	// <stdin>:143:10, IDU.scala:86:{41,47,54}, Mux.scala:27:73
+  assign io_out_bits_cf_exceptionVec_2 = decodeList_0 == 3'h0 & io_in_valid;	// <stdin>:143:10, IDU.scala:120:{65,89}, Lookup.scala:34:39
+  assign io_out_bits_ctrl_srcAType = io_in_bits_instr[6:0] != 7'h37 & _srcAType_T_19;	// <stdin>:143:10, IDU.scala:87:{41,47,54}, Mux.scala:27:73
   assign io_out_bits_ctrl_srcBType = _srcBType_T_19;	// <stdin>:143:10, Mux.scala:27:73
   assign io_out_bits_ctrl_fuType = {1'h0, decodeList_1};	// <stdin>:143:10, IDU.scala:33:33, Lookup.scala:34:39
   assign io_out_bits_ctrl_fuCtrl = decodeList_1 == 2'h0 ? (_T_19 ? (_T_23 | _T_24 ? 7'h5C : io_in_bits_instr[19:15] == 5'h1 |
-                io_in_bits_instr[19:15] == 5'h5 ? 7'h5E : _GEN_4) : _GEN_4) : decodeList_2;	// <stdin>:143:10, IDU.scala:34:33, :48:34, :77:{22,38}, :78:{46,54,61}, :79:{48,65,91}, :80:47, :81:{47,73}, :82:{47,73}, Lookup.scala:34:39
-  assign io_out_bits_ctrl_rfSrcA = _srcAType_T_19 ? 5'h0 : io_in_bits_instr[19:15];	// <stdin>:143:10, IDU.scala:48:34, :57:39, Mux.scala:27:73
-  assign io_out_bits_ctrl_rfSrcB = _srcBType_T_19 ? 5'h0 : io_in_bits_instr[24:20];	// <stdin>:143:10, IDU.scala:48:49, :57:39, :58:39, Mux.scala:27:73
+                io_in_bits_instr[19:15] == 5'h5 ? 7'h5E : _GEN_4) : _GEN_4) : decodeList_2;	// <stdin>:143:10, IDU.scala:34:33, :48:34, :78:{22,38}, :79:{46,54,61}, :80:{48,65,91}, :81:47, :82:{47,73}, :83:{47,73}, Lookup.scala:34:39
+  assign io_out_bits_ctrl_rfSrcA = _srcAType_T_19 ? 5'h0 : io_in_bits_instr[19:15];	// <stdin>:143:10, IDU.scala:48:34, :58:39, Mux.scala:27:73
+  assign io_out_bits_ctrl_rfSrcB = _srcBType_T_19 ? 5'h0 : io_in_bits_instr[24:20];	// <stdin>:143:10, IDU.scala:48:49, :58:39, :59:39, Mux.scala:27:73
   assign io_out_bits_ctrl_rfWen = decodeList_0[2];	// <stdin>:143:10, InstrDecode.scala:23:55, Lookup.scala:34:39
-  assign io_out_bits_ctrl_rfDest = decodeList_0[2] ? io_in_bits_instr[11:7] : 5'h0;	// <stdin>:143:10, IDU.scala:48:64, :57:39, :60:39, InstrDecode.scala:23:55, Lookup.scala:34:39
+  assign io_out_bits_ctrl_rfDest = decodeList_0[2] ? io_in_bits_instr[11:7] : 5'h0;	// <stdin>:143:10, IDU.scala:48:64, :58:39, :61:39, InstrDecode.scala:23:55, Lookup.scala:34:39
   assign io_out_bits_data_imm = (_imm_T_37 ? {{52{io_in_bits_instr[31]}}, io_in_bits_instr[31:20]} : 64'h0) | (decodeList_0
                 == 3'h2 ? {{52{io_in_bits_instr[31]}}, io_in_bits_instr[31:25], io_in_bits_instr[11:7]} :
                 64'h0) | (decodeList_0 == 3'h1 ? {{52{io_in_bits_instr[31]}}, io_in_bits_instr[7],
                 io_in_bits_instr[30:25], io_in_bits_instr[11:8], 1'h0} : 64'h0) | (_imm_T_41 ?
                 {{32{io_in_bits_instr[31]}}, io_in_bits_instr[31:12], 12'h0} : 64'h0) | ((&decodeList_0) ?
                 {{44{io_in_bits_instr[31]}}, io_in_bits_instr[19:12], io_in_bits_instr[20],
-                io_in_bits_instr[30:21], 1'h0} : 64'h0);	// <stdin>:143:10, BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:48:64, :64:41, :65:45, :67:{45,56,66,81}, :68:45, :69:{56,71,82}, Lookup.scala:34:39, LookupTree.scala:8:38, Mux.scala:27:73
-  assign io_isWFI = io_in_bits_instr[31:0] == 32'h10500073 & io_in_valid;	// <stdin>:143:10, IDU.scala:122:{28,49}, Lookup.scala:31:38
+                io_in_bits_instr[30:21], 1'h0} : 64'h0);	// <stdin>:143:10, BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:48:64, :65:41, :66:45, :68:{45,56,66,81}, :69:45, :70:{56,71,82}, Lookup.scala:34:39, LookupTree.scala:8:38, Mux.scala:27:73
+  assign io_isWFI = io_in_bits_instr[31:0] == 32'h10500073 & io_in_valid;	// <stdin>:143:10, IDU.scala:123:{28,49}, Lookup.scala:31:38
 endmodule
 
 module Decoder_1(	// <stdin>:849:10
@@ -606,7 +606,7 @@ module Decoder_1(	// <stdin>:849:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] Decoder_1: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "SrcAType is pc %x, rfSrcA %x\n", 1'h0, 5'h0);	// <stdin>:849:10, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "SrcAType is pc %x, rfSrcA %x Instr %x\n", 1'h0, 5'h0, 64'h0);	// <stdin>:849:10, Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:849:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:849:10
@@ -654,7 +654,7 @@ module IDU(	// <stdin>:1555:10
   output [63:0] io_out_0_bits_data_imm);
 
   wire _WIRE;	// <stdin>:1581:5
-  Decoder decoder1 (	// IDU.scala:133:30
+  Decoder decoder1 (	// IDU.scala:134:30
     .clock                         (clock),
     .reset                         (reset),
     .io_in_valid                   (io_in_0_valid),
@@ -679,7 +679,7 @@ module IDU(	// <stdin>:1555:10
     .io_out_bits_data_imm          (io_out_0_bits_data_imm),
     .io_isWFI                      (_WIRE)
   );
-  Decoder_1 decoder2 (	// IDU.scala:134:30
+  Decoder_1 decoder2 (	// IDU.scala:135:30
     .clock (clock),
     .reset (reset)
   );
