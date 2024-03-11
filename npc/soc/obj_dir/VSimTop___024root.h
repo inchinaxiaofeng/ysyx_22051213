@@ -121,6 +121,10 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ SimTop__DOT__arbiter__DOT___GEN;
         CData/*0:0*/ SimTop__DOT__arbiter__DOT___T_26;
         CData/*0:0*/ SimTop__DOT__arbiter__DOT___T_33;
+        CData/*0:0*/ SimTop__DOT__arbiter__DOT___GEN_0;
+        CData/*0:0*/ SimTop__DOT__arbiter__DOT___GEN_1;
+        CData/*0:0*/ SimTop__DOT__arbiter__DOT___GEN_2;
+        CData/*0:0*/ SimTop__DOT__arbiter__DOT___GEN_3;
         CData/*0:0*/ __Vdly__SimTop__DOT__core__DOT__ringBufferHead;
         CData/*4:0*/ __Vdlyvdim0__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
         CData/*0:0*/ __Vdlyvset__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
@@ -141,12 +145,12 @@ class VSimTop___024root final : public VerilatedModule {
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
         VL_OUT64(io_pc,63,0);
+    };
+    struct {
         VL_OUT64(io_gpr_regs_0,63,0);
         VL_OUT64(io_gpr_regs_1,63,0);
         VL_OUT64(io_gpr_regs_2,63,0);
         VL_OUT64(io_gpr_regs_3,63,0);
-    };
-    struct {
         VL_OUT64(io_gpr_regs_4,63,0);
         VL_OUT64(io_gpr_regs_5,63,0);
         VL_OUT64(io_gpr_regs_6,63,0);
@@ -180,6 +184,7 @@ class VSimTop___024root final : public VerilatedModule {
         VL_OUT64(io_csr_regs_2,63,0);
         VL_OUT64(io_csr_regs_3,63,0);
         QData/*63:0*/ SimTop__DOT___TP_SRAM_io_r_bits_data;
+        QData/*63:0*/ SimTop__DOT___arbiter_LoadStore_r_bits_data;
         QData/*63:0*/ SimTop__DOT__io_pc_REG;
         QData/*63:0*/ SimTop__DOT__core__DOT___frontend_io_out_0_bits_data_imm;
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_cf_instr;
@@ -187,6 +192,7 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__dataBuffer_0_data_imm;
         QData/*63:0*/ SimTop__DOT__core__DOT__c;
+        QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT___ifu_io_out_bits_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pc;
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu_io_in_0_bits_r_pnpc;
@@ -205,14 +211,14 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__frontend__DOT__idu__DOT__decoder2__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT___exu_io_forward_wb_rfData;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr;
+    };
+    struct {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcA;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_srcB;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_imm;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_instr;
-    };
-    struct {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target;
@@ -270,7 +276,7 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__TP_SRAM__DOT__c;
         QData/*63:0*/ __Vdlyvval__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory__v0;
         VlUnpacked<QData/*63:0*/, 32> SimTop__DOT__core__DOT__backend__DOT__isu__DOT__rf_ext__DOT__Memory;
-        VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
+        VlUnpacked<CData/*0:0*/, 4> __Vm_traceActivity;
     };
     VlTriggerVec<1> __VstlTriggered;
     VlTriggerVec<2> __VactTriggered;

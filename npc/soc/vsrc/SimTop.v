@@ -2976,16 +2976,20 @@ module AXI4Lite_Arbiter(	// <stdin>:4532:10
   reg  [1:0]  state;	// AXI4_Arbiter.scala:30:28
   wire        _T_1 = InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:34:50
   reg  [63:0] c;	// GTimer.scala:8:32
-  wire        _T_8 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:41:{56,59}
+  wire        _T_8 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:44:{56,59}
   reg  [63:0] c_1;	// GTimer.scala:8:32
-  wire        _T_15 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:48:{37,57}
+  wire        _T_15 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:54:{37,57}
   reg  [63:0] c_2;	// GTimer.scala:8:32
-  wire        _GEN = _T_1 | ~_T_8;	// AXI4_Arbiter.scala:34:{50,73}, :38:46, :41:{56,80}
+  wire        _GEN = _T_1 | ~_T_8;	// AXI4_Arbiter.scala:34:{50,73}, :38:46, :44:{56,80}, :50:52, :54:80
   reg  [63:0] c_3;	// GTimer.scala:8:32
-  wire        _T_26 = state == 2'h1;	// AXI4_Arbiter.scala:30:28, :32:24, :47:39
+  wire        _T_26 = state == 2'h1;	// AXI4_Arbiter.scala:30:28, :32:24, :53:39
   reg  [63:0] c_4;	// GTimer.scala:8:32
-  wire        _T_33 = state == 2'h2;	// AXI4_Arbiter.scala:30:28, :32:24, :40:39
+  wire        _T_33 = state == 2'h2;	// AXI4_Arbiter.scala:30:28, :32:24, :43:39
   reg  [63:0] c_5;	// GTimer.scala:8:32
+  wire        _GEN_0 = (|state) ? ~_T_26 & Arbiter_ar_ready : _GEN & Arbiter_ar_ready;	// AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :44:80, :73:44
+  wire        _GEN_1 = (|state) ? ~_T_26 & Arbiter_r_valid : _GEN & Arbiter_r_valid;	// AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :39:46, :44:80, :73:44, :74:43
+  wire        _GEN_2 = (|state) ? _T_26 & Arbiter_ar_ready : ~_T_1 & _T_8 & Arbiter_ar_ready;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}, :40:52, :44:{56,80}, :71:38
+  wire        _GEN_3 = (|state) ? _T_26 & Arbiter_r_valid : ~_T_1 & _T_8 & Arbiter_r_valid;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}, :40:52, :41:51, :44:{56,80}, :72:38
   always @(posedge clock) begin
     if (reset) begin
       state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
@@ -2999,18 +3003,18 @@ module AXI4Lite_Arbiter(	// <stdin>:4532:10
     else begin
       if (|state) begin	// AXI4_Arbiter.scala:30:28, :32:24
         if (_T_26) begin	// AXI4_Arbiter.scala:32:24
-          if (InstFetch_r_ready & Arbiter_r_valid)	// Decoupled.scala:52:35
+          if (InstFetch_r_ready & _GEN_3)	// AXI4_Arbiter.scala:32:24, :34:73, Decoupled.scala:52:35
             state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
         end
-        else if (_T_33 & LoadStore_r_ready & Arbiter_r_valid)	// AXI4_Arbiter.scala:30:28, :32:24, :73:49
+        else if (_T_33 & LoadStore_r_ready & _GEN_1)	// AXI4_Arbiter.scala:30:28, :32:24, :34:73, :88:49
           state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
       end
       else if (_T_1)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50
-        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :40:39
-      else if (_T_8)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :41:56
-        state <= 2'h1;	// AXI4_Arbiter.scala:30:28, :47:39
-      else if (_T_15)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :41:56, :48:57
-        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :40:39
+        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :43:39
+      else if (_T_8)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :44:56
+        state <= 2'h1;	// AXI4_Arbiter.scala:30:28, :53:39
+      else if (_T_15)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :44:56, :54:57
+        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :43:39
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
       c_1 <= c_1 + 64'h1;	// GTimer.scala:8:32, :9:24
       c_2 <= c_2 + 64'h1;	// GTimer.scala:8:32, :9:24
@@ -3021,46 +3025,46 @@ module AXI4Lite_Arbiter(	// <stdin>:4532:10
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:4532:10
     always @(posedge clock) begin	// Debug.scala:34:43
-      automatic logic _GEN_0;	// AXI4_Arbiter.scala:34:73
-      automatic logic _GEN_1;	// AXI4_Arbiter.scala:34:73
-      automatic logic _GEN_2;	// AXI4_Arbiter.scala:41:80
-      automatic logic _GEN_3;	// AXI4_Arbiter.scala:41:80
-      automatic logic _GEN_4;	// AXI4_Arbiter.scala:48:80
-      automatic logic _GEN_5;	// AXI4_Arbiter.scala:48:80
-      automatic logic _GEN_6;	// AXI4_Arbiter.scala:32:24
-      automatic logic _GEN_7;	// AXI4_Arbiter.scala:32:24
-      _GEN_0 = ~(|state) & _T_1;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}
-      _GEN_1 = ~(|state) & ~_T_1;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}
-      _GEN_2 = _GEN_1 & _T_8;	// AXI4_Arbiter.scala:34:73, :41:{56,80}
-      _GEN_3 = _GEN_1 & ~_T_8;	// AXI4_Arbiter.scala:34:73, :41:{56,80}
-      _GEN_4 = _GEN_3 & _T_15;	// AXI4_Arbiter.scala:41:80, :48:{57,80}
-      _GEN_5 = _GEN_3 & ~_T_15;	// AXI4_Arbiter.scala:41:80, :48:{57,80}
-      _GEN_6 = (|state) & _T_26;	// AXI4_Arbiter.scala:30:28, :32:24
-      _GEN_7 = (|state) & ~_T_26 & _T_33;	// AXI4_Arbiter.scala:30:28, :32:24
-      if ((`PRINTF_COND_) & _GEN_0 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43
+      automatic logic _GEN_4;	// AXI4_Arbiter.scala:34:73
+      automatic logic _GEN_5;	// AXI4_Arbiter.scala:34:73
+      automatic logic _GEN_6;	// AXI4_Arbiter.scala:44:80
+      automatic logic _GEN_7;	// AXI4_Arbiter.scala:44:80
+      automatic logic _GEN_8;	// AXI4_Arbiter.scala:54:80
+      automatic logic _GEN_9;	// AXI4_Arbiter.scala:54:80
+      automatic logic _GEN_10;	// AXI4_Arbiter.scala:32:24
+      automatic logic _GEN_11;	// AXI4_Arbiter.scala:32:24
+      _GEN_4 = ~(|state) & _T_1;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}
+      _GEN_5 = ~(|state) & ~_T_1;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}
+      _GEN_6 = _GEN_5 & _T_8;	// AXI4_Arbiter.scala:34:73, :44:{56,80}
+      _GEN_7 = _GEN_5 & ~_T_8;	// AXI4_Arbiter.scala:34:73, :44:{56,80}
+      _GEN_8 = _GEN_7 & _T_15;	// AXI4_Arbiter.scala:44:80, :54:{57,80}
+      _GEN_9 = _GEN_7 & ~_T_15;	// AXI4_Arbiter.scala:44:80, :54:{57,80}
+      _GEN_10 = (|state) & _T_26;	// AXI4_Arbiter.scala:30:28, :32:24
+      _GEN_11 = (|state) & ~_T_26 & _T_33;	// AXI4_Arbiter.scala:30:28, :32:24
+      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_0 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:41:80, Debug.scala:34:43
+      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_6 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:41:80, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:48:80, Debug.scala:34:43
+      if ((`PRINTF_COND_) & _GEN_6 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[InstFetch <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_8 & ~reset)	// AXI4_Arbiter.scala:54:80, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:48:80, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_5 & ~reset)	// AXI4_Arbiter.scala:48:80, Debug.scala:34:43
+      if ((`PRINTF_COND_) & _GEN_8 & ~reset)	// AXI4_Arbiter.scala:54:80, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_9 & ~reset)	// AXI4_Arbiter.scala:54:80, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_5 & ~reset)	// AXI4_Arbiter.scala:48:80, Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_9 & ~reset)	// AXI4_Arbiter.scala:54:80, Debug.scala:34:43, :35:31
         $fwrite(32'h80000002, "[DONT CARE <=X=> SRAM] idle");	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_6 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
+      if ((`PRINTF_COND_) & _GEN_10 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_4);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_6 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_7 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
+      if ((`PRINTF_COND_) & _GEN_10 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[InstFetch <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_11 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_5);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_7 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_11 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4532:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4532:10
@@ -3109,15 +3113,15 @@ module AXI4Lite_Arbiter(	// <stdin>:4532:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:4532:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign InstFetch_ar_ready = Arbiter_ar_ready;	// <stdin>:4532:10
-  assign InstFetch_r_valid = Arbiter_r_valid;	// <stdin>:4532:10
-  assign InstFetch_r_bits_data = Arbiter_r_bits_data;	// <stdin>:4532:10
+  assign InstFetch_ar_ready = _GEN_2;	// <stdin>:4532:10, AXI4_Arbiter.scala:32:24, :34:73
+  assign InstFetch_r_valid = _GEN_3;	// <stdin>:4532:10, AXI4_Arbiter.scala:32:24, :34:73
+  assign InstFetch_r_bits_data = (|state) ? (_T_26 ? Arbiter_r_bits_data : 64'h0) : _GEN ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4532:10, AXI4.scala:96:27, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :44:80, :72:38, GTimer.scala:8:32
   assign LoadStore_aw_ready = Arbiter_aw_ready;	// <stdin>:4532:10
   assign LoadStore_w_ready = Arbiter_w_ready;	// <stdin>:4532:10
   assign LoadStore_b_valid = Arbiter_b_valid;	// <stdin>:4532:10
-  assign LoadStore_ar_ready = Arbiter_ar_ready;	// <stdin>:4532:10
-  assign LoadStore_r_valid = Arbiter_r_valid;	// <stdin>:4532:10
-  assign LoadStore_r_bits_data = Arbiter_r_bits_data;	// <stdin>:4532:10
+  assign LoadStore_ar_ready = _GEN_0;	// <stdin>:4532:10, AXI4_Arbiter.scala:32:24, :34:73
+  assign LoadStore_r_valid = _GEN_1;	// <stdin>:4532:10, AXI4_Arbiter.scala:32:24, :34:73
+  assign LoadStore_r_bits_data = (|state) ? (_T_26 ? 64'h0 : Arbiter_r_bits_data) : _GEN ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4532:10, AXI4.scala:96:27, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :39:46, :44:80, GTimer.scala:8:32
   assign Arbiter_aw_valid = LoadStore_aw_valid;	// <stdin>:4532:10
   assign Arbiter_aw_bits_addr = LoadStore_aw_bits_addr;	// <stdin>:4532:10
   assign Arbiter_w_valid = LoadStore_w_valid;	// <stdin>:4532:10
@@ -3125,16 +3129,16 @@ module AXI4Lite_Arbiter(	// <stdin>:4532:10
   assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4532:10
   assign Arbiter_b_ready = LoadStore_b_ready;	// <stdin>:4532:10
   assign Arbiter_ar_valid = (|state) ? (_T_26 ? InstFetch_ar_valid : LoadStore_ar_valid) : _GEN ? LoadStore_ar_valid :
-                InstFetch_ar_valid;	// <stdin>:4532:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :41:80, :62:38
+                InstFetch_ar_valid;	// <stdin>:4532:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :44:80, :71:38
   assign Arbiter_ar_bits_addr = (|state) ? (_T_26 ? InstFetch_ar_bits_addr : LoadStore_ar_bits_addr) : _GEN ?
-                LoadStore_ar_bits_addr : InstFetch_ar_bits_addr;	// <stdin>:4532:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :41:80, :62:38
+                LoadStore_ar_bits_addr : InstFetch_ar_bits_addr;	// <stdin>:4532:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :44:80, :71:38
   assign Arbiter_r_ready = (|state) ? (_T_26 ? InstFetch_r_ready : LoadStore_r_ready) : _GEN ? LoadStore_r_ready :
-                InstFetch_r_ready;	// <stdin>:4532:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :39:46, :41:80, :63:38
+                InstFetch_r_ready;	// <stdin>:4532:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :39:46, :44:80, :72:38
 endmodule
 
 // external module MEM
 
-module TP_SRAM(	// <stdin>:4740:10
+module TP_SRAM(	// <stdin>:4760:10
   input         clock,
                 reset,
                 io_aw_valid,
@@ -3174,34 +3178,34 @@ module TP_SRAM(	// <stdin>:4740:10
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4740:10
+  `ifndef SYNTHESIS	// <stdin>:4760:10
     always @(posedge clock) begin	// Debug.scala:34:43
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] TP_SRAM: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
         $fwrite(32'h80000002, "[State] statels %x,%x\n", state_load, state_store);	// Debug.scala:34:43, :35:31, TP_SRAM.scala:31:33, :32:34
     end // always @(posedge)
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4740:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4740:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4760:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4760:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4740:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4740:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4740:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:4740:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4740:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4740:10
+    initial begin	// <stdin>:4760:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4760:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4760:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4760:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4760:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4760:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4740:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4740:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4740:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:4740:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4760:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4760:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4760:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:4760:10
         state_load = _RANDOM_0[0];	// TP_SRAM.scala:31:33
         state_store = _RANDOM_0[1];	// TP_SRAM.scala:31:33, :32:34
         c = {_RANDOM_0[31:2], _RANDOM_1, _RANDOM_2[1:0]};	// GTimer.scala:8:32, TP_SRAM.scala:31:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4740:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4740:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4760:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4760:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   MEM mem (	// TP_SRAM.scala:28:25
@@ -3213,14 +3217,14 @@ module TP_SRAM(	// <stdin>:4740:10
     .iWriteData (io_w_bits_data),
     .oReadData  (io_r_bits_data)
   );
-  assign io_aw_ready = ~state_store;	// <stdin>:4740:10, TP_SRAM.scala:32:34, :44:30
-  assign io_w_ready = ~state_store;	// <stdin>:4740:10, TP_SRAM.scala:32:34, :44:30
-  assign io_b_valid = state_store;	// <stdin>:4740:10, TP_SRAM.scala:32:34
-  assign io_ar_ready = ~state_load;	// <stdin>:4740:10, TP_SRAM.scala:31:33, :34:29
-  assign io_r_valid = state_load;	// <stdin>:4740:10, TP_SRAM.scala:31:33
+  assign io_aw_ready = ~state_store;	// <stdin>:4760:10, TP_SRAM.scala:32:34, :44:30
+  assign io_w_ready = ~state_store;	// <stdin>:4760:10, TP_SRAM.scala:32:34, :44:30
+  assign io_b_valid = state_store;	// <stdin>:4760:10, TP_SRAM.scala:32:34
+  assign io_ar_ready = ~state_load;	// <stdin>:4760:10, TP_SRAM.scala:31:33, :34:29
+  assign io_r_valid = state_load;	// <stdin>:4760:10, TP_SRAM.scala:31:33
 endmodule
 
-module SimTop(	// <stdin>:4820:10
+module SimTop(	// <stdin>:4840:10
   input         clock,
                 reset,
   output        io_commit,
@@ -3311,27 +3315,27 @@ module SimTop(	// <stdin>:4820:10
     else	// SimTop.scala:27:26
       io_pc_REG <= _core_io_difftest_commit_bits_decode_cf_pnpc;	// SimTop.scala:27:26, :51:25
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4820:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4820:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4820:10
+  `ifndef SYNTHESIS	// <stdin>:4840:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4840:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4840:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4820:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4820:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4820:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:4820:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4820:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4820:10
+    initial begin	// <stdin>:4840:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4840:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4840:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4840:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4840:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4840:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4820:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4820:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4820:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:4820:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4840:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4840:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4840:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:4840:10
         io_commit_REG = _RANDOM_0[0];	// SimTop.scala:50:29
         io_pc_REG = {_RANDOM_0[31:1], _RANDOM_1, _RANDOM_2[0]};	// SimTop.scala:50:29, :51:25
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4820:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4820:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4840:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4840:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   Core core (	// SimTop.scala:27:26
@@ -3457,8 +3461,8 @@ module SimTop(	// <stdin>:4820:10
     .io_r_valid      (_TP_SRAM_io_r_valid),
     .io_r_bits_data  (_TP_SRAM_io_r_bits_data)
   );
-  assign io_commit = io_commit_REG;	// <stdin>:4820:10, SimTop.scala:50:29
-  assign io_pc = io_pc_REG;	// <stdin>:4820:10, SimTop.scala:51:25
-  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4820:10, SimTop.scala:28:29
+  assign io_commit = io_commit_REG;	// <stdin>:4840:10, SimTop.scala:50:29
+  assign io_pc = io_pc_REG;	// <stdin>:4840:10, SimTop.scala:51:25
+  assign io_gpr_regs_0 = 64'h0;	// <stdin>:4840:10, SimTop.scala:28:29
 endmodule
 
