@@ -5451,3 +5451,4 @@ scala.meta.tokenizers.TokenizeException: <input>:129: error: illegal character '
 2024.03.11 21:20:16 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
 2024.03.11 21:20:23 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
 2024.03.11 21:20:43 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
+2024.03.11 21:21:03 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
