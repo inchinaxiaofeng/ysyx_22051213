@@ -22,7 +22,7 @@ VERILATOR = verilator
 # 第二行用于Debug 第三行是用来加快编译速度的选项
 VERILATOR_CFLAGS += -MMD --build -cc \
 					-O3 --x-assign fast --x-initial fast --noassert -j 0 \
-					--trace --debug
+					--trace# --debug
 
 # LLVM
 #LLVM_CXXFLAGS = $(shell llvm-config --cxxflags) -fPIE
