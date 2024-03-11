@@ -109,8 +109,7 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 	}
 	when (io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned) {
 		state := s_idle
-		io.out.valid := true.B
-		io.in.ready := true.B
+		io.out.valid := true.B io.in.ready := true.B
 	}
 
 	Debug(io.out.fire, "[LSU-AGU] state %x inv %x inr %x\n",

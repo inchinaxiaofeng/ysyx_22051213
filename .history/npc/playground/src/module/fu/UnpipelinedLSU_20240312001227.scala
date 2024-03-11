@@ -18,6 +18,7 @@ class UnpipeLSUIO extends FuCtrlIO {
 }
 
 // 一个LSU的模块
+// 一个LSU的模块
 class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 	implicit val moduleName: String = this.name
 	val io = IO(new UnpipeLSUIO)
