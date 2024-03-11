@@ -121,7 +121,6 @@ class ALU extends MarCoreModule {
 	val taken = LookupTree(ALUCtrl.getBranchType(ctrl), branchOpTable) ^ ALUCtrl.isBranchInvert(ctrl)
 	val target = Mux(isBranch, /*LookupTree(ALUCtrl.getBranchType(ctrl), jumpOpTable)*/io.cfIn.pc + io.offset, adderRes)(VAddrBits-1, 0)
 	Info("isBranch %x\n", isBranch)
-	// Fixme target值出现问题
 	val predictWrong = Mux(!taken && isBranch, io.cfIn.brIdx(0), !io.cfIn.brIdx(0) || (io.redirect.target =/= io.cfIn.pnpc))
 	val isRVC = (io.cfIn.instr(1, 0) =/= "b11".U)
 	assert(io.cfIn.instr(1, 0) === "b11".U || isRVC || !valid)
