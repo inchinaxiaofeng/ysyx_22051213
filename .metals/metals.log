@@ -587,3 +587,4 @@ Caused by: java.nio.file.FileSystemNotFoundException: Provider "git" not install
 
 2024.03.12 00:37:08 INFO  no build target found for /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala. Using presentation compiler with project's scala-library version: 3.3.1
 2024.03.12 00:37:09 INFO  time: code lens generation in 2.56s
+2024.03.12 00:38:03 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
