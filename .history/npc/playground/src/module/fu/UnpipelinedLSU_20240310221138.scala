@@ -195,7 +195,8 @@ class LSExecUnit extends MarCoreModule {
 		is (sl_wait_resp) {
 			when (dmem.r.fire) {
 // 暂时不添加partialLoad
-				state_load := Mux(partialLoad, sl_partialLoad, sl_idle)
+//				state_load := Mux(partialLoad, sl_partialLoad, sl_wait_resp)
+				state_load := sl_wait_resp
 			}
 		}
 

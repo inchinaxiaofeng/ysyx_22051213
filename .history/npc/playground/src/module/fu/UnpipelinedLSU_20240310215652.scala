@@ -59,6 +59,8 @@ class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 	io.out.valid				:= false.B
 	io.in.ready					:= false.B
 
+//	Info("===================================== state %x\n", state)
+
 	switch (state) {
 		is (s_idle) { // calculate address
 			lsExecUnit.io.in.valid		:= false.B
@@ -194,8 +196,7 @@ class LSExecUnit extends MarCoreModule {
 
 		is (sl_wait_resp) {
 			when (dmem.r.fire) {
-// 暂时不添加partialLoad
-				state_load := Mux(partialLoad, sl_partialLoad, sl_idle)
+				state_load := Mux(partialLoad, sl_partialLoad, sl_wait_resp)
 			}
 		}
 
