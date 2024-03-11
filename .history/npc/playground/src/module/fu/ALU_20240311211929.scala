@@ -126,9 +126,9 @@ class ALU extends MarCoreModule {
 	io.redirect.valid := valid && isBru && predictWrong
 
 	Info("[BASE Info] pc %x instr %x pnpc %x caculate target %x redirect target\n" +
-		"redirect=valid&isBru&predictWrong(%x&%x&%x)\n",
-		io.cfIn.pc, io.cfIn.instr, io.cfIn.pnpc, target, io.redirect.target,
-		valid, isBru, predictWrong)
+  "redirect=valid&isBru&predictWrong(%x&%x&%x), target %x\n",
+		io.cfIn.pc, io.cfIn.instr, io.cfIn.pnpc,
+		valid, isBru, predictWrong, io.redirect.target)
 
 	val redirectRtype = if (EnableOutOfOrderExec) 1.U else 0.U
 	io.redirect.rtype := redirectRtype
