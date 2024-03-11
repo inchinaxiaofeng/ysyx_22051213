@@ -5303,3 +5303,4 @@ scala.meta.tokenizers.TokenizeException: <input>:53: error: unclosed comment
 2024.03.11 19:04:21 INFO  time: code lens generation in 2.29s
 2024.03.11 19:04:21 INFO  time: code lens generation in 2.41s
 2024.03.11 19:17:58 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
+2024.03.11 19:38:35 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/bus/axi4/AXI4_Arbiter.scala
