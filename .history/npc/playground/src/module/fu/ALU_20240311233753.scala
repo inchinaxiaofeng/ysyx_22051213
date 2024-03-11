@@ -113,8 +113,8 @@ class ALU extends MarCoreModule {
 
 	val jumpTarget = MuxLookup(
 		ALUCtrl.getBranchType(ctrl), io.cfIn.pc + io.offset, Seq (
-			ALUCtrl.getBranchType(ALUCtrl.jal)	-> io.cfIn.pc + io.offset,
-			ALUCtrl.getBranchType(ALUCtrl.jalr)	-> srcA + io.offset
+			ALUCtrl.getBranchType(ALUCtrl.jal)	-> (io.cfIn.pc + io.offset).U,
+			ALUCtrl.getBranchType(ALUCtrl.jalr)	-> (srcA + io.offset).U
 		)
 	)
 
