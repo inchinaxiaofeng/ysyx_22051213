@@ -5755,3 +5755,4 @@ scala.meta.tokenizers.TokenizeException: <input>:122: error: unclosed comment
 
 2024.03.11 23:04:47 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
 2024.03.11 23:05:11 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
+2024.03.11 23:06:49 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
