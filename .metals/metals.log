@@ -5856,3 +5856,6 @@ scala.meta.tokenizers.TokenizeException: <input>:129: error: unclosed comment
 	at java.lang.Thread.run(Thread.java:833)
 
 2024.03.11 23:35:00 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
+3月 11, 2024 11:35:37 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 4091
+2024.03.11 23:35:43 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
