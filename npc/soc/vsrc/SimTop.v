@@ -1226,7 +1226,7 @@ module ALU(	// <stdin>:2062:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] ALU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "redirect=valid&isBru&predictWrong(%x&%x&%x), target %x\n", io_in_valid, io_in_bits_ctrl[4], ~_predictWrong_T_1, _io_redirect_target_T_7);	// ALU.scala:51:37, :118:{31,39}, :124:34, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "pc %x instr %x redirect=valid&isBru&predictWrong(%x&%x&%x), target %x\n", io_cfIn_pc, io_cfIn_instr, io_in_valid, io_in_bits_ctrl[4], ~_predictWrong_T_1, _io_redirect_target_T_7);	// ALU.scala:51:37, :118:{31,39}, :124:34, Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _T_43 & ~reset)	// ALU.scala:126:36, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] ALU: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T_43 & ~reset)	// ALU.scala:126:36, Debug.scala:34:43, :35:31
@@ -1238,7 +1238,7 @@ module ALU(	// <stdin>:2062:10
       if ((`PRINTF_COND_) & _T_43 & ~reset)	// ALU.scala:126:36, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] ALU: ", c_4);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T_43 & ~reset)	// ALU.scala:126:36, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[BPW] pc %x tgt %x npc %x pdWrong %x type %x%x%x%x\n", io_cfIn_pc, _io_redirect_target_T_7, io_cfIn_pnpc, ~_predictWrong_T_1, io_in_bits_ctrl[3], io_in_bits_ctrl == 7'h58 | io_in_bits_ctrl == 7'h5C, io_in_bits_ctrl == 7'h5A, io_in_bits_ctrl == 7'h5E);	// ALU.scala:52:40, :118:{31,39}, :124:34, :149:{23,39,47}, :150:{22,45}, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[BPW] pc %x tgt %x npc %x pdWrong %x type %x%x%x%x\n", io_cfIn_pc, _io_redirect_target_T_7, io_cfIn_pnpc, ~_predictWrong_T_1, io_in_bits_ctrl[3], io_in_bits_ctrl == 7'h58 | io_in_bits_ctrl == 7'h5C, io_in_bits_ctrl == 7'h5A, io_in_bits_ctrl == 7'h5E);	// ALU.scala:52:40, :118:{31,39}, :124:34, :150:{23,39,47}, :151:{22,45}, Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] ALU: ", c_5);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
@@ -1290,7 +1290,7 @@ module ALU(	// <stdin>:2062:10
   `endif // not def SYNTHESIS
   assign io_out_valid = io_in_valid;	// <stdin>:2062:10
   assign io_out_bits = io_in_bits_ctrl[4] ? ((&(io_cfIn_instr[1:0])) ? io_cfIn_pc + 64'h4 : io_cfIn_pc + 64'h2) :
-                io_in_bits_ctrl[5] ? {{32{_GEN_0[31]}}, _GEN_0[31:0]} : _GEN_0;	// <stdin>:2062:10, ALU.scala:50:40, :51:37, :106:{25,61}, :119:{35,42}, :124:{77,95}, :136:{27,38,77,114}, BitUtils.scala:17:32, Bitwise.scala:77:12, Mux.scala:81:58
+                io_in_bits_ctrl[5] ? {{32{_GEN_0[31]}}, _GEN_0[31:0]} : _GEN_0;	// <stdin>:2062:10, ALU.scala:50:40, :51:37, :106:{25,61}, :119:{35,42}, :124:{77,95}, :137:{27,38,77,114}, BitUtils.scala:17:32, Bitwise.scala:77:12, Mux.scala:81:58
   assign io_redirect_target = _io_redirect_target_T_7;	// <stdin>:2062:10, ALU.scala:124:34
   assign io_redirect_valid = _io_redirect_valid_T_1;	// <stdin>:2062:10, ALU.scala:126:45
 endmodule
