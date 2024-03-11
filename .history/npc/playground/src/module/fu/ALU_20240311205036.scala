@@ -125,9 +125,6 @@ class ALU extends MarCoreModule {
 	// with branch predictor, this is actually to fix the wrong prediction
 	io.redirect.valid := valid && isBru && predictWrong
 
-	Info("redirect=valid&isBru&predictWrong(%x&%x&%x)\n"
-		valid, isBru, predictWrong)
-
 	val redirectRtype = if (EnableOutOfOrderExec) 1.U else 0.U
 	io.redirect.rtype := redirectRtype
 	// mark redirect type as speculative exec fix

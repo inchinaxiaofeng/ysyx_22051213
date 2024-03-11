@@ -54,7 +54,8 @@ class IFU_embedded extends MarCoreModule with HasResetVector {
 
 	Debug(io.imem.r.fire || io.imem.ar.fire, magentaFG+"[IFI]"+resetColor+
 		" pc=%x redirect %x npc %x pc %x pnpc %x\n",
-		io.imem.ar.bits.addr, io.redirect.valid, npc, pc, npc)
+		io.imem.ar.bits.addr, io.redirect.valid, 
+		npc, pc, npc)
 	Debug(io.out.fire, magentaFG+"[IFO]"+resetColor+
 		" pc=%x inst=%x npc=%x ipf %x\n",
 		io.out.bits.pc, io.out.bits.instr, io.out.bits.pnpc, io.ipf)

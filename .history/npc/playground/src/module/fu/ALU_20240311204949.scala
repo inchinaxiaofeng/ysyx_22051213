@@ -118,15 +118,13 @@ class ALU extends MarCoreModule {
 	val predictWrong = Mux(!taken && isBranch, io.cfIn.brIdx(0), !io.cfIn.brIdx(0) || (io.redirect.target =/= io.cfIn.pnpc))
 	val isRVC = (io.cfIn.instr(1, 0) =/= "b11".U)
 	assert(io.cfIn.instr(1, 0) === "b11".U || isRVC || !valid)
-	Debug(valid && (io.cfIn.instr(1, 0) === "b11".U) =/= !isRVC,
-		"[ERROR] pc %x inst %x rvc %x\n",
-		io.cfIn.pc, io.cfIn.instr, isRVC)
+	Debug(valid && (io.cfIn.instr(1, 0) === "b11".U) =/= !isRVC, "[ERROR] pc %x inst %x rvc %x\n", io.cfIn.pc, io.cfIn.instr, isRVC)
+	//Fixme: Catch a wrong redirect target error
+//	Info("Redirect: target %x isBrunch %x adderRes %x\n",
+//		target, isBranch, adderRes)
 	io.redirect.target := Mux(!taken && isBranch, Mux(isRVC, io.cfIn.pc + 2.U, io.cfIn.pc + 4.U), target)
 	// with branch predictor, this is actually to fix the wrong prediction
 	io.redirect.valid := valid && isBru && predictWrong
-
-	Info("redirect=valid&isBru&predictWrong(%x&%x&%x)\n"
-		valid, isBru, predictWrong)
 
 	val redirectRtype = if (EnableOutOfOrderExec) 1.U else 0.U
 	io.redirect.rtype := redirectRtype
