@@ -5998,3 +5998,4 @@ Caused by: java.lang.UnsupportedOperationException: tail of empty list
 2024.03.12 00:12:46 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/IFU.scala
 2024.03.12 00:13:05 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/IDU.scala
 2024.03.12 00:13:17 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/TP_SRAM.scala
+2024.03.12 00:13:49 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
