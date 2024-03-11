@@ -26,6 +26,8 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 	LoadStore.w		<> Arbiter.w
 	LoadStore.b		<> Arbiter.b
 
+	Info("InstFetch Info v%x r%x")
+
 	val s_idle :: s_if_exec :: s_ls_exec :: Nil = Enum(3)
 	val state = RegInit(s_idle)
 
