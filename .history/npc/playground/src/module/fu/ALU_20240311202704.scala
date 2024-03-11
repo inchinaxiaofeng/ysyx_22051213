@@ -80,6 +80,8 @@ class ALU extends MarCoreModule {
 	val sltu		= !adderRes(XLEN)
 	val slt			= xorRes(XLEN-1) ^ sltu
 
+	Info("srcA %x\n", srcA)
+
 	val shsrcA = MuxLookup (
 		ctrl,
 		srcA(XLEN-1, 0),
@@ -120,8 +122,8 @@ class ALU extends MarCoreModule {
 	assert(io.cfIn.instr(1, 0) === "b11".U || isRVC || !valid)
 	Debug(valid && (io.cfIn.instr(1, 0) === "b11".U) =/= !isRVC, "[ERROR] pc %x inst %x rvc %x\n", io.cfIn.pc, io.cfIn.instr, isRVC)
 	//Fixme: Catch a wrong redirect target error
-//	Info("Redirect: target %x isBrunch %x adderRes %x\n",
-//		target, isBranch, adderRes)
+	Info("Redirect: target %x isBrunch %x adderRes %x\n",
+		target, isBranch, adderRes)
 	io.redirect.target := Mux(!taken && isBranch, Mux(isRVC, io.cfIn.pc + 2.U, io.cfIn.pc + 4.U), target)
 	// with branch predictor, this is actually to fix the wrong prediction
 	io.redirect.valid := valid && isBru && predictWrong
@@ -134,8 +136,8 @@ class ALU extends MarCoreModule {
 	io.out.bits := Mux(isBru, Mux(!isRVC, SignExt(io.cfIn.pc, AddrBits) + 4.U, SignExt(io.cfIn.pc, AddrBits) + 2.U), aluRes)
 
 	Debug(valid && isBru, "tgt %x, valid:%d, npc: %x, pdwrong: %x\n", io.redirect.target, io.redirect.valid, io.cfIn.pnpc, predictWrong)
-	Debug(valid && isBru, "taken:%d addrRes:%x srcA:%x srcB:%x ctrl:%x\n", taken, adderRes, srcA, srcB, ctrl)
-	Debug(valid && isBru, "[BPW] pc %x tgt %x, npc: %x, pdWrong type: %x%x%x%x\n", io.cfIn.pc, io.redirect.target, io.cfIn.pnpc, predictWrong, isBranch, (ctrl === ALUCtrl.jal || ctrl === ALUCtrl.call))
+//	Debug(valid && isBru, "taken:%d addrRes:%x srcA:%x srcB:%x ctrl:%x\n", taken, adderRes, srcA, srcB, ctrl)
+//	Debug(valid && isBru, "[BPW] pc %x tgt %x, npc: %x, pdWrong type: %x%x%x%x\n", io.cfIn.pc, io.redirect.target, io.cfIn.pnpc, predictWrong, isBranch, (ctrl === ALUCtrl.jal || ctrl === ALUCtrl.call))
 
 	io.in.ready := io.out.ready
 	io.out.valid := valid

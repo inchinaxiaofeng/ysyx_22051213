@@ -238,7 +238,7 @@ class LSExecUnit extends MarCoreModule {
 	dmem.b.ready := state_store === ss_wait_resp
 	dmem.ar.bits.apply(addr = reqAddr); dmem.ar.valid := rValid
 	dmem.r.ready := state_load === sl_wait_resp
-
+// Fixme 发生了跳转到 PartialLoad 后，状态机不能正确执行
 	io.out.valid := Mux(
 		io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned,
 		true.B, Mux(partialLoad,

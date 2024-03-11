@@ -80,6 +80,8 @@ class ALU extends MarCoreModule {
 	val sltu		= !adderRes(XLEN)
 	val slt			= xorRes(XLEN-1) ^ sltu
 
+	Info("srcA %x\n", srcA)
+
 	val shsrcA = MuxLookup (
 		ctrl,
 		srcA(XLEN-1, 0),
@@ -120,8 +122,8 @@ class ALU extends MarCoreModule {
 	assert(io.cfIn.instr(1, 0) === "b11".U || isRVC || !valid)
 	Debug(valid && (io.cfIn.instr(1, 0) === "b11".U) =/= !isRVC, "[ERROR] pc %x inst %x rvc %x\n", io.cfIn.pc, io.cfIn.instr, isRVC)
 	//Fixme: Catch a wrong redirect target error
-//	Info("Redirect: target %x isBrunch %x adderRes %x\n",
-//		target, isBranch, adderRes)
+	Info("Redirect: target %x isBrunch %x adderRes %x\n",
+		target, isBranch, adderRes)
 	io.redirect.target := Mux(!taken && isBranch, Mux(isRVC, io.cfIn.pc + 2.U, io.cfIn.pc + 4.U), target)
 	// with branch predictor, this is actually to fix the wrong prediction
 	io.redirect.valid := valid && isBru && predictWrong

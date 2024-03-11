@@ -52,6 +52,7 @@ class Decoder(implicit val p: MarCoreConfig) extends MarCoreModule with HasInstr
 	val rfSrcA = rs // Mux(isRVC, rvc_srcA, rs)
 	val rfSrcB = rt // Mux(isRVC, rvc_srcB, rt)
 	val rfDest = rd // Mux(isRVC, rvc_dest, rd)
+	// 向后传递，用于Forwarding
 //	Info("SrcAType is pc %x, rfSrcA %x Instr %x\n",
 //		srcAType === SrcType.pc, instr(19, 15), instr)
 	io.out.bits.ctrl.rfSrcA	:= Mux(srcAType === SrcType.pc, 0.U, rfSrcA) 
