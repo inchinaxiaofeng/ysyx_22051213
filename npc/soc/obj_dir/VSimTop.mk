@@ -46,8 +46,11 @@ VM_USER_LDLIBS = \
 	-lreadline \
 	-ldl \
 	-lSDL2 \
+<<<<<<< HEAD
 	-fsanitize=address \
 	-fsanitize=leak \
+=======
+>>>>>>> tmp
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \

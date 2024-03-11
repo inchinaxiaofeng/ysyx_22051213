@@ -21,8 +21,8 @@ CSRCS = $(shell find $(NPC_HOME)/soc/csrc -name "*.c" -or -name "*.cc" -or -name
 VERILATOR = verilator
 # 第二行用于Debug 第三行是用来加快编译速度的选项
 VERILATOR_CFLAGS += -MMD --build -cc \
-					-O3 --x-assign fast --x-initial fast --noassert -j 0 \
-					--trace
+					-O3 --x-assign fast --x-initial fast --noassert -j 0# \
+					#--trace --debug
 
 # LLVM
 #LLVM_CXXFLAGS = $(shell llvm-config --cxxflags) -fPIE
@@ -30,7 +30,7 @@ VERILATOR_CFLAGS += -MMD --build -cc \
 # 链接
 #LDFLAGS += $(LLVM_LIBS) # LLVM的库链接，用于传递编译后的信息给NPC，以实现TRACE
 #LDFLAGS += -L$(NEMU_HOME)/build # nemu/build/riscv64-nemu-interpreter-so，用于给NPC添加TRACE
-LDFLAGS += -lreadline -ldl -lSDL2 -fsanitize=address -fsanitize=leak
+LDFLAGS += -lreadline -ldl -lSDL2 # -fsanitize=address -fsanitize=leak
 #LDFLAGS += -L/$(NEMU_HOME)/$(SO)
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\"" # 传递给g++参数，包括包含路径和TOP_NAME的定义
 #CFLAGS += -fsanitize=address -fsanitize-recover=address

@@ -49,7 +49,7 @@ object ALUCtrl {
 	def pcPlus2(ctrl: UInt) = ctrl(5)
 	def isWordOp(ctrl: UInt) = ctrl(5)
 	def isBru(ctrl: UInt) = ctrl(4)
-	def isBranch(ctrl: UInt) = ctrl(3)
+	def isBranch(ctrl: UInt) = !ctrl(3)
 	def getBranchType(ctrl: UInt) = ctrl(2, 1)
 	def isBranchInvert(ctrl: UInt) = ctrl(0)
 	def isJump(ctrl: UInt) = isBru(ctrl) && !isBranch(ctrl)
@@ -113,9 +113,17 @@ class ALU extends MarCoreModule {
 		ALUCtrl.getBranchType(ALUCtrl.bltu)	-> sltu
 	)
 
+//	val jumpTarget = MuxLookup(
+//		ALUCtrl.getBranchType(ctrl), io.cfIn.pc + io.offset, Seq (
+//			ALUCtrl.getBranchType(ALUCtrl.jal)	-> (io.cfIn.pc + io.offset),
+//			ALUCtrl.getBranchType(ALUCtrl.jalr)	-> (srcA + io.offset)
+//		)
+//	)
+
 	val isBranch = ALUCtrl.isBranch(ctrl)
 	val isBru = ALUCtrl.isBru(ctrl)
 	val taken = LookupTree(ALUCtrl.getBranchType(ctrl), branchOpTable) ^ ALUCtrl.isBranchInvert(ctrl)
+<<<<<<< HEAD
 	val target = Mux(isBranch, io.cfIn.pc + io.offset, adderRes)(VAddrBits-1, 0)
 	val predictWrong = Mux(!taken && isBranch, io.cfIn.brIdx(0), !io.cfIn.brIdx(0) || (io.redirect.target =/= io.cfIn.pnpc))
 	val isRVC = (io.cfIn.instr(1, 0) =/= "b11".U)
@@ -124,10 +132,29 @@ class ALU extends MarCoreModule {
 	//Fixme: Catch a wrong redirect target error
 	Info("Redirect: target %x isBrunch %x adderRes %x\n",
 		target, isBranch, adderRes)
+=======
+	val target = Mux(isBranch, /*jumpTarget*/io.cfIn.pc + io.offset, adderRes)(VAddrBits-1, 0)
+	Info("isBranch %x\n", isBranch)
+	// Fixme target值出现问题
+	val predictWrong = Mux(!taken && isBranch, io.cfIn.brIdx(0), !io.cfIn.brIdx(0) || (io.redirect.target =/= io.cfIn.pnpc))
+	val isRVC = (io.cfIn.instr(1, 0) =/= "b11".U)
+	assert(io.cfIn.instr(1, 0) === "b11".U || isRVC || !valid)
+	Debug(valid && (io.cfIn.instr(1, 0) === "b11".U) =/= !isRVC,
+		"[ERROR] pc %x inst %x rvc %x\n",
+		io.cfIn.pc, io.cfIn.instr, isRVC)
+>>>>>>> tmp
 	io.redirect.target := Mux(!taken && isBranch, Mux(isRVC, io.cfIn.pc + 2.U, io.cfIn.pc + 4.U), target)
 	// with branch predictor, this is actually to fix the wrong prediction
 	io.redirect.valid := valid && isBru && predictWrong
 
+<<<<<<< HEAD
+=======
+	Info("[BASE Info] pc %x instr %x pnpc %x caculate target %x redirect target %x\n" +
+		"adderRes %x redirect=valid&isBru&predictWrong(%x&%x&%x)\n",
+		io.cfIn.pc, io.cfIn.instr, io.cfIn.pnpc, target, io.redirect.target,
+		adderRes, valid, isBru, predictWrong)
+
+>>>>>>> tmp
 	val redirectRtype = if (EnableOutOfOrderExec) 1.U else 0.U
 	io.redirect.rtype := redirectRtype
 	// mark redirect type as speculative exec fix
@@ -135,10 +162,21 @@ class ALU extends MarCoreModule {
 	// this is actually for jal and jalr to write pc + 4/2 to rd
 	io.out.bits := Mux(isBru, Mux(!isRVC, SignExt(io.cfIn.pc, AddrBits) + 4.U, SignExt(io.cfIn.pc, AddrBits) + 2.U), aluRes)
 
-//	Debug(valid && isBru, "tgt %x, valid:%d, npc: %x, pdwrong: %x\n", io.redirect.target, io.redirect.valid, io.cfIn.pnpc, predictWrong)
-//	Debug(valid && isBru, "taken:%d addrRes:%x srcA:%x srcB:%x ctrl:%x\n", taken, adderRes, srcA, srcB, ctrl)
-//	Debug(valid && isBru, "[BPW] pc %x tgt %x, npc: %x, pdWrong type: %x%x%x%x\n", io.cfIn.pc, io.redirect.target, io.cfIn.pnpc, predictWrong, isBranch, (ctrl === ALUCtrl.jal || ctrl === ALUCtrl.call))
-//	Debug("valid:%d isBru:%d isBranch:%d \n", valid, isBru, isBranch)
+	Debug(valid && isBru,
+		"tgt %x valid %d npc %x pdwrong %x\n",
+		io.redirect.target, io.redirect.valid,
+		io.cfIn.pnpc, predictWrong)
+	Debug(valid && isBru,
+		"taken %d addrRes %x srcA %x srcB %x ctrl %x\n",
+		taken, adderRes, srcA, srcB, ctrl)
+	Debug(valid && isBru,
+		"[BPW] pc %x tgt %x npc %x pdWrong %x type %x%x%x%x\n",
+		io.cfIn.pc, io.redirect.target, io.cfIn.pnpc,
+		predictWrong, isBranch,
+		(ctrl === ALUCtrl.jal || ctrl === ALUCtrl.call),
+		ctrl === ALUCtrl.jalr, ctrl === ALUCtrl.ret)
+	Debug("valid %d isBru %d isBranch %d\n",
+		valid, isBru, isBranch)
 
 	io.in.ready := io.out.ready
 	io.out.valid := valid

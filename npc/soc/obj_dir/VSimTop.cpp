@@ -3,7 +3,10 @@
 
 #include "VSimTop.h"
 #include "VSimTop__Syms.h"
+<<<<<<< HEAD
 #include "verilated_vcd_c.h"
+=======
+>>>>>>> tmp
 #include "verilated_dpi.h"
 
 //============================================================
@@ -87,7 +90,10 @@ void VSimTop::eval_step() {
     // Debug assertions
     VSimTop___024root___eval_debug_assertions(&(vlSymsp->TOP));
 #endif  // VL_DEBUG
+<<<<<<< HEAD
     vlSymsp->__Vm_activity = true;
+=======
+>>>>>>> tmp
     vlSymsp->__Vm_deleter.deleteAll();
     if (VL_UNLIKELY(!vlSymsp->__Vm_didInit)) {
         vlSymsp->__Vm_didInit = true;
@@ -137,6 +143,7 @@ VL_ATTR_COLD void VSimTop::final() {
 const char* VSimTop::hierName() const { return vlSymsp->name(); }
 const char* VSimTop::modelName() const { return "VSimTop"; }
 unsigned VSimTop::threads() const { return 1; }
+<<<<<<< HEAD
 std::unique_ptr<VerilatedTraceConfig> VSimTop::traceConfig() const {
     return std::unique_ptr<VerilatedTraceConfig>{new VerilatedTraceConfig{false, false, false}};
 };
@@ -173,3 +180,5 @@ VL_ATTR_COLD void VSimTop::trace(VerilatedVcdC* tfp, int levels, int options) {
     tfp->spTrace()->addInitCb(&trace_init, &(vlSymsp->TOP));
     VSimTop___024root__trace_register(&(vlSymsp->TOP), tfp->spTrace());
 }
+=======
+>>>>>>> tmp

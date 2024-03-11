@@ -51,7 +51,11 @@ class TP_SRAM extends MarCoreModule {
 		}
 	}
 
+<<<<<<< HEAD
 	Info("[State] statels %x,%x\n", state_load, state_store)
+=======
+//	Info("[State] statels %x,%x\n", state_load, state_store)
+>>>>>>> tmp
 
 	/* Just push the data to SRAM and use enable signal control */
 	mem.io.iReadAddr := io.ar.bits.addr
