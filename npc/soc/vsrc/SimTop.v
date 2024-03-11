@@ -2964,15 +2964,15 @@ module AXI4Lite_Arbiter(	// <stdin>:4517:10
   reg  [1:0]  state;	// AXI4_Arbiter.scala:30:28
   wire        _T_1 = InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:34:50
   reg  [63:0] c;	// GTimer.scala:8:32
-  wire        _T_8 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:39:{56,59}
+  wire        _T_8 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:41:{56,59}
   reg  [63:0] c_1;	// GTimer.scala:8:32
-  wire        _T_15 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:44:{37,57}
+  wire        _T_15 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:48:{37,57}
   reg  [63:0] c_2;	// GTimer.scala:8:32
-  wire        _GEN = _T_1 | ~_T_8;	// AXI4_Arbiter.scala:34:{50,73}, :36:46, :39:{56,80}
+  wire        _GEN = _T_1 | ~_T_8;	// AXI4_Arbiter.scala:34:{50,73}, :38:46, :41:{56,80}
   reg  [63:0] c_3;	// GTimer.scala:8:32
-  wire        _T_26 = state == 2'h1;	// AXI4_Arbiter.scala:30:28, :32:24, :43:39
+  wire        _T_26 = state == 2'h1;	// AXI4_Arbiter.scala:30:28, :32:24, :47:39
   reg  [63:0] c_4;	// GTimer.scala:8:32
-  wire        _T_33 = state == 2'h2;	// AXI4_Arbiter.scala:30:28, :32:24, :38:39
+  wire        _T_33 = state == 2'h2;	// AXI4_Arbiter.scala:30:28, :32:24, :40:39
   reg  [63:0] c_5;	// GTimer.scala:8:32
   always @(posedge clock) begin
     if (reset) begin
@@ -2990,15 +2990,15 @@ module AXI4Lite_Arbiter(	// <stdin>:4517:10
           if (InstFetch_r_ready & Arbiter_r_valid)	// Decoupled.scala:52:35
             state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
         end
-        else if (_T_33 & LoadStore_r_ready & Arbiter_r_valid)	// AXI4_Arbiter.scala:30:28, :32:24, :63:49
+        else if (_T_33 & LoadStore_r_ready & Arbiter_r_valid)	// AXI4_Arbiter.scala:30:28, :32:24, :73:49
           state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
       end
       else if (_T_1)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50
-        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :38:39
-      else if (_T_8)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :39:56
-        state <= 2'h1;	// AXI4_Arbiter.scala:30:28, :43:39
-      else if (_T_15)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :39:56, :44:57
-        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :38:39
+        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :40:39
+      else if (_T_8)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :41:56
+        state <= 2'h1;	// AXI4_Arbiter.scala:30:28, :47:39
+      else if (_T_15)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :41:56, :48:57
+        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :40:39
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
       c_1 <= c_1 + 64'h1;	// GTimer.scala:8:32, :9:24
       c_2 <= c_2 + 64'h1;	// GTimer.scala:8:32, :9:24
@@ -3011,44 +3011,44 @@ module AXI4Lite_Arbiter(	// <stdin>:4517:10
     always @(posedge clock) begin	// Debug.scala:34:43
       automatic logic _GEN_0;	// AXI4_Arbiter.scala:34:73
       automatic logic _GEN_1;	// AXI4_Arbiter.scala:34:73
-      automatic logic _GEN_2;	// AXI4_Arbiter.scala:39:80
-      automatic logic _GEN_3;	// AXI4_Arbiter.scala:39:80
-      automatic logic _GEN_4;	// AXI4_Arbiter.scala:44:80
-      automatic logic _GEN_5;	// AXI4_Arbiter.scala:44:80
+      automatic logic _GEN_2;	// AXI4_Arbiter.scala:41:80
+      automatic logic _GEN_3;	// AXI4_Arbiter.scala:41:80
+      automatic logic _GEN_4;	// AXI4_Arbiter.scala:48:80
+      automatic logic _GEN_5;	// AXI4_Arbiter.scala:48:80
       automatic logic _GEN_6;	// AXI4_Arbiter.scala:32:24
       automatic logic _GEN_7;	// AXI4_Arbiter.scala:32:24
       _GEN_0 = ~(|state) & _T_1;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}
       _GEN_1 = ~(|state) & ~_T_1;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}
-      _GEN_2 = _GEN_1 & _T_8;	// AXI4_Arbiter.scala:34:73, :39:{56,80}
-      _GEN_3 = _GEN_1 & ~_T_8;	// AXI4_Arbiter.scala:34:73, :39:{56,80}
-      _GEN_4 = _GEN_3 & _T_15;	// AXI4_Arbiter.scala:39:80, :44:{57,80}
-      _GEN_5 = _GEN_3 & ~_T_15;	// AXI4_Arbiter.scala:39:80, :44:{57,80}
+      _GEN_2 = _GEN_1 & _T_8;	// AXI4_Arbiter.scala:34:73, :41:{56,80}
+      _GEN_3 = _GEN_1 & ~_T_8;	// AXI4_Arbiter.scala:34:73, :41:{56,80}
+      _GEN_4 = _GEN_3 & _T_15;	// AXI4_Arbiter.scala:41:80, :48:{57,80}
+      _GEN_5 = _GEN_3 & ~_T_15;	// AXI4_Arbiter.scala:41:80, :48:{57,80}
       _GEN_6 = (|state) & _T_26;	// AXI4_Arbiter.scala:30:28, :32:24
       _GEN_7 = (|state) & ~_T_26 & _T_33;	// AXI4_Arbiter.scala:30:28, :32:24
       if ((`PRINTF_COND_) & _GEN_0 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_0 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifv%x,lsv%x\n", InstFetch_ar_valid, LoadStore_ar_valid);	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:39:80, Debug.scala:34:43
+        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:41:80, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:39:80, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <===> SRAM] idle ifv%x,lsv%x\n", InstFetch_ar_valid, LoadStore_ar_valid);	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43
+      if ((`PRINTF_COND_) & _GEN_2 & ~reset)	// AXI4_Arbiter.scala:41:80, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[InstFetch <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:48:80, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifv%x,lsv%x\n", InstFetch_ar_valid, LoadStore_ar_valid);	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_5 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43
+      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:48:80, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_5 & ~reset)	// AXI4_Arbiter.scala:48:80, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_5 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43, :35:31
+      if ((`PRINTF_COND_) & _GEN_5 & ~reset)	// AXI4_Arbiter.scala:48:80, Debug.scala:34:43, :35:31
         $fwrite(32'h80000002, "[DONT CARE <=X=> SRAM] idle");	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN_6 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_4);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_6 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <===> SRAM] exec ifv%x,lsv%x\n", InstFetch_ar_valid, LoadStore_ar_valid);	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[InstFetch <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
       if ((`PRINTF_COND_) & _GEN_7 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_5);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _GEN_7 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM] exec ifv%x,lsv%x\n", InstFetch_ar_valid, LoadStore_ar_valid);	// Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "[LoadStore <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, Arbiter_ar_ready, LoadStore_ar_valid, Arbiter_ar_ready);	// Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4517:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4517:10
@@ -3113,11 +3113,11 @@ module AXI4Lite_Arbiter(	// <stdin>:4517:10
   assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4517:10
   assign Arbiter_b_ready = LoadStore_b_ready;	// <stdin>:4517:10
   assign Arbiter_ar_valid = (|state) ? (_T_26 ? InstFetch_ar_valid : LoadStore_ar_valid) : _GEN ? LoadStore_ar_valid :
-                InstFetch_ar_valid;	// <stdin>:4517:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :36:46, :39:80, :54:38
+                InstFetch_ar_valid;	// <stdin>:4517:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :41:80, :62:38
   assign Arbiter_ar_bits_addr = (|state) ? (_T_26 ? InstFetch_ar_bits_addr : LoadStore_ar_bits_addr) : _GEN ?
-                LoadStore_ar_bits_addr : InstFetch_ar_bits_addr;	// <stdin>:4517:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :36:46, :39:80, :54:38
+                LoadStore_ar_bits_addr : InstFetch_ar_bits_addr;	// <stdin>:4517:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :41:80, :62:38
   assign Arbiter_r_ready = (|state) ? (_T_26 ? InstFetch_r_ready : LoadStore_r_ready) : _GEN ? LoadStore_r_ready :
-                InstFetch_r_ready;	// <stdin>:4517:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :36:46, :37:46, :39:80, :55:38
+                InstFetch_r_ready;	// <stdin>:4517:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :39:46, :41:80, :63:38
 endmodule
 
 // external module MEM

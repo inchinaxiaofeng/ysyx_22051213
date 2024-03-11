@@ -351,9 +351,11 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_0) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM] idle ifv%x,lsv%x\n",
+        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n",
                    1,vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready,
-                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))),
+                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid),
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -362,9 +364,11 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_2) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM] idle ifv%x,lsv%x\n",
+        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n",
                    1,vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready,
-                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))),
+                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid),
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_4) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -373,9 +377,11 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_4) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM] idle ifv%x,lsv%x\n",
+        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n",
                    1,vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready,
-                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))),
+                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid),
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_5) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -393,9 +399,11 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_6) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM] exec ifv%x,lsv%x\n",
+        VL_FWRITEF(0x80000002U,"[InstFetch <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n",
                    1,vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready,
-                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))),
+                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid),
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_7) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -404,9 +412,11 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__arbiter__DOT__unnamedblk1__DOT___GEN_7) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM] exec ifv%x,lsv%x\n",
+        VL_FWRITEF(0x80000002U,"[LoadStore <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n",
                    1,vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready,
-                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid));
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))),
+                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__rValid),
+                   1,(1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_load))));
     }
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__unnamedblk1__DOT___T_1 
         = ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_redirect_valid) 
