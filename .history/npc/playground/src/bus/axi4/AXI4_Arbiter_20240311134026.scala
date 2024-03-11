@@ -67,8 +67,7 @@ class AXI4Lite_Arbiter extends MarCoreModule {
 		}
 
 		is (s_ls_exec) {
-			Info("[LoadStore <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n",
-				InstFetch.ar.valid, LoadStore.ar.valid)
+			Info("[LoadStore <===> SRAM] exec ifv%x,lsv%x\n", InstFetch.ar.valid, LoadStore.ar.valid)
 			LoadStore.ar <> Arbiter.ar
 			LoadStore.r  <> Arbiter.r
 			when (LoadStore.r.fire) { state := s_idle }
