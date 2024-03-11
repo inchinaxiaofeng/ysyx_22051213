@@ -5402,3 +5402,4 @@ scala.meta.tokenizers.TokenizeException: <input>:40: error: illegal character '\
 3月 11, 2024 8:51:27 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 警告: Unmatched cancel notification for request id 5373
 2024.03.11 20:51:31 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
+2024.03.11 20:51:48 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/ALU.scala
