@@ -238,7 +238,6 @@ class LSExecUnit extends MarCoreModule {
 	dmem.b.ready := state_store === ss_wait_resp
 	dmem.ar.bits.apply(addr = reqAddr); dmem.ar.valid := rValid;
 	dmem.r.ready := state_load === sl_wait_resp
-
 	io.out.valid := Mux(
 		io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned,
 		true.B, Mux(partialLoad,

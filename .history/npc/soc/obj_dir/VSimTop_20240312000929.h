@@ -13,6 +13,10 @@
 
 class VSimTop__Syms;
 class VSimTop___024root;
+<<<<<<< HEAD
+class VerilatedVcdC;
+=======
+>>>>>>> tmp
 
 // This class is the main interface to the Verilated model
 class VSimTop VL_NOT_FINAL : public VerilatedModel {
@@ -101,6 +105,11 @@ class VSimTop VL_NOT_FINAL : public VerilatedModel {
     bool eventsPending();
     /// Returns time at next time slot. Aborts if !eventsPending()
     uint64_t nextTimeSlot();
+<<<<<<< HEAD
+    /// Trace signals in the model; called by application code
+    void trace(VerilatedVcdC* tfp, int levels, int options = 0);
+=======
+>>>>>>> tmp
     /// Retrieve name of this model instance (as passed to constructor).
     const char* name() const;
 
@@ -108,6 +117,10 @@ class VSimTop VL_NOT_FINAL : public VerilatedModel {
     const char* hierName() const override final;
     const char* modelName() const override final;
     unsigned threads() const override final;
+<<<<<<< HEAD
+    std::unique_ptr<VerilatedTraceConfig> traceConfig() const override final;
+=======
+>>>>>>> tmp
 } VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
 
 #endif  // guard

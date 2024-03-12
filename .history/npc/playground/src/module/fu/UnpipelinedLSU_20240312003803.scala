@@ -213,10 +213,11 @@ class LSExecUnit extends MarCoreModule {
 			when (dmem.b.fire) { state_store := ss_idle }
 		}
 	}
-//	Info("[State] statels (%x,%x)" +
-//		" arv %x arr %x bv %b br %b\n",
-//		state_load, state_store, dmem.ar.valid, dmem.ar.ready,
-//		dmem.b.valid, dmem.b.ready)
+// Fixme: FSM Load 卡在了 1号状态
+	Info("[State] statels (%x,%x)" +
+		" arv %x arr %x bv %b br %b\n",
+		state_load, state_store, dmem.ar.valid, dmem.ar.ready,
+		dmem.b.valid, dmem.b.ready)
 
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
 		"[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n",
@@ -232,13 +233,13 @@ class LSExecUnit extends MarCoreModule {
 	val reqWmask = if (XLEN == 32) genWmask32(addr, size)     else genWmask(addr, size)
 	val wValid = valid && (state_store === ss_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
 	val rValid = valid && (state_load === sl_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
-// Fixme 在PartialLoad的情况下，不能正确的读出值
+
 	dmem.aw.bits.apply(addr = reqAddr); dmem.aw.valid := wValid;
 	dmem.w.bits.apply(data = reqWdata, strb = reqWmask); dmem.w.valid := wValid;
 	dmem.b.ready := state_store === ss_wait_resp
-	dmem.ar.bits.apply(addr = reqAddr); dmem.ar.valid := rValid;
+	dmem.ar.bits.apply(addr = reqAddr); dmem.ar.valid := rValid
 	dmem.r.ready := state_load === sl_wait_resp
-
+// Fixme 发生了跳转到 PartialLoad 后，状态机不能正确执行
 	io.out.valid := Mux(
 		io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned,
 		true.B, Mux(partialLoad,

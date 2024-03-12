@@ -80,6 +80,8 @@ class ALU extends MarCoreModule {
 	val sltu		= !adderRes(XLEN)
 	val slt			= xorRes(XLEN-1) ^ sltu
 
+	Info("srcA %x\n", srcA)
+
 	val shsrcA = MuxLookup (
 		ctrl,
 		srcA(XLEN-1, 0),
@@ -121,22 +123,29 @@ class ALU extends MarCoreModule {
 	val isBranch = ALUCtrl.isBranch(ctrl)
 	val isBru = ALUCtrl.isBru(ctrl)
 	val taken = LookupTree(ALUCtrl.getBranchType(ctrl), branchOpTable) ^ ALUCtrl.isBranchInvert(ctrl)
+
 	val target = Mux(isBranch, /*jumpTarget*/io.cfIn.pc + io.offset, adderRes)(VAddrBits-1, 0)
+	Info("isBranch %x\n", isBranch)
+	// Fixme target值出现问题
 	val predictWrong = Mux(!taken && isBranch, io.cfIn.brIdx(0), !io.cfIn.brIdx(0) || (io.redirect.target =/= io.cfIn.pnpc))
 	val isRVC = (io.cfIn.instr(1, 0) =/= "b11".U)
 	assert(io.cfIn.instr(1, 0) === "b11".U || isRVC || !valid)
 	Debug(valid && (io.cfIn.instr(1, 0) === "b11".U) =/= !isRVC,
 		"[ERROR] pc %x inst %x rvc %x\n",
 		io.cfIn.pc, io.cfIn.instr, isRVC)
+>>>>>>> tmp
 	io.redirect.target := Mux(!taken && isBranch, Mux(isRVC, io.cfIn.pc + 2.U, io.cfIn.pc + 4.U), target)
 	// with branch predictor, this is actually to fix the wrong prediction
 	io.redirect.valid := valid && isBru && predictWrong
 
-//	Info("[BASE Info] pc %x instr %x pnpc %x caculate target %x redirect target %x\n" +
-//		"adderRes %x redirect=valid&isBru&predictWrong(%x&%x&%x)\n",
-//		io.cfIn.pc, io.cfIn.instr, io.cfIn.pnpc, target, io.redirect.target,
-//		adderRes, valid, isBru, predictWrong)
+<<<<<<< HEAD
+=======
+	Info("[BASE Info] pc %x instr %x pnpc %x caculate target %x redirect target %x\n" +
+		"adderRes %x redirect=valid&isBru&predictWrong(%x&%x&%x)\n",
+		io.cfIn.pc, io.cfIn.instr, io.cfIn.pnpc, target, io.redirect.target,
+		adderRes, valid, isBru, predictWrong)
 
+>>>>>>> tmp
 	val redirectRtype = if (EnableOutOfOrderExec) 1.U else 0.U
 	io.redirect.rtype := redirectRtype
 	// mark redirect type as speculative exec fix

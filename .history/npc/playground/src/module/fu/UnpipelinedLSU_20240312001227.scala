@@ -18,6 +18,7 @@ class UnpipeLSUIO extends FuCtrlIO {
 }
 
 // 一个LSU的模块
+// 一个LSU的模块
 class UnpipelinedLSU extends MarCoreModule with HasLSUConst {
 	implicit val moduleName: String = this.name
 	val io = IO(new UnpipeLSUIO)
@@ -180,51 +181,43 @@ class LSExecUnit extends MarCoreModule {
 	val isStore = valid && LSUCtrl.isStore(ctrl)
 	val partialLoad = !isStore && (ctrl =/= LSUCtrl.ld)
 
-	val sl_idle :: sl_wait_resp :: sl_partialLoad :: Nil = Enum(3)
-	val ss_idle :: ss_wait_resp :: Nil = Enum(2)
-	val state_load = RegInit(sl_idle)
-	val state_store = RegInit(ss_idle)
+	val s_idle/* :: s_wait_tlb */:: s_wait_resp :: s_partialLoad :: Nil = Enum(3)
+	val state = RegInit(s_idle)
 
-	switch (state_load) {
-		is (sl_idle) {
-			when (dmem.ar.fire && !isStore) {
-				state_load := sl_wait_resp
-			}
-		}
-
-		is (sl_wait_resp) {
-			when (dmem.r.fire) {
-// 暂时不添加partialLoad
-				state_load := Mux(partialLoad, sl_partialLoad, sl_idle)
-			}
-		}
-
-		is (sl_partialLoad) { state_load := sl_idle }
+//	val dtlbFinish = WireInit(false.B)
+//	val dtlbPF = WireInit(false.B)
+//	val dtlbEnable = WireInit(false.B)
+	if (Settings.get("HasDTLB")) {
+//		BoringUtils.addSink(dtlbFinish, "DTLBFINISH")
+//		BoringUtils.addSink(dtlbPF, "DTLBPF")
+//		BoringUtils.addSink(dtlbEnable, "DTLBENABLE")
 	}
 
-	switch (state_store) {
-		is (ss_idle) {
-			when (dmem.aw.fire && dmem.w.fire && isStore) {
-				state_store := ss_wait_resp
+//	io.dtlbPF := dtlbPF
+
+	switch (state) {
+		is (s_idle) {
+//			when (dmem.req.fire && dtlbEnable ) { state := s_wait_tlb  }
+			when ((dmem.aw.ready&&dmem.w.ready) || (dmem.ar.ready&&dmem.r.ready)) {
+				state := s_wait_resp
 			}
 		}
-
-		is (ss_wait_resp) {
-			when (dmem.b.fire) { state_store := ss_idle }
+//		is (s_wait_tlb) {
+//			when (dtlbFinish && dtlbPF ) { state := s_idle }
+//			when (dtlbFinish && !dtlbPF) { state := s_wait_resp }
+//		}
+		is (s_wait_resp) { 
+			when (dmem.b.bits.resp === AXI4Parameters.RESP_OKAY||
+			dmem.r.bits.resp === AXI4Parameters.RESP_OKAY) {
+				state := Mux(partialLoad, s_partialLoad, s_idle)
+			}
 		}
+		is (s_partialLoad) { state := s_idle }
 	}
-//	Info("[State] statels (%x,%x)" +
-//		" arv %x arr %x bv %b br %b\n",
-//		state_load, state_store, dmem.ar.valid, dmem.ar.ready,
-//		dmem.b.valid, dmem.b.ready)
 
-	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n",
-		addr, ctrl(1, 0), io.wdata, isStore)
-	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] statels (%x,%x) Raddr %x Waddr %x rFire %x bFire %d Rdata %x\n",
-		state_load, state_store, dmem.ar.bits.addr, dmem.aw.bits.addr,
-		dmem.r.fire, dmem.b.fire, dmem.r.bits.data)
+//	Debug(dmem.req.fire, "[LSU] %x, size %x, wdata_raw %x, isStore %x\n", addr, ctrl(1, 0), io.wdata, isStore)
+//	Debug(dmem.req.fire, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbPF, state, dmem.req.bits.addr, dmem.req.fire, dmem.resp.fire, dmem.resp.bits.rdata)
+//	Debug(dtlbFinish && dtlbEnable, "[LSU] dtlbFinish:%d dtlbEnable:%d dtlbPF:%d state:%d addr:%x dmemReqFire:%d dmemRespFire:%d dmemRdata:%x\n", dtlbFinish, dtlbEnable, dtlbPF, state, dmem.req.bits.addr, dmem.resp.fire, dmem.resp.bits.rdata)
 
 	val size = ctrl(1, 0)
 	val reqAddr  = if (XLEN == 32) SignExt(addr, VAddrBits)   else addr(VAddrBits-1, 0)
@@ -232,13 +225,14 @@ class LSExecUnit extends MarCoreModule {
 	val reqWmask = if (XLEN == 32) genWmask32(addr, size)     else genWmask(addr, size)
 	val wValid = valid && (state_store === ss_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
 	val rValid = valid && (state_load === sl_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
-// Fixme 在PartialLoad的情况下，不能正确的读出值
-	dmem.aw.bits.apply(addr = reqAddr); dmem.aw.valid := wValid;
-	dmem.w.bits.apply(data = reqWdata, strb = reqWmask); dmem.w.valid := wValid;
-	dmem.b.ready := state_store === ss_wait_resp
-	dmem.ar.bits.apply(addr = reqAddr); dmem.ar.valid := rValid;
-	dmem.r.ready := state_load === sl_wait_resp
 
+	dmem.aw.bits.apply(addr = reqAddr);	dmem.w.bits.apply(data = reqWdata, strb = reqWmask)
+	dmem.aw.valid := wValid;			dmem.w.valid := wValid;
+	dmem.b.ready := true.B
+	dmem.ar.bits.apply(addr = reqAddr)
+	dmem.ar.valid := rValid
+	dmem.r.ready := true.B
+	
 	io.out.valid := Mux(
 		io.ioLoadAddrMisaligned || io.ioStoreAddrMisaligned,
 		true.B, Mux(partialLoad,
