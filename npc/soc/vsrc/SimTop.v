@@ -2150,6 +2150,7 @@ module Backend_inorder(	// <stdin>:3932:10
   wire [4:0]  _exu_io_forward_wb_rfDest;	// Backend.scala:26:25
   wire [63:0] _exu_io_forward_wb_rfData;	// Backend.scala:26:25
   wire [2:0]  _exu_io_forward_fuType;	// Backend.scala:26:25
+  wire        _isu_io_in_0_ready;	// Backend.scala:25:25
   wire        _isu_io_out_valid;	// Backend.scala:25:25
   wire [63:0] _isu_io_out_bits_cf_instr;	// Backend.scala:25:25
   wire [63:0] _isu_io_out_bits_cf_pc;	// Backend.scala:25:25
@@ -2248,7 +2249,7 @@ module Backend_inorder(	// <stdin>:3932:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] Backend_inorder: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "flush = %b, isu:(%d,%d), exu:(%d,%d)\n", io_flush, _isu_io_out_valid, _exu_io_in_ready, _exu_io_out_valid, 1'h1);	// <stdin>:3932:10, Backend.scala:25:25, :26:25, Debug.scala:34:43, :35:31
+        $fwrite(32'h80000002, "flush = %b, ==%x%x>[isu]<%x---%x>[exu]<%x---%x>[wbu]\n", io_flush, _isu_io_in_0_ready, 1'h0, _isu_io_out_valid, _exu_io_in_ready, _exu_io_out_valid, 1'h1);	// <stdin>:3932:10, Backend.scala:25:25, :26:25, Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3932:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3932:10
@@ -2429,7 +2430,7 @@ module Backend_inorder(	// <stdin>:3932:10
     .io_forward_wb_rfData           (_exu_io_forward_wb_rfData),	// Backend.scala:26:25
     .io_forward_fuType              (_exu_io_forward_fuType),	// Backend.scala:26:25
     .io_flush                       (io_flush[0]),	// Backend.scala:29:73
-    .io_in_0_ready                  (io_in_0_ready),
+    .io_in_0_ready                  (_isu_io_in_0_ready),
     .io_out_valid                   (_isu_io_out_valid),
     .io_out_bits_cf_instr           (_isu_io_out_bits_cf_instr),
     .io_out_bits_cf_pc              (_isu_io_out_bits_cf_pc),
@@ -2555,6 +2556,7 @@ module Backend_inorder(	// <stdin>:3932:10
     .io_difftest_redirect_target            (io_difftest_redirect_target),
     .io_difftest_redirect_valid             (io_difftest_redirect_valid)
   );
+  assign io_in_0_ready = _isu_io_in_0_ready;	// <stdin>:3932:10, Backend.scala:25:25
 endmodule
 
 module Core(	// <stdin>:4170:10

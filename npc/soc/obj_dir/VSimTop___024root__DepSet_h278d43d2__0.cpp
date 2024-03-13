@@ -171,9 +171,11 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__c_2);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"flush = %b, isu:(%1#,%1#), exu:(%1#,1)\n",
+        VL_FWRITEF(0x80000002U,"flush = %b, ==%x0>[isu]<%x---%x>[exu]<%x---1>[wbu]\n",
                    2,(3U & ((- (IData)((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush))) 
-                            >> 2U)),1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT___isu_io_out_valid),
+                            >> 2U)),1,(1U & ((~ (IData)(vlSelf->SimTop__DOT__core__DOT___backend_io_in_0_valid_T)) 
+                                             | (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT___io_in_0_ready_T_1))),
+                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT___isu_io_out_valid),
                    1,vlSelf->SimTop__DOT__core__DOT__backend__DOT___exu_io_in_ready,
                    1,(IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT___exu_io_out_valid));
     }
