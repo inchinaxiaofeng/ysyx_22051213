@@ -46,8 +46,7 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 
 	Debug("---------------------- Backend ----------------------\n")
 	Debug("flush = %b, ==%x%x>[isu]<%x---%x>[exu]<%x---%x>[wbu]\n",
-		io.flush.asUInt,
-		isu.io.in(0).ready, isu.io.in(1).ready,
+		io.flush.asUInt, isu.io.in(0).ready,
 		isu.io.out.valid, exu.io.in.ready,
 		exu.io.out.valid, wbu.io.in.ready)
 

@@ -34,10 +34,9 @@ class Frontend_embedded(implicit val p: MarCoreConfig) extends MarCoreModule {
 	io.imem <> ifu.io.imem
 
 	Debug("---------------------- Frontend ----------------------\n")
-	Debug("flush = %b, [ifu]<%x--=%x%x>[idu]<%x%x==\n",
-		ifu.io.flushVec.asUInt, ifu.io.out.valid,
-		idu.io.in(0).ready, idu.io.in(1).ready,
-		idu.io.out(0).valid, idu.io.out(1).valid)
+	Debug("flush = %b, [ifu]<%x---%x>[idu]<%x%x==\n",
+		ifu.io.flushVec.asUInt, ifu.io.out.valid, ifu.io.out.ready,
+		idu.io.in(0).valid, idu.io.in(0).ready)
 	Debug(ifu.io.out.valid, 
 		"IFU: pc = 0x%x, instr = 0x%x\n",
 		ifu.io.out.bits.pc, ifu.io.out.bits.instr)

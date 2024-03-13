@@ -42,7 +42,7 @@ class EXU(implicit val p: MarCoreConfig) extends MarCoreModule {
 	val lsu = Module(new UnpipelinedLSU)
 //	val lsuTlbPF = WireInit(false.B)
 	val lsuOut = lsu.access(valid = fuValids(FuType.lsu), srcA = srcA, srcB = io.in.bits.data.imm, ctrl = fuCtrl)
-	Info("LSU OUT %x\n", lsuOut)
+	Info("LSU OUT %x\n", lsu.io.wdata)
 	lsu.io.wdata := srcB
 	lsu.io.instr := io.in.bits.cf.instr
 	io.out.bits.isMMIO := false.B //lsu.io.isMMIO || (AddressSpace.isMMIO(io.in.bits.cf.pc) && io.out.valid)

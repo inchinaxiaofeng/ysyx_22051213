@@ -13,6 +13,8 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 		val in = Vec(2, Flipped(Decoupled(new DecodeIO)))
 		val flush = Input(UInt(2.W))
 		val dmem = new AXI4Lite
+//		val dmem = new SimpleBusUC(addrBits = VAddrBits)
+//		val memMMU = Flipped(new MemMMUIO)
 
 		val redirect = new RedirectIO
 		// DiffTest
@@ -34,8 +36,7 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 	isu.io.flush := io.flush(0)
 	exu.io.flush := io.flush(1)
 
-	Info("EXU OUT %x(%d,%d)\n",
-		exu.io.out.bits.commits(0), exu.io.out.valid, exu.io.out.ready)
+	Info("EXU OUT %x\n", exu.bits)
 
 	isu.io.wb <> wbu.io.wb
 	io.redirect <> wbu.io.redirect
@@ -45,11 +46,10 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 	io.dmem <> exu.io.dmem
 
 	Debug("---------------------- Backend ----------------------\n")
-	Debug("flush = %b, ==%x%x>[isu]<%x---%x>[exu]<%x---%x>[wbu]\n",
-		io.flush.asUInt,
-		isu.io.in(0).ready, isu.io.in(1).ready,
-		isu.io.out.valid, exu.io.in.ready,
-		exu.io.out.valid, wbu.io.in.ready)
+	Debug("flush = %b, isu:(%d,%d), exu:(%d,%d)\n",
+		io.flush.asUInt, 
+		isu.io.out.valid, isu.io.out.ready,
+		exu.io.out.valid, exu.io.out.ready)
 
 	io.gpr <> isu.io.gpr
 	io.csr <> exu.io.csr

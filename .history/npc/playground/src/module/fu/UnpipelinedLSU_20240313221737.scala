@@ -227,7 +227,7 @@ class LSExecUnit extends MarCoreModule {
 	val reqWmask = if (XLEN == 32) genWmask32(addr, size)     else genWmask(addr, size)
 	val wValid = valid && (state_store === ss_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
 	val rValid = valid && (state_load === sl_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
-
+// Fixme 在PartialLoad的情况下，不能正确的读出值
 	dmem.aw.bits.apply(addr = reqAddr); dmem.aw.valid := wValid;
 	dmem.w.bits.apply(data = reqWdata, strb = reqWmask); dmem.w.valid := wValid;
 	dmem.b.ready := state_store === ss_wait_resp
@@ -244,39 +244,37 @@ class LSExecUnit extends MarCoreModule {
 	)
 	io.in.ready := state_load === sl_idle && state_store === ss_idle
 
-	Debug(io.out.fire,
+	Debug(io.out.fire, 
 		"[LSU-EXECUNIT] statels (%x,%x) rResp %x wResp %x lm %x sm %x\n", 
 		state_load, state_store, dmem.r.fire, dmem.b.fire,
 		io.ioLoadAddrMisaligned, io.ioStoreAddrMisaligned)
 
 	val rdata = dmem.r.bits.data
 	val rdataLatch = RegNext(rdata)
-	// Fixme 在这里，因为地址为0x800002b4，后三位的读取为100
-	// 所以截取了(63, 32)，使得0x00000001成为了0x0000____
-//	val rdataSel64 = LookupTree(addrLatch(2, 0), List(
-//		"b000".U	-> rdataLatch(63, 0),
-//		"b001".U	-> rdataLatch(63, 8),
-//		"b010".U	-> rdataLatch(63, 16),
-//		"b011".U	-> rdataLatch(63, 24),
-//		"b100".U	-> rdataLatch(63, 32),
-//		"b101".U	-> rdataLatch(63, 40),
-//		"b110".U	-> rdataLatch(63, 48),
-//		"b111".U	-> rdataLatch(63, 56)
-//	))
-//	val rdataSel32 = LookupTree(addrLatch(1, 0), List(
-//		"b00".U	-> rdataLatch(31, 0),
-//		"b01".U	-> rdataLatch(31, 8),
-//		"b10".U	-> rdataLatch(31, 16),
-//		"b11".U	-> rdataLatch(31, 24)
-//	))
-//	val rdataSel = if (XLEN == 32) rdataSel32 else rdataSel64
+	val rdataSel64 = LookupTree(addrLatch(2, 0), List(
+		"b000".U	-> rdataLatch(63, 0),
+		"b001".U	-> rdataLatch(63, 8),
+		"b010".U	-> rdataLatch(63, 16),
+		"b011".U	-> rdataLatch(63, 24),
+		"b100".U	-> rdataLatch(63, 32),
+		"b101".U	-> rdataLatch(63, 40),
+		"b110".U	-> rdataLatch(63, 48),
+		"b111".U	-> rdataLatch(63, 56)
+	))
+	val rdataSel32 = LookupTree(addrLatch(1, 0), List(
+		"b00".U	-> rdataLatch(31, 0),
+		"b01".U	-> rdataLatch(31, 8),
+		"b10".U	-> rdataLatch(31, 16),
+		"b11".U	-> rdataLatch(31, 24)
+	))
+	val rdataSel = if (XLEN == 32) rdataSel32 else rdataSel64
 	val rdataPartialLoad = LookupTree(ctrl, List(
-		LSUCtrl.lb	-> SignExt(/*rdataSel*/rdataLatch(7, 0) , XLEN),
-		LSUCtrl.lh	-> SignExt(/*rdataSel*/rdataLatch(15, 0), XLEN),
-		LSUCtrl.lw	-> SignExt(/*rdataSel*/rdataLatch(31, 0), XLEN),
-		LSUCtrl.lbu	-> ZeroExt(/*rdataSel*/rdataLatch(7, 0) , XLEN),
-		LSUCtrl.lhu	-> ZeroExt(/*rdataSel*/rdataLatch(15, 0), XLEN),
-		LSUCtrl.lwu	-> ZeroExt(/*rdataSel*/rdataLatch(31, 0), XLEN)
+		LSUCtrl.lb	-> SignExt(rdataSel(7, 0) , XLEN),
+		LSUCtrl.lh	-> SignExt(rdataSel(15, 0), XLEN),
+		LSUCtrl.lw	-> SignExt(rdataSel(31, 0), XLEN),
+		LSUCtrl.lbu	-> ZeroExt(rdataSel(7, 0) , XLEN),
+		LSUCtrl.lhu	-> ZeroExt(rdataSel(15, 0), XLEN),
+		LSUCtrl.lwu	-> ZeroExt(rdataSel(31, 0), XLEN)
 	))
 	val addrAligned = LookupTree(ctrl(1, 0), List(
 		"b00".U	-> true.B,					// b
@@ -286,11 +284,9 @@ class LSExecUnit extends MarCoreModule {
 	))
 
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] statels (%x,%x) Raddr %x rFire %x RData %x AddrLatch %x " +
-		"RDataLatch %x RDataPartialLoad %x\n",
+		"[LSU] statels (%x,%x) Raddr %x rFire %x Rdata %x RdataLatch %x\n",
 		state_load, state_store, dmem.ar.bits.addr,
-		dmem.r.fire, dmem.r.bits.data, addrLatch(2, 0),
-		rdataLatch, rdataPartialLoad)
+		dmem.r.fire, dmem.r.bits.data, rdataLatch)
 	
 	io.out.bits := Mux(partialLoad, rdataPartialLoad, rdata(XLEN-1, 0))
 
