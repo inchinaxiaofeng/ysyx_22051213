@@ -1403,7 +1403,7 @@ module LSExecUnit(	// <stdin>:2290:10
       if ((`PRINTF_COND_) & _T_36 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:286:43
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T_36 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:286:43
-        $fwrite(32'h80000002, "[LSU] statels (%x,%x) Raddr %x rFire %x RData %x AddrLatch %xRDataLatch %x RDataSel %x RDataPartialLoad %x\n", state_load, state_store, io_in_bits_srcA[31:0], _T_34, io_dmem_r_bits_data, addrLatch[2:0], rdataLatch, _rdataSel64_T_31, _rdataPartialLoad_T_34);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, Decoupled.scala:52:35, Mux.scala:27:73, UnpipelinedLSU.scala:179:32, :185:33, :186:34, :253:33, :254:46
+        $fwrite(32'h80000002, "[LSU] statels (%x,%x) Raddr %x rFire %x RData %x AddrLatch %x RDataLatch %x RDataSel %x RDataPartialLoad %x\n", state_load, state_store, io_in_bits_srcA[31:0], _T_34, io_dmem_r_bits_data, addrLatch[2:0], rdataLatch, _rdataSel64_T_31, _rdataPartialLoad_T_34);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, Decoupled.scala:52:35, Mux.scala:27:73, UnpipelinedLSU.scala:179:32, :185:33, :186:34, :253:33, :254:46
       if ((`PRINTF_COND_) & _T_42 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:238:41
         $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _T_42 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:238:41
