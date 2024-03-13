@@ -230,7 +230,7 @@ class LSExecUnit extends MarCoreModule {
 	val reqWdata = if (XLEN == 32) genWdata32(io.wdata, size) else genWdata(io.wdata, size)
 	val reqWmask = if (XLEN == 32) genWmask32(addr, size)     else genWmask(addr, size)
 	val wValid = valid && (state_store === ss_idle) && isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
-	val rValid = valid && (state_load === sl_idle || state_load === sl_partialLoad) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
+	val rValid = valid && (state_load === sl_idle) && !isStore && !io.ioLoadAddrMisaligned && !io.ioStoreAddrMisaligned
 // Fixme 在PartialLoad的情况下，不能正确的读出值
 	dmem.aw.bits.apply(addr = reqAddr); dmem.aw.valid := wValid;
 	dmem.w.bits.apply(data = reqWdata, strb = reqWmask); dmem.w.valid := wValid;

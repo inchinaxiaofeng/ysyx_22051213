@@ -708,3 +708,8 @@ Caused by: java.nio.file.FileSystemNotFoundException: Provider "git" not install
 2024.03.13 20:32:36 INFO  time: code lens generation in 2.49s
 2024.03.13 20:32:36 INFO  time: code lens generation in 2.55s
 2024.03.13 20:32:36 INFO  time: code lens generation in 2.56s
+2024.03.13 21:23:49 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+2024.03.13 21:24:01 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
+3月 13, 2024 9:52:03 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 438
+2024.03.13 21:52:10 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/module/fu/UnpipelinedLSU.scala
