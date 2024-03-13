@@ -34,7 +34,7 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 	isu.io.flush := io.flush(0)
 	exu.io.flush := io.flush(1)
 
-	Info("EXU OUT %x\n", exu.io.out.commits(0))
+	Info("EXU OUT %x\n", exu.io.out.bits)
 
 	isu.io.wb <> wbu.io.wb
 	io.redirect <> wbu.io.redirect
