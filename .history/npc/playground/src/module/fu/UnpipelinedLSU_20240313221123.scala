@@ -220,6 +220,9 @@ class LSExecUnit extends MarCoreModule {
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
 		"[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n",
 		addr, ctrl(1, 0), io.wdata, isStore)
+	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
+		"[LSU] statels (%x,%x) Raddr %x rFire %x Rdata %x RdataLatch %x\n",
+		state_load, state_store, dmem.ar.bits.addr,		dmem.r.fire, dmem.b.fire, dmem.r.bits.data)
 
 	val size = ctrl(1, 0)
 	val reqAddr  = if (XLEN == 32) SignExt(addr, VAddrBits)   else addr(VAddrBits-1, 0)
@@ -282,11 +285,6 @@ class LSExecUnit extends MarCoreModule {
 		"b10".U	-> (addr(1, 0) === 0.U),	// w
 		"b11".U	-> (addr(2, 0) === 0.U)		// d
 	))
-
-	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
-		"[LSU] statels (%x,%x) Raddr %x rFire %x Rdata %x RdataLatch %x\n",
-		state_load, state_store, dmem.ar.bits.addr,
-		dmem.r.fire, dmem.r.bits.data, rdataLatch)
 	
 	io.out.bits := Mux(partialLoad, rdataPartialLoad, rdata(XLEN-1, 0))
 
