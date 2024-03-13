@@ -287,7 +287,7 @@ class LSExecUnit extends MarCoreModule {
 		"[LSU] statels (%x,%x) Raddr %x rFire %x RData %x AddrLatch %x" +
 		"RDataLatch %x RDataSel %x RDataPartialLoad %x\n",
 		state_load, state_store, dmem.ar.bits.addr,
-		dmem.r.fire, dmem.r.bits.data, addrLatch(2, 0),
+		dmem.r.fire, dmem.r.bits.data,
 		rdataLatch, rdataSel, rdataPartialLoad)
 	
 	io.out.bits := Mux(partialLoad, rdataPartialLoad, rdata(XLEN-1, 0))
