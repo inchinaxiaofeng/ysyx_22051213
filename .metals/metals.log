@@ -756,3 +756,18 @@ Caused by: java.nio.file.FileSystemNotFoundException: Provider "git" not install
 2024.03.13 22:48:39 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Backend.scala
 2024.03.13 22:48:46 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Backend.scala
 2024.03.13 22:49:00 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Backend.scala
+2024.03.13 22:51:46 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:51:56 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:52:06 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:52:38 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:52:44 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+3月 13, 2024 10:53:11 下午 org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+警告: Unmatched cancel notification for request id 6386
+2024.03.13 22:53:14 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:53:18 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:53:23 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:53:25 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:53:33 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:53:42 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:54:39 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 22:54:58 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
