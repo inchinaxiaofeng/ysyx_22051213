@@ -771,3 +771,6 @@ Caused by: java.nio.file.FileSystemNotFoundException: Provider "git" not install
 2024.03.13 22:53:42 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
 2024.03.13 22:54:39 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
 2024.03.13 22:54:58 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Frontend.scala
+2024.03.13 23:03:11 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
+2024.03.13 23:03:34 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
+2024.03.13 23:03:58 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
