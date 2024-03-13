@@ -271,12 +271,12 @@ class LSExecUnit extends MarCoreModule {
 //	))
 //	val rdataSel = if (XLEN == 32) rdataSel32 else rdataSel64
 	val rdataPartialLoad = LookupTree(ctrl, List(
-		LSUCtrl.lb	-> SignExt(/*rdataSel*/rdataLatch(7, 0) , XLEN),
-		LSUCtrl.lh	-> SignExt(/*rdataSel*/rdataLatch(15, 0), XLEN),
-		LSUCtrl.lw	-> SignExt(/*rdataSel*/rdataLatch(31, 0), XLEN),
-		LSUCtrl.lbu	-> ZeroExt(/*rdataSel*/rdataLatch(7, 0) , XLEN),
-		LSUCtrl.lhu	-> ZeroExt(/*rdataSel*/rdataLatch(15, 0), XLEN),
-		LSUCtrl.lwu	-> ZeroExt(/*rdataSel*/rdataLatch(31, 0), XLEN)
+		LSUCtrl.lb	-> SignExt(/*rdataSel*/(7, 0) , XLEN),
+		LSUCtrl.lh	-> SignExt(/*rdataSel*/(15, 0), XLEN),
+		LSUCtrl.lw	-> SignExt(/*rdataSel*/(31, 0), XLEN),
+		LSUCtrl.lbu	-> ZeroExt(/*rdataSel*/(7, 0) , XLEN),
+		LSUCtrl.lhu	-> ZeroExt(/*rdataSel*/(15, 0), XLEN),
+		LSUCtrl.lwu	-> ZeroExt(/*rdataSel*/(31, 0), XLEN)
 	))
 	val addrAligned = LookupTree(ctrl(1, 0), List(
 		"b00".U	-> true.B,					// b
@@ -287,10 +287,10 @@ class LSExecUnit extends MarCoreModule {
 
 	Debug(dmem.aw.ready&&dmem.w.ready || dmem.ar.ready&&dmem.r.ready,
 		"[LSU] statels (%x,%x) Raddr %x rFire %x RData %x AddrLatch %x " +
-		"RDataLatch %x RDataPartialLoad %x\n",
+		"RDataLatch %x RDataSel %x RDataPartialLoad %x\n",
 		state_load, state_store, dmem.ar.bits.addr,
 		dmem.r.fire, dmem.r.bits.data, addrLatch(2, 0),
-		rdataLatch, rdataPartialLoad)
+		rdataLatch, rdataSel, rdataPartialLoad)
 	
 	io.out.bits := Mux(partialLoad, rdataPartialLoad, rdata(XLEN-1, 0))
 
