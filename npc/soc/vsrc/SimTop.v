@@ -684,6 +684,7 @@ module Frontend_embedded(	// <stdin>:1550:10
 
   wire        _idu_io_in_0_ready;	// Frontend.scala:24:25
   wire        _idu_io_out_0_valid;	// Frontend.scala:24:25
+  wire        _idu_io_out_1_valid;	// Frontend.scala:24:25
   wire        _ifu_io_out_valid;	// Frontend.scala:23:25
   wire [63:0] _ifu_io_out_bits_instr;	// Frontend.scala:23:25
   wire [63:0] _ifu_io_out_bits_pc;	// Frontend.scala:23:25
@@ -730,7 +731,7 @@ module Frontend_embedded(	// <stdin>:1550:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] Frontend_embedded: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "flush = %b, ifu:(%d,%d), idu:(%d,%d)\n", _ifu_io_flushVec, _ifu_io_out_valid, _idu_io_in_0_ready, valid, _idu_io_in_0_ready);	// Debug.scala:34:43, :35:31, Frontend.scala:23:25, :24:25, Pipeline.scala:10:28
+        $fwrite(32'h80000002, "flush = %b, [ifu]<%x--=%x%x>[idu]<%x%x==\n", _ifu_io_flushVec, _ifu_io_out_valid, _idu_io_in_0_ready, 1'h0, _idu_io_out_0_valid, _idu_io_out_1_valid);	// <stdin>:1550:10, Debug.scala:34:43, :35:31, Frontend.scala:23:25, :24:25
       if ((`PRINTF_COND_) & _ifu_io_out_valid & ~reset)	// Debug.scala:34:43, Frontend.scala:23:25
         $fwrite(32'h80000002, "[%d] Frontend_embedded: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _ifu_io_out_valid & ~reset)	// Debug.scala:34:43, :35:31, Frontend.scala:23:25
@@ -842,7 +843,7 @@ module Frontend_embedded(	// <stdin>:1550:10
     .io_out_0_bits_ctrl_rfWen        (io_out_0_bits_ctrl_rfWen),
     .io_out_0_bits_ctrl_rfDest       (io_out_0_bits_ctrl_rfDest),
     .io_out_0_bits_data_imm          (io_out_0_bits_data_imm),
-    .io_out_1_valid                  (io_out_1_valid),
+    .io_out_1_valid                  (_idu_io_out_1_valid),
     .io_out_1_bits_cf_instr          (io_out_1_bits_cf_instr),
     .io_out_1_bits_cf_pc             (io_out_1_bits_cf_pc),
     .io_out_1_bits_cf_pnpc           (io_out_1_bits_cf_pnpc),
@@ -858,6 +859,7 @@ module Frontend_embedded(	// <stdin>:1550:10
     .io_out_1_bits_data_imm          (io_out_1_bits_data_imm)
   );
   assign io_out_0_valid = _idu_io_out_0_valid;	// <stdin>:1550:10, Frontend.scala:24:25
+  assign io_out_1_valid = _idu_io_out_1_valid;	// <stdin>:1550:10, Frontend.scala:24:25
   assign io_flushVec = _ifu_io_flushVec;	// <stdin>:1550:10, Frontend.scala:23:25
 endmodule
 

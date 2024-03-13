@@ -215,12 +215,11 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                    64,vlSelf->SimTop__DOT__core__DOT__frontend__DOT__c_1);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        VL_FWRITEF(0x80000002U,"flush = %b, ifu:(%1#,%1#), idu:(%1#,%1#)\n",
+        VL_FWRITEF(0x80000002U,"flush = %b, [ifu]<%x--=%x0>[idu]<%x0==\n",
                    4,(0xfU & (- (IData)((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT____Vcellinp__isu__io_flush)))),
                    1,(IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___ifu_io_out_valid),
                    1,vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready,
-                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid),
-                   1,vlSelf->SimTop__DOT__core__DOT__frontend__DOT___idu_io_in_0_ready);
+                   1,(IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT__valid));
     }
     if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__core__DOT__frontend__DOT___ifu_io_out_valid) 
                            & (~ (IData)(vlSelf->reset)))))) {
@@ -501,12 +500,12 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                                                 (3U 
                                                  & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_cf_instr)))))) 
                                  | (~ (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT____Vcellinp__alu__io_in_valid)))))))) {
-        VL_WRITEF("[%0t] %%Error: SimTop.v:1215: Assertion failed in %NSimTop.core.backend.exu.alu.unnamedblk1: Assertion failed\n    at ALU.scala:127 assert(io.cfIn.instr(1, 0) === \"b11\".U || isRVC || !valid)\n\n",
-                  64,VL_TIME_UNITED_Q(1),-12,vlSymsp->name());
-        VL_STOP_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 1215, "");
-        VL_WRITEF("[%0t] %%Error: SimTop.v:1217: Assertion failed in %NSimTop.core.backend.exu.alu.unnamedblk1\n",
+        VL_WRITEF("[%0t] %%Error: SimTop.v:1217: Assertion failed in %NSimTop.core.backend.exu.alu.unnamedblk1: Assertion failed\n    at ALU.scala:127 assert(io.cfIn.instr(1, 0) === \"b11\".U || isRVC || !valid)\n\n",
                   64,VL_TIME_UNITED_Q(1),-12,vlSymsp->name());
         VL_STOP_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 1217, "");
+        VL_WRITEF("[%0t] %%Error: SimTop.v:1219: Assertion failed in %NSimTop.core.backend.exu.alu.unnamedblk1\n",
+                  64,VL_TIME_UNITED_Q(1),-12,vlSymsp->name());
+        VL_STOP_MT("/home/marinatoo/ysyx-workbench/npc/soc/vsrc/SimTop.v", 1219, "");
     }
     if (VL_UNLIKELY((1U & ((IData)(SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__unnamedblk1__DOT___T_15) 
                            & (~ (IData)(vlSelf->reset)))))) {
