@@ -121,7 +121,18 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus = 0;
     CData/*1:0*/ __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode;
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode = 0;
+    VlWide<4>/*127:0*/ __Vtemp_h423c1b3d__0;
     // Body
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+        VL_FWRITEF(0x80000002U,"[%20#] MDU: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__c);
+    }
+    if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
+        __Vtemp_h423c1b3d__0[0U] = vlSelf->__VdfgTmp_hf6fc2901__0[0U];
+        __Vtemp_h423c1b3d__0[1U] = vlSelf->__VdfgTmp_hf6fc2901__0[1U];
+        __Vtemp_h423c1b3d__0[2U] = vlSelf->__VdfgTmp_hf6fc2901__0[2U];
+        __Vtemp_h423c1b3d__0[3U] = 0U;
+        VL_FWRITEF(0x80000002U,"DivRes %x\n",128,__Vtemp_h423c1b3d__0.data());
+    }
     vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state 
         = vlSelf->SimTop__DOT__arbiter__DOT__state;
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__state_store 
@@ -581,6 +592,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         vlSelf->SimTop__DOT__arbiter__DOT__c_4 = 0ULL;
         vlSelf->SimTop__DOT__arbiter__DOT__c_5 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c = 0ULL;
+        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__c = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_3 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_2 = 0ULL;
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_1 = 0ULL;
@@ -628,6 +640,8 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
                                                   + vlSelf->SimTop__DOT__arbiter__DOT__c_5);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__wbu__DOT__c);
+        vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__c 
+            = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__c);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_3 
             = (1ULL + vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_3);
         vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_2 

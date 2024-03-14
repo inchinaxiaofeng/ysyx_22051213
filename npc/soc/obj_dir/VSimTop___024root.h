@@ -133,6 +133,7 @@ class VSimTop___024root final : public VerilatedModule {
         CData/*0:0*/ __VactContinue;
         IData/*31:0*/ SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy;
         VlWide<3>/*64:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__alu__DOT__adderRes;
+        VlWide<3>/*64:0*/ __VdfgTmp_hf6fc2901__0;
         IData/*31:0*/ __VstlIterCount;
         IData/*31:0*/ __VactIterCount;
         VL_OUT64(io_pc,63,0);
@@ -144,9 +145,9 @@ class VSimTop___024root final : public VerilatedModule {
         VL_OUT64(io_gpr_regs_4,63,0);
         VL_OUT64(io_gpr_regs_5,63,0);
         VL_OUT64(io_gpr_regs_6,63,0);
-        VL_OUT64(io_gpr_regs_7,63,0);
     };
     struct {
+        VL_OUT64(io_gpr_regs_7,63,0);
         VL_OUT64(io_gpr_regs_8,63,0);
         VL_OUT64(io_gpr_regs_9,63,0);
         VL_OUT64(io_gpr_regs_10,63,0);
@@ -210,9 +211,9 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_data_imm;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_instr;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pc;
-        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
     };
     struct {
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_pnpc;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_decode_cf_redirect_target;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_0;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__wbu_io_in_bits_r_commits_1;
@@ -243,6 +244,7 @@ class VSimTop___024root final : public VerilatedModule {
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT___rdataPartialLoad_T_34;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_2;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__c_3;
+        QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__c;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__res;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mtvec;
         QData/*63:0*/ SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mcause;
