@@ -13,8 +13,6 @@
 #include <monitor/sdb.h>
 
 #define MAX_INST_TO_PRINT 10
-#define EBREAK 0x00100073
-#define INSTR_MASK 0x00000000ffffffff
 
 CPU_state env_cpu = {};
 uint64_t g_nr_guest_inst = 0;
@@ -79,8 +77,7 @@ static void trace_and_difftest() {
 
 static void exec_once() {
     isa_exec_once();
-    printf("0x%x\n", env_cpu.instr);
-    if (EBREAK == env_cpu.instr & INSTR_MASK) { assert(0); SIMTRAP(env_cpu.pc_commit, 0); }// a0
+    if (0x00100073 == env_cpu.instr) SIMTRAP(env_cpu.pc_commit, 0); // a0
 }
 
 static void execute(uint64_t n) {
@@ -112,6 +109,7 @@ void assert_fail_msg() {
 
 /* Simulate how the CPU works */
 void cpu_exec(uint64_t n) {
+//	g_print_step = (n < MAX_INST_TO_PRINT);
 	switch (sim_state.state) {
 	case SIM_END: case SIM_ABORT:
 	    printf("Program execution has ended. To restart the program, exit SIM and run again.\n");

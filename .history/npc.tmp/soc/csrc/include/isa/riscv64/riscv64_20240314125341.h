@@ -19,6 +19,7 @@ typedef struct {
 	csr[2] = mepc
 	csr[3] = mcause
 */
+
    	uint32_t instr; // same cycle with pc_commit
 	vaddr_t pc; // Reg
 	// Pipeline Debug

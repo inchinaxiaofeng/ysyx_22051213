@@ -20,7 +20,7 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 		val csr = new RegsDiffIO(num = 4)
 		val difftest_commit = Decoupled(new CommitIO)
 		val difftest_redirect = new RedirectIO
-		val difftest_instr = Output(UInt(XLEN.W))
+		val difftest_instr = Output(UInt(64.W))
 	})
 
 	val isu = Module(new ISU)
@@ -55,6 +55,5 @@ class Backend_inorder(implicit val p: MarCoreConfig) extends MarCoreModule {
 	io.gpr <> isu.io.gpr
 	io.csr <> exu.io.csr
 	io.difftest_commit <> wbu.io.difftest_commit
-	io.difftest_instr <> wbu.io.difftest_instr
 	io.difftest_redirect <> wbu.io.difftest_redirect
 }
