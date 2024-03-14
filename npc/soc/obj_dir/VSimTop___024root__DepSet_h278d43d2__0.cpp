@@ -121,7 +121,7 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__mstatus = 0;
     CData/*1:0*/ __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode;
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__exu__DOT__csr__DOT__priviledgeMode = 0;
-    VlWide<4>/*127:0*/ __Vtemp_h423c1b3d__0;
+    VlWide<4>/*127:0*/ __Vtemp_ha1e63d4c__0;
     // Body
     vlSelf->__Vdly__SimTop__DOT__arbiter__DOT__state 
         = vlSelf->SimTop__DOT__arbiter__DOT__state;
@@ -235,17 +235,17 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
         VL_FWRITEF(0x80000002U,"[%20#] MDU: ",64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT__c);
     }
     if (VL_UNLIKELY((1U & (~ (IData)(vlSelf->reset))))) {
-        __Vtemp_h423c1b3d__0[0U] = vlSelf->__VdfgTmp_hf6fc2901__0[0U];
-        __Vtemp_h423c1b3d__0[1U] = vlSelf->__VdfgTmp_hf6fc2901__0[1U];
-        __Vtemp_h423c1b3d__0[2U] = vlSelf->__VdfgTmp_hf6fc2901__0[2U];
-        __Vtemp_h423c1b3d__0[3U] = 0U;
+        __Vtemp_ha1e63d4c__0[0U] = (IData)(VL_DIV_QQQ(64, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_0, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_1));
+        __Vtemp_ha1e63d4c__0[1U] = (IData)((VL_DIV_QQQ(64, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_0, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_1) 
+                                            >> 0x20U));
+        __Vtemp_ha1e63d4c__0[2U] = (IData)(VL_MODDIV_QQQ(64, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_0, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_1));
+        __Vtemp_ha1e63d4c__0[3U] = (IData)((VL_MODDIV_QQQ(64, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_0, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_1) 
+                                            >> 0x20U));
         VL_FWRITEF(0x80000002U,"DivOut %x divres %x\n",
-                   128,__Vtemp_h423c1b3d__0.data(),
+                   128,__Vtemp_ha1e63d4c__0.data(),
                    64,((2U & (IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuCtrl))
-                        ? (QData)((IData)((1U & vlSelf->__VdfgTmp_hf6fc2901__0[2U])))
-                        : (((QData)((IData)(vlSelf->__VdfgTmp_hf6fc2901__0[1U])) 
-                            << 0x20U) | (QData)((IData)(
-                                                        vlSelf->__VdfgTmp_hf6fc2901__0[0U])))));
+                        ? VL_MODDIV_QQQ(64, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_0, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_1)
+                        : VL_DIV_QQQ(64, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_0, vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT__mdu__DOT____Vcellinp__div__io_in_bits_1)));
     }
     __Vdly__SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy 
         = vlSelf->SimTop__DOT__core__DOT__backend__DOT__isu__DOT__busy;

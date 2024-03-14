@@ -1575,8 +1575,7 @@ module Divider(	// <stdin>:2705:10
                  io_in_bits_1,
   output [127:0] io_out_bits);
 
-  assign io_out_bits = {63'h0, $signed({io_in_bits_0[63], io_in_bits_0}) / $signed({io_in_bits_1[63],
-                io_in_bits_1})};	// <stdin>:2705:10, MDU.scala:59:{21,46}
+  assign io_out_bits = {io_in_bits_0 % io_in_bits_1, io_in_bits_0 / io_in_bits_1};	// <stdin>:2705:10, Cat.scala:33:92, MDU.scala:61:34, :62:34
 endmodule
 
 module MDU(	// <stdin>:2718:10
@@ -1587,15 +1586,15 @@ module MDU(	// <stdin>:2718:10
   input  [6:0]  io_in_bits_ctrl,
   output [63:0] io_out_bits);
 
-  wire [127:0] _div_io_out_bits;	// MDU.scala:85:25
-  wire [129:0] _mul_io_out_bits;	// MDU.scala:84:25
+  wire [127:0] _div_io_out_bits;	// MDU.scala:91:25
+  wire [129:0] _mul_io_out_bits;	// MDU.scala:90:25
   wire         isDivSign = io_in_bits_ctrl[2] & ~(io_in_bits_ctrl[0]);	// MDU.scala:33:33, :34:{45,48,51}
   wire [64:0]  _mul_io_in_bits_0_T_4 = {1'h0, io_in_bits_srcA};	// Cat.scala:33:92, MDU.scala:34:48
   wire [64:0]  _mul_io_in_bits_1_T_4 = {1'h0, io_in_bits_srcB};	// Cat.scala:33:92, MDU.scala:34:48
-  wire [63:0]  divRes = io_in_bits_ctrl[1] ? _div_io_out_bits[127:64] : _div_io_out_bits[63:0];	// MDU.scala:85:25, :120:21, :121:21, :122:32, :123:32
+  wire [63:0]  divRes = io_in_bits_ctrl[1] ? _div_io_out_bits[127:64] : _div_io_out_bits[63:0];	// MDU.scala:91:25, :126:25, :127:21, :128:32, :129:32
   reg  [63:0]  c;	// GTimer.scala:8:32
   wire [63:0]  res = io_in_bits_ctrl[2] ? divRes : (|(io_in_bits_ctrl[1:0])) ? _mul_io_out_bits[127:64] :
-                _mul_io_out_bits[63:0];	// LookupTree.scala:8:38, MDU.scala:33:33, :84:25, :99:45, :115:21, :117:32, :118:32, :120:21, :126:18
+                _mul_io_out_bits[63:0];	// LookupTree.scala:8:38, MDU.scala:33:33, :90:25, :105:45, :121:25, :123:32, :124:32, :126:25, :132:22
   always @(posedge clock) begin
     if (reset)
       c <= 64'h0;	// GTimer.scala:8:32
@@ -1607,7 +1606,7 @@ module MDU(	// <stdin>:2718:10
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
         $fwrite(32'h80000002, "[%d] MDU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "DivOut %x divres %x\n", _div_io_out_bits, divRes);	// Debug.scala:34:43, :35:31, MDU.scala:85:25, :120:21
+        $fwrite(32'h80000002, "DivOut %x divres %x\n", _div_io_out_bits, divRes);	// Debug.scala:34:43, :35:31, MDU.scala:91:25, :126:25
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2718:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2718:10
@@ -1628,25 +1627,25 @@ module MDU(	// <stdin>:2718:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:2718:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  Multiplier mul (	// MDU.scala:84:25
+  Multiplier mul (	// MDU.scala:90:25
     .io_in_bits_0 (((|(io_in_bits_ctrl[1:0])) ? 65'h0 : _mul_io_in_bits_0_T_4) | (io_in_bits_ctrl[1:0] == 2'h1
                 ? {io_in_bits_srcA[63], io_in_bits_srcA} : 65'h0) | (io_in_bits_ctrl[1:0] == 2'h2 ?
                 {io_in_bits_srcA[63], io_in_bits_srcA} : 65'h0) | ((&(io_in_bits_ctrl[1:0])) ?
-                _mul_io_in_bits_0_T_4 : 65'h0)),	// BitUtils.scala:17:32, Cat.scala:33:92, LookupTree.scala:8:38, MDU.scala:99:45, Mux.scala:27:73
+                _mul_io_in_bits_0_T_4 : 65'h0)),	// BitUtils.scala:17:32, Cat.scala:33:92, LookupTree.scala:8:38, MDU.scala:105:45, Mux.scala:27:73
     .io_in_bits_1 (((|(io_in_bits_ctrl[1:0])) ? 65'h0 : _mul_io_in_bits_1_T_4) | (io_in_bits_ctrl[1:0] == 2'h1
                 ? {io_in_bits_srcB[63], io_in_bits_srcB} : 65'h0) | (io_in_bits_ctrl[1:0] == 2'h2 ?
                 _mul_io_in_bits_1_T_4 : 65'h0) | ((&(io_in_bits_ctrl[1:0])) ? _mul_io_in_bits_1_T_4 :
-                65'h0)),	// BitUtils.scala:17:32, Cat.scala:33:92, LookupTree.scala:8:38, MDU.scala:99:45, Mux.scala:27:73
+                65'h0)),	// BitUtils.scala:17:32, Cat.scala:33:92, LookupTree.scala:8:38, MDU.scala:105:45, Mux.scala:27:73
     .io_out_bits  (_mul_io_out_bits)
   );
-  Divider div (	// MDU.scala:85:25
+  Divider div (	// MDU.scala:91:25
     .io_in_bits_0 (io_in_bits_ctrl[3] ? {isDivSign ? {32{io_in_bits_srcA[31]}} : 32'h0, io_in_bits_srcA[31:0]}
-                : io_in_bits_srcA),	// BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, MDU.scala:34:45, :35:31, :102:40, :103:20, :104:34
+                : io_in_bits_srcA),	// BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, MDU.scala:34:45, :35:31, :108:44, :109:20, :110:34
     .io_in_bits_1 (io_in_bits_ctrl[3] ? {isDivSign ? {32{io_in_bits_srcB[31]}} : 32'h0, io_in_bits_srcB[31:0]}
-                : io_in_bits_srcB),	// BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, MDU.scala:34:45, :35:31, :102:40, :103:20, :104:34
+                : io_in_bits_srcB),	// BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, MDU.scala:34:45, :35:31, :108:44, :109:20, :110:34
     .io_out_bits  (_div_io_out_bits)
   );
-  assign io_out_bits = io_in_bits_ctrl[3] ? {{32{res[31]}}, res[31:0]} : res;	// <stdin>:2718:10, BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, MDU.scala:35:31, :126:18, :127:{27,44}
+  assign io_out_bits = io_in_bits_ctrl[3] ? {{32{res[31]}}, res[31:0]} : res;	// <stdin>:2718:10, BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, MDU.scala:35:31, :132:22, :133:{27,44}
 endmodule
 
 module CSR(	// <stdin>:2847:10
