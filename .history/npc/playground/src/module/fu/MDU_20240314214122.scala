@@ -42,7 +42,7 @@ class MulDivIO(val len: Int) extends Bundle {
 }
 
 class Multiplier(len: Int) extends MarCoreModule {
-	implicit val moduleName: String = this.name
+	implict val moduleName: String = this.name
     val io = IO(new MulDivIO(len))
 //	val latency = 1
 
