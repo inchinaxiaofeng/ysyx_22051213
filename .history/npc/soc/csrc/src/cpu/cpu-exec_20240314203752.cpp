@@ -50,7 +50,7 @@ static void trace_and_difftest() {
 #endif
     if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
 #ifdef CONFIG_DIFFTEST
-    if (env_cpu.commit && EBREAK != env_cpu.commit&INSTR_MASK) {
+    if (env_cpu.commit && EBREAK != env_cpu.commit & INSTR_MASK) {
 		difftest_step(env_cpu.pc, env_cpu.pc_commit);
 	} else if (RESET_VECTOR == env_cpu.pc_commit) {
 		difftest_reg_init();
