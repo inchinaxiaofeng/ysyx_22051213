@@ -96,9 +96,9 @@ class MDU extends MarCoreModule {
 	mul.io.in.bits(0) := LookupTree(ctrl(1, 0), mulInputFuncTable.map(p => (p._1(1, 0), p._2._1(srcA))))
 	mul.io.in.bits(1) := LookupTree(ctrl(1, 0), mulInputFuncTable.map(p => (p._1(1, 0), p._2._2(srcB))))
 
-    val divInputFunc = (x: UInt) => Mux(isW, 
-		Mux(isDivSign, SignExt(x(31, 0), XLEN),
-		ZeroExt(x(31, 0), XLEN)),
+    val divInputFunc = (x: UInt) => Mux(
+		isW, 
+		Mux(isDivSign, SignExt(x(31, 0), XLEN), ZeroExt(x(31, 0), XLEN)), 
 		x
 	)
     div.io.in.bits(0) := divInputFunc(srcA)
@@ -113,14 +113,15 @@ class MDU extends MarCoreModule {
 		mul.io.out.bits(2*XLEN-1, XLEN)
 	)
     val divRes = Mux(
-		ctrl(1),
+		ctrl(1), /* rem */
 		div.io.out.bits(2*XLEN-1, XLEN),
 		div.io.out.bits(XLEN-1, 0)
 	)
     val res = Mux(isDiv, divRes, mulRes)
 	io.out.bits := Mux(isW, SignExt(res(31, 0), XLEN), res)
 
-	val isDivReg = Mux(io.in.fire, isDiv, RegNext(isDiv))
+//	val isDivReg = Mux(io.in.fire, isDiv, RegNext(isDiv))
+	val isDivReg = isDiv
 	io.in.ready := Mux(isDiv, div.io.in.ready, mul.io.in.ready)
 	io.out.valid := Mux(isDivReg, div.io.out.valid, mul.io.out.valid)
 

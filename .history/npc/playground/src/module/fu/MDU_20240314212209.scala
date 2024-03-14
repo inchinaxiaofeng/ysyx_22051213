@@ -98,7 +98,7 @@ class MDU extends MarCoreModule {
 
     val divInputFunc = (x: UInt) => Mux(isW, 
 		Mux(isDivSign, SignExt(x(31, 0), XLEN),
-		ZeroExt(x(31, 0), XLEN)),
+		ZeroExt(x(31, 0), XLEN)), 
 		x
 	)
     div.io.in.bits(0) := divInputFunc(srcA)
@@ -120,7 +120,8 @@ class MDU extends MarCoreModule {
     val res = Mux(isDiv, divRes, mulRes)
 	io.out.bits := Mux(isW, SignExt(res(31, 0), XLEN), res)
 
-	val isDivReg = Mux(io.in.fire, isDiv, RegNext(isDiv))
+//	val isDivReg = Mux(io.in.fire, isDiv, RegNext(isDiv))
+	val isDivReg = isDiv
 	io.in.ready := Mux(isDiv, div.io.in.ready, mul.io.in.ready)
 	io.out.valid := Mux(isDivReg, div.io.out.valid, mul.io.out.valid)
 

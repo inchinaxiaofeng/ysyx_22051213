@@ -121,6 +121,7 @@ class MDU extends MarCoreModule {
 	io.out.bits := Mux(isW, SignExt(res(31, 0), XLEN), res)
 
 	val isDivReg = Mux(io.in.fire, isDiv, RegNext(isDiv))
+//	val isDivReg = isDiv
 	io.in.ready := Mux(isDiv, div.io.in.ready, mul.io.in.ready)
 	io.out.valid := Mux(isDivReg, div.io.out.valid, mul.io.out.valid)
 

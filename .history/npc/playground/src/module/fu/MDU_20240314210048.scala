@@ -14,21 +14,21 @@ object MDUCtrl {
    [1]:
    [0]: Div sign bit, 0 means signed, 1 means unsigned
 */
-	//				3210
-	def mul		= "b0000".U
-	def mulh	= "b0001".U
-	def mulhsu	= "b0010".U
-	def mulhu	= "b0011".U
-	def div		= "b0100".U
-	def divu	= "b0101".U
-	def rem		= "b0110".U
-	def remu	= "b0111".U
+	//				43210
+	def mul		= "b00000".U
+	def mulh	= "b00001".U
+	def mulhsu	= "b00010".U
+	def mulhu	= "b00011".U
+	def div		= "b00100".U
+	def divu	= "b00101".U
+	def rem		= "b00110".U
+	def remu	= "b00111".U
 
-	def mulw	= "b1000".U
-	def divw	= "b1100".U
-	def divuw	= "b1101".U
-	def remw	= "b1110".U
-	def remuw	= "b1111".U
+	def mulw	= "b01000".U
+	def divw	= "b01100".U
+	def divuw	= "b01101".U
+	def remw	= "b01110".U
+	def remuw	= "b01111".U
 
 	def isDiv(op: UInt) = op(2)
 	def isDivSign(op: UInt) = isDiv(op) && !op(0)
@@ -89,16 +89,16 @@ class MDU extends MarCoreModule {
 	val zeroext = ZeroExt(_: UInt, XLEN + 1)
 	val mulInputFuncTable = List(
 		MDUCtrl.mul		-> (zeroext, zeroext),
-		MDUCtrl.mulh	-> (signext, signext),
+		MDUCtrl.mulh		-> (signext, signext),
 		MDUCtrl.mulhsu	-> (signext, zeroext),
 		MDUCtrl.mulhu	-> (zeroext, zeroext)
 	)
 	mul.io.in.bits(0) := LookupTree(ctrl(1, 0), mulInputFuncTable.map(p => (p._1(1, 0), p._2._1(srcA))))
 	mul.io.in.bits(1) := LookupTree(ctrl(1, 0), mulInputFuncTable.map(p => (p._1(1, 0), p._2._2(srcB))))
 
-    val divInputFunc = (x: UInt) => Mux(isW, 
-		Mux(isDivSign, SignExt(x(31, 0), XLEN),
-		ZeroExt(x(31, 0), XLEN)),
+    val divInputFunc = (x: UInt) => Mux(
+		isW, 
+		Mux(isDivSign, SignExt(x(31, 0), XLEN), ZeroExt(x(31, 0), XLEN)), 
 		x
 	)
     div.io.in.bits(0) := divInputFunc(srcA)
@@ -113,14 +113,15 @@ class MDU extends MarCoreModule {
 		mul.io.out.bits(2*XLEN-1, XLEN)
 	)
     val divRes = Mux(
-		ctrl(1),
+		ctrl(1), /* rem */
 		div.io.out.bits(2*XLEN-1, XLEN),
 		div.io.out.bits(XLEN-1, 0)
 	)
     val res = Mux(isDiv, divRes, mulRes)
 	io.out.bits := Mux(isW, SignExt(res(31, 0), XLEN), res)
 
-	val isDivReg = Mux(io.in.fire, isDiv, RegNext(isDiv))
+//	val isDivReg = Mux(io.in.fire, isDiv, RegNext(isDiv))
+	val isDivReg = isDiv
 	io.in.ready := Mux(isDiv, div.io.in.ready, mul.io.in.ready)
 	io.out.valid := Mux(isDivReg, div.io.out.valid, mul.io.out.valid)
 
