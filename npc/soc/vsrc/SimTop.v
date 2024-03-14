@@ -1901,7 +1901,7 @@ module EXU(	// <stdin>:3585:10
       if ((`PRINTF_COND_) & _io_out_valid_T_4 & ~reset)	// Debug.scala:34:43, EXU.scala:91:37
         $fwrite(32'h80000002, "[%d] EXU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _io_out_valid_T_4 & ~reset)	// Debug.scala:34:43, :35:31, EXU.scala:91:37
-        $fwrite(32'h80000002, "[EXU Fire]FuType %x alu%x lsu%x csr%x mdu%x\n", io_in_bits_ctrl_fuType, _alu_io_out_bits, _lsu_io_out_bits, _csr_io_out_bits, _mdu_io_out_bits);	// Debug.scala:34:43, :35:31, EXU.scala:33:25, :42:25, :52:25, :57:25
+        $fwrite(32'h80000002, "[EXU Fire] FuType %x alu %x lsu %x mdu %x csr %x\n", io_in_bits_ctrl_fuType, _alu_io_out_bits, _lsu_io_out_bits, _mdu_io_out_bits, _csr_io_out_bits);	// Debug.scala:34:43, :35:31, EXU.scala:33:25, :42:25, :52:25, :57:25
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3585:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3585:10
@@ -2001,7 +2001,7 @@ module EXU(	// <stdin>:3585:10
     .io_csr_regs_2          (io_csr_regs_2),
     .io_csr_regs_3          (io_csr_regs_3)
   );
-  assign io_in_ready = ~io_in_valid | _io_out_valid_T_4;	// <stdin>:3585:10, EXU.scala:91:37, :106:{24,37}
+  assign io_in_ready = ~io_in_valid | _io_out_valid_T_4;	// <stdin>:3585:10, EXU.scala:91:37, :105:{24,37}
   assign io_out_valid = _io_out_valid_T_4;	// <stdin>:3585:10, EXU.scala:91:37
   assign io_out_bits_decode_cf_instr = io_in_bits_cf_instr;	// <stdin>:3585:10
   assign io_out_bits_decode_cf_pc = io_in_bits_cf_pc;	// <stdin>:3585:10
@@ -2019,7 +2019,7 @@ module EXU(	// <stdin>:3585:10
   assign io_forward_valid = io_in_valid;	// <stdin>:3585:10
   assign io_forward_wb_rfWen = io_in_bits_ctrl_rfWen;	// <stdin>:3585:10
   assign io_forward_wb_rfDest = io_in_bits_ctrl_rfDest;	// <stdin>:3585:10
-  assign io_forward_wb_rfData = _alu_io_out_valid ? _alu_io_out_bits : _lsu_io_out_bits;	// <stdin>:3585:10, EXU.scala:33:25, :42:25, :111:36
+  assign io_forward_wb_rfData = _alu_io_out_valid ? _alu_io_out_bits : _lsu_io_out_bits;	// <stdin>:3585:10, EXU.scala:33:25, :42:25, :110:36
   assign io_forward_fuType = io_in_bits_ctrl_fuType;	// <stdin>:3585:10
 endmodule
 

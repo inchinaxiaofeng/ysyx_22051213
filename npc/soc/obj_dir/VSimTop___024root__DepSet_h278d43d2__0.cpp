@@ -437,12 +437,12 @@ VL_INLINE_OPT void VSimTop___024root___nba_sequent__TOP__0(VSimTop___024root* vl
     }
     if (VL_UNLIKELY((1U & ((IData)(vlSelf->SimTop__DOT__core__DOT__backend__DOT___exu_io_out_valid) 
                            & (~ (IData)(vlSelf->reset)))))) {
-        VL_FWRITEF(0x80000002U,"[EXU Fire]FuType %x alu%x lsu%x csr%x mdu%x\n",
+        VL_FWRITEF(0x80000002U,"[EXU Fire] FuType %x alu %x lsu %x mdu %x csr %x\n",
                    3,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu_io_in_bits_r_ctrl_fuType,
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___alu_io_out_bits,
                    64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___lsu_io_out_bits,
-                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_out_bits,
-                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___mdu_io_out_bits);
+                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___mdu_io_out_bits,
+                   64,vlSelf->SimTop__DOT__core__DOT__backend__DOT__exu__DOT___csr_io_out_bits);
     }
     SimTop__DOT__core__DOT__backend__DOT__exu__DOT__lsu__DOT__lsExecUnit__DOT__unnamedblk2__DOT___T_31 
         = (1U & (~ (IData)(vlSelf->SimTop__DOT__TP_SRAM__DOT__state_store)));
