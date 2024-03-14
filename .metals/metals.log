@@ -1069,3 +1069,6 @@ scala.meta.tokenizers.TokenizeException: <input>:275: error: unclosed comment
 信息: Unsupported notification method: $/setTrace
 2024.03.14 20:55:03 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/Debug.scala
 2024.03.14 20:55:11 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/Debug.scala
+2024.03.14 20:58:20 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/Debug.scala
+2024.03.14 20:58:24 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/Debug.scala
+2024.03.14 20:59:00 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/utils/Debug.scala
