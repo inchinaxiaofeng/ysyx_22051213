@@ -1065,3 +1065,5 @@ scala.meta.tokenizers.TokenizeException: <input>:275: error: unclosed comment
 2024.03.14 13:18:55 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/Backend.scala
 2024.03.14 13:19:01 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/top/TopMain.scala
 2024.03.14 13:19:52 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/WBU.scala
+3月 14, 2024 1:35:10 下午 org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+信息: Unsupported notification method: $/setTrace

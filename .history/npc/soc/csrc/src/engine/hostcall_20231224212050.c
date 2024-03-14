@@ -8,5 +8,4 @@ void set_sim_state(int state, vaddr_t pc, int halt_ret) {
     sim_state.state = state;
     sim_state.halt_pc = pc;
     sim_state.halt_ret = halt_ret;
-    printf("halt ret %x\n", halt_ret);
 }
