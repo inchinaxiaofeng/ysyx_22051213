@@ -26,7 +26,6 @@ VSimTop__Syms::VSimTop__Syms(VerilatedContext* contextp, const char* namep, VSim
     // Setup scopes
     __Vscope_SimTop__TP_SRAM__mem.configure(this, name(), "SimTop.TP_SRAM.mem", "mem", -12, VerilatedScope::SCOPE_OTHER);
     __Vscope_SimTop__core__backend__exu__alu.configure(this, name(), "SimTop.core.backend.exu.alu", "alu", -12, VerilatedScope::SCOPE_OTHER);
-    __Vscope_SimTop__core__backend__exu__alu__unnamedblk1.configure(this, name(), "SimTop.core.backend.exu.alu.unnamedblk1", "unnamedblk1", -12, VerilatedScope::SCOPE_OTHER);
     // Setup export functions
     for (int __Vfinal = 0; __Vfinal < 2; ++__Vfinal) {
     }

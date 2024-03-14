@@ -258,7 +258,6 @@ endmodule
 module IFU_embedded(	// <stdin>:2:10
   input         clock,
                 reset,
-                io_imem_ar_ready,
                 io_imem_r_valid,
   input  [63:0] io_imem_r_bits_data,
   input         io_out_ready,
@@ -273,12 +272,9 @@ module IFU_embedded(	// <stdin>:2:10
                 io_out_bits_pnpc,
   output [3:0]  io_flushVec);
 
-  wire        _io_imem_r_ready_T_1;	// IFU.scala:44:41
   reg  [63:0] pc;	// IFU.scala:28:25
-  wire        _T = _io_imem_r_ready_T_1 & io_imem_r_valid;	// Decoupled.scala:52:35, IFU.scala:44:41
   wire [63:0] snpc = pc + 64'h4;	// IFU.scala:28:25, :30:23
-  assign _io_imem_r_ready_T_1 = io_out_ready | io_redirect_valid;	// IFU.scala:44:41
-  wire        _io_out_valid_T_2 = io_imem_r_valid & ~io_redirect_valid;	// IFU.scala:51:{41,44}
+  wire        _io_imem_r_ready_T_1 = io_out_ready | io_redirect_valid;	// IFU.scala:44:41
   reg  [63:0] c;	// GTimer.scala:8:32
   reg  [63:0] c_1;	// GTimer.scala:8:32
   reg  [63:0] c_2;	// GTimer.scala:8:32
@@ -290,7 +286,7 @@ module IFU_embedded(	// <stdin>:2:10
       c_2 <= 64'h0;	// GTimer.scala:8:32, IFU.scala:41:17
     end
     else begin
-      if (io_redirect_valid | _T) begin	// Decoupled.scala:52:35, IFU.scala:29:42
+      if (io_redirect_valid | _io_imem_r_ready_T_1 & io_imem_r_valid) begin	// Decoupled.scala:52:35, IFU.scala:29:42, :44:41
         if (io_redirect_valid)
           pc <= io_redirect_target;	// IFU.scala:28:25
         else
@@ -302,24 +298,6 @@ module IFU_embedded(	// <stdin>:2:10
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2:10
-    always @(posedge clock) begin	// Debug.scala:34:43
-      automatic logic _T_3 = _T | io_imem_ar_ready & io_out_ready;	// Decoupled.scala:52:35, IFU.scala:55:30
-      automatic logic _T_9 = io_out_ready & _io_out_valid_T_2;	// Decoupled.scala:52:35, IFU.scala:51:41
-      if ((`PRINTF_COND_) & _T_3 & ~reset)	// Debug.scala:34:43, IFU.scala:55:30
-        $fwrite(32'h80000002, "[%d] IFU_embedded: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_3 & ~reset) begin	// Debug.scala:34:43, :35:31, IFU.scala:55:30
-        automatic logic [63:0] npc = io_redirect_valid ? io_redirect_target : snpc;	// IFU.scala:30:23, :34:22
-        $fwrite(32'h80000002, "[IFI] pc=%x redirect %x npc %x pc %x pnpc %x\n", pc[31:0], io_redirect_valid, npc, pc, npc);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, IFU.scala:28:25, :34:22
-      end
-      if ((`PRINTF_COND_) & _T_9 & ~reset)	// Debug.scala:34:43, Decoupled.scala:52:35
-        $fwrite(32'h80000002, "[%d] IFU_embedded: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_9 & ~reset)	// Debug.scala:34:43, :35:31, Decoupled.scala:52:35
-        $fwrite(32'h80000002, "[IFO] pc=%x inst=%x npc=%x ipf %x\n", pc, io_imem_r_bits_data, snpc, 1'h0);	// <stdin>:2:10, Debug.scala:34:43, :35:31, IFU.scala:28:25, :30:23
-      if ((`PRINTF_COND_) & io_redirect_valid & ~reset)	// Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] IFU_embedded: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & io_redirect_valid & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[Redirect] target 0x%x rtype %b\n", io_redirect_target, 1'h0);	// <stdin>:2:10, Debug.scala:34:43, :35:31
-    end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2:10
     `endif // FIRRTL_BEFORE_INITIAL
@@ -357,7 +335,7 @@ module IFU_embedded(	// <stdin>:2:10
   assign io_imem_ar_valid = io_out_ready;	// <stdin>:2:10
   assign io_imem_ar_bits_addr = pc[31:0];	// <stdin>:2:10, AXI4.scala:73:27, IFU.scala:28:25
   assign io_imem_r_ready = _io_imem_r_ready_T_1;	// <stdin>:2:10, IFU.scala:44:41
-  assign io_out_valid = _io_out_valid_T_2;	// <stdin>:2:10, IFU.scala:51:41
+  assign io_out_valid = io_imem_r_valid & ~io_redirect_valid;	// <stdin>:2:10, IFU.scala:51:{41,44}
   assign io_out_bits_instr = io_imem_r_bits_data;	// <stdin>:2:10
   assign io_out_bits_pc = pc;	// <stdin>:2:10, IFU.scala:28:25
   assign io_out_bits_pnpc = snpc;	// <stdin>:2:10, IFU.scala:30:23
@@ -642,7 +620,6 @@ endmodule
 module Frontend_embedded(	// <stdin>:1550:10
   input         clock,
                 reset,
-                io_imem_ar_ready,
                 io_imem_r_valid,
   input  [63:0] io_imem_r_bits_data,
   input         io_out_0_ready,
@@ -684,7 +661,6 @@ module Frontend_embedded(	// <stdin>:1550:10
 
   wire        _idu_io_in_0_ready;	// Frontend.scala:24:25
   wire        _idu_io_out_0_valid;	// Frontend.scala:24:25
-  wire        _idu_io_out_1_valid;	// Frontend.scala:24:25
   wire        _ifu_io_out_valid;	// Frontend.scala:23:25
   wire [63:0] _ifu_io_out_bits_instr;	// Frontend.scala:23:25
   wire [63:0] _ifu_io_out_bits_pc;	// Frontend.scala:23:25
@@ -723,24 +699,6 @@ module Frontend_embedded(	// <stdin>:1550:10
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:1550:10
-    always @(posedge clock) begin	// Debug.scala:34:43
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] Frontend_embedded: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "---------------------- Frontend ----------------------\n");	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] Frontend_embedded: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "flush = %b, [ifu]<%x--=%x%x>[idu]<%x%x==\n", _ifu_io_flushVec, _ifu_io_out_valid, _idu_io_in_0_ready, 1'h0, _idu_io_out_0_valid, _idu_io_out_1_valid);	// <stdin>:1550:10, Debug.scala:34:43, :35:31, Frontend.scala:23:25, :24:25
-      if ((`PRINTF_COND_) & _ifu_io_out_valid & ~reset)	// Debug.scala:34:43, Frontend.scala:23:25
-        $fwrite(32'h80000002, "[%d] Frontend_embedded: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _ifu_io_out_valid & ~reset)	// Debug.scala:34:43, :35:31, Frontend.scala:23:25
-        $fwrite(32'h80000002, "IFU: pc = 0x%x, instr = 0x%x\n", _ifu_io_out_bits_pc, _ifu_io_out_bits_instr);	// Debug.scala:34:43, :35:31, Frontend.scala:23:25
-      if ((`PRINTF_COND_) & valid & ~reset)	// Debug.scala:34:43, Pipeline.scala:10:28
-        $fwrite(32'h80000002, "[%d] Frontend_embedded: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & valid & ~reset)	// Debug.scala:34:43, :35:31, Pipeline.scala:10:28
-        $fwrite(32'h80000002, "IDU1: pc = 0x%x, instr = 0x%x, pnpc = 0x%x\n", idu_io_in_0_bits_r_pc, idu_io_in_0_bits_r_instr, idu_io_in_0_bits_r_pnpc);	// Debug.scala:34:43, :35:31, Reg.scala:19:16
-    end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1550:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:1550:10
     `endif // FIRRTL_BEFORE_INITIAL
@@ -806,7 +764,6 @@ module Frontend_embedded(	// <stdin>:1550:10
   IFU_embedded ifu (	// Frontend.scala:23:25
     .clock                (clock),
     .reset                (reset),
-    .io_imem_ar_ready     (io_imem_ar_ready),
     .io_imem_r_valid      (io_imem_r_valid),
     .io_imem_r_bits_data  (io_imem_r_bits_data),
     .io_out_ready         (_idu_io_in_0_ready),	// Frontend.scala:24:25
@@ -843,7 +800,7 @@ module Frontend_embedded(	// <stdin>:1550:10
     .io_out_0_bits_ctrl_rfWen        (io_out_0_bits_ctrl_rfWen),
     .io_out_0_bits_ctrl_rfDest       (io_out_0_bits_ctrl_rfDest),
     .io_out_0_bits_data_imm          (io_out_0_bits_data_imm),
-    .io_out_1_valid                  (_idu_io_out_1_valid),
+    .io_out_1_valid                  (io_out_1_valid),
     .io_out_1_bits_cf_instr          (io_out_1_bits_cf_instr),
     .io_out_1_bits_cf_pc             (io_out_1_bits_cf_pc),
     .io_out_1_bits_cf_pnpc           (io_out_1_bits_cf_pnpc),
@@ -859,7 +816,6 @@ module Frontend_embedded(	// <stdin>:1550:10
     .io_out_1_bits_data_imm          (io_out_1_bits_data_imm)
   );
   assign io_out_0_valid = _idu_io_out_0_valid;	// <stdin>:1550:10, Frontend.scala:24:25
-  assign io_out_1_valid = _idu_io_out_1_valid;	// <stdin>:1550:10, Frontend.scala:24:25
   assign io_flushVec = _ifu_io_flushVec;	// <stdin>:1550:10, Frontend.scala:23:25
 endmodule
 
@@ -1183,12 +1139,7 @@ module ALU(	// <stdin>:2062:10
                 : adderRes[63:0];	// ALU.scala:78:68, :79:40, :80:{35,44}, :81:50, :93:21, :96:{61,70}, :100:60, :101:58, :102:58, :103:68, Cat.scala:33:92, Mux.scala:81:{58,61}
   wire         taken = (io_in_bits_ctrl[2:1] == 2'h0 & xorRes == 64'h0 | io_in_bits_ctrl[2:1] == 2'h2 & slt |
                 (&(io_in_bits_ctrl[2:1])) & ~(adderRes[64])) ^ io_in_bits_ctrl[0];	// ALU.scala:53:45, :54:46, :78:68, :79:40, :80:{35,44}, :81:50, :109:68, :123:76, Bitwise.scala:77:12, LookupTree.scala:8:38, Mux.scala:27:73, :81:61
-  wire         _predictWrong_T_1 = ~taken & ~(io_in_bits_ctrl[3]);	// ALU.scala:52:{36,41}, :123:76, :125:{32,39}
   reg  [63:0]  c;	// GTimer.scala:8:32
-  wire [63:0]  _io_redirect_target_T_7 = taken | io_in_bits_ctrl[3] ? (io_in_bits_ctrl[3] ? adderRes[63:0] : io_cfIn_pc + io_offset)
-                : (&(io_cfIn_instr[1:0])) ? io_cfIn_pc + 64'h4 : io_cfIn_pc + 64'h2;	// ALU.scala:52:41, :78:68, :123:76, :124:{25,61}, :126:{35,42}, :131:{34,58,77,95}
-  wire         _T_38 = io_in_valid & io_in_bits_ctrl[4];	// ALU.scala:51:37, :133:36
-  wire         _io_redirect_valid_T_1 = _T_38 & ~_predictWrong_T_1;	// ALU.scala:125:{31,39}, :133:{36,45}
   reg  [63:0]  c_1;	// GTimer.scala:8:32
   reg  [63:0]  c_2;	// GTimer.scala:8:32
   reg  [63:0]  c_3;	// GTimer.scala:8:32
@@ -1211,33 +1162,12 @@ module ALU(	// <stdin>:2062:10
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2062:10
     always @(posedge clock) begin	// ALU.scala:127:15
-      automatic logic _T_15 = io_in_valid & (&(io_cfIn_instr[1:0])) != (&(io_cfIn_instr[1:0]));	// ALU.scala:126:{35,42}, :128:{21,45,58}
       if (~reset & ~((&(io_cfIn_instr[1:0])) | ~(&(io_cfIn_instr[1:0])) | ~io_in_valid)) begin	// ALU.scala:126:{35,42}, :127:{15,36,57,60}
         if (`ASSERT_VERBOSE_COND_)	// ALU.scala:127:15
           $error("Assertion failed\n    at ALU.scala:127 assert(io.cfIn.instr(1, 0) === \"b11\".U || isRVC || !valid)\n");	// ALU.scala:127:15
         if (`STOP_COND_)	// ALU.scala:127:15
           $fatal;	// ALU.scala:127:15
       end
-      if ((`PRINTF_COND_) & _T_15 & ~reset)	// ALU.scala:128:21, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] ALU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_15 & ~reset)	// ALU.scala:128:21, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[ERROR] pc %x inst %x rvc %x\n", io_cfIn_pc, io_cfIn_instr, ~(&(io_cfIn_instr[1:0])));	// ALU.scala:126:{35,42}, Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _T_38 & ~reset)	// ALU.scala:133:36, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] ALU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_38 & ~reset)	// ALU.scala:133:36, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "tgt %x valid %d npc %x pdwrong %x\n", _io_redirect_target_T_7, _io_redirect_valid_T_1, io_cfIn_pnpc, ~_predictWrong_T_1);	// ALU.scala:125:{31,39}, :131:34, :133:45, Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _T_38 & ~reset)	// ALU.scala:133:36, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] ALU: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_38 & ~reset)	// ALU.scala:133:36, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "taken %d addrRes %x srcA %x srcB %x ctrl %x\n", taken, adderRes, io_in_bits_srcA, io_in_bits_srcB, io_in_bits_ctrl);	// ALU.scala:78:68, :123:76, Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _T_38 & ~reset)	// ALU.scala:133:36, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] ALU: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_38 & ~reset)	// ALU.scala:133:36, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[BPW] pc %x tgt %x npc %x pdWrong %x type %x%x%x%x\n", io_cfIn_pc, _io_redirect_target_T_7, io_cfIn_pnpc, ~_predictWrong_T_1, ~(io_in_bits_ctrl[3]), io_in_bits_ctrl == 7'h58 | io_in_bits_ctrl == 7'h5C, io_in_bits_ctrl == 7'h5A, io_in_bits_ctrl == 7'h5E);	// ALU.scala:52:{36,41}, :125:{31,39}, :131:34, :158:{23,39,47}, :159:{22,45}, Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] ALU: ", c_4);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "valid %d isBru %d isBranch %d\n", io_in_valid, io_in_bits_ctrl[4], ~(io_in_bits_ctrl[3]));	// ALU.scala:51:37, :52:{36,41}, Debug.scala:34:43, :35:31
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2062:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2062:10
@@ -1281,8 +1211,9 @@ module ALU(	// <stdin>:2062:10
   assign io_out_valid = io_in_valid;	// <stdin>:2062:10
   assign io_out_bits = io_in_bits_ctrl[4] ? ((&(io_cfIn_instr[1:0])) ? io_cfIn_pc + 64'h4 : io_cfIn_pc + 64'h2) :
                 io_in_bits_ctrl[5] ? {{32{_GEN_0[31]}}, _GEN_0[31:0]} : _GEN_0;	// <stdin>:2062:10, ALU.scala:50:40, :51:37, :106:{25,61}, :126:{35,42}, :131:{77,95}, :145:{27,38,77,114}, BitUtils.scala:17:32, Bitwise.scala:77:12, Mux.scala:81:58
-  assign io_redirect_target = _io_redirect_target_T_7;	// <stdin>:2062:10, ALU.scala:131:34
-  assign io_redirect_valid = _io_redirect_valid_T_1;	// <stdin>:2062:10, ALU.scala:133:45
+  assign io_redirect_target = taken | io_in_bits_ctrl[3] ? (io_in_bits_ctrl[3] ? adderRes[63:0] : io_cfIn_pc + io_offset)
+                : (&(io_cfIn_instr[1:0])) ? io_cfIn_pc + 64'h4 : io_cfIn_pc + 64'h2;	// <stdin>:2062:10, ALU.scala:52:41, :78:68, :123:76, :124:{25,61}, :126:{35,42}, :131:{34,58,77,95}
+  assign io_redirect_valid = io_in_valid & io_in_bits_ctrl[4] & ~(~taken & ~(io_in_bits_ctrl[3]));	// <stdin>:2062:10, ALU.scala:51:37, :52:{36,41}, :123:76, :125:{31,32,39}, :133:45
 endmodule
 
 module LSExecUnit(	// <stdin>:2290:10
@@ -1331,19 +1262,8 @@ module LSExecUnit(	// <stdin>:2290:10
   wire        rValid = io_in_valid & _io_in_ready_T & ~isStore & ~_io_ioLoadAddrMisaligned_T_3 &
                 ~_io_ioStoreAddrMisaligned_T_2;	// UnpipelinedLSU.scala:180:29, :181:27, :188:29, :228:{71,99}, :229:96, :297:55, :298:54
   wire        _io_out_valid_T_3 = state_load == 2'h1;	// UnpipelinedLSU.scala:185:33, :191:44, :235:36
-  wire        _T_42 = _io_ioLoadAddrMisaligned_T_3 | _io_ioStoreAddrMisaligned_T_2;	// UnpipelinedLSU.scala:238:41, :297:55, :298:54
-  wire        _T_34 = _io_out_valid_T_3 & io_dmem_r_valid;	// Decoupled.scala:52:35, UnpipelinedLSU.scala:235:36
-  wire        _T_25 = state_store & io_dmem_b_valid;	// Decoupled.scala:52:35, UnpipelinedLSU.scala:186:34
-  wire        _io_out_valid_T_10 = _T_42 | (partialLoad ? state_load == 2'h2 : _T_34 & _io_out_valid_T_3 | _T_25 &
-                state_store);	// Decoupled.scala:52:35, UnpipelinedLSU.scala:181:36, :185:33, :186:34, :197:50, :235:36, :237:28, :238:41, :239:28, :240:36, :241:{38,70}, :242:38
   reg  [63:0] c_1;	// GTimer.scala:8:32
   reg  [63:0] rdataLatch;	// UnpipelinedLSU.scala:253:33
-  wire [63:0] _rdataPartialLoad_T_34 = (io_in_bits_ctrl == 7'h0 ? {{56{rdataLatch[7]}}, rdataLatch[7:0]} : 64'h0) |
-                (io_in_bits_ctrl == 7'h1 ? {{48{rdataLatch[15]}}, rdataLatch[15:0]} : 64'h0) |
-                (io_in_bits_ctrl == 7'h2 ? {{32{rdataLatch[31]}}, rdataLatch[31:0]} : 64'h0) |
-                (io_in_bits_ctrl == 7'h4 ? {56'h0, rdataLatch[7:0]} : 64'h0) | (io_in_bits_ctrl == 7'h5 ?
-                {48'h0, rdataLatch[15:0]} : 64'h0) | (io_in_bits_ctrl == 7'h6 ? {32'h0, rdataLatch[31:0]} :
-                64'h0);	// BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, GTimer.scala:8:32, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:150:20, :253:33, :274:66, :275:66, :276:66
   wire        _addrAligned_T_17 = ~(|(io_in_bits_ctrl[1:0])) | io_in_bits_ctrl[1:0] == 2'h1 & ~(io_in_bits_srcA[0]) |
                 io_in_bits_ctrl[1:0] == 2'h2 & io_in_bits_srcA[1:0] == 2'h0 | (&(io_in_bits_ctrl[1:0])) &
                 io_in_bits_srcA[2:0] == 3'h0;	// LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:150:27, :185:33, :191:44, :197:50, :222:27, :283:{33,37}, :284:{33,40}, :285:40
@@ -1378,28 +1298,6 @@ module LSExecUnit(	// <stdin>:2290:10
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2290:10
-    always @(posedge clock) begin	// Debug.scala:34:43
-      automatic logic _T_31 = io_dmem_aw_ready & io_dmem_w_ready;	// UnpipelinedLSU.scala:220:28
-      automatic logic _T_32 = io_dmem_ar_ready & _io_out_valid_T_3;	// UnpipelinedLSU.scala:220:59, :235:36
-      automatic logic _T_18 = _T_31 | _T_32;	// UnpipelinedLSU.scala:220:{28,43,59}
-      automatic logic _T_36 = _T_31 | _T_32;	// UnpipelinedLSU.scala:220:{28,59}, :288:43
-      if ((`PRINTF_COND_) & _T_18 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:220:43
-        $fwrite(32'h80000002, "[%d] LSExecUnit: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_18 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:220:43
-        $fwrite(32'h80000002, "[LSU] addr %x, size %x, wdata_raw %x, isStore %x\n", io_in_bits_srcA, io_in_bits_ctrl[1:0], io_wdata, isStore);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:180:29, :222:27
-      if ((`PRINTF_COND_) & _io_out_valid_T_10 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:237:28
-        $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _io_out_valid_T_10 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:237:28
-        $fwrite(32'h80000002, "[LSU-EXECUNIT] statels (%x,%x) rResp %x wResp %x lm %x sm %x\n", state_load, state_store, _T_34, _T_25, _io_ioLoadAddrMisaligned_T_3, _io_ioStoreAddrMisaligned_T_2);	// Debug.scala:34:43, :35:31, Decoupled.scala:52:35, UnpipelinedLSU.scala:185:33, :186:34, :297:55, :298:54
-      if ((`PRINTF_COND_) & _T_36 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:288:43
-        $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_36 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:288:43
-        $fwrite(32'h80000002, "[LSU] statels (%x,%x) Raddr %x rFire %x RData %x AddrLatch %x RDataLatch %x RDataPartialLoad %x\n", state_load, state_store, io_in_bits_srcA[31:0], _T_34, io_dmem_r_bits_data, addrLatch[2:0], rdataLatch, _rdataPartialLoad_T_34);	// AXI4.scala:73:27, Debug.scala:34:43, :35:31, Decoupled.scala:52:35, Mux.scala:27:73, UnpipelinedLSU.scala:179:32, :185:33, :186:34, :253:33, :292:57
-      if ((`PRINTF_COND_) & _T_42 & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:238:41
-        $fwrite(32'h80000002, "[%d] LSExecUnit: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_42 & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:238:41
-        $fwrite(32'h80000002, "[EXCEPTION] misaligned addr detected\n");	// Debug.scala:34:43, :35:31
-    end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2290:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2290:10
     `endif // FIRRTL_BEFORE_INITIAL
@@ -1449,8 +1347,14 @@ module LSExecUnit(	// <stdin>:2290:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_in_ready = _io_in_ready_T & ~state_store;	// <stdin>:2290:10, UnpipelinedLSU.scala:186:34, :188:29, :204:30, :245:47
-  assign io_out_valid = _io_out_valid_T_10;	// <stdin>:2290:10, UnpipelinedLSU.scala:237:28
-  assign io_out_bits = partialLoad ? _rdataPartialLoad_T_34 : io_dmem_r_bits_data;	// <stdin>:2290:10, Mux.scala:27:73, UnpipelinedLSU.scala:181:36, :295:27
+  assign io_out_valid = _io_ioLoadAddrMisaligned_T_3 | _io_ioStoreAddrMisaligned_T_2 | (partialLoad ? state_load ==
+                2'h2 : _io_out_valid_T_3 & io_dmem_r_valid | state_store & io_dmem_b_valid);	// <stdin>:2290:10, UnpipelinedLSU.scala:181:36, :185:33, :186:34, :197:50, :235:36, :237:28, :239:28, :240:36, :241:{38,70}, :242:38, :297:55, :298:54
+  assign io_out_bits = partialLoad ? (io_in_bits_ctrl == 7'h0 ? {{56{rdataLatch[7]}}, rdataLatch[7:0]} : 64'h0) |
+                (io_in_bits_ctrl == 7'h1 ? {{48{rdataLatch[15]}}, rdataLatch[15:0]} : 64'h0) |
+                (io_in_bits_ctrl == 7'h2 ? {{32{rdataLatch[31]}}, rdataLatch[31:0]} : 64'h0) |
+                (io_in_bits_ctrl == 7'h4 ? {56'h0, rdataLatch[7:0]} : 64'h0) | (io_in_bits_ctrl == 7'h5 ?
+                {48'h0, rdataLatch[15:0]} : 64'h0) | (io_in_bits_ctrl == 7'h6 ? {32'h0, rdataLatch[31:0]} :
+                64'h0) : io_dmem_r_bits_data;	// <stdin>:2290:10, BitUtils.scala:17:32, Bitwise.scala:77:12, Cat.scala:33:92, GTimer.scala:8:32, LookupTree.scala:8:38, Mux.scala:27:73, UnpipelinedLSU.scala:150:20, :181:36, :253:33, :274:66, :275:66, :276:66, :295:27
   assign io_dmem_aw_valid = wValid;	// <stdin>:2290:10, UnpipelinedLSU.scala:228:96
   assign io_dmem_aw_bits_addr = io_in_bits_srcA[31:0];	// <stdin>:2290:10, AXI4.scala:73:27
   assign io_dmem_w_valid = wValid;	// <stdin>:2290:10, UnpipelinedLSU.scala:228:96
@@ -1495,7 +1399,6 @@ module UnpipelinedLSU(	// <stdin>:2571:10
                 io_ioStoreAddrMisaligned);
 
   wire        _lsExecUnit_io_in_ready;	// UnpipelinedLSU.scala:32:32
-  wire        _lsExecUnit_io_out_valid;	// UnpipelinedLSU.scala:32:32
   reg  [63:0] c;	// GTimer.scala:8:32
   always @(posedge clock) begin
     if (reset)
@@ -1504,12 +1407,6 @@ module UnpipelinedLSU(	// <stdin>:2571:10
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2571:10
-    always @(posedge clock) begin	// Debug.scala:34:43
-      if ((`PRINTF_COND_) & _lsExecUnit_io_out_valid & ~reset)	// Debug.scala:34:43, UnpipelinedLSU.scala:32:32
-        $fwrite(32'h80000002, "[%d] UnpipelinedLSU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _lsExecUnit_io_out_valid & ~reset)	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:32:32
-        $fwrite(32'h80000002, "[LSU-AGU] state %x inv %x inr %x\n", 2'h0, io_in_valid, _lsExecUnit_io_in_ready);	// Debug.scala:34:43, :35:31, UnpipelinedLSU.scala:32:32, :45:28
-    end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2571:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:2571:10
     `endif // FIRRTL_BEFORE_INITIAL
@@ -1545,7 +1442,7 @@ module UnpipelinedLSU(	// <stdin>:2571:10
     .io_dmem_r_valid          (io_dmem_r_valid),
     .io_dmem_r_bits_data      (io_dmem_r_bits_data),
     .io_in_ready              (_lsExecUnit_io_in_ready),
-    .io_out_valid             (_lsExecUnit_io_out_valid),
+    .io_out_valid             (io_out_valid),
     .io_out_bits              (io_out_bits),
     .io_dmem_aw_valid         (io_dmem_aw_valid),
     .io_dmem_aw_bits_addr     (io_dmem_aw_bits_addr),
@@ -1559,7 +1456,6 @@ module UnpipelinedLSU(	// <stdin>:2571:10
     .io_ioLoadAddrMisaligned  (io_ioLoadAddrMisaligned),
     .io_ioStoreAddrMisaligned (io_ioStoreAddrMisaligned)
   );
-  assign io_out_valid = _lsExecUnit_io_out_valid;	// <stdin>:2571:10, UnpipelinedLSU.scala:32:32
 endmodule
 
 module Multiplier(	// <stdin>:2692:10
@@ -1855,17 +1751,6 @@ module EXU(	// <stdin>:3565:10
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:3565:10
-    always @(posedge clock) begin	// Debug.scala:34:43
-      automatic logic _T_6 = _csr_io_redirect_valid | _alu_io_redirect_valid;	// EXU.scala:33:25, :58:25, :87:37
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] EXU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "LSU OUT %x\n", _lsu_io_out_bits);	// Debug.scala:34:43, :35:31, EXU.scala:42:25
-      if ((`PRINTF_COND_) & _T_6 & ~reset)	// Debug.scala:34:43, EXU.scala:87:37
-        $fwrite(32'h80000002, "[%d] EXU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _T_6 & ~reset)	// Debug.scala:34:43, :35:31, EXU.scala:87:37
-        $fwrite(32'h80000002, "[REDIRECT] flush: %d csr (%b,%x) alu (%b,%x)\n", io_flush, _csr_io_redirect_valid, _csr_io_redirect_target, _alu_io_redirect_valid, _alu_io_redirect_target);	// Debug.scala:34:43, :35:31, EXU.scala:33:25, :58:25
-    end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3565:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3565:10
     `endif // FIRRTL_BEFORE_INITIAL
@@ -2009,13 +1894,11 @@ module WBU(	// <stdin>:3861:10
                 io_difftest_redirect_target,
   output        io_difftest_redirect_valid);
 
-  wire             _io_wb_rfWen_T = io_in_bits_decode_ctrl_rfWen & io_in_valid;	// WBU.scala:20:53
   wire [4:0][63:0] _GEN = {{64'h0}, {io_in_bits_commits_3}, {io_in_bits_commits_2}, {io_in_bits_commits_1},
                 {io_in_bits_commits_0}};	// <stdin>:3861:10, WBU.scala:22:22
   wire [63:0]      _GEN_0;	// WBU.scala:22:22
   /* synopsys infer_mux_override */
   assign _GEN_0 = _GEN[io_in_bits_decode_ctrl_fuType] /* cadence map_to_mux */;	// WBU.scala:22:22
-  wire [63:0]      _GEN_1 = io_in_bits_decode_ctrl_fuType > 3'h4 ? io_in_bits_commits_0 : _GEN_0;	// WBU.scala:22:22
   wire             _io_difftest_redirect_valid_T = io_in_bits_decode_cf_redirect_valid & io_in_valid;	// WBU.scala:28:66
   reg  [63:0]      c;	// GTimer.scala:8:32
   always @(posedge clock) begin
@@ -2025,12 +1908,6 @@ module WBU(	// <stdin>:3861:10
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:3861:10
-    always @(posedge clock) begin	// Debug.scala:34:43
-      if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] WBU: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & io_in_valid & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[COMMIT] pc = 0x%x inst %x wen %x wdst %x wdata %x mmio %x intrNO %x\n", io_in_bits_decode_cf_pc, io_in_bits_decode_cf_instr, _io_wb_rfWen_T, io_in_bits_decode_ctrl_rfDest, _GEN_1, 1'h0, 64'h0);	// <stdin>:3861:10, Debug.scala:34:43, :35:31, WBU.scala:20:53, :22:22
-    end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3861:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3861:10
     `endif // FIRRTL_BEFORE_INITIAL
@@ -2050,9 +1927,9 @@ module WBU(	// <stdin>:3861:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:3861:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_wb_rfWen = _io_wb_rfWen_T;	// <stdin>:3861:10, WBU.scala:20:53
+  assign io_wb_rfWen = io_in_bits_decode_ctrl_rfWen & io_in_valid;	// <stdin>:3861:10, WBU.scala:20:53
   assign io_wb_rfDest = io_in_bits_decode_ctrl_rfDest;	// <stdin>:3861:10
-  assign io_wb_rfData = _GEN_1;	// <stdin>:3861:10, WBU.scala:22:22
+  assign io_wb_rfData = io_in_bits_decode_ctrl_fuType > 3'h4 ? io_in_bits_commits_0 : _GEN_0;	// <stdin>:3861:10, WBU.scala:22:22
   assign io_redirect_target = io_in_bits_decode_cf_redirect_target;	// <stdin>:3861:10
   assign io_redirect_valid = _io_difftest_redirect_valid_T;	// <stdin>:3861:10, WBU.scala:28:66
   assign io_difftest_commit_valid = io_in_valid;	// <stdin>:3861:10
@@ -2162,7 +2039,6 @@ module Backend_inorder(	// <stdin>:3897:10
   wire [4:0]  _exu_io_forward_wb_rfDest;	// Backend.scala:27:25
   wire [63:0] _exu_io_forward_wb_rfData;	// Backend.scala:27:25
   wire [2:0]  _exu_io_forward_fuType;	// Backend.scala:27:25
-  wire        _isu_io_in_0_ready;	// Backend.scala:26:25
   wire        _isu_io_out_valid;	// Backend.scala:26:25
   wire [63:0] _isu_io_out_bits_cf_instr;	// Backend.scala:26:25
   wire [63:0] _isu_io_out_bits_cf_pc;	// Backend.scala:26:25
@@ -2249,20 +2125,6 @@ module Backend_inorder(	// <stdin>:3897:10
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:3897:10
-    always @(posedge clock) begin	// Debug.scala:34:43
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] Backend_inorder: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "EXU OUT %x(%d,%d)\n", _exu_io_out_bits_commits_0, _exu_io_out_valid, 1'h1);	// <stdin>:3897:10, Backend.scala:27:25, Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] Backend_inorder: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "---------------------- Backend ----------------------\n");	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] Backend_inorder: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "flush = %b, ==%x%x>[isu]<%x---%x>[exu]<%x---%x>[wbu]\n", io_flush, _isu_io_in_0_ready, 1'h0, _isu_io_out_valid, _exu_io_in_ready, _exu_io_out_valid, 1'h1);	// <stdin>:3897:10, Backend.scala:26:25, :27:25, Debug.scala:34:43, :35:31
-    end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3897:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3897:10
     `endif // FIRRTL_BEFORE_INITIAL
@@ -2442,7 +2304,7 @@ module Backend_inorder(	// <stdin>:3897:10
     .io_forward_wb_rfData           (_exu_io_forward_wb_rfData),	// Backend.scala:27:25
     .io_forward_fuType              (_exu_io_forward_fuType),	// Backend.scala:27:25
     .io_flush                       (io_flush[0]),	// Backend.scala:30:73
-    .io_in_0_ready                  (_isu_io_in_0_ready),
+    .io_in_0_ready                  (io_in_0_ready),
     .io_out_valid                   (_isu_io_out_valid),
     .io_out_bits_cf_instr           (_isu_io_out_bits_cf_instr),
     .io_out_bits_cf_pc              (_isu_io_out_bits_cf_pc),
@@ -2569,13 +2431,11 @@ module Backend_inorder(	// <stdin>:3897:10
     .io_difftest_redirect_target            (io_difftest_redirect_target),
     .io_difftest_redirect_valid             (io_difftest_redirect_valid)
   );
-  assign io_in_0_ready = _isu_io_in_0_ready;	// <stdin>:3897:10, Backend.scala:26:25
 endmodule
 
 module Core(	// <stdin>:4136:10
   input         clock,
                 reset,
-                io_imem_ar_ready,
                 io_imem_r_valid,
   input  [63:0] io_imem_r_bits_data,
   input         io_dmem_aw_ready,
@@ -2686,12 +2546,9 @@ module Core(	// <stdin>:4136:10
   reg         ringBufferTail;	// PipelineVector.scala:14:45
   wire        ringBufferAllowin = ringBufferHead - 1'h1 != ringBufferTail & {1'h0, ringBufferHead} - 2'h2 != {1'h0,
                 ringBufferTail};	// <stdin>:4136:10, PipelineVector.scala:13:45, :14:45, :16:{75,86,137}
-  wire [1:0]  enqueueSize = {1'h0, _frontend_io_out_0_valid} + {1'h0, _frontend_io_out_1_valid};	// <stdin>:4136:10, PipelineVector.scala:23:56, TopMain.scala:32:50
   wire        _frontend_io_out_0_ready_T_1 = ringBufferAllowin | ~_frontend_io_out_0_valid;	// PipelineVector.scala:16:137, :33:{48,51}, TopMain.scala:32:50
   wire        _frontend_io_out_1_ready_T_1 = ringBufferAllowin | ~_frontend_io_out_1_valid;	// PipelineVector.scala:16:137, :34:{48,51}, TopMain.scala:32:50
   wire        _backend_io_in_0_valid_T = ringBufferHead != ringBufferTail;	// PipelineVector.scala:13:45, :14:45, :39:46
-  wire        _backend_io_in_1_valid_T_1 = ringBufferHead != ringBufferTail - 1'h1 & _backend_io_in_0_valid_T;	// PipelineVector.scala:13:45, :14:45, :39:46, :42:54, :44:{46,66}
-  wire        _dequeueSize_T = _backend_io_in_0_ready & _backend_io_in_0_valid_T;	// Decoupled.scala:52:35, PipelineVector.scala:39:46, TopMain.scala:40:37
   reg  [63:0] c;	// GTimer.scala:8:32
   always @(posedge clock) begin
     if (reset) begin
@@ -2713,8 +2570,11 @@ module Core(	// <stdin>:4136:10
       c <= 64'h0;	// <stdin>:4136:10, GTimer.scala:8:32
     end
     else begin
-      automatic logic wen = _frontend_io_out_0_ready_T_1 & _frontend_io_out_0_valid | _frontend_io_out_1_ready_T_1 &
+      automatic logic [1:0] enqueueSize;	// PipelineVector.scala:23:56
+      automatic logic       wen = _frontend_io_out_0_ready_T_1 & _frontend_io_out_0_valid | _frontend_io_out_1_ready_T_1 &
                                                 _frontend_io_out_1_valid;	// Decoupled.scala:52:35, PipelineVector.scala:26:36, :33:48, :34:48, TopMain.scala:32:50
+      automatic logic       _dequeueSize_T = _backend_io_in_0_ready & _backend_io_in_0_valid_T;	// Decoupled.scala:52:35, PipelineVector.scala:39:46, TopMain.scala:40:37
+      enqueueSize = {1'h0, _frontend_io_out_0_valid} + {1'h0, _frontend_io_out_1_valid};	// <stdin>:4136:10, PipelineVector.scala:23:56, TopMain.scala:32:50
       if (wen) begin	// PipelineVector.scala:26:36
         if (enqueueSize[1]) begin	// PipelineVector.scala:23:56, :24:65
           dataBuffer_0_cf_instr <= _frontend_io_out_1_bits_cf_instr;	// PipelineVector.scala:12:41, TopMain.scala:32:50
@@ -2771,14 +2631,6 @@ module Core(	// <stdin>:4136:10
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:4136:10
-    always @(posedge clock) begin	// PipelineVector.scala:60:27
-      if ((`PRINTF_COND_) & ~reset)	// PipelineVector.scala:60:27
-        $fwrite(32'h80000002, "[DPQ] size %x head %x tail %x enq %x deq %x\n", 1'h0, ringBufferHead, ringBufferTail, enqueueSize, {1'h0, _dequeueSize_T});	// <stdin>:4136:10, Decoupled.scala:52:35, PipelineVector.scala:13:45, :14:45, :23:56, :47:52, :60:27
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:34:43, PipelineVector.scala:60:27
-        $fwrite(32'h80000002, "[%d] Core: ", c);	// Debug.scala:34:43, GTimer.scala:8:32, PipelineVector.scala:60:27
-      if ((`PRINTF_COND_) & ~reset)	// Debug.scala:35:31, PipelineVector.scala:60:27
-        $fwrite(32'h80000002, "flush = %b, 0: frontend:(%d,%d), backend:(%d,%d); 1: frontend:(%d,%d), backend:(%d,%d)\n", _frontend_io_flushVec, _frontend_io_out_0_valid, _frontend_io_out_0_ready_T_1, _backend_io_in_0_valid_T, _backend_io_in_0_ready, _frontend_io_out_1_valid, _frontend_io_out_1_ready_T_1, _backend_io_in_1_valid_T_1, 1'h0);	// <stdin>:4136:10, Debug.scala:35:31, PipelineVector.scala:33:48, :34:48, :39:46, :44:66, :60:27, TopMain.scala:32:50, :40:37
-    end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4136:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4136:10
     `endif // FIRRTL_BEFORE_INITIAL
@@ -2854,7 +2706,6 @@ module Core(	// <stdin>:4136:10
   Frontend_embedded frontend (	// TopMain.scala:32:50
     .clock                           (clock),
     .reset                           (reset),
-    .io_imem_ar_ready                (io_imem_ar_ready),
     .io_imem_r_valid                 (io_imem_r_valid),
     .io_imem_r_bits_data             (io_imem_r_bits_data),
     .io_out_0_ready                  (_frontend_io_out_0_ready_T_1),	// PipelineVector.scala:33:48
@@ -2911,7 +2762,7 @@ module Core(	// <stdin>:4136:10
     .io_in_0_bits_ctrl_rfWen                (dataBuffer_0_ctrl_rfWen),	// PipelineVector.scala:12:41
     .io_in_0_bits_ctrl_rfDest               (dataBuffer_0_ctrl_rfDest),	// PipelineVector.scala:12:41
     .io_in_0_bits_data_imm                  (dataBuffer_0_data_imm),	// PipelineVector.scala:12:41
-    .io_in_1_valid                          (_backend_io_in_1_valid_T_1),	// PipelineVector.scala:44:66
+    .io_in_1_valid                          (ringBufferHead != ringBufferTail - 1'h1 & _backend_io_in_0_valid_T),	// PipelineVector.scala:13:45, :14:45, :39:46, :42:54, :44:{46,66}
     .io_flush                               (_frontend_io_flushVec[3:2]),	// TopMain.scala:32:50, :49:57
     .io_dmem_aw_ready                       (io_dmem_aw_ready),
     .io_dmem_w_ready                        (io_dmem_w_ready),
@@ -2995,8 +2846,7 @@ module AXI4Lite_Arbiter(	// <stdin>:4436:10
                 Arbiter_ar_ready,
                 Arbiter_r_valid,
   input  [63:0] Arbiter_r_bits_data,
-  output        InstFetch_ar_ready,
-                InstFetch_r_valid,
+  output        InstFetch_r_valid,
   output [63:0] InstFetch_r_bits_data,
   output        LoadStore_aw_ready,
                 LoadStore_w_ready,
@@ -3015,22 +2865,19 @@ module AXI4Lite_Arbiter(	// <stdin>:4436:10
   output        Arbiter_r_ready);
 
   reg  [1:0]  state;	// AXI4_Arbiter.scala:30:28
+  wire        _T = state == 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28, :32:24
   wire        _T_1 = InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:34:50
   reg  [63:0] c;	// GTimer.scala:8:32
   wire        _T_8 = InstFetch_ar_valid & ~LoadStore_ar_valid;	// AXI4_Arbiter.scala:44:{56,59}
   reg  [63:0] c_1;	// GTimer.scala:8:32
-  wire        _T_15 = ~InstFetch_ar_valid & LoadStore_ar_valid;	// AXI4_Arbiter.scala:54:{37,57}
   reg  [63:0] c_2;	// GTimer.scala:8:32
   wire        _GEN = _T_1 | ~_T_8;	// AXI4_Arbiter.scala:34:{50,73}, :38:46, :44:{56,80}, :50:52, :54:80
   reg  [63:0] c_3;	// GTimer.scala:8:32
   wire        _T_26 = state == 2'h1;	// AXI4_Arbiter.scala:30:28, :32:24, :53:39
   reg  [63:0] c_4;	// GTimer.scala:8:32
-  wire        _T_33 = state == 2'h2;	// AXI4_Arbiter.scala:30:28, :32:24, :43:39
   reg  [63:0] c_5;	// GTimer.scala:8:32
-  wire        _GEN_0 = (|state) ? ~_T_26 & Arbiter_ar_ready : _GEN & Arbiter_ar_ready;	// AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :44:80, :73:44
-  wire        _GEN_1 = (|state) ? ~_T_26 & Arbiter_r_valid : _GEN & Arbiter_r_valid;	// AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :39:46, :44:80, :73:44, :74:43
-  wire        _GEN_2 = (|state) ? _T_26 & Arbiter_ar_ready : ~_T_1 & _T_8 & Arbiter_ar_ready;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}, :40:52, :44:{56,80}, :71:38
-  wire        _GEN_3 = (|state) ? _T_26 & Arbiter_r_valid : ~_T_1 & _T_8 & Arbiter_r_valid;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}, :40:52, :41:51, :44:{56,80}, :72:38
+  wire        _GEN_0 = _T ? _GEN & Arbiter_r_valid : ~_T_26 & Arbiter_r_valid;	// AXI4_Arbiter.scala:32:24, :34:73, :38:46, :39:46, :44:80, :73:44, :74:43
+  wire        _GEN_1 = _T ? ~_T_1 & _T_8 & Arbiter_r_valid : _T_26 & Arbiter_r_valid;	// AXI4_Arbiter.scala:32:24, :34:{50,73}, :41:51, :44:{56,80}, :72:38
   always @(posedge clock) begin
     if (reset) begin
       state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
@@ -3042,20 +2889,20 @@ module AXI4Lite_Arbiter(	// <stdin>:4436:10
       c_5 <= 64'h0;	// GTimer.scala:8:32
     end
     else begin
-      if (|state) begin	// AXI4_Arbiter.scala:30:28, :32:24
-        if (_T_26) begin	// AXI4_Arbiter.scala:32:24
-          if (InstFetch_r_ready & _GEN_3)	// AXI4_Arbiter.scala:32:24, :34:73, Decoupled.scala:52:35
-            state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
-        end
-        else if (_T_33 & LoadStore_r_ready & _GEN_1)	// AXI4_Arbiter.scala:30:28, :32:24, :34:73, :88:49
+      if (_T) begin	// AXI4_Arbiter.scala:32:24
+        if (_T_1)	// AXI4_Arbiter.scala:34:50
+          state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :43:39
+        else if (_T_8)	// AXI4_Arbiter.scala:34:50, :44:56
+          state <= 2'h1;	// AXI4_Arbiter.scala:30:28, :53:39
+        else if (~InstFetch_ar_valid & LoadStore_ar_valid)	// AXI4_Arbiter.scala:34:50, :44:56, :54:{37,57}
+          state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :43:39
+      end
+      else if (_T_26) begin	// AXI4_Arbiter.scala:32:24
+        if (InstFetch_r_ready & _GEN_1)	// AXI4_Arbiter.scala:32:24, :34:73, Decoupled.scala:52:35
           state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
       end
-      else if (_T_1)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50
-        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :43:39
-      else if (_T_8)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :44:56
-        state <= 2'h1;	// AXI4_Arbiter.scala:30:28, :53:39
-      else if (_T_15)	// AXI4_Arbiter.scala:30:28, :32:24, :34:50, :44:56, :54:57
-        state <= 2'h2;	// AXI4_Arbiter.scala:30:28, :43:39
+      else if (state == 2'h2 & LoadStore_r_ready & _GEN_0)	// AXI4_Arbiter.scala:30:28, :32:24, :34:73, :43:39, :88:49
+        state <= 2'h0;	// AXI4_Arbiter.scala:21:19, :30:28
       c <= c + 64'h1;	// GTimer.scala:8:32, :9:24
       c_1 <= c_1 + 64'h1;	// GTimer.scala:8:32, :9:24
       c_2 <= c_2 + 64'h1;	// GTimer.scala:8:32, :9:24
@@ -3065,48 +2912,6 @@ module AXI4Lite_Arbiter(	// <stdin>:4436:10
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:4436:10
-    always @(posedge clock) begin	// Debug.scala:34:43
-      automatic logic _GEN_4;	// AXI4_Arbiter.scala:34:73
-      automatic logic _GEN_5;	// AXI4_Arbiter.scala:34:73
-      automatic logic _GEN_6;	// AXI4_Arbiter.scala:44:80
-      automatic logic _GEN_7;	// AXI4_Arbiter.scala:44:80
-      automatic logic _GEN_8;	// AXI4_Arbiter.scala:54:80
-      automatic logic _GEN_9;	// AXI4_Arbiter.scala:54:80
-      automatic logic _GEN_10;	// AXI4_Arbiter.scala:32:24
-      automatic logic _GEN_11;	// AXI4_Arbiter.scala:32:24
-      _GEN_4 = ~(|state) & _T_1;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}
-      _GEN_5 = ~(|state) & ~_T_1;	// AXI4_Arbiter.scala:30:28, :32:24, :34:{50,73}
-      _GEN_6 = _GEN_5 & _T_8;	// AXI4_Arbiter.scala:34:73, :44:{56,80}
-      _GEN_7 = _GEN_5 & ~_T_8;	// AXI4_Arbiter.scala:34:73, :44:{56,80}
-      _GEN_8 = _GEN_7 & _T_15;	// AXI4_Arbiter.scala:44:80, :54:{57,80}
-      _GEN_9 = _GEN_7 & ~_T_15;	// AXI4_Arbiter.scala:44:80, :54:{57,80}
-      _GEN_10 = (|state) & _T_26;	// AXI4_Arbiter.scala:30:28, :32:24
-      _GEN_11 = (|state) & ~_T_26 & _T_33;	// AXI4_Arbiter.scala:30:28, :32:24
-      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_4 & ~reset)	// AXI4_Arbiter.scala:34:73, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_6 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_6 & ~reset)	// AXI4_Arbiter.scala:44:80, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_8 & ~reset)	// AXI4_Arbiter.scala:54:80, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_2);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_8 & ~reset)	// AXI4_Arbiter.scala:54:80, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM] idle ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_9 & ~reset)	// AXI4_Arbiter.scala:54:80, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_3);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_9 & ~reset)	// AXI4_Arbiter.scala:54:80, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[DONT CARE <=X=> SRAM] idle");	// Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_10 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_4);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_10 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[InstFetch <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
-      if ((`PRINTF_COND_) & _GEN_11 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43
-        $fwrite(32'h80000002, "[%d] AXI4Lite_Arbiter: ", c_5);	// Debug.scala:34:43, GTimer.scala:8:32
-      if ((`PRINTF_COND_) & _GEN_11 & ~reset)	// AXI4_Arbiter.scala:32:24, Debug.scala:34:43, :35:31
-        $fwrite(32'h80000002, "[LoadStore <===> SRAM] exec ifvr%x,%x lsvr%x,%x\n", InstFetch_ar_valid, _GEN_2, LoadStore_ar_valid, _GEN_0);	// AXI4_Arbiter.scala:32:24, :34:73, Debug.scala:34:43, :35:31
-    end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4436:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:4436:10
     `endif // FIRRTL_BEFORE_INITIAL
@@ -3154,27 +2959,26 @@ module AXI4Lite_Arbiter(	// <stdin>:4436:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:4436:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign InstFetch_ar_ready = _GEN_2;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73
-  assign InstFetch_r_valid = _GEN_3;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73
-  assign InstFetch_r_bits_data = (|state) ? (_T_26 ? Arbiter_r_bits_data : 64'h0) : _GEN ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4436:10, AXI4.scala:96:27, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :44:80, :72:38, GTimer.scala:8:32
+  assign InstFetch_r_valid = _GEN_1;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73
+  assign InstFetch_r_bits_data = _T ? (_GEN ? 64'h0 : Arbiter_r_bits_data) : _T_26 ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4436:10, AXI4.scala:96:27, AXI4_Arbiter.scala:32:24, :34:73, :38:46, :44:80, :72:38, GTimer.scala:8:32
   assign LoadStore_aw_ready = Arbiter_aw_ready;	// <stdin>:4436:10
   assign LoadStore_w_ready = Arbiter_w_ready;	// <stdin>:4436:10
   assign LoadStore_b_valid = Arbiter_b_valid;	// <stdin>:4436:10
-  assign LoadStore_ar_ready = _GEN_0;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73
-  assign LoadStore_r_valid = _GEN_1;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73
-  assign LoadStore_r_bits_data = (|state) ? (_T_26 ? 64'h0 : Arbiter_r_bits_data) : _GEN ? Arbiter_r_bits_data : 64'h0;	// <stdin>:4436:10, AXI4.scala:96:27, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :39:46, :44:80, GTimer.scala:8:32
+  assign LoadStore_ar_ready = _T ? _GEN & Arbiter_ar_ready : ~_T_26 & Arbiter_ar_ready;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73, :38:46, :44:80, :73:44
+  assign LoadStore_r_valid = _GEN_0;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73
+  assign LoadStore_r_bits_data = _T ? (_GEN ? Arbiter_r_bits_data : 64'h0) : _T_26 ? 64'h0 : Arbiter_r_bits_data;	// <stdin>:4436:10, AXI4.scala:96:27, AXI4_Arbiter.scala:32:24, :34:73, :38:46, :39:46, :44:80, GTimer.scala:8:32
   assign Arbiter_aw_valid = LoadStore_aw_valid;	// <stdin>:4436:10
   assign Arbiter_aw_bits_addr = LoadStore_aw_bits_addr;	// <stdin>:4436:10
   assign Arbiter_w_valid = LoadStore_w_valid;	// <stdin>:4436:10
   assign Arbiter_w_bits_data = LoadStore_w_bits_data;	// <stdin>:4436:10
   assign Arbiter_w_bits_strb = LoadStore_w_bits_strb;	// <stdin>:4436:10
   assign Arbiter_b_ready = LoadStore_b_ready;	// <stdin>:4436:10
-  assign Arbiter_ar_valid = (|state) ? (_T_26 ? InstFetch_ar_valid : LoadStore_ar_valid) : _GEN ? LoadStore_ar_valid :
-                InstFetch_ar_valid;	// <stdin>:4436:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :44:80, :71:38
-  assign Arbiter_ar_bits_addr = (|state) ? (_T_26 ? InstFetch_ar_bits_addr : LoadStore_ar_bits_addr) : _GEN ?
-                LoadStore_ar_bits_addr : InstFetch_ar_bits_addr;	// <stdin>:4436:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :44:80, :71:38
-  assign Arbiter_r_ready = (|state) ? (_T_26 ? InstFetch_r_ready : LoadStore_r_ready) : _GEN ? LoadStore_r_ready :
-                InstFetch_r_ready;	// <stdin>:4436:10, AXI4_Arbiter.scala:30:28, :32:24, :34:73, :38:46, :39:46, :44:80, :72:38
+  assign Arbiter_ar_valid = _T ? (_GEN ? LoadStore_ar_valid : InstFetch_ar_valid) : _T_26 ? InstFetch_ar_valid :
+                LoadStore_ar_valid;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73, :38:46, :44:80, :71:38
+  assign Arbiter_ar_bits_addr = _T ? (_GEN ? LoadStore_ar_bits_addr : InstFetch_ar_bits_addr) : _T_26 ?
+                InstFetch_ar_bits_addr : LoadStore_ar_bits_addr;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73, :38:46, :44:80, :71:38
+  assign Arbiter_r_ready = _T ? (_GEN ? LoadStore_r_ready : InstFetch_r_ready) : _T_26 ? InstFetch_r_ready :
+                LoadStore_r_ready;	// <stdin>:4436:10, AXI4_Arbiter.scala:32:24, :34:73, :38:46, :39:46, :44:80, :72:38
 endmodule
 
 // external module MEM
@@ -3300,7 +3104,6 @@ module SimTop(	// <stdin>:4729:10
   wire        _TP_SRAM_io_ar_ready;	// SimTop.scala:31:29
   wire        _TP_SRAM_io_r_valid;	// SimTop.scala:31:29
   wire [63:0] _TP_SRAM_io_r_bits_data;	// SimTop.scala:31:29
-  wire        _arbiter_InstFetch_ar_ready;	// SimTop.scala:30:29
   wire        _arbiter_InstFetch_r_valid;	// SimTop.scala:30:29
   wire [63:0] _arbiter_InstFetch_r_bits_data;	// SimTop.scala:30:29
   wire        _arbiter_LoadStore_aw_ready;	// SimTop.scala:30:29
@@ -3377,7 +3180,6 @@ module SimTop(	// <stdin>:4729:10
   Core core (	// SimTop.scala:29:26
     .clock                                  (clock),
     .reset                                  (reset),
-    .io_imem_ar_ready                       (_arbiter_InstFetch_ar_ready),	// SimTop.scala:30:29
     .io_imem_r_valid                        (_arbiter_InstFetch_r_valid),	// SimTop.scala:30:29
     .io_imem_r_bits_data                    (_arbiter_InstFetch_r_bits_data),	// SimTop.scala:30:29
     .io_dmem_aw_ready                       (_arbiter_LoadStore_aw_ready),	// SimTop.scala:30:29
@@ -3460,7 +3262,6 @@ module SimTop(	// <stdin>:4729:10
     .Arbiter_ar_ready       (_TP_SRAM_io_ar_ready),	// SimTop.scala:31:29
     .Arbiter_r_valid        (_TP_SRAM_io_r_valid),	// SimTop.scala:31:29
     .Arbiter_r_bits_data    (_TP_SRAM_io_r_bits_data),	// SimTop.scala:31:29
-    .InstFetch_ar_ready     (_arbiter_InstFetch_ar_ready),
     .InstFetch_r_valid      (_arbiter_InstFetch_r_valid),
     .InstFetch_r_bits_data  (_arbiter_InstFetch_r_bits_data),
     .LoadStore_aw_ready     (_arbiter_LoadStore_aw_ready),
