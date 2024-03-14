@@ -53,7 +53,6 @@ class Multiplier(len: Int) extends MarCoreModule {
 }
 
 class Divider(len: Int) extends MarCoreModule {
-	implicit val moduleName: String = this.name
 	val io = IO(new MulDivIO(len))
 
 	io.out.bits := (io.in.bits(0).asSInt / io.in.bits(1).asSInt).asUInt
@@ -65,7 +64,6 @@ class Divider(len: Int) extends MarCoreModule {
 class MDUIO extends FuCtrlIO {}
 
 class MDU extends MarCoreModule {
-	implicit val moduleName: String = this.name
 	val io = IO(new MDUIO)
 
 	val (valid, srcA, srcB, ctrl) = (io.in.valid, io.in.bits.srcA, io.in.bits.srcB, io.in.bits.ctrl)
