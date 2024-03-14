@@ -50,7 +50,7 @@ CFLAGS += -Wall
 
 # 执行
 EXEC_FLAGS = -d $(NEMU_HOME)/build/$(SO)
-EXEC_FLAGS += -b
+#EXEC_FLAGS += -b
 #EXEC_FLAGS += -f $(IMAGE).elf
 NEMU_EXEC := $(BIN) $(EXEC_FLAGS) $(ARGS) $(IMG)
 
