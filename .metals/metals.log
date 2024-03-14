@@ -1298,3 +1298,5 @@ scala.meta.tokenizers.TokenizeException: <input>:122: error: unclosed string lit
 2024.03.14 22:02:04 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
 2024.03.14 22:02:16 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
 2024.03.14 22:02:47 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
+2024.03.14 22:03:41 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
+2024.03.14 22:03:43 WARN  no build target for: /home/marinatoo/ysyx-workbench/npc/playground/src/units/EXU.scala
