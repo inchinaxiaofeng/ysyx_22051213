@@ -93,6 +93,7 @@ static void execute(uint64_t n) {
 }
 
 static void statistic() {
+//    IFNDEF(CONFIG_TARGET_AM, setlocale(LS_NUMERIC, ""));
 #define NUMBERIC_FMT MUXDEF(CONFIG_TARGET_AM, "%", "%'") PRIu64
     Log("host time spent = " NUMBERIC_FMT " us", g_timer);
     Log("total guest instructions = " NUMBERIC_FMT, g_nr_guest_inst);
@@ -109,6 +110,7 @@ void assert_fail_msg() {
 
 /* Simulate how the CPU works */
 void cpu_exec(uint64_t n) {
+//	g_print_step = (n < MAX_INST_TO_PRINT);
 	switch (sim_state.state) {
 	case SIM_END: case SIM_ABORT:
 	    printf("Program execution has ended. To restart the program, exit SIM and run again.\n");
