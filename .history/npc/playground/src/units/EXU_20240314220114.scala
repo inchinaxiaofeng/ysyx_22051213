@@ -42,6 +42,7 @@ class EXU(implicit val p: MarCoreConfig) extends MarCoreModule {
 	val lsu = Module(new UnpipelinedLSU)
 //	val lsuTlbPF = WireInit(false.B)
 	val lsuOut = lsu.access(valid = fuValids(FuType.lsu), srcA = srcA, srcB = io.in.bits.data.imm, ctrl = fuCtrl)
+	Info("LSU OUT %x\n", lsuOut)
 	lsu.io.wdata := srcB
 	lsu.io.instr := io.in.bits.cf.instr
 	io.out.bits.isMMIO := false.B //lsu.io.isMMIO || (AddressSpace.isMMIO(io.in.bits.cf.pc) && io.out.valid)
@@ -99,9 +100,8 @@ class EXU(implicit val p: MarCoreConfig) extends MarCoreModule {
 	io.out.bits.commits(FuType.mdu) := mduOut
 	io.out.bits.commits(FuType.mou) := 0.U
 
-	Debug(io.out.fire, "FuType %x alu%x lsu%x csr%x mdu%x\n",
-		io.in.bits.decode.ctrl.fuType,
-		aluOut, lsuOut, csrOut, mduOut)
+	Debug(io.out.fire, "FuType %x data %x\n",
+		io.in.bits.decode.ctrl.fuType)
 
 	io.in.ready := !io.in.valid || io.out.fire
 
