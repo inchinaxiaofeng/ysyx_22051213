@@ -13,7 +13,7 @@
 #include <monitor/sdb.h>
 
 #define MAX_INST_TO_PRINT 10
-#define INSTR_MASK 0x00000000ffffffff
+#define INSTR_MASK 0x11111111
 
 CPU_state env_cpu = {};
 uint64_t g_nr_guest_inst = 0;
@@ -78,7 +78,7 @@ static void trace_and_difftest() {
 
 static void exec_once() {
     isa_exec_once();
-    if (0x00100073 == env_cpu.instr & INSTR_MASK) { assert(0); SIMTRAP(env_cpu.pc_commit, 0); }// a0
+    if (0x00100073 == env_cpu.instr) { assert(0); SIMTRAP(env_cpu.pc_commit, 0); }// a0
 }
 
 static void execute(uint64_t n) {
