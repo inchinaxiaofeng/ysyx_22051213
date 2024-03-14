@@ -79,7 +79,7 @@ static void trace_and_difftest() {
 
 static void exec_once() {
     isa_exec_once();
-    printf("0x%x\n", env_cpu.instr);
+    printf("0x%x\n", env_cpu.instr)
     if (EBREAK == env_cpu.instr & INSTR_MASK) { assert(0); SIMTRAP(env_cpu.pc_commit, 0); }// a0
 }
 
