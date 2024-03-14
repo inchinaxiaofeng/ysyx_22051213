@@ -1901,7 +1901,7 @@ module EXU(	// <stdin>:3585:10
       if ((`PRINTF_COND_) & _io_out_valid_T_4 & ~reset)	// Debug.scala:34:43, EXU.scala:91:37
         $fwrite(32'h80000002, "[%d] EXU: ", c_1);	// Debug.scala:34:43, GTimer.scala:8:32
       if ((`PRINTF_COND_) & _io_out_valid_T_4 & ~reset)	// Debug.scala:34:43, :35:31, EXU.scala:91:37
-        $fwrite(32'h80000002, "FuType %x alu%x lsu%x csr%x mdu%x\n", io_in_bits_ctrl_fuType, _alu_io_out_bits, _lsu_io_out_bits, _csr_io_out_bits, _mdu_io_out_bits);	// Debug.scala:34:43, :35:31, EXU.scala:33:25, :42:25, :52:25, :57:25
+        $fwrite(32'h80000002, "[EXU Fire]FuType %x alu%x lsu%x csr%x mdu%x\n", io_in_bits_ctrl_fuType, _alu_io_out_bits, _lsu_io_out_bits, _csr_io_out_bits, _mdu_io_out_bits);	// Debug.scala:34:43, :35:31, EXU.scala:33:25, :42:25, :52:25, :57:25
     end // always @(posedge)
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3585:10
       `FIRRTL_BEFORE_INITIAL	// <stdin>:3585:10
