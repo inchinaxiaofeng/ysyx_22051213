@@ -132,7 +132,7 @@ void cpu_exec(uint64_t n) {
 //	printf("ABORT:\n");
 //	isa_reg_display();
 	case SIM_END:
-//        printf("ret %d\n", sim_state.halt_ret);
+        printf("ret %d\n", sim_state.halt_ret);
 		Log("sim: %s at pc = " FMT_WORD,
 			(SIM_ABORT == sim_state.state ? ANSI_FMT("ABORT", ANSI_FG_RED) :
 			 (0 == sim_state.halt_ret ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
