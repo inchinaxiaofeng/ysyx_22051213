@@ -21,7 +21,7 @@ CSRCS = $(shell find $(NPC_HOME)/soc/csrc -name "*.c" -or -name "*.cc" -or -name
 VERILATOR = verilator
 # 第二行用于Debug 第三行是用来加快编译速度的选项
 VERILATOR_CFLAGS += -MMD --build -cc \
-					-O3 --x-assign fast --x-initial fast --noassert -j 0# \
+					-O3 --x-assign fast --x-initial fast --noassert -j 20# \
 					#--trace --debug
 
 # LLVM
