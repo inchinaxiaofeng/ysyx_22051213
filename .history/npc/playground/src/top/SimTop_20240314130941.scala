@@ -50,7 +50,6 @@ class SimTop extends Module {
 	core.io.difftest_commit.ready := true.B
 
 	io.commit := RegNext(core.io.difftest_commit.valid)
-	io.instr := RegNext()
 	io.pc := RegNext(Mux(core.io.difftest_redirect.valid,
 		core.io.difftest_redirect.target,
 		core.io.difftest_commit.bits.decode.cf.pnpc))
