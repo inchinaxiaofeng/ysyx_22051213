@@ -43,7 +43,7 @@ class MulDivIO(val len: Int) extends Bundle {
 
 class Multiplier(len: Int) extends MarCoreModule {
 	implicit val moduleName: String = this.name
-	val io = IO(new MulDivIO(len))
+    val io = IO(new MulDivIO(len))
 //	val latency = 1
 
 	val mulRes = (io.in.bits(0).asSInt * io.in.bits(1).asSInt).asSInt
@@ -56,12 +56,10 @@ class Divider(len: Int) extends MarCoreModule {
 	implicit val moduleName: String = this.name
 	val io = IO(new MulDivIO(len))
 
-//	io.out.bits := (io.in.bits(0).asSInt / io.in.bits(1).asSInt).asUInt
+	io.out.bits := (io.in.bits(0).asSInt / io.in.bits(1).asSInt).asUInt
 
-	val resQ = io.in.bits(0) / io.in.bits(1)
-	val resR = io.in.bits(0) % io.in.bits(1)
-
-	io.out.bits := Cat(resR, resQ)
+	val resQ = ???
+	val resR = ???
 
 	io.out.valid := true.B
 	io.out.valid := true.B

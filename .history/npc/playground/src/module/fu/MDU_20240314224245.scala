@@ -43,7 +43,7 @@ class MulDivIO(val len: Int) extends Bundle {
 
 class Multiplier(len: Int) extends MarCoreModule {
 	implicit val moduleName: String = this.name
-	val io = IO(new MulDivIO(len))
+    val io = IO(new MulDivIO(len))
 //	val latency = 1
 
 	val mulRes = (io.in.bits(0).asSInt * io.in.bits(1).asSInt).asSInt
@@ -56,12 +56,10 @@ class Divider(len: Int) extends MarCoreModule {
 	implicit val moduleName: String = this.name
 	val io = IO(new MulDivIO(len))
 
-//	io.out.bits := (io.in.bits(0).asSInt / io.in.bits(1).asSInt).asUInt
+	io.out.bits := (io.in.bits(0).asSInt / io.in.bits(1).asSInt).asUInt
 
-	val resQ = io.in.bits(0) / io.in.bits(1)
-	val resR = io.in.bits(0) % io.in.bits(1)
-
-	io.out.bits := Cat(resR, resQ)
+	val resQ = ???
+	val resR = ???
 
 	io.out.valid := true.B
 	io.out.valid := true.B
@@ -112,24 +110,24 @@ class MDU extends MarCoreModule {
 		),
 		x
 	)
-	div.io.in.bits(0) := divInputFunc(srcA)
-	div.io.in.bits(1) := divInputFunc(srcB)
+    div.io.in.bits(0) := divInputFunc(srcA)
+    div.io.in.bits(1) := divInputFunc(srcB)
 
-	mul.io.in.valid := io.in.valid && !isDiv
-	div.io.in.valid := io.in.valid && isDiv
+    mul.io.in.valid := io.in.valid && !isDiv
+    div.io.in.valid := io.in.valid && isDiv
 
 	val mulRes = Mux(
 		ctrl(1, 0) === MDUCtrl.mul(1, 0),
 		mul.io.out.bits(XLEN-1, 0),
 		mul.io.out.bits(2*XLEN-1, XLEN)
 	)
-	val divRes = Mux(
+    val divRes = Mux(
 		ctrl(1),
 		div.io.out.bits(2*XLEN-1, XLEN),
 		div.io.out.bits(XLEN-1, 0)
 	)
 	Info("DivOut %x divres %x\n", div.io.out.bits, divRes)
-	val res = Mux(isDiv, divRes, mulRes)
+    val res = Mux(isDiv, divRes, mulRes)
 	io.out.bits := Mux(isW, SignExt(res(31, 0), XLEN), res)
 
 	val isDivReg = Mux(io.in.fire, isDiv, RegNext(isDiv))

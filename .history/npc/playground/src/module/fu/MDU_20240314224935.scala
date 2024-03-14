@@ -61,8 +61,6 @@ class Divider(len: Int) extends MarCoreModule {
 	val resQ = io.in.bits(0) / io.in.bits(1)
 	val resR = io.in.bits(0) % io.in.bits(1)
 
-	io.out.bits := Cat(resR, resQ)
-
 	io.out.valid := true.B
 	io.out.valid := true.B
 	io.in.ready := io.in.valid
