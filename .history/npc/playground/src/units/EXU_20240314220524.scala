@@ -99,8 +99,9 @@ class EXU(implicit val p: MarCoreConfig) extends MarCoreModule {
 	io.out.bits.commits(FuType.mdu) := mduOut
 	io.out.bits.commits(FuType.mou) := 0.U
 
-	Debug(io.out.fire, "[EXU Fire] FuType %x alu %x lsu %x mdu %x csr %x\n",
-		io.in.bits.ctrl.fuType, aluOut, lsuOut, mduOut, csrOut)
+	Debug(io.out.fire, "[EXU Fire] FuType %x alu %x lsu %x csr %x mdu %x\n",
+		io.in.bits.ctrl.fuType,
+		aluOut, lsuOut, csrOut, mduOut)
 
 	io.in.ready := !io.in.valid || io.out.fire
 
