@@ -4,6 +4,10 @@
     },
     "files.associations": {
         "system_error": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "stdlib.h": "c",
+        "paddr.h": "c",
+        "host.h": "c",
+        "mmio.h": "c"
     }
 }
