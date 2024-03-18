@@ -214,7 +214,7 @@ paddr_t get_cache_free_line(uint8_t level, paddr_t addr, bool *isWriteBack) {
 	对于byteArr，不改变多余高位
 	当word_t类型不能被写入byteArr时，仅写入可以写入的低字节，并设置返回值
 */
-static inline bool word_t2byteArr(
+static inli bool word_t2byteArr(
 	uint8_t *byte, int byte_len, word_t word
 ) {
 	bool isFullTrans = byte_len >= sizeof(word_t);
@@ -239,7 +239,7 @@ static inline bool word_t2byteArr(
 	将byteArr的数据写入word_t中，高位为0
 	如果byteArr不能完全转化为word_t类型时，仅转化可以无损失的转化的低字节，并设置返回值
 */
-static inline bool byteArr2word_t(
+inline bool byteArr2word_t(
 	uint8_t *byte, int byte_len, word_t *word
 ) {
 	bool isFullTrans = sizeof(word_t) >= byte_len;
