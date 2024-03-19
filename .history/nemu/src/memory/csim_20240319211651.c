@@ -400,18 +400,12 @@ void do_cache_update_line(
 	{
 	case CACHE_SWAP_FIFO: 
 		cache->lv[level].line[index][way].fifo_count = cache->tick_count;
-		break;
+		return;
 	case CACHE_SWAP_LRU:
 		cache->lv[level].line[index][way].lru_count = cache->tick_count;
-		break;
-	default: break;
+		return;
+	default: return;
 	}
-
-	free(line);
-	line = NULL;
-	free(tmp_val);
-	tmp_val = NULL;
-	return;
 }
 
 /*
