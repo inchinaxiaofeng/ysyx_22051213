@@ -67,8 +67,12 @@ bool init_cache (
 	Assert(0 == cache->lv[level].way_size%cache_line_size, "set_num should not be a float val.");
 
 	cache->lv[level].line = (cache_line_t **)malloc(sizeof(cache_line_t*)*cache->lv[level].set_num);
+	assert(cache->lv[level].line);
+
 	for (size_t s = 0; s < cache->lv[level].set_num; s++)
-		cache->lv[level].line[s] = (cache_line_t *)malloc(sizeof(cache_line_t)*cache->lv[level].way_num);
+	{
+		cache->lv[level].line[s] = (cache_line_t *)malloc(sizeof(cache_line_t)*cache->lv[level].set_num*cache->lv[level].way_num);
+	}
 	
 
 	for (size_t s = 0; s < cache->lv[level].set_num; s++) {

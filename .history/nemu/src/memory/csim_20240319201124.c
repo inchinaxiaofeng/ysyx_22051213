@@ -66,12 +66,11 @@ bool init_cache (
 	cache->tick_count = 0;
 	Assert(0 == cache->lv[level].way_size%cache_line_size, "set_num should not be a float val.");
 
-	cache->lv[level].line = (cache_line_t **)malloc(sizeof(cache_line_t*)*cache->lv[level].set_num);
-	for (size_t s = 0; s < cache->lv[level].set_num; s++)
-		cache->lv[level].line[s] = (cache_line_t *)malloc(sizeof(cache_line_t)*cache->lv[level].way_num);
-	
+	cache->lv[level].line = (cache_line_t **)malloc(sizeof(cache_line_t)*cache->lv[level].set_num*cache->lv[level].way_num);
+	assert(cache->lv[level].line);
 
 	for (size_t s = 0; s < cache->lv[level].set_num; s++) {
+	cache->lv[level].line = (cache_line_t **)malloc(sizeof(cache_line_t)*cache->lv[level].set_num*cache->lv[level].way_num);
 		for (size_t w = 0; w < cache->lv[level].way_num; w++) {
 			cache->lv[level].line[s][w].valid = false; // FIXME: 这里报READ错误
 			assert(0);
