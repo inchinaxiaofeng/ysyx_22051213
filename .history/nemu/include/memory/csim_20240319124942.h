@@ -52,6 +52,6 @@ bool init_cache(
 	uint8_t level, uint8_t policy,
 	uint32_t cache_size, uint32_t cache_line_size, uint32_t way_num
 );
-void free_cache(uint8_t level);
+void cache_free(uint8_t level);
 word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_data);
 #endif

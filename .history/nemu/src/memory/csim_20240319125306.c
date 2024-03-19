@@ -509,6 +509,5 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 	default: assert(0);
 	}
 
-	assert(0);
 	return 0;
 }

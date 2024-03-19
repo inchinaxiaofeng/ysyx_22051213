@@ -91,7 +91,6 @@ void free_cache(uint8_t level) {
 
 	free(cache);
 	cache = NULL;
-	return;
 }
 
 /* 
@@ -508,7 +507,4 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 	case 3: Assert(true, "Do not support L3 yet.");
 	default: assert(0);
 	}
-
-	assert(0);
-	return 0;
 }

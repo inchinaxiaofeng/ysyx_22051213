@@ -78,8 +78,8 @@ bool init_cache (
 	return success;
 }
 
-/* free_cache - free allocated memory */
-void free_cache(uint8_t level) {
+/* cache_free - free allocated memory */
+void cache_free(uint8_t level) {
 	for (size_t s = 0; s < cache->lv[level].set_num; s++) {
 		for (size_t w = 0; w < cache->lv[level].way_num; w++) {
 			free(cache->lv[level].line[s][w].data);
@@ -91,7 +91,6 @@ void free_cache(uint8_t level) {
 
 	free(cache);
 	cache = NULL;
-	return;
 }
 
 /* 
@@ -508,7 +507,4 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 	case 3: Assert(true, "Do not support L3 yet.");
 	default: assert(0);
 	}
-
-	assert(0);
-	return 0;
 }

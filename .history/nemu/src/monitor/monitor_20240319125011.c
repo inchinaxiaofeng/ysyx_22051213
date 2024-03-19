@@ -129,7 +129,7 @@ void init_monitor(int argc, char *argv[]) {
   init_mem();
 
   /* Initalize cache. */
-  IFDEF(CONFIG_CACHE_ENABLE, init_cache(0, CACHE_SWAP_FIFO, 512, 8, 4));
+  init_cache(0, CACHE_SWAP_FIFO, 1024, 8, 4);
 
   /* Initialize devices. */
   IFDEF(CONFIG_DEVICE, init_device());

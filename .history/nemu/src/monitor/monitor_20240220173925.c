@@ -15,7 +15,6 @@
 
 #include <isa.h>
 #include <memory/paddr.h>
-#include <memory/csim.h>
 #include <elf.h>
 #include <debug.h>
 
@@ -66,7 +65,8 @@ static long load_img() {
 
   fseek(fp, 0, SEEK_END);
   long size = ftell(fp);
-Log("The image is %s, size = %ld", img_file, size);
+
+  Log("The image is %s, size = %ld", img_file, size);
 
   fseek(fp, 0, SEEK_SET);
   int ret = fread(guest_to_host(RESET_VECTOR), size, 1, fp);
@@ -127,9 +127,6 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Initialize memory. */
   init_mem();
-
-  /* Initalize cache. */
-  IFDEF(CONFIG_CACHE_ENABLE, init_cache(0, CACHE_SWAP_FIFO, 512, 8, 4));
 
   /* Initialize devices. */
   IFDEF(CONFIG_DEVICE, init_device());
