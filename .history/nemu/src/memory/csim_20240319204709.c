@@ -461,9 +461,9 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(do_cache_read_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
+				assert(do_cache_read_line(0, 0==i?offset:0, index+i, hit_way_l1, &line,
 					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
-				assert(byteArr2word_t(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, &tmp_val));
+				assert(byteArr2word_t(&line, 1==get_line_count?byte_len:0==i?cls-offset:cls, &tmp_val));
 				ret_val |= tmp_val << (i*cls);
 			}
 			
@@ -473,9 +473,9 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(do_cache_read_line(0, 0, index+i, hit_way_l1, line,
+				assert(do_cache_read_line(0, 0, index+i, hit_way_l1, &line,
 					last_get_line_byte_len));
-				assert(byteArr2word_t(line, last_get_line_byte_len, &tmp_val));
+				assert(byteArr2word_t(&line, last_get_line_byte_len, &tmp_val));
 				ret_val |= tmp_val << (i*cls);
 			}
 
@@ -487,8 +487,8 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(word_t2byteArr(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, write_data));
-				assert(do_cache_write_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
+				assert(word_t2byteArr(&line, 1==get_line_count?byte_len:0==i?cls-offset:cls, write_data));
+				assert(do_cache_write_line(0, 0==i?offset:0, index+i, hit_way_l1, &line,
 					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
@@ -499,8 +499,8 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(word_t2byteArr(line, last_get_line_byte_len, write_data));
-				assert(do_cache_write_line(0, 0, index+i, hit_way_l1, line,
+				assert(word_t2byteArr(&line, last_get_line_byte_len, write_data));
+				assert(do_cache_write_line(0, 0, index+i, hit_way_l1, &line,
 					last_get_line_byte_len));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
