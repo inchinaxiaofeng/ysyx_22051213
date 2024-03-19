@@ -450,8 +450,8 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			访问最后一条Line时，其offset一定为0
 		*/
 		int get_line_count = (offset+byte_len)/cls + 1;
+		Log("line count %x", get_line_count);
 		paddr_t last_get_line_byte_len = 1==get_line_count ? 0 : byte_len+offset-cls*get_line_count;
-		Log("line count %x last %x", get_line_count, last_get_line_byte_len);
 		size_t i;
 		word_t tmp_val;
 
