@@ -277,7 +277,7 @@ bool do_cache_read_line(
 ) {
 	uint32_t cls = cache->lv[level].cache_line_size;
 	bool isInsideLine = cls-offset >= byte_len;
-	for (size_t i = 0; i < (isInsideLine?byte_len:cls-offset); i++)
+	for (size_t i = 0; i < isInsideLine?byte_len:cls-offset; i++)
 		read_data[i] = cache->lv[level].line[index][way].data[offset+i];
 	return isInsideLine;
 }
@@ -302,6 +302,8 @@ bool do_cache_write_line(
 	uint8_t level, paddr_t offset, paddr_t index,
 	paddr_t way, uint8_t* write_data, int byte_len
 ) {
+	Log("arg check: level %x offset %x index %x way %x write_date %x byte_len %d",
+		level, offset, index, way, *write_data, byte_len);
 	uint32_t cls = cache->lv[level].cache_line_size;
 	bool isInsideLine = cls-offset >= byte_len;
 	for (size_t i = 0; i < (isInsideLine?byte_len:cls-offset); i++)

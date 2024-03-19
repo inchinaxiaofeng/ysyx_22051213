@@ -277,7 +277,7 @@ bool do_cache_read_line(
 ) {
 	uint32_t cls = cache->lv[level].cache_line_size;
 	bool isInsideLine = cls-offset >= byte_len;
-	for (size_t i = 0; i < (isInsideLine?byte_len:cls-offset); i++)
+	for (size_t i = 0; i < isInsideLine?byte_len:cls-offset; i++)
 		read_data[i] = cache->lv[level].line[index][way].data[offset+i];
 	return isInsideLine;
 }
