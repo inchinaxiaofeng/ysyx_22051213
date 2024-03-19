@@ -32,21 +32,24 @@ Please use this function to print the numberof hits, misses and eviction.
 /* The cache we are simulating. */
 cache_t *cache;
 
-/* cache_init - Allocate memory, write 0's for valid. */
-bool cache_init(
+/* init_cache - Allocate memory, write 0's for valid. */
+bool init_cache (
 	uint8_t level, uint8_t policy,
 	uint32_t cache_size, uint32_t cache_line_size, uint32_t way_num
 ) {
 	Log("Initing cache...");
-	Assert(level+1 > CONFIG_CACHE_LEVEL || level < 0, "Cache level does not exist.");
-	Assert(0 == cache_size || 0 == cache_line_size || 0 == way_num, "Wrong args to set.");
-	Assert(0 != cache_size%way_num, "way_size should not be a float val.");
+	Assert(level+1 <= CONFIG_CACHE_LEVEL && level+1 > 0, "Cache level does not exist.");
+	Assert(cache_size && cache_line_size && way_num, "Wrong args to set.");
+	Assert(0 == cache_size%way_num, "way_size should not be a float val.");
 	bool success = false;
+
+	cache = (cache_t *)malloc(sizeof(cache_t));
+	assert(cache);
 
 	cache->lv[level].cache_size = cache_size;
 	cache->lv[level].cache_line_size = cache_line_size;
-	cache->lv[level].way_num = way_num;
 	cache->lv[level].way_size = cache_size/way_num;
+	cache->lv[level].way_num = way_num;
 	cache->lv[level].set_num = cache->lv[level].way_size/cache_line_size;
 	cache->lv[level].olen = ceil(log2(cache_line_size));
 	cache->lv[level].ilen = ceil(log2(cache->lv[level].set_num));
@@ -54,32 +57,33 @@ bool cache_init(
 	cache->lv[level].set_offset_mask = (paddr_t)pow(2, cache->lv[level].olen)-1;
 	cache->lv[level].set_index_mask = ((paddr_t)pow(2, cache->lv[level].ilen)-1) << cache->lv[level].olen;
 	cache->lv[level].set_tag_mask = ((paddr_t)pow(2, cache->lv[level].tlen)-1) << (cache->lv[level].olen + cache->lv[level].ilen);
-	// Set init val
 	cache->lv[level].swap_policy = policy;
 	cache->lv[level].hit_count = 0;
 	cache->lv[level].miss_count = 0;
+	// Set init val
 	cache->lv[level].cache_free_num = cache->lv[level].set_num; // Fixme Maybe cache->read_count = 0; cache->write_count = 0;
 	cache->write_mem_count = 0;
 	cache->tick_count = 0;
-	Assert(0 != cache->lv[level].way_size%cache_line_size, "set_num should not be a float val.");
+	Assert(0 == cache->lv[level].way_size%cache_line_size, "set_num should not be a float val.");
 
-	// TODO: 通过分段分malloc，可以避免在内存不足的情况下，无法成功分配造成的程序中断
-	cache = (cache_t *)malloc(sizeof(cache_t));
-	assert(NULL != cache);
+	cache->lv[level].line = (cache_line_t **)malloc(sizeof(cache_line_t*)*cache->lv[level].set_num);
+	for (size_t s = 0; s < cache->lv[level].set_num; s++)
+		cache->lv[level].line[s] = (cache_line_t *)malloc(sizeof(cache_line_t)*cache->lv[level].way_num);
+	assert(cache->lv[level].line);
 
 	for (size_t s = 0; s < cache->lv[level].set_num; s++) {
 		for (size_t w = 0; w < cache->lv[level].way_num; w++) {
-			cache->lv[level].line = (cache_line_t **)malloc(sizeof(cache_line_t)*cache->lv[level].set_num*cache->lv[level].way_num);
+			cache->lv[level].line[s][w].valid = false; // FIXME: 这里报READ错误
 			cache->lv[level].line[s][w].data = (uint8_t *)malloc(sizeof(uint8_t)*cache->lv[level].cache_line_size);
-			cache->lv[level].line[s][w].valid = false;
 		}
 	}
+
 	success = true;
 	return success;
 }
 
-/* cache_free - free allocated memory */
-void cache_free(uint8_t level) {
+/* free_cache - free allocated memory */
+void free_cache(uint8_t level) {
 	for (size_t s = 0; s < cache->lv[level].set_num; s++) {
 		for (size_t w = 0; w < cache->lv[level].way_num; w++) {
 			free(cache->lv[level].line[s][w].data);
@@ -91,6 +95,7 @@ void cache_free(uint8_t level) {
 
 	free(cache);
 	cache = NULL;
+	return;
 }
 
 /* 
@@ -107,9 +112,9 @@ void cache_free(uint8_t level) {
 	在函数中会更新Hit count与Miss count
 	如果更新策略为LRU，则在函数中更新LRU时间戳
 */
-paddr_t check_cache_hit(uint8_t level, paddr_t addr, bool *hit) {
-	paddr_t index = (addr&cache->lv[level].set_index_mask) >> cache->lv[level].olen;
-	paddr_t tag = (addr&cache->lv[level].set_tag_mask) >> (cache->lv[level].olen + cache->lv[level].ilen);
+paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
+//	paddr_t index = (addr&cache->lv[level].set_index_mask) >> cache->lv[level].olen;
+//	paddr_t tag = (addr&cache->lv[level].set_tag_mask) >> (cache->lv[level].olen + cache->lv[level].ilen);
 	// 循环检查当前set的所有way，通过tag匹配，查看当前地址是否在cache中
 	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
 		if (tag == cache->lv[level].line[index][w].tag &&
@@ -151,16 +156,18 @@ paddr_t check_cache_hit(uint8_t level, paddr_t addr, bool *hit) {
 	在cache中存在可用line时直接返回way
 	在cache中不存在可用line时，执行替换算法，得出要替换的line的way
 */
-paddr_t get_cache_free_line(uint8_t level, paddr_t addr, bool *isWriteBack) {
+paddr_t get_cache_free_line(uint8_t level, paddr_t index, bool *isWriteBack) {
 	// 如果能够在当前line中，找到空闲的，则将free_line设置为
 	paddr_t free_line; // 用来决定当前set中，哪个line应当被替换
-	paddr_t index = (addr&cache->lv[level].set_index_mask) << cache->lv[level].olen;
 	uint64_t count;
 
 	/* 从当前的Set中到找空闲的way(line)
 		cacheline_free_num统计整个Cache的可用块 */
-	for (size_t w = 0; w < cache->lv[level].way_num; w++) { 
-		if (!(cache->lv[level].line[index][w].valid)) {
+//	Log("FFF");
+	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
+//		Log("cond %ld < %x, index %x", w, cache->lv[level].way_num, index);
+		if (!cache->lv[level].line[index][w].valid) {
+//			Log("DDD");
 			if (cache->lv[level].cache_free_num > 0)
 				cache->lv[level].cache_free_num--;
 			free_line = w;
@@ -272,7 +279,7 @@ bool do_cache_read_line(
 ) {
 	uint32_t cls = cache->lv[level].cache_line_size;
 	bool isInsideLine = cls-offset >= byte_len;
-	for (size_t i = 0; i < isInsideLine?byte_len:cls-offset; i++)
+	for (size_t i = 0; i < (isInsideLine?byte_len:cls-offset); i++)
 		read_data[i] = cache->lv[level].line[index][way].data[offset+i];
 	return isInsideLine;
 }
@@ -299,7 +306,7 @@ bool do_cache_write_line(
 ) {
 	uint32_t cls = cache->lv[level].cache_line_size;
 	bool isInsideLine = cls-offset >= byte_len;
-	for (size_t i = 0; i < isInsideLine?byte_len:cls-offset; i++)
+	for (size_t i = 0; i < (isInsideLine?byte_len:cls-offset); i++)
 		cache->lv[level].line[index][way].data[offset+i] = write_data[i];
 	return isInsideLine;
 }
@@ -393,12 +400,18 @@ void do_cache_update_line(
 	{
 	case CACHE_SWAP_FIFO: 
 		cache->lv[level].line[index][way].fifo_count = cache->tick_count;
-		return;
+		break;
 	case CACHE_SWAP_LRU:
 		cache->lv[level].line[index][way].lru_count = cache->tick_count;
-		return;
-	default: return;
+		break;
+	default: break;
 	}
+
+	free(line);
+	line = NULL;
+	free(tmp_val);
+	tmp_val = NULL;
+	return;
 }
 
 /*
@@ -415,8 +428,7 @@ void do_cache_update_line(
 	如果oper_style为write的话，则返回值无意义
 */
 word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_data) {
-	uint8_t line;
-	word_t ret_val;
+	word_t ret_val = 0;
 
 	cache->tick_count++;
 
@@ -426,6 +438,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 
 	switch (CONFIG_CACHE_LEVEL) {
 	case 1: // Only have L1 Cache
+		uint8_t *line = malloc(sizeof(uint8_t)*cache->lv[0].cache_line_size);
 		bool hit_l1;
 		bool hit_l1_wb;
 		paddr_t hit_way_l1;
@@ -443,68 +456,76 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			访问最后一条Line时，其offset一定为0
 		*/
 		int get_line_count = (offset+byte_len)/cls + 1;
-		paddr_t last_get_line_byte_len = 1==get_line_count ? 0 : byte_len+offset-cls*get_line_count;
+		paddr_t last_get_line_byte_len = 1==get_line_count ? 0 : byte_len+offset - cls*((offset+byte_len)/cls);
+		Log("addr %x line count %x last %x", addr, get_line_count, last_get_line_byte_len);
 		size_t i;
-		word_t tmp_val;
+		word_t tmp_val = 0;
 
 		switch (oper_style)
 		{
 		case OPERATION_READ:
+//			Log("AAA");
 			for (i = 0; i < get_line_count; i++) {
-				hit_way_l1 = check_cache_hit(0, addr+i*cls, &hit_l1);
+//				Log("BBB");
+				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) { // Miss
-					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
+//					Log("CCC");
+					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(do_cache_read_line(0, 0==i?offset:0, index+i, hit_way_l1, &line,
+				assert(do_cache_read_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
 					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
-				assert(byteArr2word_t(&line, 1==get_line_count?byte_len:0==i?cls-offset:cls, &tmp_val));
+				assert(byteArr2word_t(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, &tmp_val));
 				ret_val |= tmp_val << (i*cls);
 			}
 			
 			if (0 != last_get_line_byte_len) {
-				hit_way_l1 = check_cache_hit(0, addr+i*cls, &hit_l1);
+				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) {
-					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
+					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(do_cache_read_line(0, 0, index+i, hit_way_l1, &line,
+				assert(do_cache_read_line(0, 0, index+i, hit_way_l1, line,
 					last_get_line_byte_len));
-				assert(byteArr2word_t(&line, last_get_line_byte_len, &tmp_val));
+				assert(byteArr2word_t(line, last_get_line_byte_len, &tmp_val));
 				ret_val |= tmp_val << (i*cls);
 			}
-
-			return ret_val;
+			break;
 		case OPERATION_WRITE:
 			for (i = 0; i < get_line_count; i++) {
-				hit_way_l1 = check_cache_hit(0, addr+i*cls, &hit_l1);
+				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) { // Miss
-					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
+					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(word_t2byteArr(&line, 1==get_line_count?byte_len:0==i?cls-offset:cls, write_data));
-				assert(do_cache_write_line(0, 0==i?offset:0, index+i, hit_way_l1, &line,
+				assert(word_t2byteArr(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, write_data));
+				assert(do_cache_write_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
 					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
 
 			if (0 != last_get_line_byte_len) {
-				hit_way_l1  = check_cache_hit(0, addr+i*cls, &hit_l1);
+				hit_way_l1  = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) {
-					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
+					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(word_t2byteArr(&line, last_get_line_byte_len, write_data));
-				assert(do_cache_write_line(0, 0, index+i, hit_way_l1, &line,
+				assert(word_t2byteArr(line, last_get_line_byte_len, write_data));
+				assert(do_cache_write_line(0, 0, index+i, hit_way_l1, line,
 					last_get_line_byte_len));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
-
-			return 0;
+			break;
 		default: assert(0);
 		}
+		free(line);
+		line = 0;
+		return ret_val;
 	case 2: Assert(true, "Do not support L2 yet.");
 	case 3: Assert(true, "Do not support L3 yet.");
 	default: assert(0);
 	}
+
+	assert(0);
+	return 0;
 }
