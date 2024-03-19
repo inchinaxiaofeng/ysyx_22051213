@@ -113,8 +113,8 @@ void free_cache(uint8_t level) {
 	如果更新策略为LRU，则在函数中更新LRU时间戳
 */
 paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
-//	paddr_t index = (addr&cache->lv[level].set_index_mask) >> cache->lv[level].olen;
-//	paddr_t tag = (addr&cache->lv[level].set_tag_mask) >> (cache->lv[level].olen + cache->lv[level].ilen);
+	paddr_t index = (addr&cache->lv[level].set_index_mask) >> cache->lv[level].olen;
+	paddr_t tag = (addr&cache->lv[level].set_tag_mask) >> (cache->lv[level].olen + cache->lv[level].ilen);
 	// 循环检查当前set的所有way，通过tag匹配，查看当前地址是否在cache中
 	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
 		if (tag == cache->lv[level].line[index][w].tag &&
@@ -467,7 +467,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 //			Log("AAA");
 			for (i = 0; i < get_line_count; i++) {
 //				Log("BBB");
-				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
+				hit_way_l1 = check_cache_hit(0, addr+i*cls, &hit_l1);
 				if (!hit_l1) { // Miss
 //					Log("CCC");
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
@@ -480,7 +480,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			}
 			
 			if (0 != last_get_line_byte_len) {
-				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
+				hit_way_l1 = check_cache_hit(0, addr+i*cls, &hit_l1);
 				if (!hit_l1) {
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
@@ -493,7 +493,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			break;
 		case OPERATION_WRITE:
 			for (i = 0; i < get_line_count; i++) {
-				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
+				hit_way_l1 = check_cache_hit(0, addr+i*cls, &hit_l1);
 				if (!hit_l1) { // Miss
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
@@ -505,7 +505,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			}
 
 			if (0 != last_get_line_byte_len) {
-				hit_way_l1  = check_cache_hit(0, index+i, tag, &hit_l1);
+				hit_way_l1  = check_cache_hit(0, addr+i*cls, &hit_l1);
 				if (!hit_l1) {
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);

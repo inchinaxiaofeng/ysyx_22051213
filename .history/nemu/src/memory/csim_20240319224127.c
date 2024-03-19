@@ -505,7 +505,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			}
 
 			if (0 != last_get_line_byte_len) {
-				hit_way_l1  = check_cache_hit(0, index+i, tag, &hit_l1);
+				hit_way_l1  = check_cache_hit(0, index+i, way, &hit_l1);
 				if (!hit_l1) {
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
