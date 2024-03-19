@@ -490,6 +490,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 				assert(byteArr2word_t(line, last_get_line_byte_len, &tmp_val));
 				ret_val |= tmp_val << (i*cls);
 			}
+
 			break;
 		case OPERATION_WRITE:
 			for (i = 0; i < get_line_count; i++) {
@@ -518,9 +519,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			break;
 		default: assert(0);
 		}
-		free(line);
-		line = 0;
-		return ret_val;
+	return ret_val;
 	case 2: Assert(true, "Do not support L2 yet.");
 	case 3: Assert(true, "Do not support L3 yet.");
 	default: assert(0);
