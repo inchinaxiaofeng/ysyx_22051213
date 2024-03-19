@@ -173,7 +173,7 @@ paddr_t get_cache_free_line(uint8_t level, paddr_t addr, bool *isWriteBack) {
 			return free_line;
 		}
 	}
-assert(0);
+
 	/* 没有可用的line，则执行替换算法 */
 	switch (cache->lv[level].swap_policy) {
 	case CACHE_SWAP_RAND: /* 随机选出一个line进行替换 */
