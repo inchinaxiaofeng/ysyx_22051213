@@ -45,8 +45,6 @@ bool init_cache (
 
 	cache = (cache_t *)malloc(sizeof(cache_t));
 	assert(NULL != cache);
-	cache->lv[level].line = (cache_line_t **)malloc(sizeof(cache_line_t)*cache->lv[level].set_num*cache->lv[level].way_num);
-	assert(cache->lv[level].line);
 
 	cache->lv[level].cache_size = cache_size;
 	cache->lv[level].cache_line_size = cache_line_size;
@@ -68,6 +66,7 @@ bool init_cache (
 	cache->tick_count = 0;
 	Assert(0 == cache->lv[level].way_size%cache_line_size, "set_num should not be a float val.");
 
+	cache->lv[level].line = (cache_line_t **)malloc(sizeof(cache_line_t)*cache->lv[level].set_num*cache->lv[level].way_num);
 	for (size_t s = 0; s < cache->lv[level].set_num; s++) {
 		for (size_t w = 0; w < cache->lv[level].way_num; w++) {
 			cache->lv[level].line[s][w].data = (uint8_t *)malloc(sizeof(uint8_t)*cache->lv[level].cache_line_size);

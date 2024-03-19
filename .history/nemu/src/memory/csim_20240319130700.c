@@ -46,8 +46,8 @@ bool init_cache (
 	cache = (cache_t *)malloc(sizeof(cache_t));
 	assert(NULL != cache);
 	cache->lv[level].line = (cache_line_t **)malloc(sizeof(cache_line_t)*cache->lv[level].set_num*cache->lv[level].way_num);
-	assert(cache->lv[level].line);
-
+	assert(cache->);
+	
 	cache->lv[level].cache_size = cache_size;
 	cache->lv[level].cache_line_size = cache_line_size;
 	cache->lv[level].way_size = cache_size/way_num;
