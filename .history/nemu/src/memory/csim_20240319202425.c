@@ -302,7 +302,7 @@ bool do_cache_write_line(
 	uint8_t level, paddr_t offset, paddr_t index,
 	paddr_t way, uint8_t* write_data, int byte_len
 ) {
-	Log("arg check: offset %x index %x way %x write_date %x", offset, index, way, *write_data);
+	Log("arg check: offset %x index %x way %x write_date", offset, index, way, *write_data);
 	uint32_t cls = cache->lv[level].cache_line_size;
 	bool isInsideLine = cls-offset >= byte_len;
 	for (size_t i = 0; i < isInsideLine?byte_len:cls-offset; i++)
