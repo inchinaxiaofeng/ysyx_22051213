@@ -166,7 +166,7 @@ paddr_t get_cache_free_line(uint8_t level, paddr_t addr, bool *isWriteBack) {
 		cacheline_free_num统计整个Cache的可用块 */
 	Log("FFF");
 	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
-		Log("cond %ld < %x, index %x", w, cache->lv[level].way_num, index);
+		Log("cond %ld < %x, index %x", w, cache->lv[level].way_num, index);	
 		if (!cache->lv[level].line[index][w].valid) {
 			Log("DDD");
 			if (cache->lv[level].cache_free_num > 0)
