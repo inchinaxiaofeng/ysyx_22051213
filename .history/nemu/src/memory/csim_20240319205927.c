@@ -459,10 +459,9 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 		case OPERATION_READ:
 			Log("AAA");
 			for (i = 0; i < get_line_count; i++) {
-				Log("BBB");
 				hit_way_l1 = check_cache_hit(0, addr+i*cls, &hit_l1);
 				if (!hit_l1) { // Miss
-					Log("CCC");
+					Log("BBB");
 					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
