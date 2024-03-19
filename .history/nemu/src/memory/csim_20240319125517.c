@@ -38,7 +38,7 @@ bool init_cache (
 	uint32_t cache_size, uint32_t cache_line_size, uint32_t way_num
 ) {
 	Log("Initing cache...");
-	Assert(level+1 <= CONFIG_CACHE_LEVEL && level+1 > 0, "Cache level does not exist.");
+	Assert(level+1 < CONFIG_CACHE_LEVEL && level+1 > 0, "Cache level does not exist.");
 	Assert(0 == cache_size || 0 == cache_line_size || 0 == way_num, "Wrong args to set.");
 	Assert(0 != cache_size%way_num, "way_size should not be a float val.");
 	bool success = false;
