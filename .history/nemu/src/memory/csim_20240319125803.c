@@ -43,6 +43,7 @@ bool init_cache (
 	Assert(0 == cache_size%way_num, "way_size should not be a float val.");
 	bool success = false;
 
+	// TODO: 通过分段分malloc，可以避免在内存不足的情况下，无法成功分配造成的程序中断
 	cache = (cache_t *)malloc(sizeof(cache_t));
 	assert(NULL != cache);
 
