@@ -159,7 +159,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t addr, bool *hit) {
 paddr_t get_cache_free_line(uint8_t level, paddr_t index, bool *isWriteBack) {
 	// 如果能够在当前line中，找到空闲的，则将free_line设置为
 	paddr_t free_line; // 用来决定当前set中，哪个line应当被替换
-//	paddr_t index = (addr&cache->lv[level].set_index_mask) << cache->lv[level].olen;
+	paddr_t index = (addr&cache->lv[level].set_index_mask) << cache->lv[level].olen;
 	uint64_t count;
 
 	/* 从当前的Set中到找空闲的way(line)

@@ -159,7 +159,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t addr, bool *hit) {
 paddr_t get_cache_free_line(uint8_t level, paddr_t index, bool *isWriteBack) {
 	// 如果能够在当前line中，找到空闲的，则将free_line设置为
 	paddr_t free_line; // 用来决定当前set中，哪个line应当被替换
-//	paddr_t index = (addr&cache->lv[level].set_index_mask) << cache->lv[level].olen;
+	paddr_t index = (addr&cache->lv[level].set_index_mask) << cache->lv[level].olen;
 	uint64_t count;
 
 	/* 从当前的Set中到找空闲的way(line)
@@ -476,7 +476,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			if (0 != last_get_line_byte_len) {
 				hit_way_l1 = check_cache_hit(0, addr+i*cls, &hit_l1);
 				if (!hit_l1) {
-					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
+					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
 				assert(do_cache_read_line(0, 0, index+i, hit_way_l1, line,
@@ -490,7 +490,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			for (i = 0; i < get_line_count; i++) {
 				hit_way_l1 = check_cache_hit(0, addr+i*cls, &hit_l1);
 				if (!hit_l1) { // Miss
-					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
+					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
 				assert(word_t2byteArr(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, write_data));
@@ -502,7 +502,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 			if (0 != last_get_line_byte_len) {
 				hit_way_l1  = check_cache_hit(0, addr+i*cls, &hit_l1);
 				if (!hit_l1) {
-					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
+					hit_way_l1 = get_cache_free_line(0, addr+i*cls, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
 				assert(word_t2byteArr(line, last_get_line_byte_len, write_data));
