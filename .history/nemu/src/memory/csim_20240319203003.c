@@ -306,10 +306,8 @@ bool do_cache_write_line(
 		level, offset, index, way, *write_data, byte_len);
 	uint32_t cls = cache->lv[level].cache_line_size;
 	bool isInsideLine = cls-offset >= byte_len;
-	for (size_t i = 0; i < isInsideLine?byte_len:cls-offset; i++) {
-		Log("FFF");
+	for (size_t i = 0; i < isInsideLine?byte_len:cls-offset; i++)
 		cache->lv[level].line[index][way].data[offset+i] = write_data[i];
-	}
 	return isInsideLine;
 }
 
