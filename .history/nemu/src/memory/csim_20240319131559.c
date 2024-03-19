@@ -71,7 +71,7 @@ bool init_cache (
 
 	for (size_t s = 0; s < cache->lv[level].set_num; s++) {
 		for (size_t w = 0; w < cache->lv[level].way_num; w++) {
-			cache->lv[level].line[s][w].valid = false; // FIXME: 这里报READ错误
+			cache->lv[level].line[s][w]->valid = false;
 			assert(0);
 			cache->lv[level].line[s][w].data = (uint8_t *)malloc(sizeof(uint8_t)*cache->lv[level].cache_line_size);
 		}
