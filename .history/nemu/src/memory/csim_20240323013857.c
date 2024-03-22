@@ -394,7 +394,7 @@ void do_cache_update_line(
 		Log("FFF");
 		if (likely(in_pmem(new_mapping_addr + i*sizeof(word_t))))
 			*tmp_val = proxy_pmem_read(new_mapping_addr + i*sizeof(word_t), last_trans_offset);
-		Log("FFF tmp_val %lx", *tmp_val);
+		Log("FFF tmp_val %x", *tmp_val);
 		assert(word_t2byteArr(line, last_trans_offset, *tmp_val));
 		assert(do_cache_write_line(level, i*sizeof(word_t), index, way, line, last_trans_offset));
 	}
