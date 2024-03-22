@@ -476,7 +476,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 				assert(do_cache_read_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
 					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
 				assert(byteArr2word_t(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, &tmp_val));
-				Log("tmp_val %lx", tmp_val);
+				Log("tmp_val %x", tmp_val);
 				ret_val |= tmp_val << (i*cls);
 			}
 			
