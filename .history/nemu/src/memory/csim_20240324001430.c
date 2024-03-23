@@ -379,8 +379,7 @@ void do_cache_update_line(
 	paddr_t old_mapping_addr = (old_tag << (olen+ilen)) | (index << olen) | 0;
 	paddr_t new_mapping_addr = (new_tag << (olen+ilen)) | (index << olen) | 0;
 
-	Log("new tag %x old tag %x", new_tag, old_tag);
-	Log("new addr %x old addr %x", new_mapping_addr, old_mapping_addr);
+	Log("new tag %lx old tag %lx", new_tag, old_tag)
 
 	uint8_t *line = malloc(sizeof(uint8_t)*cls);
 	word_t *tmp_val = malloc(sizeof(word_t));
