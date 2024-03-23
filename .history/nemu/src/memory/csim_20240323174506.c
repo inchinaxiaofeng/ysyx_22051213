@@ -246,7 +246,6 @@ static inline int word_t2byteArr(
 ) {
 	int trans_discount = sizeof(word_t) - byte_len;
 	for (size_t i = 0; i < (trans_discount?byte_len:sizeof(word_t)); i++) {
-		Log("word %lx byte %lx", word, word&UINT8_MAX >> i*sizeof(uint8_t));
 		byte[i] = word&UINT8_MAX >> i*sizeof(uint8_t);
 		word = word >> i*sizeof(uint8_t);
 	}
