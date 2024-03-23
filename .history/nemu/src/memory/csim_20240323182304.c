@@ -429,7 +429,7 @@ last_trans_offset = cls
 		if (likely(in_pmem(new_mapping_addr + i*sizeof(word_t))))
 			*tmp_val = proxy_pmem_read(new_mapping_addr + i*sizeof(word_t), sizeof(word_t));
 		assert(!word_t2byteArr(line, sizeof(word_t), *tmp_val));
-		print_line_info(line, cls, "Update line as");
+		print_line_info(line, cls);
 		assert(0 <= do_cache_write_line(level, i*sizeof(word_t), index, way, line, sizeof(word_t)));
 	}
 	if (last_trans_offset != 0) { // cls offset or cls < pmem
@@ -496,7 +496,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 		paddr_t tag = (addr&cache->lv[0].set_tag_mask) >> (cache->lv[0].olen + cache->lv[0].ilen);
 		paddr_t cls = cache->lv[0].cache_line_size;
 
-		print_line_info(line, cls, "Check is set to 0");
+		print_line_info(line, cls);
 		/*
 		get_line_count
 			用于标定此次访问Cache需要涵盖多少Cacheline
@@ -521,7 +521,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 				assert(0 <= do_cache_read_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
 					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
 				Log("Arg Check Cls%x-offset%x", cls, offset);
-				print_line_info(line, cls, "Read data from line");
+				print_line_info(line, cls);
 				Assert(0 >= byteArr2word_t(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, &tmp_val),
 					"part_trans: byte_len %x word_t %lx", 1==get_line_count?byte_len:0==i?cls-offset:cls, sizeof(word_t));
 				ret_val |= tmp_val << (i*cls);
