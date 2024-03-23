@@ -43,7 +43,7 @@ word_t proxy_pmem_read(paddr_t addr, int len) {
 }
 
 void proxy_pmem_write(paddr_t addr, int len, word_t data) {
-  Log("Write PMEM: addr "FMT_PADDR" data "FMT_WORD, addr, data);
+  Log("Write PMEM: addr 0x%016x data 0x%016lx", addr, data);
   pmem_write(addr, len, data);
   return;
 }

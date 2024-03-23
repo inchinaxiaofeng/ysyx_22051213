@@ -38,12 +38,12 @@ static void pmem_write(paddr_t addr, int len, word_t data) {
 }
 
 word_t proxy_pmem_read(paddr_t addr, int len) {
-  Log("Read PMEM: addr "FMT_PADDR" data "FMT_WORD, addr, pmem_read(addr, len));
+  Log("Read PMEM: addr "MUXDEF(PMEM64, uint64_t, uint32_t)" data 0x%016lx", addr, pmem_read(addr, len));
   return pmem_read(addr, len);
 }
 
 void proxy_pmem_write(paddr_t addr, int len, word_t data) {
-  Log("Write PMEM: addr "FMT_PADDR" data "FMT_WORD, addr, data);
+  Log("Write PMEM: addr 0x%016x data 0x%016lx", addr, data);
   pmem_write(addr, len, data);
   return;
 }
