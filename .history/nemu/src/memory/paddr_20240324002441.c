@@ -99,7 +99,6 @@ word_t paddr_read(paddr_t addr, int len) {
 
 void paddr_write(paddr_t addr, int len, word_t data) {
   if (likely(in_pmem(addr))) { 
-    Log("Addr %x", addr);
     MUXDEF(CONFIG_CACHE_ENABLE,
       do_cache_op(addr, OPERATION_WRITE, len, data),
       pmem_write(addr, len, data)

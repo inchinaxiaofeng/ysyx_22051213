@@ -84,14 +84,12 @@ void static mtrace_display(paddr_t addr, int len, word_t data, bool is_write) {
 #endif
 
 word_t paddr_read(paddr_t addr, int len) {
-  if (likely(in_pmem(addr))) {
-    Log("Addr %x", addr);
+  if (likely(in_pmem(addr)))
     return MUXDEF(CONFIG_CACHE_ENABLE,
       do_cache_op(addr, OPERATION_READ, len, 0),
       pmem_read(addr, len)
     );
-  }
-      IFDEF(CONFIG_MTRACE, mtrace_display(addr, len, 0, false));
+  IFDEF(CONFIG_MTRACE, mtrace_display(addr, len, 0, false));
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
   out_of_bound(addr);
   return 0;
@@ -99,7 +97,6 @@ word_t paddr_read(paddr_t addr, int len) {
 
 void paddr_write(paddr_t addr, int len, word_t data) {
   if (likely(in_pmem(addr))) { 
-    Log("Addr %x", addr);
     MUXDEF(CONFIG_CACHE_ENABLE,
       do_cache_op(addr, OPERATION_WRITE, len, data),
       pmem_write(addr, len, data)
