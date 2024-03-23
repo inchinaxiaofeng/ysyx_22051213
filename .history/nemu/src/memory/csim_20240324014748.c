@@ -587,8 +587,8 @@ void cache_statistic() {
 	switch (CONFIG_CACHE_LEVEL)
 	{
 	case 1:
-		Log("total tick %ld", cache->tick_count);
-		Log("read count %ld, write count %ld, write mem count %ld",
+		Log("total tick %d", cache->tick_count);
+		Log("read count %d, write count %d, write mem count",
 			cache->read_count, cache->write_count, cache->write_mem_count);
 		Log("hit rate = %lf", (double)cache->lv[0].hit_count / (cache->lv[0].hit_count+cache->lv[0].miss_count));
 		break;
