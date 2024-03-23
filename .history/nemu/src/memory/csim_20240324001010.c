@@ -426,7 +426,7 @@ last_trans_offset = cls
 
 	// write data from main memory to cache
 	for (i = 0; i < full_trans_count; i++) { // cls >= pmem
-		Log("New addr 0x%x offset %lx", new_mapping_addr, i*sizeof(word_t));
+		
 		if (likely(in_pmem(new_mapping_addr + i*sizeof(word_t))))
 			*tmp_val = proxy_pmem_read(new_mapping_addr + i*sizeof(word_t), sizeof(word_t));
 		Log("Check val %lx", *tmp_val);
