@@ -514,7 +514,7 @@ Return access_margin, which is cls-offset-access_len
 */
 		int full_access_count = (offset+byte_len)/cls;
 		paddr_t last_access_len = full_access_count ? (offset+byte_len)%cls : (byte_len+offset)%cls-offset;
-		Log("addr %x full_count %x last_len %x isWrite %d", addr, full_access_count, last_access_len, oper_style);
+		Log("addr %x full_count %x last_len %x isWrite", addr, full_access_count, last_access_len, oper_style);
 
 		switch (oper_style)
 		{
