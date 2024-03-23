@@ -117,7 +117,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
 //	paddr_t tag = (addr&cache->lv[level].set_tag_mask) >> (cache->lv[level].olen + cache->lv[level].ilen);
 	// 循环检查当前set的所有way，通过tag匹配，查看当前地址是否在cache中
 	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
-		Log("cond 1 %d cond 2 %d", tag == cache->lv[level].line[index][w].tag, true == cache->lv[level].line[index][w].valid);
+		Log("cond 1 cond 2", tag == cache->lv[level].line[index][w].tag, true == cache->lv[level].line[index][w].valid);
 		if (tag == cache->lv[level].line[index][w].tag &&
 			true == cache->lv[level].line[index][w].valid) {
 			cache->lv[level].hit_count++;
