@@ -71,7 +71,7 @@ void init_mem() {
 
 #ifdef CONFIG_MTRACE
 void static mtrace_display(paddr_t addr, int len, word_t data, bool is_write) {
-  if (true == is_write) printf("write:\033[0m\n"); else printf("\033[1;35mread:\033[0m\n");
+  if (true == is_write) printf(ANSI_BG_MAGENTA"write:"ANSI_NONE); else printf(ANSI_BG_MAGENTA"read:\033[0m\n");
   printf("\033[7;32mpaddr_t:\033[0m\t\033[7;33mHEX:\033[0m \033[2;32m0x\033[0m%08x\t\n", addr);
   printf("\033[7;32mlen:\033[0m\t\t\033[7;33mDEC:\033[0m %d\n", len);
   if (true == is_write) printf("\033[7;32mdata:\033[0m\t\t\033[7;33mDEC:\033[0m %ld\n", data);
