@@ -584,14 +584,5 @@ Return access_margin, which is cls-offset-access_len
 }
 
 void cache_statistic() {
-	switch (CONFIG_CACHE_LEVEL)
-	{
-	case 1:
-		Log("hit rate = %lf", (double)cache->lv[0].hit_count / (cache->lv[0].hit_count+cache->lv[0].miss_count));
-		break;
-	
-	case 2: Assert(true, "Do not support L2 yet.");
-	case 3: Assert(true, "Do not support L3 yet.");
-	default: assert(0);
-	}
+
 }

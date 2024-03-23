@@ -63,5 +63,5 @@ bool init_cache(
 );
 void free_cache(uint8_t level);
 word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_data);
-void cache_statistic();
+void 
 #endif

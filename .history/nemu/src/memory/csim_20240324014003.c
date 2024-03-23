@@ -587,7 +587,7 @@ void cache_statistic() {
 	switch (CONFIG_CACHE_LEVEL)
 	{
 	case 1:
-		Log("hit rate = %lf", (double)cache->lv[0].hit_count / (cache->lv[0].hit_count+cache->lv[0].miss_count));
+	Log("hit rate = %d", cache)
 		break;
 	
 	case 2: Assert(true, "Do not support L2 yet.");
