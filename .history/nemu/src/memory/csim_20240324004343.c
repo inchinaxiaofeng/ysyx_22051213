@@ -321,7 +321,7 @@ Behavior
 	inline_access will access the data correctly,
 	and outline_access will only access the line_margin part.
 */
-// TODO: 没有成功写入
+TODO: 没有成功解决
 int do_cache_write_line(
 	uint8_t level, paddr_t offset, paddr_t index, paddr_t way,
 	uint8_t* write_data, int access_len
@@ -331,7 +331,6 @@ int do_cache_write_line(
 	int access_margin = line_margin - access_len;
 	for (size_t i = 0; i < (access_margin>=0 ? access_len : line_margin); i++)
 		cache->lv[level].line[index][way].data[offset+i] = write_data[i];
-	print_line_info(cache->lv[level].line[index][way].data, cls, "Write Line");
 	return access_margin;
 }
 

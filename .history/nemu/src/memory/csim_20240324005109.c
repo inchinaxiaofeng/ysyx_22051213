@@ -331,7 +331,7 @@ int do_cache_write_line(
 	int access_margin = line_margin - access_len;
 	for (size_t i = 0; i < (access_margin>=0 ? access_len : line_margin); i++)
 		cache->lv[level].line[index][way].data[offset+i] = write_data[i];
-	print_line_info(cache->lv[level].line[index][way].data, cls, "Write Line");
+	print_line_info(cache->lv[level].line[index][way].data, cls, "Write LINE");
 	return access_margin;
 }
 
