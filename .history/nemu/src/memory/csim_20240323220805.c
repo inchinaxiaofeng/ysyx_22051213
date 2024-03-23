@@ -525,7 +525,7 @@ Return access_margin, which is cls-offset-access_len
 				}
 
 				Assert(0 <= do_cache_read_line(0, i?0:offset, index+i, hit_way_l1, line, i?cls:cls-offset), 
-					"access_margin: i %lx offset %x byte_len %x cls %x", i, i?0:offset, byte_len, cls);
+					"access_margin: i %d offset %lx byte_len %lx cls %lx", i, i?0:offset, byte_len, cls);
 				Log("Arg Check Cls%x-offset%x", cls, offset);
 				print_line_info(line, cls, "Read data from line");
 				Assert(0 >= byteArr2word_t(line, i?cls:cls-offset, &tmp_val),
@@ -563,7 +563,8 @@ Return access_margin, which is cls-offset-access_len
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
 				assert(!word_t2byteArr(line, last_access_len, write_data));
-				assert(0 <= do_cache_write_line(0, 0, index+i, hit_way_l1, line, last_access_len));
+				assert(0 <= do_cache_write_line(0, 0, index+i, hit_way_l1, line,
+					last_get_line_byte_len));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
 			break;

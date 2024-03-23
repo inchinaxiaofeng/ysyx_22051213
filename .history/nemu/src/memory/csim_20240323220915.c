@@ -525,7 +525,7 @@ Return access_margin, which is cls-offset-access_len
 				}
 
 				Assert(0 <= do_cache_read_line(0, i?0:offset, index+i, hit_way_l1, line, i?cls:cls-offset), 
-					"access_margin: i %lx offset %x byte_len %x cls %x", i, i?0:offset, byte_len, cls);
+					"access_margin: i %lx offset %x byte_len %lx cls %lx", i, i?0:offset, byte_len, cls);
 				Log("Arg Check Cls%x-offset%x", cls, offset);
 				print_line_info(line, cls, "Read data from line");
 				Assert(0 >= byteArr2word_t(line, i?cls:cls-offset, &tmp_val),

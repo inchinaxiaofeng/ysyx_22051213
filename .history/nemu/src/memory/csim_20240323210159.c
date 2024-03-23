@@ -475,6 +475,7 @@ last_trans_offset = cls
 */
 word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_data) {
 	word_t ret_val = 0;
+
 	cache->tick_count++;
 
 	/* 这里去记录对cache try了多少次读取，而不去记录hit了多少次 */
@@ -496,74 +497,102 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 		paddr_t cls = cache->lv[0].cache_line_size;
 
 		print_line_info(line, cls, "Check is set to 0");
-/*
+		/*
+		get_line_count
+			用于标定此次访问Cache需要涵盖多少Cacheline
+		last_get_line_byte_len
+			用于标定访问多条Cacheline时，访问最后一条Cacheline的byte_len
+			如果只需要访问一条，则该值也被设置为0
+			访问最后一条Line时，其offset一定为0
+		full_access_count
+			从offset开始，能完整访问cache line几次
+		last_access_len
+			最后访问cacheline的长度
+			当full_access为0时，last_access_len需要加上offset
+			当full_access大于0时，last_access_len不需要加offset（offset为0）
+|				|		
+
 line cls = 8
-|			cls					|				cls				|				cls				|
-{	data}
-		{	data		}
-		{			data				}
-				{							data								}
+|     |     |     |     |     |     |     |
+|   data    |
+full_access_count = 2
+part_access_len = (offset+len)%cls = 0
 
-Return access_margin, which is cls-offset-access_len
-不论如何访问cacheline，一定会从第一个cacheline的内部出发
-	所以无论何时，我们都可以进行一次访问Cacheline的尝试，参数为offset、len，通过返回值判断是否完成读取
+   |  data  |
+full_access_count = 2
+part_access_len = (offset+len)%cls = 0
 
-如果返回值小于0,则说明访问越界线，再次访问，以offset = 0、len为-access_margin，直到返回的访存余量>=0
-*/
-		int full_access_count = (offset+byte_len)/cls;
-		paddr_t last_access_len = full_access_count ? (offset+byte_len)%cls : (byte_len+offset)%cls-offset;
-		Log("addr %x full_count %x last_len %x", addr, full_access_count, last_access_len);
+   |  data     |
+full_access_count = 2
+part_access_len = (offset+len)%cls = 4
+
+|  | -> data
+full_access_count = 0
+part_access_len = (offset+len)%cls - offset = 4
+
+   | |
+full_access_count = 0
+part_access_len = (offset+len)%cls - offset = 1
+		*/
+		int full_access_count = offset+byte_len;
+		paddr_t last_access_len = 0==full_access_count ? offset+byte_len : byte_len;
+		int get_line_count = (offset+byte_len)/cls + 1;
+		paddr_t last_get_line_byte_len = 1==get_line_count ? 0 : byte_len+offset - cls*((offset+byte_len)/cls);
+		Log("addr %x line count %x last %x", addr, get_line_count, last_get_line_byte_len);
 
 		switch (oper_style)
 		{
 		case OPERATION_READ:
-			for (i = 0; i < full_access_count; i++) {
+			for (i = 0; i < get_line_count; i++) {
 				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) { // Miss
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-
-				Assert(0 <= do_cache_read_line(0, i?0:offset, index+i, hit_way_l1, line, i?cls:cls-offset), 
-					"access_margin: i %lx offset %x byte_len %x cls %x", i, i?0:offset, byte_len, cls);
+				assert(0 <= do_cache_read_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
+					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
 				Log("Arg Check Cls%x-offset%x", cls, offset);
 				print_line_info(line, cls, "Read data from line");
-				Assert(0 >= byteArr2word_t(line, i?cls:cls-offset, &tmp_val),
-					"part_trans: byte_len %x word_t %lx", i?cls:cls-offset, sizeof(word_t));
+				Assert(0 >= byteArr2word_t(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, &tmp_val),
+					"part_trans: byte_len %x word_t %lx", 1==get_line_count?byte_len:0==i?cls-offset:cls, sizeof(word_t));
 				ret_val |= tmp_val << (i*cls);
 			}
 
-			if (0 != last_access_len) {
+			if (0 != last_get_line_byte_len) {
+				Log("DDD");
 				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) {
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(0 <= do_cache_read_line(0, 0, index+i, hit_way_l1, line, last_access_len));
-				assert(!byteArr2word_t(line, last_access_len, &tmp_val));
+				assert(0 <= do_cache_read_line(0, 0, index+i, hit_way_l1, line,
+					last_get_line_byte_len));
+				assert(!byteArr2word_t(line, last_get_line_byte_len, &tmp_val));
 				ret_val |= tmp_val << (i*cls);
 			}
 			break;
 		case OPERATION_WRITE:
-			for (i = 0; i < full_access_count; i++) {
+			for (i = 0; i < get_line_count; i++) {
 				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) { // Miss
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(!word_t2byteArr(line, i?cls:cls-offset, write_data));
-				assert(0 <= do_cache_write_line(0, i?0:offset, index+i, hit_way_l1, line, i?cls:cls-offset));
+				assert(!word_t2byteArr(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, write_data));
+				assert(0 <= do_cache_write_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
+					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
 
-			if (0 != last_access_len) {
+			if (0 != last_get_line_byte_len) {
 				hit_way_l1  = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) {
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(!word_t2byteArr(line, last_access_len, write_data));
-				assert(0 <= do_cache_write_line(0, 0, index+i, hit_way_l1, line, last_access_len));
+				assert(!word_t2byteArr(line, last_get_line_byte_len, write_data));
+				assert(0 <= do_cache_write_line(0, 0, index+i, hit_way_l1, line,
+					last_get_line_byte_len));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
 			break;
