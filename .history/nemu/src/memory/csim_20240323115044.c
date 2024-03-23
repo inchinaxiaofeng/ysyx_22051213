@@ -409,7 +409,7 @@ last_trans_offset = cls
 
 	size_t i;
 	if (isWriteBack) {
-		assert(0 <= do_cache_read_line(level, 0, index, way, line, cls)); // which is inline_access.
+		assert(0 <= do_cache_read_line(level, 0, index, way, line, cls) >= 0); // which is inline_access.
 		for (i = 0; i < full_trans_count; i++) { // cls >= pmem
 			assert(!byteArr2word_t(line + i*sizeof(word_t), sizeof(word_t), tmp_val));
 			if (likely(in_pmem(old_mapping_addr + i*sizeof(word_t))))

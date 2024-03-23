@@ -409,7 +409,7 @@ last_trans_offset = cls
 
 	size_t i;
 	if (isWriteBack) {
-		assert(0 <= do_cache_read_line(level, 0, index, way, line, cls)); // which is inline_access.
+		assert(0 <= do_cache_read_line(level, 0, index, way, line, cls) >= 0); // which is inline_access.
 		for (i = 0; i < full_trans_count; i++) { // cls >= pmem
 			assert(!byteArr2word_t(line + i*sizeof(word_t), sizeof(word_t), tmp_val));
 			if (likely(in_pmem(old_mapping_addr + i*sizeof(word_t))))
@@ -546,7 +546,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
 				assert(!word_t2byteArr(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, write_data));
-				assert(0 <= do_cache_write_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
+				assert(do_cache_write_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
 					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
@@ -558,7 +558,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
 				assert(!word_t2byteArr(line, last_get_line_byte_len, write_data));
-				assert(0 <= do_cache_write_line(0, 0, index+i, hit_way_l1, line,
+				assert(do_cache_write_line(0, 0, index+i, hit_way_l1, line,
 					last_get_line_byte_len));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
