@@ -121,7 +121,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
 			true == cache->lv[level].line[index][w].valid) {
 			cache->lv[level].hit_count++;
 			*hit = true;
-			Log(ANSI_BG_GREEN"Hit"ANSI_NONE);
+			Log("Hit");
 
 			switch (cache->lv[level].swap_policy)
 			{
