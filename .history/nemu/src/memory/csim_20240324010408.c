@@ -452,7 +452,7 @@ last_trans_offset = cls
 
 	cache->lv[level].line[index][way].valid = true;
 	cache->lv[level].line[index][way].dirty = false;
-	cache->lv[level].line[index][way].tag = new_tag;
+	cache->lv[level].line[index][way].tag = tag;
 
 	switch (cache->lv[level].swap_policy)
 	{
