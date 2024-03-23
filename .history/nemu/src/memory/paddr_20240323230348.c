@@ -39,18 +39,18 @@ static void pmem_write(paddr_t addr, int len, word_t data) {
 
 word_t proxy_pmem_read(paddr_t addr, int len) {
   word_t ret_val = pmem_read(addr, len);
-  Log("Read PMEM: addr " FMT_PADDR " data " FMT_WORD, addr, ret_val);
+  Log("Read PMEM: addr "FMT_PADDR" data "FMT_WORD, addr, ret_val);
   return ret_val;
 }
 
 void proxy_pmem_write(paddr_t addr, int len, word_t data) {
-  Log("Write PMEM: addr " FMT_PADDR " data " FMT_WORD, addr, data);
+  Log("Write PMEM: addr "FMT_PADDR" data "FMT_WORD, addr, data);
   pmem_write(addr, len, data);
   return;
 }
 
 static void out_of_bound(paddr_t addr) {
-  panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_WORD,
+  panic("address = " FMT_PADDR " is out of bound of pmem [" FMT_PADDR ", " FMT_PADDR "] at pc = " FMT_PADDR,
       addr, PMEM_LEFT, PMEM_RIGHT, cpu.pc);
 }
 
