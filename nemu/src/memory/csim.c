@@ -121,6 +121,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
 			true == cache->lv[level].line[index][w].valid) {
 			cache->lv[level].hit_count++;
 			*hit = true;
+			IFDEF(CONFIG_CACHE_TRACE, printf(ANSI_BG_GREEN"Hit"ANSI_NONE"\n"));
 
 			switch (cache->lv[level].swap_policy)
 			{
@@ -133,6 +134,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
 		}
 	}
 	cache->lv[level].miss_count++;
+	IFDEF(CONFIG_CACHE_TRACE, printf(ANSI_BG_RED"Miss"ANSI_NONE"\n"));
 	*hit = false;
 	return 0;
 }
@@ -163,11 +165,8 @@ paddr_t get_cache_free_line(uint8_t level, paddr_t index, bool *isWriteBack) {
 
 	/* 从当前的Set中到找空闲的way(line)
 		cacheline_free_num统计整个Cache的可用块 */
-//	Log("FFF");
 	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
-//		Log("cond %ld < %x, index %x", w, cache->lv[level].way_num, index);
 		if (!cache->lv[level].line[index][w].valid) {
-//			Log("DDD");
 			if (cache->lv[level].cache_free_num > 0)
 				cache->lv[level].cache_free_num--;
 			free_line = w;
@@ -207,81 +206,96 @@ paddr_t get_cache_free_line(uint8_t level, paddr_t index, bool *isWriteBack) {
 }
 
 /*
-描述
-	将word_t类型转化为byteArr类型
-参数
-	byte uint8_t *类型数据
-	byte_len byte类型所支持的最大长度
-	word word_t类型数据，不传入指针类型以避免错误的操作
-返回值
-	当word_t类型不能完全转化为byteArr时，返回false
-	当word_t类型能够完整转化为byteArr时，返回true
-行为
-	将word_t类型拆分写入byteArr
-	对于byteArr，不改变多余高位
-	当word_t类型不能被写入byteArr时，仅写入可以写入的低字节，并设置返回值
+Description
+	Convert word_t format to byteArr format.
+Arguments
+	byte		target_format, treated as return val.
+	byte_len	期望转化的字节长度，不应当超过byte的最大长度
+	word		源格式，不传入指针类型以避免错误的操作
+Return
+	Return trans_discount, which defines as source_format_len minus
+	target_format_len.
+Behavior
+	Define sizeof(word_t) minus byte_len as trans_discount.
+	If trans_discount <= 0, it is called full_trans, which will
+	not cause data loss between source_format and target_format.
+	If trans_discount > 0, it is called part_trans, which will
+	cause data loss between source_format and target_format.
+	全信息转换时，将信息写入byte_len格式的低位，byte_len高位保持不变
+	半信息转换时，将信息全部写入byte_len格式，并将word_t高位信息丢弃
 */
-static inline bool word_t2byteArr(
+static inline int word_t2byteArr(
 	uint8_t *byte, int byte_len, word_t word
 ) {
-	bool isFullTrans = byte_len >= sizeof(word_t);
-	for (size_t i = 0; i < (isFullTrans?sizeof(word_t):byte_len); i++) {
-		byte[i] = word&UINT8_MAX >> i*8;
-		word = word >> i*8;
+	int trans_discount = sizeof(word_t) - byte_len;
+	for (size_t i = 0; i < (trans_discount?byte_len:sizeof(word_t)); i++) {
+		byte[i] = word&BYTE_MASK;
+		word = word >> 8;
 	}
-	return isFullTrans;
+	return trans_discount;
 }
 
 /*
 描述
-	将byteArr类型转化为word_t类型
+	将byteArr格式转化为word_t格式
 参数
-	byte uint8_t * 类型数据
-	byte_len 共将byteArr中的多少个数据转化为word_t
-	word word_t *类型数据, 作为返回值处理
-返回值
-	当byteArr类型不能不带损失的转化为word_t类型时，返回false
-	当byteArr类型可以完全转化为word_t类型时，返回true
-行为
-	将byteArr的数据写入word_t中，高位为0
-	如果byteArr不能完全转化为word_t类型时，仅转化可以无损失的转化的低字节，并设置返回值
+	byte		源格式
+	byte_len	期望转化的字节长度
+	word		目标格式, 作为返回值处理
+Return
+	Return trans_discount, which defines as source_format_len minus
+	target_format_len.
+Behavior
+	Define sizeof(word_t) minus byte_len as trans_discount.
+	If trans_discount <= 0, it is called full_trans, which will
+	not cause data loss between source_format and target_format.
+	If trans_discoutn > 0, it is called part_trans, which will
+	cause data loss between source_format and target_format.
+	全信息转换时，将信息写入word_t格式的低位，word_t高位保持不变
+	半信息转换时，将信息全部写入word_t格式，并将byte_len高位信息丢弃
 */
-static inline bool byteArr2word_t(
+static inline int byteArr2word_t(
 	uint8_t *byte, int byte_len, word_t *word
 ) {
-	bool isFullTrans = sizeof(word_t) >= byte_len;
-	for (size_t i = 0; i < (isFullTrans?byte_len:sizeof(word_t)); i++)
+	int trans_discount = byte_len - sizeof(word_t);
+	for (size_t i = 0; i < (trans_discount?sizeof(word_t):byte_len); i++)
 		*word |= byte[i] << i*8;
-	return isFullTrans;
+	return trans_discount;
 }
 
 /*
 描述
-	对某一行cacheline进行原子化读操作。
+	对某一行cacheline进行原子化读操作
 参数
 	level 用于获取cache级
 	offset addr的offset字段
 	index addr的index字段
 	way 当前数据位于set的第几个way(line)
 	* read_data 存放读取的数据
-	byte_len 对访问的数据的范围进行选定
-返回值
-	当基于offset的读取范围超出当前line的范围，返回false，表示cache read out of line
-	当基于offset的读取范围没有超出当前line的范围，返回true
-行为
-	当越界读取时，仅读取从offset开始的line内的合法空间，并设置返回值
+	access_len 对访问的数据的范围进行选定
+Return
+	Return access_margin, which is cls-offset-access_len.
+Behavior
+	Define the cache_line_size(cls) minus offset as the line_margin.
+	Define the line_margin minus access_len as the access_margin.
+	If the access_margin >= 0, it is called inline_access.
+	If the access_margin < 0, it is called outline_access.
+	inline_access will access the data correctly,
+	and outline_access will only access the line_margin part.
 注意
 	在调用这个函数之前，应当确保其line的valid是true。
+	用于读取数据的line，其大小必须大与等与cls
 */
-bool do_cache_read_line(
-	uint8_t level, paddr_t offset, paddr_t index,
-	paddr_t way, uint8_t *read_data, int byte_len
+static inline int do_cache_read_line(
+	uint8_t level, paddr_t offset, paddr_t index, paddr_t way,
+	uint8_t *read_data, int access_len
 ) {
 	uint32_t cls = cache->lv[level].cache_line_size;
-	bool isInsideLine = cls-offset >= byte_len;
-	for (size_t i = 0; i < (isInsideLine?byte_len:cls-offset); i++)
+	int line_margin = cls - offset;
+	int access_margin = line_margin - access_len;
+	for (size_t i = 0; i < (access_margin>=0 ? access_len : line_margin); i++)
 		read_data[i] = cache->lv[level].line[index][way].data[offset+i];
-	return isInsideLine;
+	return access_margin;
 }
 
 /*
@@ -294,26 +308,32 @@ bool do_cache_read_line(
 	way 当前数据位于set的第几个way(line)
 	write_data 要写入line的数据，数据类型word_t，满足来自指令集的一次读需求。
 	byte_len 对访问的数据的范围进行选定
-返回值
-	当基于offset的写入范围超过当前line范围，返回false，表示cache write out of line
-	当基于offset的写入范围没有超出当前line范围，返回true
-行为
-	当越界写入时，仅写入从offset开始的line内的合法空间，并设置返回值
+Return
+	Return access_margin, which is cls-offset-access_len
+Behavior
+	Define the cache_line_size(cls) minus offset as the line_margin.
+	Define the line_margin minus access_len as the access_margin.
+	If the access_margin >= 0, it is called inline_access.
+	If the access_margin < 0, it is called outline_access.
+	inline_access will access the data correctly,
+	and outline_access will only access the line_margin part.
 */
-bool do_cache_write_line(
-	uint8_t level, paddr_t offset, paddr_t index,
-	paddr_t way, uint8_t* write_data, int byte_len
+// TODO: 没有成功写入
+int do_cache_write_line(
+	uint8_t level, paddr_t offset, paddr_t index, paddr_t way,
+	uint8_t* write_data, int access_len
 ) {
 	uint32_t cls = cache->lv[level].cache_line_size;
-	bool isInsideLine = cls-offset >= byte_len;
-	for (size_t i = 0; i < (isInsideLine?byte_len:cls-offset); i++)
+	int line_margin = cls - offset;
+	int access_margin = line_margin - access_len;
+	for (size_t i = 0; i < (access_margin>=0 ? access_len : line_margin); i++)
 		cache->lv[level].line[index][way].data[offset+i] = write_data[i];
-	return isInsideLine;
+	return access_margin;
 }
 
 /*
 描述
-	更新cacheline。
+	更新指定index和指定way的cacheline，将其替换为另一个tag的cacheline。
 参数
 	level 用于获取cache级
 	index 标定替换的set
@@ -348,6 +368,8 @@ void do_cache_update_line(
 	uint8_t level, paddr_t index, paddr_t way, paddr_t new_tag,
 	bool isWriteBack
 ) {
+	// Debug here
+	// 这段代码里有很多隐藏的依赖，都会造成BUG，可以考虑的方向是：深化判断情况，给基础函数更多的表达能力，是调用人可以判断更多的情况
 	uint32_t olen = cache->lv[level].olen;
 	uint32_t ilen = cache->lv[level].ilen;
 	uint32_t cls = cache->lv[level].cache_line_size;
@@ -355,46 +377,74 @@ void do_cache_update_line(
 	paddr_t old_mapping_addr = (old_tag << (olen+ilen)) | (index << olen) | 0;
 	paddr_t new_mapping_addr = (new_tag << (olen+ilen)) | (index << olen) | 0;
 
+	IFDEF(CONFIG_CACHE_TRACE,
+		printf(ANSI_FG_YELLOW"new tag "FMT_PADDR" old tag "FMT_PADDR ANSI_NONE"\n"
+			ANSI_FG_YELLOW"new addr "FMT_PADDR" old addr "FMT_PADDR ANSI_NONE"\n",
+			new_tag, old_tag, new_mapping_addr, old_mapping_addr
+		));
+
 	uint8_t *line = malloc(sizeof(uint8_t)*cls);
 	word_t *tmp_val = malloc(sizeof(word_t));
+
+/*
+写会导致连续传输，但是读不会导致连续传输
+|                  cls                  |
+|                pmem(1)                |
+full_trans_count = 1
+last_trans_offset = 0
+
+|                  cls                  |
+|      pmem(1)      |      pmem(2)      |
+full_trans_count = 2
+last_trans_offset = 0
+
+|                  cls                  |
+|            pmem(1)          | pmem(2) l     pmem'(2)     |
+|                             | offset  |
+full_trans_count = 1
+last_trans_offset = offset
+
+|       cls         |
+|                 pmem(1)               |
+full_trans_count = 0
+last_trans_offset = cls
+*/
 
 	int full_trans_count = cls / sizeof(word_t);
 	paddr_t last_trans_offset = cls % sizeof(word_t);
 
-	bool isInsideLine;
 	size_t i;
 	if (isWriteBack) {
-		isInsideLine = false;
-		assert(do_cache_read_line(level, 0, index, way, line, cls));
-		for (i = 0; i < full_trans_count; i++) {
-			isInsideLine = byteArr2word_t(line + i*sizeof(word_t), sizeof(word_t), tmp_val);
+		assert(0 <= do_cache_read_line(level, 0, index, way, line, cls)); // which is inline_access.
+		for (i = 0; i < full_trans_count; i++) { // cls >= pmem
+			assert(!byteArr2word_t(line + i*sizeof(word_t), sizeof(word_t), tmp_val));
 			if (likely(in_pmem(old_mapping_addr + i*sizeof(word_t))))
 				proxy_pmem_write(old_mapping_addr + i*sizeof(word_t), sizeof(word_t), *tmp_val);
 		}
-		if (last_trans_offset != 0) {
-			assert(!isInsideLine);
-			assert(byteArr2word_t(line + i*sizeof(word_t), last_trans_offset, tmp_val));
+		if (last_trans_offset != 0) { // cls offset or cls < pmem
+			assert(!byteArr2word_t(line + i*sizeof(word_t), last_trans_offset, tmp_val));
 			if (likely(in_pmem(old_mapping_addr + i*sizeof(word_t))))
 				proxy_pmem_write(old_mapping_addr + i*sizeof(word_t), last_trans_offset, *tmp_val);
-		} else assert(isInsideLine);
+		}
 	}
 
 	// write data from main memory to cache
-	for (i = 0; i < full_trans_count; i++) {
+	for (i = 0; i < full_trans_count; i++) { // cls >= pmem
 		if (likely(in_pmem(new_mapping_addr + i*sizeof(word_t))))
 			*tmp_val = proxy_pmem_read(new_mapping_addr + i*sizeof(word_t), sizeof(word_t));
-		assert(word_t2byteArr(line, sizeof(word_t), *tmp_val));
-		assert(do_cache_write_line(level, i*sizeof(word_t), index, way, line, sizeof(word_t)));
+		assert(!word_t2byteArr(line, sizeof(word_t), *tmp_val));
+		assert(0 <= do_cache_write_line(level, i*sizeof(word_t), index, way, line, sizeof(word_t)));
 	}
-	if (last_trans_offset != 0) {
+	if (last_trans_offset != 0) { // cls offset or cls < pmem
 		if (likely(in_pmem(new_mapping_addr + i*sizeof(word_t))))
 			*tmp_val = proxy_pmem_read(new_mapping_addr + i*sizeof(word_t), last_trans_offset);
-		assert(word_t2byteArr(line, last_trans_offset, *tmp_val));
-		assert(do_cache_write_line(level, i*sizeof(word_t), index, way, line, last_trans_offset));
+		assert(!word_t2byteArr(line, last_trans_offset, *tmp_val));
+		assert(0 <= do_cache_write_line(level, i*sizeof(word_t), index, way, line, last_trans_offset));
 	}
 
 	cache->lv[level].line[index][way].valid = true;
 	cache->lv[level].line[index][way].dirty = false;
+	cache->lv[level].line[index][way].tag = new_tag;
 
 	switch (cache->lv[level].swap_policy)
 	{
@@ -429,7 +479,6 @@ void do_cache_update_line(
 */
 word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_data) {
 	word_t ret_val = 0;
-
 	cache->tick_count++;
 
 	/* 这里去记录对cache try了多少次读取，而不去记录hit了多少次 */
@@ -439,6 +488,9 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 	switch (CONFIG_CACHE_LEVEL) {
 	case 1: // Only have L1 Cache
 		uint8_t *line = malloc(sizeof(uint8_t)*cache->lv[0].cache_line_size);
+		memset(line, 0, sizeof(uint8_t)*cache->lv[0].cache_line_size);
+		word_t tmp_val = 0;
+		size_t i;
 		bool hit_l1;
 		bool hit_l1_wb;
 		paddr_t hit_way_l1;
@@ -446,73 +498,74 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 		paddr_t index = (addr&cache->lv[0].set_index_mask) >> cache->lv[0].olen;
 		paddr_t tag = (addr&cache->lv[0].set_tag_mask) >> (cache->lv[0].olen + cache->lv[0].ilen);
 		paddr_t cls = cache->lv[0].cache_line_size;
-
-		/*
-		get_line_count
-			用于标定此次访问Cache需要涵盖多少Cacheline
-		last_get_line_byte_len
-			用于标定访问多条Cacheline时，访问最后一条Cacheline的byte_len
-			如果只需要访问一条，则该值也被设置为0
-			访问最后一条Line时，其offset一定为0
-		*/
-		int get_line_count = (offset+byte_len)/cls + 1;
-		paddr_t last_get_line_byte_len = 1==get_line_count ? 0 : byte_len+offset - cls*((offset+byte_len)/cls);
-		Log("addr %x line count %x last %x", addr, get_line_count, last_get_line_byte_len);
-		size_t i;
-		word_t tmp_val = 0;
+/*
+line cls = 8
+|			cls					|				cls				|				cls				|
+{	data}
+		{	data		}
+		{			data				}
+				{							data								}
+Return access_margin, which is cls-offset-access_len
+不论如何访问cacheline，一定会从第一个cacheline的内部出发
+	所以无论何时，我们都可以进行一次访问Cacheline的尝试，参数为offset、len，通过返回值判断是否完成读取
+如果返回值小于0,则说明访问越界线，再次访问，以offset = 0、len为-access_margin，直到返回的访存余量>=0
+*/
+		int full_access_count = (offset+byte_len)/cls;
+		paddr_t last_access_len = full_access_count ? (offset+byte_len)%cls : (byte_len+offset)%cls-offset;
+		IFDEF(CONFIG_CACHE_TRACE,
+			printf(ANSI_FG_YELLOW"Addr 0x"FMT_PADDR" full_count %d last_len %d isWrite %d"ANSI_NONE"\n",
+			addr, full_access_count, last_access_len, oper_style));
 
 		switch (oper_style)
 		{
 		case OPERATION_READ:
-//			Log("AAA");
-			for (i = 0; i < get_line_count; i++) {
-//				Log("BBB");
+			for (i = 0; i < full_access_count; i++) {
 				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) { // Miss
-//					Log("CCC");
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(do_cache_read_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
-					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
-				assert(byteArr2word_t(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, &tmp_val));
+
+				Assert(0 <= do_cache_read_line(0, i?0:offset, index+i, hit_way_l1, line, i?cls:cls-offset), 
+					"access_margin: i %lx offset %x byte_len %x cls %x", i, i?0:offset, byte_len, cls);
+				Assert(0 >= byteArr2word_t(line, i?cls:cls-offset, &tmp_val),
+					"part_trans: byte_len %x word_t %lx", i?cls:cls-offset, sizeof(word_t));
 				ret_val |= tmp_val << (i*cls);
 			}
-			
-			if (0 != last_get_line_byte_len) {
+
+			if (0 != last_access_len) {
 				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) {
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(do_cache_read_line(0, 0, index+i, hit_way_l1, line,
-					last_get_line_byte_len));
-				assert(byteArr2word_t(line, last_get_line_byte_len, &tmp_val));
+				Assert(0 <= do_cache_read_line(0, 0, index+i, hit_way_l1, line, last_access_len),
+					"access_margin: i %lx offset %x byte_len %x cls %x", i, 0, byte_len, cls);
+				Assert(0 >= byteArr2word_t(line, last_access_len, &tmp_val),
+					"part_trans: byte_len %x word_t %lx", last_access_len, sizeof(word_t));
 				ret_val |= tmp_val << (i*cls);
 			}
 			break;
 		case OPERATION_WRITE:
-			for (i = 0; i < get_line_count; i++) {
+			for (i = 0; i < full_access_count; i++) {
 				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) { // Miss
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(word_t2byteArr(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, write_data));
-				assert(do_cache_write_line(0, 0==i?offset:0, index+i, hit_way_l1, line,
-					1==get_line_count ? byte_len : 0==i?cls-offset:cls));
+				assert(0 >= word_t2byteArr(line, i?cls:cls-offset, write_data));
+				assert(0 <= do_cache_write_line(0, i?0:offset, index+i, hit_way_l1, line, i?cls:cls-offset));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
 
-			if (0 != last_get_line_byte_len) {
+			if (0 != last_access_len) {
 				hit_way_l1  = check_cache_hit(0, index+i, tag, &hit_l1);
 				if (!hit_l1) {
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(word_t2byteArr(line, last_get_line_byte_len, write_data));
-				assert(do_cache_write_line(0, 0, index+i, hit_way_l1, line,
-					last_get_line_byte_len));
+				assert(0 >= word_t2byteArr(line, last_access_len, write_data));
+				assert(0 <= do_cache_write_line(0, 0, index+i, hit_way_l1, line, last_access_len));
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
 			break;
@@ -528,4 +581,20 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 
 	assert(0);
 	return 0;
+}
+
+void cache_statistic() {
+	switch (CONFIG_CACHE_LEVEL)
+	{
+	case 1:
+		Log("total tick %ld", cache->tick_count);
+		Log("read count %ld, write count %ld, write mem count %ld",
+			cache->read_count, cache->write_count, cache->write_mem_count);
+		Log("hit rate = %lf", (double)cache->lv[0].hit_count / (cache->lv[0].hit_count+cache->lv[0].miss_count));
+		break;
+	
+	case 2: Assert(true, "Do not support L2 yet.");
+	case 3: Assert(true, "Do not support L3 yet.");
+	default: assert(0);
+	}
 }

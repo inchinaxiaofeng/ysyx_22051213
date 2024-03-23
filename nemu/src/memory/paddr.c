@@ -38,10 +38,17 @@ static void pmem_write(paddr_t addr, int len, word_t data) {
 }
 
 word_t proxy_pmem_read(paddr_t addr, int len) {
-  return pmem_read(addr, len);
+  word_t ret_val = pmem_read(addr, len);
+  IFDEF(CONFIG_CACHE_TRACE,
+    printf(ANSI_FG_YELLOW"Read PMEM: addr "FMT_PADDR
+    " data "FMT_WORD ANSI_NONE"\n", addr, ret_val));
+  return ret_val;
 }
 
 void proxy_pmem_write(paddr_t addr, int len, word_t data) {
+  IFDEF(CONFIG_CACHE_TRACE,
+    printf(ANSI_FG_YELLOW"Write PMEM: addr "FMT_PADDR
+    " data "FMT_WORD ANSI_NONE"\n", addr, data));
   pmem_write(addr, len, data);
   return;
 }
@@ -68,7 +75,10 @@ void init_mem() {
 
 #ifdef CONFIG_MTRACE
 void static mtrace_display(paddr_t addr, int len, word_t data, bool is_write) {
-  if (true == is_write) printf("\033[1;35mwrite:\033[0m\n"); else printf("\033[1;35mread:\033[0m\n");
+  if (true == is_write)
+    printf("write:\033[0m\n");
+  else
+    printf("\033[1;35mread:\033[0m\n");
   printf("\033[7;32mpaddr_t:\033[0m\t\033[7;33mHEX:\033[0m \033[2;32m0x\033[0m%08x\t\n", addr);
   printf("\033[7;32mlen:\033[0m\t\t\033[7;33mDEC:\033[0m %d\n", len);
   if (true == is_write) printf("\033[7;32mdata:\033[0m\t\t\033[7;33mDEC:\033[0m %ld\n", data);
@@ -76,14 +86,14 @@ void static mtrace_display(paddr_t addr, int len, word_t data, bool is_write) {
   return;
 }
 #endif
-
 word_t paddr_read(paddr_t addr, int len) {
-  if (likely(in_pmem(addr)))
+  if (likely(in_pmem(addr))) {
     return MUXDEF(CONFIG_CACHE_ENABLE,
       do_cache_op(addr, OPERATION_READ, len, 0),
       pmem_read(addr, len)
     );
-  IFDEF(CONFIG_MTRACE, mtrace_display(addr, len, 0, false));
+  }
+      IFDEF(CONFIG_MTRACE, mtrace_display(addr, len, 0, false));
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
   out_of_bound(addr);
   return 0;

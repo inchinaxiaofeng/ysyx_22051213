@@ -4,6 +4,15 @@
 #include <common.h>
 #include <math.h>
 
+#define print_line_info(line, byte_len, info) \
+	Log("Print: %s", info); \
+	for (size_t i = 0; i < byte_len; i++) \
+	{ \
+		printf("%02x ", *(line+i)); \
+	} \
+	printf("\n");
+#define BYTE_MASK 0x00000000000000ff
+
 typedef __uint128_t uint128_t;
 
 typedef struct cache_line {
@@ -54,4 +63,5 @@ bool init_cache(
 );
 void free_cache(uint8_t level);
 word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_data);
+void cache_statistic();
 #endif

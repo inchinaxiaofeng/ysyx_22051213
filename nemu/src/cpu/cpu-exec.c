@@ -19,6 +19,7 @@
 #include <locale.h>
 #include <elf.h>
 #include "../monitor/sdb/sdb.h"
+#include <memory/csim.h>
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -150,6 +151,7 @@ static void statistic() {
   Log("total guest instructions = " NUMBERIC_FMT, g_nr_guest_inst);
   if (g_timer > 0) Log("simulation frequency = " NUMBERIC_FMT " inst/s", g_nr_guest_inst * 1000000 / g_timer);
   else Log("Finish running in less than 1 us and can not calculate the simulation frequency");
+  cache_statistic();
 }
 
 void assert_fail_msg() { // TODO: CONFIG_IRINGBUF 依赖于CONFIG_ITRACE。需要降低耦合度

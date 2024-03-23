@@ -133,6 +133,11 @@ config CACHE_LEVEL
   int "Cache level(1-3)"
   default 1
 
+config CACHE_TRACE
+  depends on CACHE_ENABLE
+  bool "Enable Cache trace"
+  default n
+
 endmenu
 
 menu "Testing and Debugging"
