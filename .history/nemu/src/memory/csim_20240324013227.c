@@ -528,14 +528,6 @@ Return access_margin, which is cls-offset-access_len
 
 				Assert(0 <= do_cache_read_line(0, i?0:offset, index+i, hit_way_l1, line, i?cls:cls-offset), 
 					"access_margin: i %lx offset %x byte_len %x cls %x", i, i?0:offset, byte_len, cls);
-				Assert(0 >= byteArr2word_t(line, i?cls:cls-offset, &tmp_val),
-					"part_trans: byte_len %x word_t %lx", i?cls:cls-offset, sizeof(word_t));
-				ret_val |= tmp_val << (i*cls);
-			}
-
-			if (0 != last_access_len) {
-				hit_way_l1 = check_cache_hit(0, index+i, tag, &hit_l1);
-				if (!hit_l1) {
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
