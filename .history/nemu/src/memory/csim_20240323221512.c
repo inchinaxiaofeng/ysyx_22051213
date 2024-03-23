@@ -552,9 +552,8 @@ Return access_margin, which is cls-offset-access_len
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(0 >= word_t2byteArr(line, i?cls:cls-offset, write_data));
+				assert(!word_t2byteArr(line, i?cls:cls-offset, write_data));
 				assert(0 <= do_cache_write_line(0, i?0:offset, index+i, hit_way_l1, line, i?cls:cls-offset));
-				print_line_info(line, cls, "Write data to line");
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
 
@@ -564,9 +563,8 @@ Return access_margin, which is cls-offset-access_len
 					hit_way_l1 = get_cache_free_line(0, index+i, &hit_l1_wb);
 					do_cache_update_line(0, index+i, hit_way_l1, tag, hit_l1_wb);
 				}
-				assert(0 >= word_t2byteArr(line, last_access_len, write_data));
+				assert(!word_t2byteArr(line, last_access_len, write_data));
 				assert(0 <= do_cache_write_line(0, 0, index+i, hit_way_l1, line, last_access_len));
-				print_line_info(line, cls, "Write data to line");
 				cache->lv[0].line[index][hit_way_l1].dirty = true;
 			}
 			break;
