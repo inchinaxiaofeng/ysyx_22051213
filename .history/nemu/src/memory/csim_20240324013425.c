@@ -134,7 +134,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
 		}
 	}
 	cache->lv[level].miss_count++;
-	IFDEF(CONFIG_CACHE_TRACE, printf(ANSI_BG_RED"Miss"ANSI_NONE"\n"));
+	IFDEF(CONFIG_CACHE_TRACE, Log(ANSI_BG_RED"Miss"ANSI_NONE));
 	*hit = false;
 	return 0;
 }
@@ -513,7 +513,7 @@ Return access_margin, which is cls-offset-access_len
 		int full_access_count = (offset+byte_len)/cls;
 		paddr_t last_access_len = full_access_count ? (offset+byte_len)%cls : (byte_len+offset)%cls-offset;
 		IFDEF(CONFIG_CACHE_TRACE,
-			printf(ANSI_FG_YELLOW"Addr 0x"FMT_PADDR" full_count %d last_len %d isWrite %d"ANSI_NONE"\n",
+			printf(ANSI_BG_YELLOW"Addr 0x"FMT_PADDR" full_count %d last_len %d isWrite %d"ANSI_NONE"\n",
 			addr, full_access_count, last_access_len, oper_style));
 
 		switch (oper_style)
