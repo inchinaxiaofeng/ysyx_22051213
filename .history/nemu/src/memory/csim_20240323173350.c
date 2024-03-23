@@ -499,6 +499,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 	case 1: // Only have L1 Cache
 		uint8_t *line = malloc(sizeof(uint8_t)*cache->lv[0].cache_line_size);
 		memset(line, 0, sizeof(uint8_t)*cache->lv[0].cache_line_size);
+		print_line_info(line, cls);
 		word_t tmp_val = 0;
 		size_t i;
 		bool hit_l1;
@@ -509,7 +510,6 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 		paddr_t tag = (addr&cache->lv[0].set_tag_mask) >> (cache->lv[0].olen + cache->lv[0].ilen);
 		paddr_t cls = cache->lv[0].cache_line_size;
 
-		print_line_info(line, cls);
 		/*
 		get_line_count
 			用于标定此次访问Cache需要涵盖多少Cacheline

@@ -38,12 +38,11 @@ static void pmem_write(paddr_t addr, int len, word_t data) {
 }
 
 word_t proxy_pmem_read(paddr_t addr, int len) {
-  Log("Read from Cache: %lx", pmem_read(addr, len));
+  Log("Read2Cache: %lx", pmem_read(addr, len));
   return pmem_read(addr, len);
 }
 
 void proxy_pmem_write(paddr_t addr, int len, word_t data) {
-  Log("Write from Cache: %lx", data);
   pmem_write(addr, len, data);
   return;
 }

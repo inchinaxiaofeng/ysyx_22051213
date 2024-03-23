@@ -442,6 +442,7 @@ last_trans_offset = cls
 	for (i = 0; i < full_trans_count; i++) { // cls >= pmem
 		if (likely(in_pmem(new_mapping_addr + i*sizeof(word_t))))
 			*tmp_val = proxy_pmem_read(new_mapping_addr + i*sizeof(word_t), sizeof(word_t));
+		Log()
 		assert(!word_t2byteArr(line, sizeof(word_t), *tmp_val));
 		assert(0 <= do_cache_write_line(level, i*sizeof(word_t), index, way, line, sizeof(word_t)));
 	}
