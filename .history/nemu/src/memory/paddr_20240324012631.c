@@ -46,9 +46,7 @@ word_t proxy_pmem_read(paddr_t addr, int len) {
 }
 
 void proxy_pmem_write(paddr_t addr, int len, word_t data) {
-  IFDEF(CONFIG_CACHE_TRACE,
-    printf(ANSI_FG_YELLOW"Write PMEM: addr "FMT_PADDR
-    " data "FMT_WORD ANSI_NONE"\n", addr, data));
+  Log("Write PMEM: addr " FMT_PADDR " data " FMT_WORD, addr, data);
   pmem_write(addr, len, data);
   return;
 }

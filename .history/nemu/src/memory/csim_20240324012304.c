@@ -117,6 +117,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
 //	paddr_t tag = (addr&cache->lv[level].set_tag_mask) >> (cache->lv[level].olen + cache->lv[level].ilen);
 	// 循环检查当前set的所有way，通过tag匹配，查看当前地址是否在cache中
 	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
+		Log("cond 1 %d cond 2 %d", tag == cache->lv[level].line[index][w].tag, true == cache->lv[level].line[index][w].valid);
 		if (tag == cache->lv[level].line[index][w].tag &&
 			true == cache->lv[level].line[index][w].valid) {
 			cache->lv[level].hit_count++;
@@ -166,6 +167,7 @@ paddr_t get_cache_free_line(uint8_t level, paddr_t index, bool *isWriteBack) {
 	/* 从当前的Set中到找空闲的way(line)
 		cacheline_free_num统计整个Cache的可用块 */
 	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
+//		Log("cond %ld < %x, index %x", w, cache->lv[level].way_num, index);
 		if (!cache->lv[level].line[index][w].valid) {
 			if (cache->lv[level].cache_free_num > 0)
 				cache->lv[level].cache_free_num--;
@@ -377,11 +379,8 @@ void do_cache_update_line(
 	paddr_t old_mapping_addr = (old_tag << (olen+ilen)) | (index << olen) | 0;
 	paddr_t new_mapping_addr = (new_tag << (olen+ilen)) | (index << olen) | 0;
 
-	IFDEF(CONFIG_CACHE_TRACE,
-		printf(ANSI_FG_YELLOW"new tag "FMT_PADDR" old tag "FMT_PADDR ANSI_NONE"\n"
-			ANSI_FG_YELLOW"new addr "FMT_PADDR" old addr "FMT_PADDR ANSI_NONE"\n",
-			new_tag, old_tag, new_mapping_addr, old_mapping_addr
-		));
+	Log("new tag %x old tag %x", new_tag, old_tag);
+	Log("new addr %x old addr %x", new_mapping_addr, old_mapping_addr);
 
 	uint8_t *line = malloc(sizeof(uint8_t)*cls);
 	word_t *tmp_val = malloc(sizeof(word_t));
@@ -514,8 +513,8 @@ Return access_margin, which is cls-offset-access_len
 		int full_access_count = (offset+byte_len)/cls;
 		paddr_t last_access_len = full_access_count ? (offset+byte_len)%cls : (byte_len+offset)%cls-offset;
 		IFDEF(CONFIG_CACHE_TRACE,
-			printf(ANSI_BG_YELLOW"Addr 0x"FMT_PADDR" full_count %d last_len %d isWrite %d"ANSI_NONE"\n",
-			addr, full_access_count, last_access_len, oper_style));
+			printf(ANSI_BG_YELLOW"Addr "FMT_PADDR" full_count %d last_len %d isWrite %d",addr, full_access_count, last_access_len, oper_style);
+		Log("addr %x full_count %x last_len %x isWrite %d", addr, full_access_count, last_access_len, oper_style);
 
 		switch (oper_style)
 		{

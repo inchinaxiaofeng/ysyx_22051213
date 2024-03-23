@@ -39,16 +39,12 @@ static void pmem_write(paddr_t addr, int len, word_t data) {
 
 word_t proxy_pmem_read(paddr_t addr, int len) {
   word_t ret_val = pmem_read(addr, len);
-  IFDEF(CONFIG_CACHE_TRACE,
-    printf(ANSI_FG_YELLOW"Read PMEM: addr "FMT_PADDR
-    " data "FMT_WORD ANSI_NONE"\n", addr, ret_val));
+  Log("Read PMEM: addr " FMT_PADDR " data " FMT_WORD, addr, ret_val);
   return ret_val;
 }
 
 void proxy_pmem_write(paddr_t addr, int len, word_t data) {
-  IFDEF(CONFIG_CACHE_TRACE,
-    printf(ANSI_FG_YELLOW"Write PMEM: addr "FMT_PADDR
-    " data "FMT_WORD ANSI_NONE"\n", addr, data));
+  Log("Write PMEM: addr " FMT_PADDR " data " FMT_WORD, addr, data);
   pmem_write(addr, len, data);
   return;
 }
@@ -86,8 +82,8 @@ void static mtrace_display(paddr_t addr, int len, word_t data, bool is_write) {
   return;
 }
 #endif
-word_t paddr_read(paddr_t addr, int len) {
-  if (likely(in_pmem(addr))) {
+word_t paddr_read(paddr_t addr, int len) { if (likely(in_pmem(addr))) {
+    Log("Addr %x", addr);
     return MUXDEF(CONFIG_CACHE_ENABLE,
       do_cache_op(addr, OPERATION_READ, len, 0),
       pmem_read(addr, len)
@@ -101,6 +97,7 @@ word_t paddr_read(paddr_t addr, int len) {
 
 void paddr_write(paddr_t addr, int len, word_t data) {
   if (likely(in_pmem(addr))) { 
+    Log("Addr %x", addr);
     MUXDEF(CONFIG_CACHE_ENABLE,
       do_cache_op(addr, OPERATION_WRITE, len, data),
       pmem_write(addr, len, data)

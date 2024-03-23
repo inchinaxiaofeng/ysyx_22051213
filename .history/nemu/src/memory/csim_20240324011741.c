@@ -117,6 +117,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
 //	paddr_t tag = (addr&cache->lv[level].set_tag_mask) >> (cache->lv[level].olen + cache->lv[level].ilen);
 	// 循环检查当前set的所有way，通过tag匹配，查看当前地址是否在cache中
 	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
+		Log("cond 1 %d cond 2 %d", tag == cache->lv[level].line[index][w].tag, true == cache->lv[level].line[index][w].valid);
 		if (tag == cache->lv[level].line[index][w].tag &&
 			true == cache->lv[level].line[index][w].valid) {
 			cache->lv[level].hit_count++;
@@ -134,7 +135,7 @@ paddr_t check_cache_hit(uint8_t level, paddr_t index, paddr_t tag, bool *hit) {
 		}
 	}
 	cache->lv[level].miss_count++;
-	IFDEF(CONFIG_CACHE_TRACE, Log(ANSI_BG_RED"Miss"ANSI_NONE));
+	Log(ANSI_BG_RED"Miss"ANSI_NONE);
 	*hit = false;
 	return 0;
 }
@@ -165,8 +166,11 @@ paddr_t get_cache_free_line(uint8_t level, paddr_t index, bool *isWriteBack) {
 
 	/* 从当前的Set中到找空闲的way(line)
 		cacheline_free_num统计整个Cache的可用块 */
+//	Log("FFF");
 	for (size_t w = 0; w < cache->lv[level].way_num; w++) {
+//		Log("cond %ld < %x, index %x", w, cache->lv[level].way_num, index);
 		if (!cache->lv[level].line[index][w].valid) {
+//			Log("DDD");
 			if (cache->lv[level].cache_free_num > 0)
 				cache->lv[level].cache_free_num--;
 			free_line = w;
@@ -229,6 +233,8 @@ static inline int word_t2byteArr(
 ) {
 	int trans_discount = sizeof(word_t) - byte_len;
 	for (size_t i = 0; i < (trans_discount?byte_len:sizeof(word_t)); i++) {
+//		Log("word %016lx byte %016lx = %016lx&(%016x), word&mask %016lx",
+//			word, word&BYTE_MASK, word, BYTE_MASK, word&BYTE_MASK);
 		byte[i] = word&BYTE_MASK;
 		word = word >> 8;
 	}
@@ -328,6 +334,7 @@ int do_cache_write_line(
 	int access_margin = line_margin - access_len;
 	for (size_t i = 0; i < (access_margin>=0 ? access_len : line_margin); i++)
 		cache->lv[level].line[index][way].data[offset+i] = write_data[i];
+	print_line_info(cache->lv[level].line[index][way].data, cls, "Write Line");
 	return access_margin;
 }
 
@@ -377,11 +384,8 @@ void do_cache_update_line(
 	paddr_t old_mapping_addr = (old_tag << (olen+ilen)) | (index << olen) | 0;
 	paddr_t new_mapping_addr = (new_tag << (olen+ilen)) | (index << olen) | 0;
 
-	IFDEF(CONFIG_CACHE_TRACE,
-		printf(ANSI_FG_YELLOW"new tag "FMT_PADDR" old tag "FMT_PADDR ANSI_NONE"\n"
-			ANSI_FG_YELLOW"new addr "FMT_PADDR" old addr "FMT_PADDR ANSI_NONE"\n",
-			new_tag, old_tag, new_mapping_addr, old_mapping_addr
-		));
+	Log("new tag %x old tag %x", new_tag, old_tag);
+	Log("new addr %x old addr %x", new_mapping_addr, old_mapping_addr);
 
 	uint8_t *line = malloc(sizeof(uint8_t)*cls);
 	word_t *tmp_val = malloc(sizeof(word_t));
@@ -430,8 +434,10 @@ last_trans_offset = cls
 
 	// write data from main memory to cache
 	for (i = 0; i < full_trans_count; i++) { // cls >= pmem
+		Log("New addr 0x%x offset %lx", new_mapping_addr, i*sizeof(word_t));
 		if (likely(in_pmem(new_mapping_addr + i*sizeof(word_t))))
 			*tmp_val = proxy_pmem_read(new_mapping_addr + i*sizeof(word_t), sizeof(word_t));
+		Log("Check val %lx", *tmp_val);
 		assert(!word_t2byteArr(line, sizeof(word_t), *tmp_val));
 		print_line_info(line, cls, "Update line as");
 		assert(0 <= do_cache_write_line(level, i*sizeof(word_t), index, way, line, sizeof(word_t)));
@@ -439,6 +445,7 @@ last_trans_offset = cls
 	if (last_trans_offset != 0) { // cls offset or cls < pmem
 		if (likely(in_pmem(new_mapping_addr + i*sizeof(word_t))))
 			*tmp_val = proxy_pmem_read(new_mapping_addr + i*sizeof(word_t), last_trans_offset);
+		Log("Check");
 		assert(!word_t2byteArr(line, last_trans_offset, *tmp_val));
 		assert(0 <= do_cache_write_line(level, i*sizeof(word_t), index, way, line, last_trans_offset));
 	}
@@ -513,9 +520,7 @@ Return access_margin, which is cls-offset-access_len
 */
 		int full_access_count = (offset+byte_len)/cls;
 		paddr_t last_access_len = full_access_count ? (offset+byte_len)%cls : (byte_len+offset)%cls-offset;
-		IFDEF(CONFIG_CACHE_TRACE,
-			printf(ANSI_BG_YELLOW"Addr 0x"FMT_PADDR" full_count %d last_len %d isWrite %d"ANSI_NONE"\n",
-			addr, full_access_count, last_access_len, oper_style));
+		Log("addr %x full_count %x last_len %x isWrite %d", addr, full_access_count, last_access_len, oper_style);
 
 		switch (oper_style)
 		{
@@ -529,6 +534,7 @@ Return access_margin, which is cls-offset-access_len
 
 				Assert(0 <= do_cache_read_line(0, i?0:offset, index+i, hit_way_l1, line, i?cls:cls-offset), 
 					"access_margin: i %lx offset %x byte_len %x cls %x", i, i?0:offset, byte_len, cls);
+				Log("Arg Check Cls%x-offset%x", cls, offset);
 				print_line_info(line, cls, "Read data from line");
 				Assert(0 >= byteArr2word_t(line, i?cls:cls-offset, &tmp_val),
 					"part_trans: byte_len %x word_t %lx", i?cls:cls-offset, sizeof(word_t));

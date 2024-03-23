@@ -383,6 +383,9 @@ void do_cache_update_line(
 			new_tag, old_tag, new_mapping_addr, old_mapping_addr
 		));
 
+	Log("new tag %x old tag %x", new_tag, old_tag);
+	Log("new addr %x old addr %x", new_mapping_addr, old_mapping_addr);
+
 	uint8_t *line = malloc(sizeof(uint8_t)*cls);
 	word_t *tmp_val = malloc(sizeof(word_t));
 

@@ -378,10 +378,12 @@ void do_cache_update_line(
 	paddr_t new_mapping_addr = (new_tag << (olen+ilen)) | (index << olen) | 0;
 
 	IFDEF(CONFIG_CACHE_TRACE,
-		printf(ANSI_FG_YELLOW"new tag "FMT_PADDR" old tag "FMT_PADDR ANSI_NONE"\n"
-			ANSI_FG_YELLOW"new addr "FMT_PADDR" old addr "FMT_PADDR ANSI_NONE"\n",
-			new_tag, old_tag, new_mapping_addr, old_mapping_addr
+		printf(ANSI_FG_YELLOW"New tag "FMT_PADDR" old tag "FMT_PADDR ANSI_NONE"\n"
+			""
 		));
+
+	Log("new tag %x old tag %x", new_tag, old_tag);
+	Log("new addr %x old addr %x", new_mapping_addr, old_mapping_addr);
 
 	uint8_t *line = malloc(sizeof(uint8_t)*cls);
 	word_t *tmp_val = malloc(sizeof(word_t));
