@@ -521,7 +521,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 				Log("Arg Check Cls%x-offset%x", cls, offset);
 				Log("Byte (%x,%x,%x,%x)\n", *line, *(line+1), *(line+2), *(line+3));
 				Assert(!byteArr2word_t(line, 1==get_line_count?byte_len:0==i?cls-offset:cls, &tmp_val),
-					"part_trans: byte_len %x word_t %lx", 1==get_line_count?byte_len:0==i?cls-offset:cls, sizeof(word_t));
+					"part_trans: byte_len %x", 1==get_line_count?byte_len:0==i?cls-offset:cls);
 				Log("tmp_val %lx", tmp_val);
 				ret_val |= tmp_val << (i*cls);
 			}
