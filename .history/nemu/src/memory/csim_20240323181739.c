@@ -231,7 +231,7 @@ static inline int word_t2byteArr(
 	int trans_discount = sizeof(word_t) - byte_len;
 	for (size_t i = 0; i < (trans_discount?byte_len:sizeof(word_t)); i++) {
 		Log("word %016lx byte %016lx = %016lx&(%016x), word&mask %016lx",
-			word, word&BYTE_MASK, word, BYTE_MASK, word&BYTE_MASK);
+			word, word&BYTE_MASK, word, BYTE_MASK,  word&BYTE_MASK);
 		byte[i] = word&BYTE_MASK;
 		word = word >> (i+1)*8;
 	}
