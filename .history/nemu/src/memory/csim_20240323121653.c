@@ -498,7 +498,7 @@ word_t do_cache_op(paddr_t addr, char oper_style, int byte_len, word_t write_dat
 	switch (CONFIG_CACHE_LEVEL) {
 	case 1: // Only have L1 Cache
 		uint8_t *line = malloc(sizeof(uint8_t)*cache->lv[0].cache_line_size);
-		memset(line, cache->lv[0].cache_line_size, sizeof(uint8_t));
+		*line = { 0 };
 		bool hit_l1;
 		bool hit_l1_wb;
 		paddr_t hit_way_l1;
